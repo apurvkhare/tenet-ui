@@ -1,0 +1,68 @@
+/* Acme Button — styled entirely with design tokens (no hardcoded colors or spacing). */
+.Acme-Button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: var(--control-medium-size);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  background-color: var(--bgColor-default);
+  color: var(--fgColor-default);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: var(--fontSize-1);
+  font-weight: var(--fontWeight-semibold);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: var(--shadow-resting);
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.Acme-Button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.Acme-Button--block {
+  width: 100%;
+}
+
+/* Sizes */
+.Acme-Button--size-small {
+  height: var(--control-small-size);
+  padding: 0 var(--space-2);
+  font-size: var(--fontSize-0);
+}
+
+.Acme-Button--size-large {
+  height: var(--control-large-size);
+  padding: 0 var(--space-4);
+  font-size: var(--fontSize-2);
+}
+
+/* Variants */
+.Acme-Button--variant-primary {
+  background-color: var(--bgColor-accent-emphasis);
+  border-color: var(--bgColor-accent-emphasis);
+  color: var(--fgColor-onEmphasis);
+}
+
+.Acme-Button--variant-danger {
+  background-color: var(--bgColor-danger-emphasis);
+  border-color: var(--bgColor-danger-emphasis);
+  color: var(--fgColor-onEmphasis);
+}
+
+.Acme-Button--variant-invisible {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--fgColor-accent);
+  box-shadow: none;
+}
+
+.Acme-Button__icon {
+  display: inline-flex;
+  align-items: center;
+}

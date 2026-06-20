@@ -1,0 +1,15 @@
+{
+  "name": "@acme/ds",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Acme Design System — a small, realistic in-house design system used to demo the design-system skill.",
+  "scripts": {
+    "build:tokens": "node scripts/build-tokens.mjs"
+  },
+  "exports": {
+    "./tokens.json": "./dist/tokens.json",
+    "./tokens.css": "./dist/tokens.css",
+    "./generated/components.json": "./generated/components.json"
+  }
+}

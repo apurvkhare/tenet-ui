@@ -1,0 +1,60 @@
+{
+  "id": "button",
+  "name": "Button",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "@acme/ds",
+  "source": "src/components/Button/Button.tsx",
+  "props": [
+    {
+      "name": "variant",
+      "type": "'default' | 'primary' | 'danger' | 'invisible'",
+      "required": false,
+      "defaultValue": "default",
+      "description": "Visual style of the button. Use 'primary' for the single most important action per surface."
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium' | 'large'",
+      "required": false,
+      "defaultValue": "medium",
+      "description": "Control height / padding scale."
+    },
+    {
+      "name": "leadingIcon",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "",
+      "description": "Icon rendered before the label."
+    },
+    {
+      "name": "trailingIcon",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "",
+      "description": "Icon rendered after the label."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Stretch the button to fill the available width."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "",
+      "description": "Button label."
+    }
+  ],
+  "stories": [
+    { "id": "components-button--default" },
+    { "id": "components-button--primary" },
+    { "id": "components-button--danger" },
+    { "id": "components-button--invisible" },
+    { "id": "components-button--sizes" }
+  ],
+  "subcomponents": []
+}
