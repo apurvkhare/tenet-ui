@@ -1,0 +1,54 @@
+{
+  "id": "table",
+  "name": "Table",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "@acme/ds",
+  "source": "src/components/Table/Table.tsx",
+  "props": [
+    {
+      "name": "density",
+      "type": "'condensed' | 'normal' | 'spacious'",
+      "required": false,
+      "defaultValue": "normal",
+      "description": "Row height / cell padding scale."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "",
+      "description": "Table.Head and Table.Body sections."
+    }
+  ],
+  "stories": [
+    { "id": "components-table--basic" },
+    { "id": "components-table--in-container" },
+    { "id": "components-table--sortable" },
+    { "id": "components-table--densities" }
+  ],
+  "subcomponents": [
+    { "id": "table-container", "name": "Table.Container", "props": [] },
+    { "id": "table-title", "name": "Table.Title", "props": [] },
+    { "id": "table-subtitle", "name": "Table.Subtitle", "props": [] },
+    { "id": "table-actions", "name": "Table.Actions", "props": [] },
+    { "id": "table-head", "name": "Table.Head", "props": [] },
+    { "id": "table-body", "name": "Table.Body", "props": [] },
+    { "id": "table-row", "name": "Table.Row", "props": [] },
+    {
+      "id": "table-header",
+      "name": "Table.Header",
+      "props": [
+        { "name": "align", "type": "'start' | 'center' | 'end'", "required": false, "defaultValue": "start", "description": "Text alignment within the header cell." },
+        { "name": "sortDirection", "type": "'ascending' | 'descending' | 'none'", "required": false, "defaultValue": "", "description": "Renders a sort indicator and sets aria-sort. Combine with onClick." }
+      ]
+    },
+    {
+      "id": "table-cell",
+      "name": "Table.Cell",
+      "props": [
+        { "name": "align", "type": "'start' | 'center' | 'end'", "required": false, "defaultValue": "start", "description": "Text alignment within the cell." }
+      ]
+    }
+  ]
+}

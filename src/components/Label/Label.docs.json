@@ -1,0 +1,37 @@
+{
+  "id": "label",
+  "name": "Label",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "@acme/ds",
+  "source": "src/components/Label/Label.tsx",
+  "props": [
+    {
+      "name": "variant",
+      "type": "'default' | 'accent' | 'success' | 'danger' | 'muted'",
+      "required": false,
+      "defaultValue": "default",
+      "description": "Semantic color scheme. Pick by meaning (success/danger/accent), not by raw color."
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium'",
+      "required": false,
+      "defaultValue": "medium",
+      "description": "Label size."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "",
+      "description": "Label text."
+    }
+  ],
+  "stories": [
+    { "id": "components-label--default" },
+    { "id": "components-label--variants" },
+    { "id": "components-label--sizes" }
+  ],
+  "subcomponents": []
+}

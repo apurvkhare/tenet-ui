@@ -1,0 +1,43 @@
+{
+  "id": "textarea",
+  "name": "Textarea",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "@acme/ds",
+  "source": "src/components/Textarea/Textarea.tsx",
+  "props": [
+    {
+      "name": "block",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Stretch to fill the available width."
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Mark the field invalid (sets aria-invalid and a danger border)."
+    },
+    {
+      "name": "resize",
+      "type": "'none' | 'vertical' | 'horizontal' | 'both'",
+      "required": false,
+      "defaultValue": "vertical",
+      "description": "Which directions the user may resize."
+    },
+    {
+      "name": "rows",
+      "type": "number",
+      "required": false,
+      "defaultValue": "4",
+      "description": "Initial visible number of text lines."
+    }
+  ],
+  "stories": [
+    { "id": "components-textarea--default" },
+    { "id": "components-textarea--invalid" }
+  ],
+  "subcomponents": []
+}

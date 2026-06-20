@@ -1,0 +1,50 @@
+{
+  "id": "select",
+  "name": "Select",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "@acme/ds",
+  "source": "src/components/Select/Select.tsx",
+  "props": [
+    {
+      "name": "size",
+      "type": "'small' | 'medium' | 'large'",
+      "required": false,
+      "defaultValue": "medium",
+      "description": "Control height / font scale."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Stretch to fill the available width."
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Mark the field invalid (sets aria-invalid and a danger border)."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "defaultValue": "",
+      "description": "Placeholder shown as a disabled first option when no value is selected."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "",
+      "description": "<option> / <optgroup> elements."
+    }
+  ],
+  "stories": [
+    { "id": "components-select--default" },
+    { "id": "components-select--with-placeholder" }
+  ],
+  "subcomponents": []
+}

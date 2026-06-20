@@ -1,0 +1,79 @@
+{
+  "id": "stack",
+  "name": "Stack",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "@acme/ds",
+  "source": "src/components/Stack/Stack.tsx",
+  "props": [
+    {
+      "name": "direction",
+      "type": "'horizontal' | 'vertical'",
+      "required": false,
+      "defaultValue": "vertical",
+      "description": "Main-axis direction the children are laid out along."
+    },
+    {
+      "name": "gap",
+      "type": "'none' | 'condensed' | 'normal' | 'spacious'",
+      "required": false,
+      "defaultValue": "normal",
+      "description": "Space between children, from the space scale (condensed=8, normal=16, spacious=24). Never use inline pixel gaps."
+    },
+    {
+      "name": "align",
+      "type": "'start' | 'center' | 'end' | 'stretch'",
+      "required": false,
+      "defaultValue": "",
+      "description": "Cross-axis alignment (align-items)."
+    },
+    {
+      "name": "justify",
+      "type": "'start' | 'center' | 'end' | 'between'",
+      "required": false,
+      "defaultValue": "",
+      "description": "Main-axis distribution (justify-content)."
+    },
+    {
+      "name": "wrap",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Allow children to wrap onto multiple lines."
+    },
+    {
+      "name": "padding",
+      "type": "'none' | 'condensed' | 'normal' | 'spacious'",
+      "required": false,
+      "defaultValue": "",
+      "description": "Inner padding, from the space scale."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "",
+      "description": "Stack contents — typically Stack.Item or other components."
+    }
+  ],
+  "stories": [
+    { "id": "components-stack--vertical" },
+    { "id": "components-stack--horizontal" },
+    { "id": "components-stack--toolbar" }
+  ],
+  "subcomponents": [
+    {
+      "id": "stack-item",
+      "name": "Stack.Item",
+      "props": [
+        {
+          "name": "grow",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Grow to fill the available space along the main axis."
+        }
+      ]
+    }
+  ]
+}

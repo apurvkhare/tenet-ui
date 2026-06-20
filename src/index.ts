@@ -1,0 +1,14 @@
+// Public entry for @acme/ds. Consumers import components from here; they must also import the
+// token stylesheet once at their app root: `import '@acme/ds/tokens.css'` — without it every
+// component's var(--token) references are undefined and the UI renders unstyled.
+export * from './components/Button';
+export * from './components/Stack';
+export * from './components/Card';
+export * from './components/TextInput';
+export * from './components/Label';
+export * from './components/Table';
+export * from './components/FormControl';
+export * from './components/Textarea';
+export * from './components/Select';
+export * from './components/Checkbox';
+export * from './components/Radio';

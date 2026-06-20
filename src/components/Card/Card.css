@@ -1,0 +1,25 @@
+/* Acme Card — surface styled entirely with tokens (border, radius, background, elevation). */
+.Acme-Card {
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  background-color: var(--bgColor-default);
+  box-shadow: var(--shadow-resting);
+}
+
+.Acme-Card--variant-muted {
+  background-color: var(--bgColor-muted);
+}
+
+/* Padding — from the space scale */
+.Acme-Card--padding-none {
+  padding: 0;
+}
+.Acme-Card--padding-condensed {
+  padding: var(--space-3);
+}
+.Acme-Card--padding-normal {
+  padding: var(--space-4);
+}
+.Acme-Card--padding-spacious {
+  padding: var(--space-5);
+}

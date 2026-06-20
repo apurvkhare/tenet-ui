@@ -1,0 +1,36 @@
+{
+  "id": "card",
+  "name": "Card",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "@acme/ds",
+  "source": "src/components/Card/Card.tsx",
+  "props": [
+    {
+      "name": "variant",
+      "type": "'default' | 'muted'",
+      "required": false,
+      "defaultValue": "default",
+      "description": "Surface style. 'default' sits on the page; 'muted' is a recessed/secondary surface."
+    },
+    {
+      "name": "padding",
+      "type": "'none' | 'condensed' | 'normal' | 'spacious'",
+      "required": false,
+      "defaultValue": "normal",
+      "description": "Inner padding, from the space scale."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "",
+      "description": "Card contents."
+    }
+  ],
+  "stories": [
+    { "id": "components-card--default" },
+    { "id": "components-card--muted" }
+  ],
+  "subcomponents": []
+}

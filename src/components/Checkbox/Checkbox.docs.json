@@ -1,0 +1,51 @@
+{
+  "id": "checkbox",
+  "name": "Checkbox",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "@acme/ds",
+  "source": "src/components/Checkbox/Checkbox.tsx",
+  "props": [
+    {
+      "name": "label",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "",
+      "description": "Visible label rendered next to the box."
+    },
+    {
+      "name": "caption",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "",
+      "description": "Optional helper text under the label."
+    },
+    {
+      "name": "checked",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "",
+      "description": "Controlled checked state."
+    },
+    {
+      "name": "defaultChecked",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "",
+      "description": "Uncontrolled initial checked state."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Disable the checkbox."
+    }
+  ],
+  "stories": [
+    { "id": "components-checkbox--default" },
+    { "id": "components-checkbox--with-caption" },
+    { "id": "components-checkbox--checked" }
+  ],
+  "subcomponents": []
+}

@@ -1,0 +1,52 @@
+{
+  "id": "text-input",
+  "name": "TextInput",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "@acme/ds",
+  "source": "src/components/TextInput/TextInput.tsx",
+  "props": [
+    {
+      "name": "size",
+      "type": "'small' | 'medium' | 'large'",
+      "required": false,
+      "defaultValue": "medium",
+      "description": "Control height / font scale."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Stretch the field to fill the available width."
+    },
+    {
+      "name": "leadingVisual",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "",
+      "description": "Element rendered before the input (e.g. a search icon)."
+    },
+    {
+      "name": "trailingVisual",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "",
+      "description": "Element rendered after the input."
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Mark the field as invalid (sets aria-invalid and a danger border)."
+    }
+  ],
+  "stories": [
+    { "id": "components-textinput--default" },
+    { "id": "components-textinput--with-leading-visual" },
+    { "id": "components-textinput--invalid" },
+    { "id": "components-textinput--sizes" }
+  ],
+  "subcomponents": []
+}
