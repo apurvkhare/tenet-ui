@@ -1,0 +1,762 @@
+{
+  "schemaVersion": 1,
+  "generatedFrom": "src/components/**/*.docs.json",
+  "components": {
+    "button": {
+      "id": "button",
+      "name": "Button",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "@acme/ds",
+      "source": "src/components/Button/Button.tsx",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'primary' | 'danger' | 'invisible'",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Visual style of the button. Use 'primary' for the single most important action per surface."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Control height / padding scale."
+        },
+        {
+          "name": "leadingIcon",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Icon rendered before the label."
+        },
+        {
+          "name": "trailingIcon",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Icon rendered after the label."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Stretch the button to fill the available width."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Button label."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-button--default"
+        },
+        {
+          "id": "components-button--primary"
+        },
+        {
+          "id": "components-button--danger"
+        },
+        {
+          "id": "components-button--invisible"
+        },
+        {
+          "id": "components-button--sizes"
+        }
+      ],
+      "subcomponents": []
+    },
+    "card": {
+      "id": "card",
+      "name": "Card",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "@acme/ds",
+      "source": "src/components/Card/Card.tsx",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'muted'",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Surface style. 'default' sits on the page; 'muted' is a recessed/secondary surface."
+        },
+        {
+          "name": "padding",
+          "type": "'none' | 'condensed' | 'normal' | 'spacious'",
+          "required": false,
+          "defaultValue": "normal",
+          "description": "Inner padding, from the space scale."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Card contents."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-card--default"
+        },
+        {
+          "id": "components-card--muted"
+        }
+      ],
+      "subcomponents": []
+    },
+    "checkbox": {
+      "id": "checkbox",
+      "name": "Checkbox",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "@acme/ds",
+      "source": "src/components/Checkbox/Checkbox.tsx",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Visible label rendered next to the box."
+        },
+        {
+          "name": "caption",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Optional helper text under the label."
+        },
+        {
+          "name": "checked",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled checked state."
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Uncontrolled initial checked state."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Disable the checkbox."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-checkbox--default"
+        },
+        {
+          "id": "components-checkbox--with-caption"
+        },
+        {
+          "id": "components-checkbox--checked"
+        }
+      ],
+      "subcomponents": []
+    },
+    "form-control": {
+      "id": "form-control",
+      "name": "FormControl",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "@acme/ds",
+      "source": "src/components/FormControl/FormControl.tsx",
+      "props": [
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Marks the field required (asterisk on the label + required on the input)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Disables the wrapped field."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Force the invalid state. Otherwise inferred from a Validation with variant='error'."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Override the generated id shared by the label and field."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "FormControl.Label, a field (TextInput/Textarea/Select), and optional Caption/Validation."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-formcontrol--text-field"
+        },
+        {
+          "id": "components-formcontrol--required-with-caption"
+        },
+        {
+          "id": "components-formcontrol--with-error"
+        }
+      ],
+      "subcomponents": [
+        {
+          "id": "form-control-label",
+          "name": "FormControl.Label",
+          "props": [
+            {
+              "name": "visuallyHidden",
+              "type": "boolean",
+              "required": false,
+              "defaultValue": "false",
+              "description": "Hide the label visually but keep it for screen readers."
+            }
+          ]
+        },
+        {
+          "id": "form-control-caption",
+          "name": "FormControl.Caption",
+          "props": []
+        },
+        {
+          "id": "form-control-validation",
+          "name": "FormControl.Validation",
+          "props": [
+            {
+              "name": "variant",
+              "type": "'error' | 'success'",
+              "required": false,
+              "defaultValue": "error",
+              "description": "Tone of the message. 'error' also drives the field's invalid state."
+            }
+          ]
+        }
+      ]
+    },
+    "label": {
+      "id": "label",
+      "name": "Label",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "@acme/ds",
+      "source": "src/components/Label/Label.tsx",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'accent' | 'success' | 'danger' | 'muted'",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Semantic color scheme. Pick by meaning (success/danger/accent), not by raw color."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Label size."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Label text."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-label--default"
+        },
+        {
+          "id": "components-label--variants"
+        },
+        {
+          "id": "components-label--sizes"
+        }
+      ],
+      "subcomponents": []
+    },
+    "radio-group": {
+      "id": "radio-group",
+      "name": "RadioGroup",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "@acme/ds",
+      "source": "src/components/Radio/Radio.tsx",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": "",
+          "description": "Group label, rendered as a fieldset legend."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Shared form field name. Auto-generated if omitted."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled selected value."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Uncontrolled initial selected value."
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called with the newly selected value."
+        },
+        {
+          "name": "caption",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Optional helper text for the whole group."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Mark the group required (asterisk on the legend)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Disable every radio in the group."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-radiogroup--default"
+        },
+        {
+          "id": "components-radiogroup--with-captions"
+        }
+      ],
+      "subcomponents": [
+        {
+          "id": "radio",
+          "name": "Radio",
+          "props": [
+            {
+              "name": "value",
+              "type": "string",
+              "required": true,
+              "defaultValue": "",
+              "description": "Value submitted when this radio is selected."
+            },
+            {
+              "name": "label",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": "Visible label next to the control."
+            },
+            {
+              "name": "caption",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": "Optional helper text under the label."
+            }
+          ]
+        }
+      ]
+    },
+    "select": {
+      "id": "select",
+      "name": "Select",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "@acme/ds",
+      "source": "src/components/Select/Select.tsx",
+      "props": [
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Control height / font scale."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Stretch to fill the available width."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Mark the field invalid (sets aria-invalid and a danger border)."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Placeholder shown as a disabled first option when no value is selected."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "<option> / <optgroup> elements."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-select--default"
+        },
+        {
+          "id": "components-select--with-placeholder"
+        }
+      ],
+      "subcomponents": []
+    },
+    "stack": {
+      "id": "stack",
+      "name": "Stack",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "@acme/ds",
+      "source": "src/components/Stack/Stack.tsx",
+      "props": [
+        {
+          "name": "direction",
+          "type": "'horizontal' | 'vertical'",
+          "required": false,
+          "defaultValue": "vertical",
+          "description": "Main-axis direction the children are laid out along."
+        },
+        {
+          "name": "gap",
+          "type": "'none' | 'condensed' | 'normal' | 'spacious'",
+          "required": false,
+          "defaultValue": "normal",
+          "description": "Space between children, from the space scale (condensed=8, normal=16, spacious=24). Never use inline pixel gaps."
+        },
+        {
+          "name": "align",
+          "type": "'start' | 'center' | 'end' | 'stretch'",
+          "required": false,
+          "defaultValue": "",
+          "description": "Cross-axis alignment (align-items)."
+        },
+        {
+          "name": "justify",
+          "type": "'start' | 'center' | 'end' | 'between'",
+          "required": false,
+          "defaultValue": "",
+          "description": "Main-axis distribution (justify-content)."
+        },
+        {
+          "name": "wrap",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Allow children to wrap onto multiple lines."
+        },
+        {
+          "name": "padding",
+          "type": "'none' | 'condensed' | 'normal' | 'spacious'",
+          "required": false,
+          "defaultValue": "",
+          "description": "Inner padding, from the space scale."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stack contents — typically Stack.Item or other components."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-stack--vertical"
+        },
+        {
+          "id": "components-stack--horizontal"
+        },
+        {
+          "id": "components-stack--toolbar"
+        }
+      ],
+      "subcomponents": [
+        {
+          "id": "stack-item",
+          "name": "Stack.Item",
+          "props": [
+            {
+              "name": "grow",
+              "type": "boolean",
+              "required": false,
+              "defaultValue": "false",
+              "description": "Grow to fill the available space along the main axis."
+            }
+          ]
+        }
+      ]
+    },
+    "table": {
+      "id": "table",
+      "name": "Table",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "@acme/ds",
+      "source": "src/components/Table/Table.tsx",
+      "props": [
+        {
+          "name": "density",
+          "type": "'condensed' | 'normal' | 'spacious'",
+          "required": false,
+          "defaultValue": "normal",
+          "description": "Row height / cell padding scale."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Table.Head and Table.Body sections."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-table--basic"
+        },
+        {
+          "id": "components-table--in-container"
+        },
+        {
+          "id": "components-table--sortable"
+        },
+        {
+          "id": "components-table--densities"
+        }
+      ],
+      "subcomponents": [
+        {
+          "id": "table-container",
+          "name": "Table.Container",
+          "props": []
+        },
+        {
+          "id": "table-title",
+          "name": "Table.Title",
+          "props": []
+        },
+        {
+          "id": "table-subtitle",
+          "name": "Table.Subtitle",
+          "props": []
+        },
+        {
+          "id": "table-actions",
+          "name": "Table.Actions",
+          "props": []
+        },
+        {
+          "id": "table-head",
+          "name": "Table.Head",
+          "props": []
+        },
+        {
+          "id": "table-body",
+          "name": "Table.Body",
+          "props": []
+        },
+        {
+          "id": "table-row",
+          "name": "Table.Row",
+          "props": []
+        },
+        {
+          "id": "table-header",
+          "name": "Table.Header",
+          "props": [
+            {
+              "name": "align",
+              "type": "'start' | 'center' | 'end'",
+              "required": false,
+              "defaultValue": "start",
+              "description": "Text alignment within the header cell."
+            },
+            {
+              "name": "sortDirection",
+              "type": "'ascending' | 'descending' | 'none'",
+              "required": false,
+              "defaultValue": "",
+              "description": "Renders a sort indicator and sets aria-sort. Combine with onClick."
+            }
+          ]
+        },
+        {
+          "id": "table-cell",
+          "name": "Table.Cell",
+          "props": [
+            {
+              "name": "align",
+              "type": "'start' | 'center' | 'end'",
+              "required": false,
+              "defaultValue": "start",
+              "description": "Text alignment within the cell."
+            }
+          ]
+        }
+      ]
+    },
+    "text-input": {
+      "id": "text-input",
+      "name": "TextInput",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "@acme/ds",
+      "source": "src/components/TextInput/TextInput.tsx",
+      "props": [
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Control height / font scale."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Stretch the field to fill the available width."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Element rendered before the input (e.g. a search icon)."
+        },
+        {
+          "name": "trailingVisual",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Element rendered after the input."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Mark the field as invalid (sets aria-invalid and a danger border)."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-textinput--default"
+        },
+        {
+          "id": "components-textinput--with-leading-visual"
+        },
+        {
+          "id": "components-textinput--invalid"
+        },
+        {
+          "id": "components-textinput--sizes"
+        }
+      ],
+      "subcomponents": []
+    },
+    "textarea": {
+      "id": "textarea",
+      "name": "Textarea",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "@acme/ds",
+      "source": "src/components/Textarea/Textarea.tsx",
+      "props": [
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Stretch to fill the available width."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Mark the field invalid (sets aria-invalid and a danger border)."
+        },
+        {
+          "name": "resize",
+          "type": "'none' | 'vertical' | 'horizontal' | 'both'",
+          "required": false,
+          "defaultValue": "vertical",
+          "description": "Which directions the user may resize."
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "required": false,
+          "defaultValue": "4",
+          "description": "Initial visible number of text lines."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-textarea--default"
+        },
+        {
+          "id": "components-textarea--invalid"
+        }
+      ],
+      "subcomponents": []
+    }
+  }
+}

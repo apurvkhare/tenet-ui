@@ -1,20 +1,55 @@
 {
   "name": "@acme/ds",
   "version": "0.1.0",
-  "private": true,
+  "description": "Acme Design System — a small, realistic in-house design system (tokens + React components) used to demo the design-system skill.",
   "type": "module",
-  "description": "Acme Design System — a small, realistic in-house design system used to demo the design-system skill.",
-  "scripts": {
-    "build:tokens": "node scripts/build-tokens.mjs"
-  },
+  "license": "MIT",
+  "author": "Acme",
+  "keywords": [
+    "design-system",
+    "react",
+    "components",
+    "design-tokens",
+    "ui"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    "./tokens.json": "./dist/tokens.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./dist/styles.css",
     "./tokens.css": "./dist/tokens.css",
+    "./tokens.json": "./dist/tokens.json",
     "./generated/components.json": "./generated/components.json"
+  },
+  "files": [
+    "dist",
+    "generated"
+  ],
+  "scripts": {
+    "build:tokens": "node scripts/build-tokens.mjs",
+    "build:catalog": "node scripts/build-catalog.mjs",
+    "build:js": "tsup",
+    "build:styles": "node scripts/build-styles.mjs",
+    "build": "npm run build:js && npm run build:tokens && npm run build:catalog && npm run build:styles",
+    "typecheck": "tsc --noEmit -p tsconfig.verify.json",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "tsup": "^8.3.5",
     "typescript": "^5.6.3"
   }
 }
