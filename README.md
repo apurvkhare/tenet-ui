@@ -1,4 +1,4 @@
-# Tenet Design System (`@tenet/ds`)
+# Tenet Design System (`tenet-ui`)
 
 A small, deliberately **private** design system (design tokens + React components) built for the talk demo. The model has never seen it — so generating compliant code requires the skill, not training-data recall. "Tenet" is a placeholder brand; rebrand freely.
 
@@ -7,7 +7,7 @@ It ships the **same machine-readable artifact shapes a real DS does**, so the sk
 ## Install
 
 ```bash
-npm install @tenet/ds
+npm install tenet-ui
 # peer deps:
 npm install react react-dom
 ```
@@ -17,8 +17,8 @@ npm install react react-dom
 Import the stylesheet **once** at your app root, then use the components. Without the stylesheet, every component's `var(--token)` is undefined and the UI renders unstyled.
 
 ```tsx
-import '@tenet/ds/styles.css';            // tokens (light + dark) + component styles
-import { Button, Table, FormControl, TextInput } from '@tenet/ds';
+import 'tenet-ui/styles.css';            // tokens (light + dark) + component styles
+import { Button, Table, FormControl, TextInput } from 'tenet-ui';
 
 export function Example() {
   return (

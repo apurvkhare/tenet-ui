@@ -3,7 +3,7 @@
   "name": "Card",
   "status": "stable",
   "a11yReviewed": true,
-  "importPath": "@tenet/ds",
+  "importPath": "tenet-ui",
   "source": "src/components/Card/Card.tsx",
   "props": [
     {

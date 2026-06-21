@@ -1,5 +1,5 @@
 {
-  "name": "@tenet/ds",
+  "name": "tenet-ui",
   "version": "0.1.0",
   "description": "Tenet Design System — a small, realistic in-house design system (tokens + React components) used to demo the design-system skill.",
   "type": "module",

@@ -3,7 +3,7 @@
   "name": "TextInput",
   "status": "stable",
   "a11yReviewed": true,
-  "importPath": "@tenet/ds",
+  "importPath": "tenet-ui",
   "source": "src/components/TextInput/TextInput.tsx",
   "props": [
     {

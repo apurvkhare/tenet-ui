@@ -3,7 +3,7 @@
   "name": "Textarea",
   "status": "stable",
   "a11yReviewed": true,
-  "importPath": "@tenet/ds",
+  "importPath": "tenet-ui",
   "source": "src/components/Textarea/Textarea.tsx",
   "props": [
     {

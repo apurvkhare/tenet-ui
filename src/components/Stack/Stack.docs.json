@@ -3,7 +3,7 @@
   "name": "Stack",
   "status": "stable",
   "a11yReviewed": true,
-  "importPath": "@tenet/ds",
+  "importPath": "tenet-ui",
   "source": "src/components/Stack/Stack.tsx",
   "props": [
     {
