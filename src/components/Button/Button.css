@@ -1,5 +1,5 @@
-/* Acme Button — styled entirely with design tokens (no hardcoded colors or spacing). */
-.Acme-Button {
+/* Tenet Button — styled entirely with design tokens (no hardcoded colors or spacing). */
+.Tenet-Button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -20,69 +20,69 @@
   transition: background-color 0.12s ease, border-color 0.12s ease, filter 0.12s ease;
 }
 
-.Acme-Button:disabled {
+.Tenet-Button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
 /* Interaction states (kept token-pure: subtle surfaces use tokens, solids darken via filter) */
-.Acme-Button:focus-visible {
+.Tenet-Button:focus-visible {
   outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: 2px;
 }
 
-.Acme-Button--variant-default:not(:disabled):hover,
-.Acme-Button--variant-invisible:not(:disabled):hover {
+.Tenet-Button--variant-default:not(:disabled):hover,
+.Tenet-Button--variant-invisible:not(:disabled):hover {
   background-color: var(--bgColor-muted);
 }
 
-.Acme-Button--variant-primary:not(:disabled):hover,
-.Acme-Button--variant-danger:not(:disabled):hover {
+.Tenet-Button--variant-primary:not(:disabled):hover,
+.Tenet-Button--variant-danger:not(:disabled):hover {
   filter: brightness(0.95);
 }
 
-.Acme-Button:not(:disabled):active {
+.Tenet-Button:not(:disabled):active {
   filter: brightness(0.92);
 }
 
-.Acme-Button--block {
+.Tenet-Button--block {
   width: 100%;
 }
 
 /* Sizes */
-.Acme-Button--size-small {
+.Tenet-Button--size-small {
   height: var(--control-small-size);
   padding: 0 var(--space-2);
   font-size: var(--fontSize-0);
 }
 
-.Acme-Button--size-large {
+.Tenet-Button--size-large {
   height: var(--control-large-size);
   padding: 0 var(--space-4);
   font-size: var(--fontSize-2);
 }
 
 /* Variants */
-.Acme-Button--variant-primary {
+.Tenet-Button--variant-primary {
   background-color: var(--bgColor-accent-emphasis);
   border-color: var(--bgColor-accent-emphasis);
   color: var(--fgColor-onEmphasis);
 }
 
-.Acme-Button--variant-danger {
+.Tenet-Button--variant-danger {
   background-color: var(--bgColor-danger-emphasis);
   border-color: var(--bgColor-danger-emphasis);
   color: var(--fgColor-onEmphasis);
 }
 
-.Acme-Button--variant-invisible {
+.Tenet-Button--variant-invisible {
   background-color: transparent;
   border-color: transparent;
   color: var(--fgColor-accent);
   box-shadow: none;
 }
 
-.Acme-Button__icon {
+.Tenet-Button__icon {
   display: inline-flex;
   align-items: center;
 }

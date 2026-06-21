@@ -1,4 +1,4 @@
-/* @acme/ds bundled stylesheet — tokens (themes) + component styles. Import once at the app root. */
+/* @tenet/ds bundled stylesheet — tokens (themes) + component styles. Import once at the app root. */
 
 /* AUTO-GENERATED from tokens/tokens.json by scripts/build-tokens.mjs — do not edit by hand. */
 
@@ -121,7 +121,7 @@
 }
 
 /* src/components/Button/Button.css */
-.Acme-Button {
+.Tenet-Button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -148,150 +148,150 @@
     border-color 0.12s ease,
     filter 0.12s ease;
 }
-.Acme-Button:disabled {
+.Tenet-Button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.Acme-Button:focus-visible {
+.Tenet-Button:focus-visible {
   outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: 2px;
 }
-.Acme-Button--variant-default:not(:disabled):hover,
-.Acme-Button--variant-invisible:not(:disabled):hover {
+.Tenet-Button--variant-default:not(:disabled):hover,
+.Tenet-Button--variant-invisible:not(:disabled):hover {
   background-color: var(--bgColor-muted);
 }
-.Acme-Button--variant-primary:not(:disabled):hover,
-.Acme-Button--variant-danger:not(:disabled):hover {
+.Tenet-Button--variant-primary:not(:disabled):hover,
+.Tenet-Button--variant-danger:not(:disabled):hover {
   filter: brightness(0.95);
 }
-.Acme-Button:not(:disabled):active {
+.Tenet-Button:not(:disabled):active {
   filter: brightness(0.92);
 }
-.Acme-Button--block {
+.Tenet-Button--block {
   width: 100%;
 }
-.Acme-Button--size-small {
+.Tenet-Button--size-small {
   height: var(--control-small-size);
   padding: 0 var(--space-2);
   font-size: var(--fontSize-0);
 }
-.Acme-Button--size-large {
+.Tenet-Button--size-large {
   height: var(--control-large-size);
   padding: 0 var(--space-4);
   font-size: var(--fontSize-2);
 }
-.Acme-Button--variant-primary {
+.Tenet-Button--variant-primary {
   background-color: var(--bgColor-accent-emphasis);
   border-color: var(--bgColor-accent-emphasis);
   color: var(--fgColor-onEmphasis);
 }
-.Acme-Button--variant-danger {
+.Tenet-Button--variant-danger {
   background-color: var(--bgColor-danger-emphasis);
   border-color: var(--bgColor-danger-emphasis);
   color: var(--fgColor-onEmphasis);
 }
-.Acme-Button--variant-invisible {
+.Tenet-Button--variant-invisible {
   background-color: transparent;
   border-color: transparent;
   color: var(--fgColor-accent);
   box-shadow: none;
 }
-.Acme-Button__icon {
+.Tenet-Button__icon {
   display: inline-flex;
   align-items: center;
 }
 
 /* src/components/Stack/Stack.css */
-.Acme-Stack {
+.Tenet-Stack {
   display: flex;
 }
-.Acme-Stack--direction-vertical {
+.Tenet-Stack--direction-vertical {
   flex-direction: column;
 }
-.Acme-Stack--direction-horizontal {
+.Tenet-Stack--direction-horizontal {
   flex-direction: row;
 }
-.Acme-Stack--gap-none {
+.Tenet-Stack--gap-none {
   gap: 0;
 }
-.Acme-Stack--gap-condensed {
+.Tenet-Stack--gap-condensed {
   gap: var(--space-2);
 }
-.Acme-Stack--gap-normal {
+.Tenet-Stack--gap-normal {
   gap: var(--space-4);
 }
-.Acme-Stack--gap-spacious {
+.Tenet-Stack--gap-spacious {
   gap: var(--space-5);
 }
-.Acme-Stack--align-start {
+.Tenet-Stack--align-start {
   align-items: flex-start;
 }
-.Acme-Stack--align-center {
+.Tenet-Stack--align-center {
   align-items: center;
 }
-.Acme-Stack--align-end {
+.Tenet-Stack--align-end {
   align-items: flex-end;
 }
-.Acme-Stack--align-stretch {
+.Tenet-Stack--align-stretch {
   align-items: stretch;
 }
-.Acme-Stack--justify-start {
+.Tenet-Stack--justify-start {
   justify-content: flex-start;
 }
-.Acme-Stack--justify-center {
+.Tenet-Stack--justify-center {
   justify-content: center;
 }
-.Acme-Stack--justify-end {
+.Tenet-Stack--justify-end {
   justify-content: flex-end;
 }
-.Acme-Stack--justify-between {
+.Tenet-Stack--justify-between {
   justify-content: space-between;
 }
-.Acme-Stack--wrap {
+.Tenet-Stack--wrap {
   flex-wrap: wrap;
 }
-.Acme-Stack--padding-none {
+.Tenet-Stack--padding-none {
   padding: 0;
 }
-.Acme-Stack--padding-condensed {
+.Tenet-Stack--padding-condensed {
   padding: var(--space-2);
 }
-.Acme-Stack--padding-normal {
+.Tenet-Stack--padding-normal {
   padding: var(--space-4);
 }
-.Acme-Stack--padding-spacious {
+.Tenet-Stack--padding-spacious {
   padding: var(--space-5);
 }
-.Acme-Stack__item--grow {
+.Tenet-Stack__item--grow {
   flex: 1;
   min-width: 0;
 }
 
 /* src/components/Card/Card.css */
-.Acme-Card {
+.Tenet-Card {
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium);
   background-color: var(--bgColor-default);
   box-shadow: var(--shadow-resting);
 }
-.Acme-Card--variant-muted {
+.Tenet-Card--variant-muted {
   background-color: var(--bgColor-muted);
 }
-.Acme-Card--padding-none {
+.Tenet-Card--padding-none {
   padding: 0;
 }
-.Acme-Card--padding-condensed {
+.Tenet-Card--padding-condensed {
   padding: var(--space-3);
 }
-.Acme-Card--padding-normal {
+.Tenet-Card--padding-normal {
   padding: var(--space-4);
 }
-.Acme-Card--padding-spacious {
+.Tenet-Card--padding-spacious {
   padding: var(--space-5);
 }
 
 /* src/components/TextInput/TextInput.css */
-.Acme-TextInput {
+.Tenet-TextInput {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
@@ -304,31 +304,31 @@
   box-shadow: var(--shadow-resting);
   transition: border-color 0.12s ease, box-shadow 0.12s ease;
 }
-.Acme-TextInput:focus-within {
+.Tenet-TextInput:focus-within {
   border-color: var(--borderColor-accent-emphasis);
   box-shadow: 0 0 0 3px var(--bgColor-accent-muted);
 }
-.Acme-TextInput--block {
+.Tenet-TextInput--block {
   display: flex;
   width: 100%;
 }
-.Acme-TextInput--invalid {
+.Tenet-TextInput--invalid {
   border-color: var(--fgColor-danger);
 }
-.Acme-TextInput--disabled {
+.Tenet-TextInput--disabled {
   background-color: var(--bgColor-muted);
   opacity: 0.7;
   cursor: not-allowed;
 }
-.Acme-TextInput--size-small {
+.Tenet-TextInput--size-small {
   height: var(--control-small-size);
   padding: 0 var(--space-2);
 }
-.Acme-TextInput--size-large {
+.Tenet-TextInput--size-large {
   height: var(--control-large-size);
   padding: 0 var(--space-4);
 }
-.Acme-TextInput__input {
+.Tenet-TextInput__input {
   flex: 1;
   min-width: 0;
   height: 100%;
@@ -343,23 +343,23 @@
     sans-serif;
   font-size: var(--fontSize-1);
 }
-.Acme-TextInput--size-small .Acme-TextInput__input {
+.Tenet-TextInput--size-small .Tenet-TextInput__input {
   font-size: var(--fontSize-0);
 }
-.Acme-TextInput--size-large .Acme-TextInput__input {
+.Tenet-TextInput--size-large .Tenet-TextInput__input {
   font-size: var(--fontSize-2);
 }
-.Acme-TextInput__input::placeholder {
+.Tenet-TextInput__input::placeholder {
   color: var(--fgColor-muted);
 }
-.Acme-TextInput__visual {
+.Tenet-TextInput__visual {
   display: inline-flex;
   align-items: center;
   color: var(--fgColor-muted);
 }
 
 /* src/components/Label/Label.css */
-.Acme-Label {
+.Tenet-Label {
   display: inline-flex;
   align-items: center;
   border: var(--borderWidth-thin) solid transparent;
@@ -368,44 +368,44 @@
   line-height: 1;
   white-space: nowrap;
 }
-.Acme-Label--size-small {
+.Tenet-Label--size-small {
   height: var(--base-size-16);
   padding: 0 var(--space-2);
   font-size: var(--fontSize-0);
 }
-.Acme-Label--size-medium {
+.Tenet-Label--size-medium {
   height: var(--base-size-24);
   padding: 0 var(--space-3);
   font-size: var(--fontSize-0);
 }
-.Acme-Label--variant-default {
+.Tenet-Label--variant-default {
   background-color: var(--bgColor-muted);
   border-color: var(--borderColor-default);
   color: var(--fgColor-default);
 }
-.Acme-Label--variant-muted {
+.Tenet-Label--variant-muted {
   background-color: transparent;
   border-color: var(--borderColor-default);
   color: var(--fgColor-muted);
 }
-.Acme-Label--variant-accent {
+.Tenet-Label--variant-accent {
   background-color: var(--bgColor-accent-emphasis);
   border-color: var(--bgColor-accent-emphasis);
   color: var(--fgColor-onEmphasis);
 }
-.Acme-Label--variant-success {
+.Tenet-Label--variant-success {
   background-color: var(--bgColor-success-emphasis);
   border-color: var(--bgColor-success-emphasis);
   color: var(--fgColor-onEmphasis);
 }
-.Acme-Label--variant-danger {
+.Tenet-Label--variant-danger {
   background-color: var(--bgColor-danger-emphasis);
   border-color: var(--bgColor-danger-emphasis);
   color: var(--fgColor-onEmphasis);
 }
 
 /* src/components/Table/Table.css */
-.Acme-Table {
+.Tenet-Table {
   width: 100%;
   border-collapse: collapse;
   font-family:
@@ -416,7 +416,7 @@
   font-size: var(--fontSize-1);
   color: var(--fgColor-default);
 }
-.Acme-Table__header {
+.Tenet-Table__header {
   background-color: var(--bgColor-muted);
   color: var(--fgColor-muted);
   font-size: var(--fontSize-0);
@@ -425,118 +425,118 @@
   white-space: nowrap;
   border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
 }
-.Acme-Table__header--sortable {
+.Tenet-Table__header--sortable {
   cursor: pointer;
   user-select: none;
 }
-.Acme-Table__header--sortable:hover {
+.Tenet-Table__header--sortable:hover {
   color: var(--fgColor-default);
 }
-.Acme-Table__sort {
+.Tenet-Table__sort {
   margin-left: var(--space-1);
   font-size: var(--fontSize-0);
 }
-.Acme-Table__cell {
+.Tenet-Table__cell {
   vertical-align: middle;
 }
-.Acme-Table__row {
+.Tenet-Table__row {
   transition: background-color 0.12s ease;
 }
-.Acme-Table__body .Acme-Table__row:hover {
+.Tenet-Table__body .Tenet-Table__row:hover {
   background-color: var(--bgColor-muted);
 }
-.Acme-Table__body .Acme-Table__row:not(:last-child) .Acme-Table__cell {
+.Tenet-Table__body .Tenet-Table__row:not(:last-child) .Tenet-Table__cell {
   border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
 }
-.Acme-Table__cell--align-start {
+.Tenet-Table__cell--align-start {
   text-align: left;
 }
-.Acme-Table__cell--align-center {
+.Tenet-Table__cell--align-center {
   text-align: center;
 }
-.Acme-Table__cell--align-end {
+.Tenet-Table__cell--align-end {
   text-align: right;
 }
-.Acme-Table--density-condensed .Acme-Table__header,
-.Acme-Table--density-condensed .Acme-Table__cell {
+.Tenet-Table--density-condensed .Tenet-Table__header,
+.Tenet-Table--density-condensed .Tenet-Table__cell {
   padding: var(--space-1) var(--space-2);
 }
-.Acme-Table--density-normal .Acme-Table__header,
-.Acme-Table--density-normal .Acme-Table__cell {
+.Tenet-Table--density-normal .Tenet-Table__header,
+.Tenet-Table--density-normal .Tenet-Table__cell {
   padding: var(--space-2) var(--space-3);
 }
-.Acme-Table--density-spacious .Acme-Table__header,
-.Acme-Table--density-spacious .Acme-Table__cell {
+.Tenet-Table--density-spacious .Tenet-Table__header,
+.Tenet-Table--density-spacious .Tenet-Table__cell {
   padding: var(--space-3) var(--space-4);
 }
-.Acme-Table__container {
+.Tenet-Table__container {
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium);
   background-color: var(--bgColor-default);
   box-shadow: var(--shadow-resting);
   overflow: hidden;
 }
-.Acme-Table__container > .Acme-Table__title,
-.Acme-Table__container > .Acme-Table__subtitle,
-.Acme-Table__container > .Acme-Table__actions {
+.Tenet-Table__container > .Tenet-Table__title,
+.Tenet-Table__container > .Tenet-Table__subtitle,
+.Tenet-Table__container > .Tenet-Table__actions {
   padding-inline: var(--space-4);
 }
-.Acme-Table__container > .Acme-Table__title {
+.Tenet-Table__container > .Tenet-Table__title {
   padding-top: var(--space-4);
 }
-.Acme-Table__title {
+.Tenet-Table__title {
   margin: 0;
   font-size: var(--fontSize-2);
   font-weight: var(--fontWeight-semibold);
   color: var(--fgColor-default);
 }
-.Acme-Table__subtitle {
+.Tenet-Table__subtitle {
   margin: var(--space-1) 0 0;
   font-size: var(--fontSize-1);
   color: var(--fgColor-muted);
 }
-.Acme-Table__actions {
+.Tenet-Table__actions {
   display: flex;
   justify-content: flex-end;
   gap: var(--space-2);
   padding-block: var(--space-3);
 }
-.Acme-Table__container > .Acme-Table {
+.Tenet-Table__container > .Tenet-Table {
   margin-top: var(--space-3);
 }
-.Acme-Table__container > .Acme-Table:first-child {
+.Tenet-Table__container > .Tenet-Table:first-child {
   margin-top: 0;
 }
 
 /* src/components/FormControl/FormControl.css */
-.Acme-FormControl {
+.Tenet-FormControl {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
 }
-.Acme-FormControl__label {
+.Tenet-FormControl__label {
   font-size: var(--fontSize-1);
   font-weight: var(--fontWeight-semibold);
   color: var(--fgColor-default);
 }
-.Acme-FormControl__required {
+.Tenet-FormControl__required {
   color: var(--fgColor-danger);
 }
-.Acme-FormControl__caption {
+.Tenet-FormControl__caption {
   font-size: var(--fontSize-0);
   color: var(--fgColor-muted);
 }
-.Acme-FormControl__validation {
+.Tenet-FormControl__validation {
   font-size: var(--fontSize-0);
   font-weight: var(--fontWeight-medium);
 }
-.Acme-FormControl__validation--error {
+.Tenet-FormControl__validation--error {
   color: var(--fgColor-danger);
 }
-.Acme-FormControl__validation--success {
+.Tenet-FormControl__validation--success {
   color: var(--fgColor-success);
 }
-.Acme-visuallyHidden {
+.Tenet-visuallyHidden {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -549,7 +549,7 @@
 }
 
 /* src/components/Textarea/Textarea.css */
-.Acme-Textarea {
+.Tenet-Textarea {
   display: inline-block;
   padding: var(--space-2) var(--space-3);
   border: var(--borderWidth-thin) solid var(--borderColor-default);
@@ -566,41 +566,41 @@
   line-height: 1.5;
   transition: border-color 0.12s ease, box-shadow 0.12s ease;
 }
-.Acme-Textarea::placeholder {
+.Tenet-Textarea::placeholder {
   color: var(--fgColor-muted);
 }
-.Acme-Textarea:focus {
+.Tenet-Textarea:focus {
   outline: none;
   border-color: var(--borderColor-accent-emphasis);
   box-shadow: 0 0 0 3px var(--bgColor-accent-muted);
 }
-.Acme-Textarea:disabled {
+.Tenet-Textarea:disabled {
   background-color: var(--bgColor-muted);
   opacity: 0.7;
   cursor: not-allowed;
 }
-.Acme-Textarea--block {
+.Tenet-Textarea--block {
   display: block;
   width: 100%;
 }
-.Acme-Textarea--invalid {
+.Tenet-Textarea--invalid {
   border-color: var(--fgColor-danger);
 }
-.Acme-Textarea--resize-none {
+.Tenet-Textarea--resize-none {
   resize: none;
 }
-.Acme-Textarea--resize-vertical {
+.Tenet-Textarea--resize-vertical {
   resize: vertical;
 }
-.Acme-Textarea--resize-horizontal {
+.Tenet-Textarea--resize-horizontal {
   resize: horizontal;
 }
-.Acme-Textarea--resize-both {
+.Tenet-Textarea--resize-both {
   resize: both;
 }
 
 /* src/components/Select/Select.css */
-.Acme-Select {
+.Tenet-Select {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -611,28 +611,28 @@
   box-shadow: var(--shadow-resting);
   transition: border-color 0.12s ease, box-shadow 0.12s ease;
 }
-.Acme-Select:focus-within {
+.Tenet-Select:focus-within {
   border-color: var(--borderColor-accent-emphasis);
   box-shadow: 0 0 0 3px var(--bgColor-accent-muted);
 }
-.Acme-Select--block {
+.Tenet-Select--block {
   display: flex;
   width: 100%;
 }
-.Acme-Select--invalid {
+.Tenet-Select--invalid {
   border-color: var(--fgColor-danger);
 }
-.Acme-Select--disabled {
+.Tenet-Select--disabled {
   background-color: var(--bgColor-muted);
   opacity: 0.7;
 }
-.Acme-Select--size-small {
+.Tenet-Select--size-small {
   height: var(--control-small-size);
 }
-.Acme-Select--size-large {
+.Tenet-Select--size-large {
   height: var(--control-large-size);
 }
-.Acme-Select__input {
+.Tenet-Select__input {
   appearance: none;
   -webkit-appearance: none;
   flex: 1;
@@ -651,18 +651,18 @@
   padding: 0 var(--space-2) 0 var(--space-3);
   cursor: pointer;
 }
-.Acme-Select--size-small .Acme-Select__input {
+.Tenet-Select--size-small .Tenet-Select__input {
   font-size: var(--fontSize-0);
   padding-left: var(--space-2);
 }
-.Acme-Select--size-large .Acme-Select__input {
+.Tenet-Select--size-large .Tenet-Select__input {
   font-size: var(--fontSize-2);
   padding-left: var(--space-4);
 }
-.Acme-Select--disabled .Acme-Select__input {
+.Tenet-Select--disabled .Tenet-Select__input {
   cursor: not-allowed;
 }
-.Acme-Select__caret {
+.Tenet-Select__caret {
   display: inline-flex;
   align-items: center;
   padding-right: var(--space-3);
@@ -672,12 +672,12 @@
 }
 
 /* src/components/Checkbox/Checkbox.css */
-.Acme-Checkbox {
+.Tenet-Checkbox {
   display: inline-flex;
   align-items: flex-start;
   gap: var(--space-2);
 }
-.Acme-Checkbox__input {
+.Tenet-Checkbox__input {
   width: var(--base-size-16);
   height: var(--base-size-16);
   margin: 0;
@@ -686,12 +686,12 @@
   flex-shrink: 0;
   margin-top: var(--base-size-4);
 }
-.Acme-Checkbox__text {
+.Tenet-Checkbox__text {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
 }
-.Acme-Checkbox__label {
+.Tenet-Checkbox__label {
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -701,23 +701,23 @@
   color: var(--fgColor-default);
   cursor: pointer;
 }
-.Acme-Checkbox__caption {
+.Tenet-Checkbox__caption {
   font-size: var(--fontSize-0);
   color: var(--fgColor-muted);
 }
-.Acme-Checkbox--disabled .Acme-Checkbox__input,
-.Acme-Checkbox--disabled .Acme-Checkbox__label {
+.Tenet-Checkbox--disabled .Tenet-Checkbox__input,
+.Tenet-Checkbox--disabled .Tenet-Checkbox__label {
   cursor: not-allowed;
   opacity: 0.6;
 }
 
 /* src/components/Radio/Radio.css */
-.Acme-Radio {
+.Tenet-Radio {
   display: inline-flex;
   align-items: flex-start;
   gap: var(--space-2);
 }
-.Acme-Radio__input {
+.Tenet-Radio__input {
   width: var(--base-size-16);
   height: var(--base-size-16);
   margin: 0;
@@ -726,12 +726,12 @@
   flex-shrink: 0;
   margin-top: var(--base-size-4);
 }
-.Acme-Radio__text {
+.Tenet-Radio__text {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
 }
-.Acme-Radio__label {
+.Tenet-Radio__label {
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -741,37 +741,37 @@
   color: var(--fgColor-default);
   cursor: pointer;
 }
-.Acme-Radio__caption {
+.Tenet-Radio__caption {
   font-size: var(--fontSize-0);
   color: var(--fgColor-muted);
 }
-.Acme-Radio--disabled .Acme-Radio__input,
-.Acme-Radio--disabled .Acme-Radio__label {
+.Tenet-Radio--disabled .Tenet-Radio__input,
+.Tenet-Radio--disabled .Tenet-Radio__label {
   cursor: not-allowed;
   opacity: 0.6;
 }
-.Acme-RadioGroup {
+.Tenet-RadioGroup {
   border: 0;
   margin: 0;
   padding: 0;
   min-width: 0;
 }
-.Acme-RadioGroup__legend {
+.Tenet-RadioGroup__legend {
   padding: 0;
   font-size: var(--fontSize-1);
   font-weight: var(--fontWeight-semibold);
   color: var(--fgColor-default);
 }
-.Acme-RadioGroup__required {
+.Tenet-RadioGroup__required {
   color: var(--fgColor-danger);
 }
-.Acme-RadioGroup__caption {
+.Tenet-RadioGroup__caption {
   display: block;
   margin-top: var(--space-1);
   font-size: var(--fontSize-0);
   color: var(--fgColor-muted);
 }
-.Acme-RadioGroup__options {
+.Tenet-RadioGroup__options {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);

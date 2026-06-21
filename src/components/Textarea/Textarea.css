@@ -1,5 +1,5 @@
-/* Acme Textarea — token-based multi-line field. */
-.Acme-Textarea {
+/* Tenet Textarea — token-based multi-line field. */
+.Tenet-Textarea {
   display: inline-block;
   padding: var(--space-2) var(--space-3);
   border: var(--borderWidth-thin) solid var(--borderColor-default);
@@ -13,40 +13,40 @@
   transition: border-color 0.12s ease, box-shadow 0.12s ease;
 }
 
-.Acme-Textarea::placeholder {
+.Tenet-Textarea::placeholder {
   color: var(--fgColor-muted);
 }
 
-.Acme-Textarea:focus {
+.Tenet-Textarea:focus {
   outline: none;
   border-color: var(--borderColor-accent-emphasis);
   box-shadow: 0 0 0 3px var(--bgColor-accent-muted);
 }
 
-.Acme-Textarea:disabled {
+.Tenet-Textarea:disabled {
   background-color: var(--bgColor-muted);
   opacity: 0.7;
   cursor: not-allowed;
 }
 
-.Acme-Textarea--block {
+.Tenet-Textarea--block {
   display: block;
   width: 100%;
 }
 
-.Acme-Textarea--invalid {
+.Tenet-Textarea--invalid {
   border-color: var(--fgColor-danger);
 }
 
-.Acme-Textarea--resize-none {
+.Tenet-Textarea--resize-none {
   resize: none;
 }
-.Acme-Textarea--resize-vertical {
+.Tenet-Textarea--resize-vertical {
   resize: vertical;
 }
-.Acme-Textarea--resize-horizontal {
+.Tenet-Textarea--resize-horizontal {
   resize: horizontal;
 }
-.Acme-Textarea--resize-both {
+.Tenet-Textarea--resize-both {
   resize: both;
 }

@@ -20,17 +20,17 @@ var Button = forwardRef(function Button2({
       ref,
       type,
       className: cx(
-        "Acme-Button",
-        `Acme-Button--variant-${variant}`,
-        `Acme-Button--size-${size}`,
-        block && "Acme-Button--block",
+        "Tenet-Button",
+        `Tenet-Button--variant-${variant}`,
+        `Tenet-Button--size-${size}`,
+        block && "Tenet-Button--block",
         className
       ),
       ...rest,
       children: [
-        leadingIcon && /* @__PURE__ */ jsx("span", { className: "Acme-Button__icon", "aria-hidden": "true", children: leadingIcon }),
-        children && /* @__PURE__ */ jsx("span", { className: "Acme-Button__label", children }),
-        trailingIcon && /* @__PURE__ */ jsx("span", { className: "Acme-Button__icon", "aria-hidden": "true", children: trailingIcon })
+        leadingIcon && /* @__PURE__ */ jsx("span", { className: "Tenet-Button__icon", "aria-hidden": "true", children: leadingIcon }),
+        children && /* @__PURE__ */ jsx("span", { className: "Tenet-Button__label", children }),
+        trailingIcon && /* @__PURE__ */ jsx("span", { className: "Tenet-Button__icon", "aria-hidden": "true", children: trailingIcon })
       ]
     }
   );
@@ -42,13 +42,13 @@ var StackRoot = forwardRef(function Stack({ direction = "vertical", gap = "norma
     {
       ref,
       className: cx2(
-        "Acme-Stack",
-        `Acme-Stack--direction-${direction}`,
-        `Acme-Stack--gap-${gap}`,
-        align && `Acme-Stack--align-${align}`,
-        justify && `Acme-Stack--justify-${justify}`,
-        wrap && "Acme-Stack--wrap",
-        padding && `Acme-Stack--padding-${padding}`,
+        "Tenet-Stack",
+        `Tenet-Stack--direction-${direction}`,
+        `Tenet-Stack--gap-${gap}`,
+        align && `Tenet-Stack--align-${align}`,
+        justify && `Tenet-Stack--justify-${justify}`,
+        wrap && "Tenet-Stack--wrap",
+        padding && `Tenet-Stack--padding-${padding}`,
         className
       ),
       ...rest,
@@ -57,7 +57,7 @@ var StackRoot = forwardRef(function Stack({ direction = "vertical", gap = "norma
   );
 });
 var StackItem = forwardRef(function StackItem2({ grow = false, className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsx("div", { ref, className: cx2("Acme-Stack__item", grow && "Acme-Stack__item--grow", className), ...rest, children });
+  return /* @__PURE__ */ jsx("div", { ref, className: cx2("Tenet-Stack__item", grow && "Tenet-Stack__item--grow", className), ...rest, children });
 });
 var Stack2 = Object.assign(StackRoot, { Item: StackItem });
 var cx3 = (...parts) => parts.filter(Boolean).join(" ");
@@ -66,7 +66,7 @@ var Card = forwardRef(function Card2({ variant = "default", padding = "normal", 
     "div",
     {
       ref,
-      className: cx3("Acme-Card", `Acme-Card--variant-${variant}`, `Acme-Card--padding-${padding}`, className),
+      className: cx3("Tenet-Card", `Tenet-Card--variant-${variant}`, `Tenet-Card--padding-${padding}`, className),
       ...rest,
       children
     }
@@ -78,26 +78,26 @@ var TextInput = forwardRef(function TextInput2({ size = "medium", block = false,
     "span",
     {
       className: cx4(
-        "Acme-TextInput",
-        `Acme-TextInput--size-${size}`,
-        block && "Acme-TextInput--block",
-        invalid && "Acme-TextInput--invalid",
-        disabled && "Acme-TextInput--disabled",
+        "Tenet-TextInput",
+        `Tenet-TextInput--size-${size}`,
+        block && "Tenet-TextInput--block",
+        invalid && "Tenet-TextInput--invalid",
+        disabled && "Tenet-TextInput--disabled",
         className
       ),
       children: [
-        leadingVisual && /* @__PURE__ */ jsx("span", { className: "Acme-TextInput__visual", "aria-hidden": "true", children: leadingVisual }),
+        leadingVisual && /* @__PURE__ */ jsx("span", { className: "Tenet-TextInput__visual", "aria-hidden": "true", children: leadingVisual }),
         /* @__PURE__ */ jsx(
           "input",
           {
             ref,
-            className: "Acme-TextInput__input",
+            className: "Tenet-TextInput__input",
             disabled,
             "aria-invalid": invalid || void 0,
             ...rest
           }
         ),
-        trailingVisual && /* @__PURE__ */ jsx("span", { className: "Acme-TextInput__visual", "aria-hidden": "true", children: trailingVisual })
+        trailingVisual && /* @__PURE__ */ jsx("span", { className: "Tenet-TextInput__visual", "aria-hidden": "true", children: trailingVisual })
       ]
     }
   );
@@ -108,7 +108,7 @@ var Label = forwardRef(function Label2({ variant = "default", size = "medium", c
     "span",
     {
       ref,
-      className: cx5("Acme-Label", `Acme-Label--variant-${variant}`, `Acme-Label--size-${size}`, className),
+      className: cx5("Tenet-Label", `Tenet-Label--variant-${variant}`, `Tenet-Label--size-${size}`, className),
       ...rest,
       children
     }
@@ -117,28 +117,28 @@ var Label = forwardRef(function Label2({ variant = "default", size = "medium", c
 var cx6 = (...parts) => parts.filter(Boolean).join(" ");
 var sortGlyph = { ascending: "\u25B2", descending: "\u25BC", none: "\u2195" };
 var TableRoot = forwardRef(function Table({ density = "normal", className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsx("table", { ref, className: cx6("Acme-Table", `Acme-Table--density-${density}`, className), ...rest, children });
+  return /* @__PURE__ */ jsx("table", { ref, className: cx6("Tenet-Table", `Tenet-Table--density-${density}`, className), ...rest, children });
 });
 var Container = forwardRef(function TableContainer({ className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsx("div", { ref, className: cx6("Acme-Table__container", className), ...rest, children });
+  return /* @__PURE__ */ jsx("div", { ref, className: cx6("Tenet-Table__container", className), ...rest, children });
 });
 var Title = forwardRef(function TableTitle({ className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsx("h2", { ref, className: cx6("Acme-Table__title", className), ...rest, children });
+  return /* @__PURE__ */ jsx("h2", { ref, className: cx6("Tenet-Table__title", className), ...rest, children });
 });
 var Subtitle = forwardRef(function TableSubtitle({ className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsx("p", { ref, className: cx6("Acme-Table__subtitle", className), ...rest, children });
+  return /* @__PURE__ */ jsx("p", { ref, className: cx6("Tenet-Table__subtitle", className), ...rest, children });
 });
 var Actions = forwardRef(function TableActions({ className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsx("div", { ref, className: cx6("Acme-Table__actions", className), ...rest, children });
+  return /* @__PURE__ */ jsx("div", { ref, className: cx6("Tenet-Table__actions", className), ...rest, children });
 });
 var Head = forwardRef(function TableHead({ className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsx("thead", { ref, className: cx6("Acme-Table__head", className), ...rest, children });
+  return /* @__PURE__ */ jsx("thead", { ref, className: cx6("Tenet-Table__head", className), ...rest, children });
 });
 var Body = forwardRef(function TableBody({ className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsx("tbody", { ref, className: cx6("Acme-Table__body", className), ...rest, children });
+  return /* @__PURE__ */ jsx("tbody", { ref, className: cx6("Tenet-Table__body", className), ...rest, children });
 });
 var Row = forwardRef(function TableRow({ className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsx("tr", { ref, className: cx6("Acme-Table__row", className), ...rest, children });
+  return /* @__PURE__ */ jsx("tr", { ref, className: cx6("Tenet-Table__row", className), ...rest, children });
 });
 var Header = forwardRef(function TableHeader({ align = "start", sortDirection, scope = "col", className, children, ...rest }, ref) {
   const sortable = sortDirection !== void 0;
@@ -148,17 +148,17 @@ var Header = forwardRef(function TableHeader({ align = "start", sortDirection, s
       ref,
       scope,
       "aria-sort": sortable ? sortDirection : void 0,
-      className: cx6("Acme-Table__header", `Acme-Table__cell--align-${align}`, sortable && "Acme-Table__header--sortable", className),
+      className: cx6("Tenet-Table__header", `Tenet-Table__cell--align-${align}`, sortable && "Tenet-Table__header--sortable", className),
       ...rest,
       children: [
         children,
-        sortable && /* @__PURE__ */ jsx("span", { className: "Acme-Table__sort", "aria-hidden": "true", children: sortGlyph[sortDirection] })
+        sortable && /* @__PURE__ */ jsx("span", { className: "Tenet-Table__sort", "aria-hidden": "true", children: sortGlyph[sortDirection] })
       ]
     }
   );
 });
 var Cell = forwardRef(function TableCell({ align = "start", className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsx("td", { ref, className: cx6("Acme-Table__cell", `Acme-Table__cell--align-${align}`, className), ...rest, children });
+  return /* @__PURE__ */ jsx("td", { ref, className: cx6("Tenet-Table__cell", `Tenet-Table__cell--align-${align}`, className), ...rest, children });
 });
 var Table2 = Object.assign(TableRoot, {
   Container,
@@ -173,23 +173,23 @@ var Table2 = Object.assign(TableRoot, {
 });
 var cx7 = (...parts) => parts.filter(Boolean).join(" ");
 function Label3({ visuallyHidden = false, required = false, className, children, ...rest }) {
-  return /* @__PURE__ */ jsxs("label", { className: cx7("Acme-FormControl__label", visuallyHidden && "Acme-visuallyHidden", className), ...rest, children: [
+  return /* @__PURE__ */ jsxs("label", { className: cx7("Tenet-FormControl__label", visuallyHidden && "Tenet-visuallyHidden", className), ...rest, children: [
     children,
-    required && /* @__PURE__ */ jsxs("span", { className: "Acme-FormControl__required", "aria-hidden": "true", children: [
+    required && /* @__PURE__ */ jsxs("span", { className: "Tenet-FormControl__required", "aria-hidden": "true", children: [
       " ",
       "*"
     ] })
   ] });
 }
 function Caption({ className, children, ...rest }) {
-  return /* @__PURE__ */ jsx("span", { className: cx7("Acme-FormControl__caption", className), ...rest, children });
+  return /* @__PURE__ */ jsx("span", { className: cx7("Tenet-FormControl__caption", className), ...rest, children });
 }
 function Validation({ variant = "error", className, children, ...rest }) {
   return /* @__PURE__ */ jsx(
     "span",
     {
       role: variant === "error" ? "alert" : void 0,
-      className: cx7("Acme-FormControl__validation", `Acme-FormControl__validation--${variant}`, className),
+      className: cx7("Tenet-FormControl__validation", `Tenet-FormControl__validation--${variant}`, className),
       ...rest,
       children
     }
@@ -240,7 +240,7 @@ var FormControlRoot = forwardRef(function FormControl({ id: idProp, required = f
       disabled: p.disabled ?? (disabled || void 0)
     });
   });
-  return /* @__PURE__ */ jsx("div", { ref, className: cx7("Acme-FormControl", className), ...rest, children: mapped });
+  return /* @__PURE__ */ jsx("div", { ref, className: cx7("Tenet-FormControl", className), ...rest, children: mapped });
 });
 var FormControl2 = Object.assign(FormControlRoot, { Label: Label3, Caption, Validation });
 var cx8 = (...parts) => parts.filter(Boolean).join(" ");
@@ -252,10 +252,10 @@ var Textarea = forwardRef(function Textarea2({ block = false, invalid = false, r
       rows,
       "aria-invalid": invalid || void 0,
       className: cx8(
-        "Acme-Textarea",
-        block && "Acme-Textarea--block",
-        invalid && "Acme-Textarea--invalid",
-        `Acme-Textarea--resize-${resize}`,
+        "Tenet-Textarea",
+        block && "Tenet-Textarea--block",
+        invalid && "Tenet-Textarea--invalid",
+        `Tenet-Textarea--resize-${resize}`,
         className
       ),
       ...rest
@@ -269,11 +269,11 @@ var Select = forwardRef(function Select2({ size = "medium", block = false, inval
     "span",
     {
       className: cx9(
-        "Acme-Select",
-        `Acme-Select--size-${size}`,
-        block && "Acme-Select--block",
-        invalid && "Acme-Select--invalid",
-        disabled && "Acme-Select--disabled",
+        "Tenet-Select",
+        `Tenet-Select--size-${size}`,
+        block && "Tenet-Select--block",
+        invalid && "Tenet-Select--invalid",
+        disabled && "Tenet-Select--disabled",
         className
       ),
       children: [
@@ -281,7 +281,7 @@ var Select = forwardRef(function Select2({ size = "medium", block = false, inval
           "select",
           {
             ref,
-            className: "Acme-Select__input",
+            className: "Tenet-Select__input",
             disabled,
             "aria-invalid": invalid || void 0,
             value,
@@ -293,7 +293,7 @@ var Select = forwardRef(function Select2({ size = "medium", block = false, inval
             ]
           }
         ),
-        /* @__PURE__ */ jsx("span", { className: "Acme-Select__caret", "aria-hidden": "true", children: "\u25BE" })
+        /* @__PURE__ */ jsx("span", { className: "Tenet-Select__caret", "aria-hidden": "true", children: "\u25BE" })
       ]
     }
   );
@@ -303,22 +303,22 @@ var Checkbox = forwardRef(function Checkbox2({ label, caption, id, className, di
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const captionId = caption ? `${inputId}-caption` : void 0;
-  return /* @__PURE__ */ jsxs("span", { className: cx10("Acme-Checkbox", disabled && "Acme-Checkbox--disabled", className), children: [
+  return /* @__PURE__ */ jsxs("span", { className: cx10("Tenet-Checkbox", disabled && "Tenet-Checkbox--disabled", className), children: [
     /* @__PURE__ */ jsx(
       "input",
       {
         ref,
         id: inputId,
         type: "checkbox",
-        className: "Acme-Checkbox__input",
+        className: "Tenet-Checkbox__input",
         disabled,
         "aria-describedby": captionId,
         ...rest
       }
     ),
-    label && /* @__PURE__ */ jsxs("span", { className: "Acme-Checkbox__text", children: [
-      /* @__PURE__ */ jsx("label", { htmlFor: inputId, className: "Acme-Checkbox__label", children: label }),
-      caption && /* @__PURE__ */ jsx("span", { id: captionId, className: "Acme-Checkbox__caption", children: caption })
+    label && /* @__PURE__ */ jsxs("span", { className: "Tenet-Checkbox__text", children: [
+      /* @__PURE__ */ jsx("label", { htmlFor: inputId, className: "Tenet-Checkbox__label", children: label }),
+      caption && /* @__PURE__ */ jsx("span", { id: captionId, className: "Tenet-Checkbox__caption", children: caption })
     ] })
   ] });
 });
@@ -338,14 +338,14 @@ var Radio = forwardRef(function Radio2({ value, label, caption, id, name, checke
     onChange?.(event);
     ctx?.onChange?.(value);
   };
-  return /* @__PURE__ */ jsxs("span", { className: cx11("Acme-Radio", resolvedDisabled && "Acme-Radio--disabled", className), children: [
+  return /* @__PURE__ */ jsxs("span", { className: cx11("Tenet-Radio", resolvedDisabled && "Tenet-Radio--disabled", className), children: [
     /* @__PURE__ */ jsx(
       "input",
       {
         ref,
         id: inputId,
         type: "radio",
-        className: "Acme-Radio__input",
+        className: "Tenet-Radio__input",
         name: resolvedName,
         value,
         checked: resolvedChecked,
@@ -356,9 +356,9 @@ var Radio = forwardRef(function Radio2({ value, label, caption, id, name, checke
         ...rest
       }
     ),
-    label && /* @__PURE__ */ jsxs("span", { className: "Acme-Radio__text", children: [
-      /* @__PURE__ */ jsx("label", { htmlFor: inputId, className: "Acme-Radio__label", children: label }),
-      caption && /* @__PURE__ */ jsx("span", { id: captionId, className: "Acme-Radio__caption", children: caption })
+    label && /* @__PURE__ */ jsxs("span", { className: "Tenet-Radio__text", children: [
+      /* @__PURE__ */ jsx("label", { htmlFor: inputId, className: "Tenet-Radio__label", children: label }),
+      caption && /* @__PURE__ */ jsx("span", { id: captionId, className: "Tenet-Radio__caption", children: caption })
     ] })
   ] });
 });
@@ -370,19 +370,19 @@ var RadioGroup = forwardRef(function RadioGroup2({ name, label, caption, value, 
     "fieldset",
     {
       ref,
-      className: cx11("Acme-RadioGroup", className),
+      className: cx11("Tenet-RadioGroup", className),
       "aria-describedby": captionId,
       ...rest,
       children: [
-        /* @__PURE__ */ jsxs("legend", { className: "Acme-RadioGroup__legend", children: [
+        /* @__PURE__ */ jsxs("legend", { className: "Tenet-RadioGroup__legend", children: [
           label,
-          required && /* @__PURE__ */ jsxs("span", { className: "Acme-RadioGroup__required", "aria-hidden": "true", children: [
+          required && /* @__PURE__ */ jsxs("span", { className: "Tenet-RadioGroup__required", "aria-hidden": "true", children: [
             " ",
             "*"
           ] })
         ] }),
-        caption && /* @__PURE__ */ jsx("span", { id: captionId, className: "Acme-RadioGroup__caption", children: caption }),
-        /* @__PURE__ */ jsx("div", { className: "Acme-RadioGroup__options", children: /* @__PURE__ */ jsx(RadioGroupContext.Provider, { value: { name: groupName, value, defaultValue, disabled, onChange }, children }) })
+        caption && /* @__PURE__ */ jsx("span", { id: captionId, className: "Tenet-RadioGroup__caption", children: caption }),
+        /* @__PURE__ */ jsx("div", { className: "Tenet-RadioGroup__options", children: /* @__PURE__ */ jsx(RadioGroupContext.Provider, { value: { name: groupName, value, defaultValue, disabled, onChange }, children }) })
       ]
     }
   );

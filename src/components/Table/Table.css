@@ -1,5 +1,5 @@
-/* Acme Table — token-based data table. */
-.Acme-Table {
+/* Tenet Table — token-based data table. */
+.Tenet-Table {
   width: 100%;
   border-collapse: collapse;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -8,7 +8,7 @@
 }
 
 /* Header cells */
-.Acme-Table__header {
+.Tenet-Table__header {
   background-color: var(--bgColor-muted);
   color: var(--fgColor-muted);
   font-size: var(--fontSize-0);
@@ -18,61 +18,61 @@
   border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
 }
 
-.Acme-Table__header--sortable {
+.Tenet-Table__header--sortable {
   cursor: pointer;
   user-select: none;
 }
-.Acme-Table__header--sortable:hover {
+.Tenet-Table__header--sortable:hover {
   color: var(--fgColor-default);
 }
 
-.Acme-Table__sort {
+.Tenet-Table__sort {
   margin-left: var(--space-1);
   font-size: var(--fontSize-0);
 }
 
 /* Body cells */
-.Acme-Table__cell {
+.Tenet-Table__cell {
   vertical-align: middle;
 }
 
-.Acme-Table__row {
+.Tenet-Table__row {
   transition: background-color 0.12s ease;
 }
-.Acme-Table__body .Acme-Table__row:hover {
+.Tenet-Table__body .Tenet-Table__row:hover {
   background-color: var(--bgColor-muted);
 }
-.Acme-Table__body .Acme-Table__row:not(:last-child) .Acme-Table__cell {
+.Tenet-Table__body .Tenet-Table__row:not(:last-child) .Tenet-Table__cell {
   border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
 }
 
 /* Alignment */
-.Acme-Table__cell--align-start {
+.Tenet-Table__cell--align-start {
   text-align: left;
 }
-.Acme-Table__cell--align-center {
+.Tenet-Table__cell--align-center {
   text-align: center;
 }
-.Acme-Table__cell--align-end {
+.Tenet-Table__cell--align-end {
   text-align: right;
 }
 
 /* Density — cell padding from the space scale */
-.Acme-Table--density-condensed .Acme-Table__header,
-.Acme-Table--density-condensed .Acme-Table__cell {
+.Tenet-Table--density-condensed .Tenet-Table__header,
+.Tenet-Table--density-condensed .Tenet-Table__cell {
   padding: var(--space-1) var(--space-2);
 }
-.Acme-Table--density-normal .Acme-Table__header,
-.Acme-Table--density-normal .Acme-Table__cell {
+.Tenet-Table--density-normal .Tenet-Table__header,
+.Tenet-Table--density-normal .Tenet-Table__cell {
   padding: var(--space-2) var(--space-3);
 }
-.Acme-Table--density-spacious .Acme-Table__header,
-.Acme-Table--density-spacious .Acme-Table__cell {
+.Tenet-Table--density-spacious .Tenet-Table__header,
+.Tenet-Table--density-spacious .Tenet-Table__cell {
   padding: var(--space-3) var(--space-4);
 }
 
 /* Titled surface wrapper */
-.Acme-Table__container {
+.Tenet-Table__container {
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium);
   background-color: var(--bgColor-default);
@@ -80,29 +80,29 @@
   overflow: hidden;
 }
 
-.Acme-Table__container > .Acme-Table__title,
-.Acme-Table__container > .Acme-Table__subtitle,
-.Acme-Table__container > .Acme-Table__actions {
+.Tenet-Table__container > .Tenet-Table__title,
+.Tenet-Table__container > .Tenet-Table__subtitle,
+.Tenet-Table__container > .Tenet-Table__actions {
   padding-inline: var(--space-4);
 }
-.Acme-Table__container > .Acme-Table__title {
+.Tenet-Table__container > .Tenet-Table__title {
   padding-top: var(--space-4);
 }
 
-.Acme-Table__title {
+.Tenet-Table__title {
   margin: 0;
   font-size: var(--fontSize-2);
   font-weight: var(--fontWeight-semibold);
   color: var(--fgColor-default);
 }
 
-.Acme-Table__subtitle {
+.Tenet-Table__subtitle {
   margin: var(--space-1) 0 0;
   font-size: var(--fontSize-1);
   color: var(--fgColor-muted);
 }
 
-.Acme-Table__actions {
+.Tenet-Table__actions {
   display: flex;
   justify-content: flex-end;
   gap: var(--space-2);
@@ -110,9 +110,9 @@
 }
 
 /* When the table follows header chrome, drop its top so it meets the border cleanly. */
-.Acme-Table__container > .Acme-Table {
+.Tenet-Table__container > .Tenet-Table {
   margin-top: var(--space-3);
 }
-.Acme-Table__container > .Acme-Table:first-child {
+.Tenet-Table__container > .Tenet-Table:first-child {
   margin-top: 0;
 }

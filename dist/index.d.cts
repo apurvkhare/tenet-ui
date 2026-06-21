@@ -20,7 +20,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 /**
- * Acme action button. Use `variant="primary"` for the single most important action on a
+ * Tenet action button. Use `variant="primary"` for the single most important action on a
  * surface, `default` for secondary actions, `invisible` for tertiary, and `danger` for
  * destructive actions. All styling comes from design tokens — never hardcode colors or spacing.
  */
@@ -67,7 +67,7 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * Acme surface container — a bordered, rounded panel for grouping content (the design-system
+ * Tenet surface container — a bordered, rounded panel for grouping content (the design-system
  * way to make a "box"). Border, radius, background and elevation all come from tokens; never
  * hand-roll a styled `<div>` with hardcoded border/shadow values.
  */
@@ -88,7 +88,7 @@ interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'si
 }
 
 /**
- * Acme text field. Renders a real, accessible `<input>` wrapped with token-based chrome —
+ * Tenet text field. Renders a real, accessible `<input>` wrapped with token-based chrome —
  * use this instead of a raw `<input>` so border, height, spacing and focus styling stay on-system.
  * Always pass an accessible name via `aria-label` or an associated `<label>`.
  */
@@ -105,7 +105,7 @@ interface LabelProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 /**
- * Acme status label / pill. Choose a `variant` by meaning (success, danger, accent) — the colors
+ * Tenet status label / pill. Choose a `variant` by meaning (success, danger, accent) — the colors
  * are owned by the design system, so consumers never compute their own fills or borders. This is
  * the on-system replacement for a hand-styled `<span>` with hardcoded translucent colors.
  */
@@ -213,7 +213,7 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 }
 
 /**
- * Acme multi-line text field. A real, accessible `<textarea>` with token-based chrome — use it
+ * Tenet multi-line text field. A real, accessible `<textarea>` with token-based chrome — use it
  * instead of a raw `<textarea>`. Always give it an accessible name via FormControl or `aria-label`.
  */
 declare const Textarea: react.ForwardRefExoticComponent<TextareaProps & react.RefAttributes<HTMLTextAreaElement>>;
@@ -233,7 +233,7 @@ interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'siz
 }
 
 /**
- * Acme select. A real, accessible `<select>` with token-based chrome and a custom caret — use it
+ * Tenet select. A real, accessible `<select>` with token-based chrome and a custom caret — use it
  * instead of a raw `<select>` or a div-based dropdown. Give it an accessible name via FormControl
  * or `aria-label`.
  */
@@ -247,7 +247,7 @@ interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'typ
 }
 
 /**
- * Acme checkbox. A real `<input type="checkbox">` tinted with the accent token, with an
+ * Tenet checkbox. A real `<input type="checkbox">` tinted with the accent token, with an
  * associated label and optional caption — use it instead of a styled `<div>` toggle.
  */
 declare const Checkbox: react.ForwardRefExoticComponent<CheckboxProps & react.RefAttributes<HTMLInputElement>>;
@@ -282,12 +282,12 @@ interface RadioGroupProps extends Omit<HTMLAttributes<HTMLFieldSetElement>, 'onC
 }
 
 /**
- * Acme radio. A real `<input type="radio">` tinted with the accent token. Use inside a
+ * Tenet radio. A real `<input type="radio">` tinted with the accent token. Use inside a
  * `RadioGroup`, which wires the shared `name` and selection for you.
  */
 declare const Radio: react.ForwardRefExoticComponent<RadioProps & react.RefAttributes<HTMLInputElement>>;
 /**
- * Acme radio group. Renders a `<fieldset>`/`<legend>` and shares `name` + selection with its
+ * Tenet radio group. Renders a `<fieldset>`/`<legend>` and shares `name` + selection with its
  * `Radio` children via context — so grouping and accessibility are correct without prop drilling.
  */
 declare const RadioGroup: react.ForwardRefExoticComponent<RadioGroupProps & react.RefAttributes<HTMLFieldSetElement>>;

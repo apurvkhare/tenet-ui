@@ -16,7 +16,7 @@ interface RadioGroupContextValue {
 const RadioGroupContext = createContext<RadioGroupContextValue | null>(null);
 
 /**
- * Acme radio. A real `<input type="radio">` tinted with the accent token. Use inside a
+ * Tenet radio. A real `<input type="radio">` tinted with the accent token. Use inside a
  * `RadioGroup`, which wires the shared `name` and selection for you.
  */
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
@@ -44,12 +44,12 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
   };
 
   return (
-    <span className={cx('Acme-Radio', resolvedDisabled && 'Acme-Radio--disabled', className)}>
+    <span className={cx('Tenet-Radio', resolvedDisabled && 'Tenet-Radio--disabled', className)}>
       <input
         ref={ref}
         id={inputId}
         type="radio"
-        className="Acme-Radio__input"
+        className="Tenet-Radio__input"
         name={resolvedName}
         value={value}
         checked={resolvedChecked}
@@ -60,12 +60,12 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
         {...rest}
       />
       {label && (
-        <span className="Acme-Radio__text">
-          <label htmlFor={inputId} className="Acme-Radio__label">
+        <span className="Tenet-Radio__text">
+          <label htmlFor={inputId} className="Tenet-Radio__label">
             {label}
           </label>
           {caption && (
-            <span id={captionId} className="Acme-Radio__caption">
+            <span id={captionId} className="Tenet-Radio__caption">
               {caption}
             </span>
           )}
@@ -76,7 +76,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
 });
 
 /**
- * Acme radio group. Renders a `<fieldset>`/`<legend>` and shares `name` + selection with its
+ * Tenet radio group. Renders a `<fieldset>`/`<legend>` and shares `name` + selection with its
  * `Radio` children via context — so grouping and accessibility are correct without prop drilling.
  */
 export const RadioGroup = forwardRef<HTMLFieldSetElement, RadioGroupProps>(function RadioGroup(
@@ -90,25 +90,25 @@ export const RadioGroup = forwardRef<HTMLFieldSetElement, RadioGroupProps>(funct
   return (
     <fieldset
       ref={ref}
-      className={cx('Acme-RadioGroup', className)}
+      className={cx('Tenet-RadioGroup', className)}
       aria-describedby={captionId}
       {...rest}
     >
-      <legend className="Acme-RadioGroup__legend">
+      <legend className="Tenet-RadioGroup__legend">
         {label}
         {required && (
-          <span className="Acme-RadioGroup__required" aria-hidden="true">
+          <span className="Tenet-RadioGroup__required" aria-hidden="true">
             {' '}
             *
           </span>
         )}
       </legend>
       {caption && (
-        <span id={captionId} className="Acme-RadioGroup__caption">
+        <span id={captionId} className="Tenet-RadioGroup__caption">
           {caption}
         </span>
       )}
-      <div className="Acme-RadioGroup__options">
+      <div className="Tenet-RadioGroup__options">
         <RadioGroupContext.Provider value={{ name: groupName, value, defaultValue, disabled, onChange }}>
           {children}
         </RadioGroupContext.Provider>

@@ -3,7 +3,7 @@
   "name": "Card",
   "status": "stable",
   "a11yReviewed": true,
-  "importPath": "@acme/ds",
+  "importPath": "@tenet/ds",
   "source": "src/components/Card/Card.tsx",
   "props": [
     {

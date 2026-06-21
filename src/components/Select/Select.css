@@ -1,5 +1,5 @@
-/* Acme Select — token-based chrome wrapping a real <select>. */
-.Acme-Select {
+/* Tenet Select — token-based chrome wrapping a real <select>. */
+.Tenet-Select {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -11,34 +11,34 @@
   transition: border-color 0.12s ease, box-shadow 0.12s ease;
 }
 
-.Acme-Select:focus-within {
+.Tenet-Select:focus-within {
   border-color: var(--borderColor-accent-emphasis);
   box-shadow: 0 0 0 3px var(--bgColor-accent-muted);
 }
 
-.Acme-Select--block {
+.Tenet-Select--block {
   display: flex;
   width: 100%;
 }
 
-.Acme-Select--invalid {
+.Tenet-Select--invalid {
   border-color: var(--fgColor-danger);
 }
 
-.Acme-Select--disabled {
+.Tenet-Select--disabled {
   background-color: var(--bgColor-muted);
   opacity: 0.7;
 }
 
 /* Sizes */
-.Acme-Select--size-small {
+.Tenet-Select--size-small {
   height: var(--control-small-size);
 }
-.Acme-Select--size-large {
+.Tenet-Select--size-large {
   height: var(--control-large-size);
 }
 
-.Acme-Select__input {
+.Tenet-Select__input {
   appearance: none;
   -webkit-appearance: none;
   flex: 1;
@@ -54,20 +54,20 @@
   cursor: pointer;
 }
 
-.Acme-Select--size-small .Acme-Select__input {
+.Tenet-Select--size-small .Tenet-Select__input {
   font-size: var(--fontSize-0);
   padding-left: var(--space-2);
 }
-.Acme-Select--size-large .Acme-Select__input {
+.Tenet-Select--size-large .Tenet-Select__input {
   font-size: var(--fontSize-2);
   padding-left: var(--space-4);
 }
 
-.Acme-Select--disabled .Acme-Select__input {
+.Tenet-Select--disabled .Tenet-Select__input {
   cursor: not-allowed;
 }
 
-.Acme-Select__caret {
+.Tenet-Select__caret {
   display: inline-flex;
   align-items: center;
   padding-right: var(--space-3);

@@ -5,7 +5,7 @@ import './Stack.css';
 const cx = (...parts: Array<string | false | undefined>): string => parts.filter(Boolean).join(' ');
 
 /**
- * Acme layout primitive. Composes children along one axis with token-based spacing —
+ * Tenet layout primitive. Composes children along one axis with token-based spacing —
  * use this instead of hand-rolling `display: flex` with hardcoded gaps. All spacing comes
  * from the `space` scale; never inline pixel gaps or margins.
  */
@@ -17,13 +17,13 @@ const StackRoot = forwardRef<HTMLDivElement, StackProps>(function Stack(
     <div
       ref={ref}
       className={cx(
-        'Acme-Stack',
-        `Acme-Stack--direction-${direction}`,
-        `Acme-Stack--gap-${gap}`,
-        align && `Acme-Stack--align-${align}`,
-        justify && `Acme-Stack--justify-${justify}`,
-        wrap && 'Acme-Stack--wrap',
-        padding && `Acme-Stack--padding-${padding}`,
+        'Tenet-Stack',
+        `Tenet-Stack--direction-${direction}`,
+        `Tenet-Stack--gap-${gap}`,
+        align && `Tenet-Stack--align-${align}`,
+        justify && `Tenet-Stack--justify-${justify}`,
+        wrap && 'Tenet-Stack--wrap',
+        padding && `Tenet-Stack--padding-${padding}`,
         className,
       )}
       {...rest}
@@ -39,7 +39,7 @@ const StackItem = forwardRef<HTMLDivElement, StackItemProps>(function StackItem(
   ref,
 ) {
   return (
-    <div ref={ref} className={cx('Acme-Stack__item', grow && 'Acme-Stack__item--grow', className)} {...rest}>
+    <div ref={ref} className={cx('Tenet-Stack__item', grow && 'Tenet-Stack__item--grow', className)} {...rest}>
       {children}
     </div>
   );

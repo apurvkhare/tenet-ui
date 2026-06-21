@@ -1,13 +1,13 @@
-# Acme Design System (`@acme/ds`)
+# Tenet Design System (`@tenet/ds`)
 
-A small, deliberately **private** design system (design tokens + React components) built for the talk demo. The model has never seen it — so generating compliant code requires the skill, not training-data recall. "Acme" is a placeholder brand; rebrand freely.
+A small, deliberately **private** design system (design tokens + React components) built for the talk demo. The model has never seen it — so generating compliant code requires the skill, not training-data recall. "Tenet" is a placeholder brand; rebrand freely.
 
 It ships the **same machine-readable artifact shapes a real DS does**, so the skill's `ingest` is realistic and transfers to any design system.
 
 ## Install
 
 ```bash
-npm install @acme/ds
+npm install @tenet/ds
 # peer deps:
 npm install react react-dom
 ```
@@ -17,8 +17,8 @@ npm install react react-dom
 Import the stylesheet **once** at your app root, then use the components. Without the stylesheet, every component's `var(--token)` is undefined and the UI renders unstyled.
 
 ```tsx
-import '@acme/ds/styles.css';            // tokens (light + dark) + component styles
-import { Button, Table, FormControl, TextInput } from '@acme/ds';
+import '@tenet/ds/styles.css';            // tokens (light + dark) + component styles
+import { Button, Table, FormControl, TextInput } from '@tenet/ds';
 
 export function Example() {
   return (

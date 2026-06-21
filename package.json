@@ -1,10 +1,10 @@
 {
-  "name": "@acme/ds",
+  "name": "@tenet/ds",
   "version": "0.1.0",
-  "description": "Acme Design System — a small, realistic in-house design system (tokens + React components) used to demo the design-system skill.",
+  "description": "Tenet Design System — a small, realistic in-house design system (tokens + React components) used to demo the design-system skill.",
   "type": "module",
   "license": "MIT",
-  "author": "Acme",
+  "author": "Tenet",
   "keywords": [
     "design-system",
     "react",

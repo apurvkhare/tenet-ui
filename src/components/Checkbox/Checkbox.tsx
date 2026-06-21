@@ -5,7 +5,7 @@ import './Checkbox.css';
 const cx = (...parts: Array<string | false | undefined>): string => parts.filter(Boolean).join(' ');
 
 /**
- * Acme checkbox. A real `<input type="checkbox">` tinted with the accent token, with an
+ * Tenet checkbox. A real `<input type="checkbox">` tinted with the accent token, with an
  * associated label and optional caption — use it instead of a styled `<div>` toggle.
  */
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
@@ -17,23 +17,23 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
   const captionId = caption ? `${inputId}-caption` : undefined;
 
   return (
-    <span className={cx('Acme-Checkbox', disabled && 'Acme-Checkbox--disabled', className)}>
+    <span className={cx('Tenet-Checkbox', disabled && 'Tenet-Checkbox--disabled', className)}>
       <input
         ref={ref}
         id={inputId}
         type="checkbox"
-        className="Acme-Checkbox__input"
+        className="Tenet-Checkbox__input"
         disabled={disabled}
         aria-describedby={captionId}
         {...rest}
       />
       {label && (
-        <span className="Acme-Checkbox__text">
-          <label htmlFor={inputId} className="Acme-Checkbox__label">
+        <span className="Tenet-Checkbox__text">
+          <label htmlFor={inputId} className="Tenet-Checkbox__label">
             {label}
           </label>
           {caption && (
-            <span id={captionId} className="Acme-Checkbox__caption">
+            <span id={captionId} className="Tenet-Checkbox__caption">
               {caption}
             </span>
           )}

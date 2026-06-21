@@ -1,5 +1,5 @@
-/* Acme Label — status pill. All colors come from semantic tokens; no hand-tuned fills. */
-.Acme-Label {
+/* Tenet Label — status pill. All colors come from semantic tokens; no hand-tuned fills. */
+.Tenet-Label {
   display: inline-flex;
   align-items: center;
   border: var(--borderWidth-thin) solid transparent;
@@ -10,39 +10,39 @@
 }
 
 /* Sizes */
-.Acme-Label--size-small {
+.Tenet-Label--size-small {
   height: var(--base-size-16);
   padding: 0 var(--space-2);
   font-size: var(--fontSize-0);
 }
-.Acme-Label--size-medium {
+.Tenet-Label--size-medium {
   height: var(--base-size-24);
   padding: 0 var(--space-3);
   font-size: var(--fontSize-0);
 }
 
 /* Variants */
-.Acme-Label--variant-default {
+.Tenet-Label--variant-default {
   background-color: var(--bgColor-muted);
   border-color: var(--borderColor-default);
   color: var(--fgColor-default);
 }
-.Acme-Label--variant-muted {
+.Tenet-Label--variant-muted {
   background-color: transparent;
   border-color: var(--borderColor-default);
   color: var(--fgColor-muted);
 }
-.Acme-Label--variant-accent {
+.Tenet-Label--variant-accent {
   background-color: var(--bgColor-accent-emphasis);
   border-color: var(--bgColor-accent-emphasis);
   color: var(--fgColor-onEmphasis);
 }
-.Acme-Label--variant-success {
+.Tenet-Label--variant-success {
   background-color: var(--bgColor-success-emphasis);
   border-color: var(--bgColor-success-emphasis);
   color: var(--fgColor-onEmphasis);
 }
-.Acme-Label--variant-danger {
+.Tenet-Label--variant-danger {
   background-color: var(--bgColor-danger-emphasis);
   border-color: var(--bgColor-danger-emphasis);
   color: var(--fgColor-onEmphasis);

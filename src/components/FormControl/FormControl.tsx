@@ -13,10 +13,10 @@ const cx = (...parts: Array<string | false | undefined>): string => parts.filter
 /** Field label. Rendered by FormControl with `htmlFor` + required state wired automatically. */
 function Label({ visuallyHidden = false, required = false, className, children, ...rest }: FormControlLabelProps) {
   return (
-    <label className={cx('Acme-FormControl__label', visuallyHidden && 'Acme-visuallyHidden', className)} {...rest}>
+    <label className={cx('Tenet-FormControl__label', visuallyHidden && 'Tenet-visuallyHidden', className)} {...rest}>
       {children}
       {required && (
-        <span className="Acme-FormControl__required" aria-hidden="true">
+        <span className="Tenet-FormControl__required" aria-hidden="true">
           {' '}
           *
         </span>
@@ -28,7 +28,7 @@ function Label({ visuallyHidden = false, required = false, className, children, 
 /** Helper text below the field, associated via `aria-describedby`. */
 function Caption({ className, children, ...rest }: FormControlCaptionProps) {
   return (
-    <span className={cx('Acme-FormControl__caption', className)} {...rest}>
+    <span className={cx('Tenet-FormControl__caption', className)} {...rest}>
       {children}
     </span>
   );
@@ -39,7 +39,7 @@ function Validation({ variant = 'error', className, children, ...rest }: FormCon
   return (
     <span
       role={variant === 'error' ? 'alert' : undefined}
-      className={cx('Acme-FormControl__validation', `Acme-FormControl__validation--${variant}`, className)}
+      className={cx('Tenet-FormControl__validation', `Tenet-FormControl__validation--${variant}`, className)}
       {...rest}
     >
       {children}
@@ -52,7 +52,7 @@ const propsOf = (el: ReactElement) => el.props as AnyProps;
 const join = (...parts: Array<unknown>) => parts.filter(Boolean).join(' ') || undefined;
 
 /**
- * Acme form field wrapper. Wrap a `FormControl.Label`, a field (`TextInput`, `Textarea`,
+ * Tenet form field wrapper. Wrap a `FormControl.Label`, a field (`TextInput`, `Textarea`,
  * `Select`), and optional `FormControl.Caption` / `FormControl.Validation`. It generates a
  * shared id and wires `htmlFor`, `aria-describedby`, `aria-invalid`, `required` and `disabled`
  * for you — so accessibility is correct by construction, not by remembering to do it.
@@ -109,7 +109,7 @@ const FormControlRoot = forwardRef<HTMLDivElement, FormControlProps>(function Fo
   });
 
   return (
-    <div ref={ref} className={cx('Acme-FormControl', className)} {...rest}>
+    <div ref={ref} className={cx('Tenet-FormControl', className)} {...rest}>
       {mapped}
     </div>
   );

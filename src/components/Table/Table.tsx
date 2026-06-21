@@ -17,7 +17,7 @@ const cx = (...parts: Array<string | false | undefined>): string => parts.filter
 const sortGlyph = { ascending: '▲', descending: '▼', none: '↕' } as const;
 
 /**
- * Acme data table. Compose with `Table.Container` (titled surface) + `Table.Head/Body/Row/
+ * Tenet data table. Compose with `Table.Container` (titled surface) + `Table.Head/Body/Row/
  * Header/Cell`. Styling, spacing and borders all come from tokens — never build a table out of
  * styled `<div>`s. Use real `<th scope="col">` headers for accessibility.
  */
@@ -26,7 +26,7 @@ const TableRoot = forwardRef<HTMLTableElement, TableProps>(function Table(
   ref,
 ) {
   return (
-    <table ref={ref} className={cx('Acme-Table', `Acme-Table--density-${density}`, className)} {...rest}>
+    <table ref={ref} className={cx('Tenet-Table', `Tenet-Table--density-${density}`, className)} {...rest}>
       {children}
     </table>
   );
@@ -37,7 +37,7 @@ const Container = forwardRef<HTMLDivElement, TableContainerProps>(function Table
   ref,
 ) {
   return (
-    <div ref={ref} className={cx('Acme-Table__container', className)} {...rest}>
+    <div ref={ref} className={cx('Tenet-Table__container', className)} {...rest}>
       {children}
     </div>
   );
@@ -48,7 +48,7 @@ const Title = forwardRef<HTMLHeadingElement, TableTitleProps>(function TableTitl
   ref,
 ) {
   return (
-    <h2 ref={ref} className={cx('Acme-Table__title', className)} {...rest}>
+    <h2 ref={ref} className={cx('Tenet-Table__title', className)} {...rest}>
       {children}
     </h2>
   );
@@ -59,7 +59,7 @@ const Subtitle = forwardRef<HTMLParagraphElement, TableSubtitleProps>(function T
   ref,
 ) {
   return (
-    <p ref={ref} className={cx('Acme-Table__subtitle', className)} {...rest}>
+    <p ref={ref} className={cx('Tenet-Table__subtitle', className)} {...rest}>
       {children}
     </p>
   );
@@ -70,7 +70,7 @@ const Actions = forwardRef<HTMLDivElement, TableActionsProps>(function TableActi
   ref,
 ) {
   return (
-    <div ref={ref} className={cx('Acme-Table__actions', className)} {...rest}>
+    <div ref={ref} className={cx('Tenet-Table__actions', className)} {...rest}>
       {children}
     </div>
   );
@@ -81,7 +81,7 @@ const Head = forwardRef<HTMLTableSectionElement, TableSectionProps>(function Tab
   ref,
 ) {
   return (
-    <thead ref={ref} className={cx('Acme-Table__head', className)} {...rest}>
+    <thead ref={ref} className={cx('Tenet-Table__head', className)} {...rest}>
       {children}
     </thead>
   );
@@ -92,7 +92,7 @@ const Body = forwardRef<HTMLTableSectionElement, TableSectionProps>(function Tab
   ref,
 ) {
   return (
-    <tbody ref={ref} className={cx('Acme-Table__body', className)} {...rest}>
+    <tbody ref={ref} className={cx('Tenet-Table__body', className)} {...rest}>
       {children}
     </tbody>
   );
@@ -103,7 +103,7 @@ const Row = forwardRef<HTMLTableRowElement, TableRowProps>(function TableRow(
   ref,
 ) {
   return (
-    <tr ref={ref} className={cx('Acme-Table__row', className)} {...rest}>
+    <tr ref={ref} className={cx('Tenet-Table__row', className)} {...rest}>
       {children}
     </tr>
   );
@@ -119,12 +119,12 @@ const Header = forwardRef<HTMLTableCellElement, TableHeaderProps>(function Table
       ref={ref}
       scope={scope}
       aria-sort={sortable ? sortDirection : undefined}
-      className={cx('Acme-Table__header', `Acme-Table__cell--align-${align}`, sortable && 'Acme-Table__header--sortable', className)}
+      className={cx('Tenet-Table__header', `Tenet-Table__cell--align-${align}`, sortable && 'Tenet-Table__header--sortable', className)}
       {...rest}
     >
       {children}
       {sortable && (
-        <span className="Acme-Table__sort" aria-hidden="true">
+        <span className="Tenet-Table__sort" aria-hidden="true">
           {sortGlyph[sortDirection]}
         </span>
       )}
@@ -137,7 +137,7 @@ const Cell = forwardRef<HTMLTableCellElement, TableCellProps>(function TableCell
   ref,
 ) {
   return (
-    <td ref={ref} className={cx('Acme-Table__cell', `Acme-Table__cell--align-${align}`, className)} {...rest}>
+    <td ref={ref} className={cx('Tenet-Table__cell', `Tenet-Table__cell--align-${align}`, className)} {...rest}>
       {children}
     </td>
   );

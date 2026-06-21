@@ -5,7 +5,7 @@ import './Button.css';
 const cx = (...parts: Array<string | false | undefined>): string => parts.filter(Boolean).join(' ');
 
 /**
- * Acme action button. Use `variant="primary"` for the single most important action on a
+ * Tenet action button. Use `variant="primary"` for the single most important action on a
  * surface, `default` for secondary actions, `invisible` for tertiary, and `danger` for
  * destructive actions. All styling comes from design tokens — never hardcode colors or spacing.
  */
@@ -28,22 +28,22 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       ref={ref}
       type={type}
       className={cx(
-        'Acme-Button',
-        `Acme-Button--variant-${variant}`,
-        `Acme-Button--size-${size}`,
-        block && 'Acme-Button--block',
+        'Tenet-Button',
+        `Tenet-Button--variant-${variant}`,
+        `Tenet-Button--size-${size}`,
+        block && 'Tenet-Button--block',
         className,
       )}
       {...rest}
     >
       {leadingIcon && (
-        <span className="Acme-Button__icon" aria-hidden="true">
+        <span className="Tenet-Button__icon" aria-hidden="true">
           {leadingIcon}
         </span>
       )}
-      {children && <span className="Acme-Button__label">{children}</span>}
+      {children && <span className="Tenet-Button__label">{children}</span>}
       {trailingIcon && (
-        <span className="Acme-Button__icon" aria-hidden="true">
+        <span className="Tenet-Button__icon" aria-hidden="true">
           {trailingIcon}
         </span>
       )}

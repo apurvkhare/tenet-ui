@@ -1,76 +1,76 @@
-/* Acme Stack — token-based flex layout. Spacing comes only from the `space` scale. */
-.Acme-Stack {
+/* Tenet Stack — token-based flex layout. Spacing comes only from the `space` scale. */
+.Tenet-Stack {
   display: flex;
 }
 
-.Acme-Stack--direction-vertical {
+.Tenet-Stack--direction-vertical {
   flex-direction: column;
 }
-.Acme-Stack--direction-horizontal {
+.Tenet-Stack--direction-horizontal {
   flex-direction: row;
 }
 
 /* Gap — from the space scale */
-.Acme-Stack--gap-none {
+.Tenet-Stack--gap-none {
   gap: 0;
 }
-.Acme-Stack--gap-condensed {
+.Tenet-Stack--gap-condensed {
   gap: var(--space-2);
 }
-.Acme-Stack--gap-normal {
+.Tenet-Stack--gap-normal {
   gap: var(--space-4);
 }
-.Acme-Stack--gap-spacious {
+.Tenet-Stack--gap-spacious {
   gap: var(--space-5);
 }
 
 /* Cross-axis alignment */
-.Acme-Stack--align-start {
+.Tenet-Stack--align-start {
   align-items: flex-start;
 }
-.Acme-Stack--align-center {
+.Tenet-Stack--align-center {
   align-items: center;
 }
-.Acme-Stack--align-end {
+.Tenet-Stack--align-end {
   align-items: flex-end;
 }
-.Acme-Stack--align-stretch {
+.Tenet-Stack--align-stretch {
   align-items: stretch;
 }
 
 /* Main-axis distribution */
-.Acme-Stack--justify-start {
+.Tenet-Stack--justify-start {
   justify-content: flex-start;
 }
-.Acme-Stack--justify-center {
+.Tenet-Stack--justify-center {
   justify-content: center;
 }
-.Acme-Stack--justify-end {
+.Tenet-Stack--justify-end {
   justify-content: flex-end;
 }
-.Acme-Stack--justify-between {
+.Tenet-Stack--justify-between {
   justify-content: space-between;
 }
 
-.Acme-Stack--wrap {
+.Tenet-Stack--wrap {
   flex-wrap: wrap;
 }
 
 /* Padding — from the space scale */
-.Acme-Stack--padding-none {
+.Tenet-Stack--padding-none {
   padding: 0;
 }
-.Acme-Stack--padding-condensed {
+.Tenet-Stack--padding-condensed {
   padding: var(--space-2);
 }
-.Acme-Stack--padding-normal {
+.Tenet-Stack--padding-normal {
   padding: var(--space-4);
 }
-.Acme-Stack--padding-spacious {
+.Tenet-Stack--padding-spacious {
   padding: var(--space-5);
 }
 
-.Acme-Stack__item--grow {
+.Tenet-Stack__item--grow {
   flex: 1;
   min-width: 0;
 }
