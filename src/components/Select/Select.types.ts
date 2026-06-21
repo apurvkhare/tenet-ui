@@ -1,17 +1,40 @@
-import type { SelectHTMLAttributes, ReactNode } from 'react';
-
 export type SelectSize = 'small' | 'medium' | 'large';
 
-// Omit native numeric `size` so our token-based scale can use the name.
-export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
+export interface SelectOption {
+  /** Value submitted / reported on change. */
+  value: string;
+  /** Visible option text. */
+  label: string;
+  /** Disable this option. */
+  disabled?: boolean;
+}
+
+export interface SelectProps {
+  /** The options to choose from. */
+  options: SelectOption[];
+  /** Controlled selected value. */
+  value?: string;
+  /** Uncontrolled initial value. */
+  defaultValue?: string;
+  /** Called with the newly selected value. */
+  onChange?: (value: string) => void;
+  /** Text shown when nothing is selected. */
+  placeholder?: string;
   /** Control height / font scale. */
   size?: SelectSize;
   /** Stretch to fill the available width. */
   block?: boolean;
-  /** Mark the field invalid (sets aria-invalid and a danger border). */
+  /** Invalid state (danger border + aria-invalid). */
   invalid?: boolean;
-  /** Placeholder shown as a disabled first option when no value is selected. */
-  placeholder?: string;
-  /** `<option>` / `<optgroup>` elements. */
-  children?: ReactNode;
+  /** Disable the control. */
+  disabled?: boolean;
+  /** Required (sets aria-required; pairs with FormControl). */
+  required?: boolean;
+  /** Form field name — emits a hidden input so the value submits with a form. */
+  name?: string;
+  /** Id applied to the trigger (FormControl sets this automatically). */
+  id?: string;
+  className?: string;
+  'aria-label'?: string;
+  'aria-describedby'?: string;
 }

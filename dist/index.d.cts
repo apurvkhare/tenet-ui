@@ -1,5 +1,5 @@
 import * as react from 'react';
-import { ButtonHTMLAttributes, ReactNode, HTMLAttributes, InputHTMLAttributes, TableHTMLAttributes, ThHTMLAttributes, TdHTMLAttributes, LabelHTMLAttributes, TextareaHTMLAttributes, SelectHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, ReactNode, HTMLAttributes, InputHTMLAttributes, TableHTMLAttributes, ThHTMLAttributes, TdHTMLAttributes, LabelHTMLAttributes, TextareaHTMLAttributes } from 'react';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 
 type ButtonVariant = 'default' | 'primary' | 'danger' | 'invisible';
@@ -219,25 +219,51 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 declare const Textarea: react.ForwardRefExoticComponent<TextareaProps & react.RefAttributes<HTMLTextAreaElement>>;
 
 type SelectSize = 'small' | 'medium' | 'large';
-interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
+interface SelectOption {
+    /** Value submitted / reported on change. */
+    value: string;
+    /** Visible option text. */
+    label: string;
+    /** Disable this option. */
+    disabled?: boolean;
+}
+interface SelectProps {
+    /** The options to choose from. */
+    options: SelectOption[];
+    /** Controlled selected value. */
+    value?: string;
+    /** Uncontrolled initial value. */
+    defaultValue?: string;
+    /** Called with the newly selected value. */
+    onChange?: (value: string) => void;
+    /** Text shown when nothing is selected. */
+    placeholder?: string;
     /** Control height / font scale. */
     size?: SelectSize;
     /** Stretch to fill the available width. */
     block?: boolean;
-    /** Mark the field invalid (sets aria-invalid and a danger border). */
+    /** Invalid state (danger border + aria-invalid). */
     invalid?: boolean;
-    /** Placeholder shown as a disabled first option when no value is selected. */
-    placeholder?: string;
-    /** `<option>` / `<optgroup>` elements. */
-    children?: ReactNode;
+    /** Disable the control. */
+    disabled?: boolean;
+    /** Required (sets aria-required; pairs with FormControl). */
+    required?: boolean;
+    /** Form field name — emits a hidden input so the value submits with a form. */
+    name?: string;
+    /** Id applied to the trigger (FormControl sets this automatically). */
+    id?: string;
+    className?: string;
+    'aria-label'?: string;
+    'aria-describedby'?: string;
 }
 
 /**
- * Tenet select. A real, accessible `<select>` with token-based chrome and a custom caret — use it
- * instead of a raw `<select>` or a div-based dropdown. Give it an accessible name via FormControl
- * or `aria-label`.
+ * Tenet select — a real ARIA listbox combobox (not a native `<select>`). Styled menu, full
+ * keyboard support (↑/↓/Home/End/Enter/Esc), typeahead, `aria-activedescendant`, click-outside,
+ * controlled or uncontrolled. Token-styled, theme-aware, and FormControl-compatible. Always give
+ * it an accessible name via FormControl or `aria-label`.
  */
-declare const Select: react.ForwardRefExoticComponent<SelectProps & react.RefAttributes<HTMLSelectElement>>;
+declare const Select: react.ForwardRefExoticComponent<SelectProps & react.RefAttributes<HTMLButtonElement>>;
 
 interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
     /** Visible label rendered next to the box. */
@@ -292,4 +318,4 @@ declare const Radio: react.ForwardRefExoticComponent<RadioProps & react.RefAttri
  */
 declare const RadioGroup: react.ForwardRefExoticComponent<RadioGroupProps & react.RefAttributes<HTMLFieldSetElement>>;
 
-export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, Card, type CardPadding, type CardProps, type CardVariant, type CellAlign, Checkbox, type CheckboxProps, FormControl, type FormControlCaptionProps, type FormControlLabelProps, type FormControlProps, type FormControlValidationProps, Label$1 as Label, type LabelProps, type LabelSize, type LabelVariant, Radio, RadioGroup, type RadioGroupProps, type RadioProps, Select, type SelectProps, type SelectSize, type SortDirection, Stack, type StackAlign, type StackDirection, type StackGap, type StackItemProps, type StackJustify, type StackPadding, type StackProps, Table, type TableActionsProps, type TableCellProps, type TableContainerProps, type TableDensity, type TableHeaderProps, type TableProps, type TableRowProps, type TableSectionProps, type TableSubtitleProps, type TableTitleProps, TextInput, type TextInputProps, type TextInputSize, Textarea, type TextareaProps, type TextareaResize, type ValidationVariant };
+export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, Card, type CardPadding, type CardProps, type CardVariant, type CellAlign, Checkbox, type CheckboxProps, FormControl, type FormControlCaptionProps, type FormControlLabelProps, type FormControlProps, type FormControlValidationProps, Label$1 as Label, type LabelProps, type LabelSize, type LabelVariant, Radio, RadioGroup, type RadioGroupProps, type RadioProps, Select, type SelectOption, type SelectProps, type SelectSize, type SortDirection, Stack, type StackAlign, type StackDirection, type StackGap, type StackItemProps, type StackJustify, type StackPadding, type StackProps, Table, type TableActionsProps, type TableCellProps, type TableContainerProps, type TableDensity, type TableHeaderProps, type TableProps, type TableRowProps, type TableSectionProps, type TableSubtitleProps, type TableTitleProps, TextInput, type TextInputProps, type TextInputSize, Textarea, type TextareaProps, type TextareaResize, type ValidationVariant };

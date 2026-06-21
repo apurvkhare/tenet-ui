@@ -1,4 +1,4 @@
-import { forwardRef, useId, Children, isValidElement, cloneElement, createContext, useContext } from 'react';
+import { forwardRef, useId, Children, isValidElement, cloneElement, useState, useRef, useCallback, useEffect, createContext, useContext } from 'react';
 import { jsxs, jsx } from 'react/jsx-runtime';
 
 // src/components/Button/Button.tsx
@@ -263,37 +263,213 @@ var Textarea = forwardRef(function Textarea2({ block = false, invalid = false, r
   );
 });
 var cx9 = (...parts) => parts.filter(Boolean).join(" ");
-var Select = forwardRef(function Select2({ size = "medium", block = false, invalid = false, placeholder, disabled, className, children, defaultValue, value, ...rest }, ref) {
-  const uncontrolledDefault = value === void 0 && defaultValue === void 0 && placeholder ? "" : defaultValue;
+function nextEnabled(options, from, dir) {
+  const n = options.length;
+  for (let step = 1; step <= n; step++) {
+    const i = (from + dir * step + n * step) % n;
+    if (!options[i]?.disabled) return i;
+  }
+  return from;
+}
+var firstEnabled = (o) => o.findIndex((x) => !x.disabled);
+var lastEnabled = (o) => {
+  for (let i = o.length - 1; i >= 0; i--) if (!o[i].disabled) return i;
+  return -1;
+};
+var Select = forwardRef(function Select2({
+  options,
+  value,
+  defaultValue,
+  onChange,
+  placeholder = "Select\u2026",
+  size = "medium",
+  block = false,
+  invalid = false,
+  disabled = false,
+  required = false,
+  name,
+  id,
+  className,
+  "aria-label": ariaLabel,
+  "aria-describedby": describedBy
+}, ref) {
+  const reactId = useId();
+  const triggerId = id ?? `${reactId}-trigger`;
+  const listboxId = `${reactId}-listbox`;
+  const optionId = (i) => `${reactId}-opt-${i}`;
+  const isControlled = value !== void 0;
+  const [internal, setInternal] = useState(defaultValue ?? "");
+  const current = isControlled ? value : internal;
+  const selectedIndex = options.findIndex((o) => o.value === current);
+  const selected = selectedIndex >= 0 ? options[selectedIndex] : void 0;
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(-1);
+  const wrapRef = useRef(null);
+  const listRef = useRef(null);
+  const typeahead = useRef({ buf: "", t: null });
+  const commit = useCallback(
+    (i) => {
+      const opt = options[i];
+      if (!opt || opt.disabled) return;
+      if (!isControlled) setInternal(opt.value);
+      onChange?.(opt.value);
+    },
+    [options, isControlled, onChange]
+  );
+  const openMenu = useCallback(() => {
+    if (disabled) return;
+    setActive(selectedIndex >= 0 ? selectedIndex : firstEnabled(options));
+    setOpen(true);
+  }, [disabled, selectedIndex, options]);
+  const closeMenu = useCallback(() => setOpen(false), []);
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [open]);
+  useEffect(() => {
+    if (!open || active < 0 || !listRef.current) return;
+    const el = listRef.current.querySelector(`#${CSS.escape(optionId(active))}`);
+    el?.scrollIntoView({ block: "nearest" });
+  }, [open, active]);
+  const runTypeahead = useCallback(
+    (ch) => {
+      const ta = typeahead.current;
+      if (ta.t) clearTimeout(ta.t);
+      ta.buf += ch.toLowerCase();
+      ta.t = setTimeout(() => ta.buf = "", 500);
+      const match = options.findIndex((o) => !o.disabled && o.label.toLowerCase().startsWith(ta.buf));
+      if (match >= 0) {
+        if (open) setActive(match);
+        else commit(match);
+      }
+    },
+    [options, open, commit]
+  );
+  const onKeyDown = (e) => {
+    if (disabled) return;
+    const key = e.key;
+    if (!open) {
+      if (key === "ArrowDown" || key === "ArrowUp" || key === "Enter" || key === " ") {
+        e.preventDefault();
+        openMenu();
+        return;
+      }
+      if (key.length === 1 && !e.metaKey && !e.ctrlKey && !e.altKey) runTypeahead(key);
+      return;
+    }
+    switch (key) {
+      case "ArrowDown":
+        e.preventDefault();
+        setActive((a) => nextEnabled(options, a < 0 ? -1 : a, 1));
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        setActive((a) => nextEnabled(options, a < 0 ? 0 : a, -1));
+        break;
+      case "Home":
+        e.preventDefault();
+        setActive(firstEnabled(options));
+        break;
+      case "End":
+        e.preventDefault();
+        setActive(lastEnabled(options));
+        break;
+      case "Enter":
+      case " ":
+        e.preventDefault();
+        if (active >= 0) {
+          commit(active);
+          setOpen(false);
+        }
+        break;
+      case "Escape":
+        e.preventDefault();
+        setOpen(false);
+        break;
+      case "Tab":
+        setOpen(false);
+        break;
+      default:
+        if (key.length === 1 && !e.metaKey && !e.ctrlKey && !e.altKey) {
+          e.preventDefault();
+          runTypeahead(key);
+        }
+    }
+  };
   return /* @__PURE__ */ jsxs(
     "span",
     {
+      ref: wrapRef,
       className: cx9(
         "Tenet-Select",
         `Tenet-Select--size-${size}`,
         block && "Tenet-Select--block",
         invalid && "Tenet-Select--invalid",
         disabled && "Tenet-Select--disabled",
+        open && "Tenet-Select--open",
         className
       ),
       children: [
         /* @__PURE__ */ jsxs(
-          "select",
+          "button",
           {
             ref,
-            className: "Tenet-Select__input",
-            disabled,
+            type: "button",
+            id: triggerId,
+            role: "combobox",
+            "aria-haspopup": "listbox",
+            "aria-expanded": open,
+            "aria-controls": listboxId,
+            "aria-activedescendant": open && active >= 0 ? optionId(active) : void 0,
+            "aria-label": ariaLabel,
             "aria-invalid": invalid || void 0,
-            value,
-            defaultValue: uncontrolledDefault,
-            ...rest,
+            "aria-required": required || void 0,
+            "aria-describedby": describedBy,
+            disabled,
+            className: "Tenet-Select__trigger",
+            onClick: () => open ? closeMenu() : openMenu(),
+            onKeyDown,
             children: [
-              placeholder && /* @__PURE__ */ jsx("option", { value: "", disabled: true, hidden: true, children: placeholder }),
-              children
+              /* @__PURE__ */ jsx("span", { className: cx9("Tenet-Select__value", !selected && "Tenet-Select__value--placeholder"), children: selected ? selected.label : placeholder }),
+              /* @__PURE__ */ jsx("span", { className: "Tenet-Select__caret", "aria-hidden": "true", children: "\u25BE" })
             ]
           }
         ),
-        /* @__PURE__ */ jsx("span", { className: "Tenet-Select__caret", "aria-hidden": "true", children: "\u25BE" })
+        open && /* @__PURE__ */ jsx("ul", { ref: listRef, id: listboxId, role: "listbox", className: "Tenet-Select__listbox", tabIndex: -1, children: options.map((opt, i) => {
+          const isSelected = opt.value === current;
+          return /* @__PURE__ */ jsxs(
+            "li",
+            {
+              id: optionId(i),
+              role: "option",
+              "aria-selected": isSelected,
+              "aria-disabled": opt.disabled || void 0,
+              className: cx9(
+                "Tenet-Select__option",
+                i === active && "Tenet-Select__option--active",
+                isSelected && "Tenet-Select__option--selected",
+                opt.disabled && "Tenet-Select__option--disabled"
+              ),
+              onMouseEnter: () => !opt.disabled && setActive(i),
+              onMouseDown: (e) => e.preventDefault(),
+              onClick: () => {
+                if (opt.disabled) return;
+                commit(i);
+                setOpen(false);
+              },
+              children: [
+                /* @__PURE__ */ jsx("span", { className: "Tenet-Select__check", "aria-hidden": "true", children: isSelected ? "\u2713" : "" }),
+                opt.label
+              ]
+            },
+            opt.value
+          );
+        }) }),
+        name && /* @__PURE__ */ jsx("input", { type: "hidden", name, value: current })
       ]
     }
   );

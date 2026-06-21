@@ -602,72 +602,111 @@
 /* src/components/Select/Select.css */
 .Tenet-Select {
   position: relative;
+  display: inline-block;
+}
+.Tenet-Select--block {
+  display: block;
+  width: 100%;
+}
+.Tenet-Select__trigger {
   display: inline-flex;
   align-items: center;
+  gap: var(--space-2);
+  width: 100%;
   height: var(--control-medium-size);
+  padding: 0 var(--space-2) 0 var(--space-3);
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium);
   background-color: var(--bgColor-default);
-  box-shadow: var(--shadow-resting);
-  transition: border-color 0.12s ease, box-shadow 0.12s ease;
-}
-.Tenet-Select:focus-within {
-  border-color: var(--borderColor-accent-emphasis);
-  box-shadow: 0 0 0 3px var(--bgColor-accent-muted);
-}
-.Tenet-Select--block {
-  display: flex;
-  width: 100%;
-}
-.Tenet-Select--invalid {
-  border-color: var(--fgColor-danger);
-}
-.Tenet-Select--disabled {
-  background-color: var(--bgColor-muted);
-  opacity: 0.7;
-}
-.Tenet-Select--size-small {
-  height: var(--control-small-size);
-}
-.Tenet-Select--size-large {
-  height: var(--control-large-size);
-}
-.Tenet-Select__input {
-  appearance: none;
-  -webkit-appearance: none;
-  flex: 1;
-  min-width: 0;
-  height: 100%;
-  border: none;
-  outline: none;
-  background: transparent;
   color: var(--fgColor-default);
+  box-shadow: var(--shadow-resting);
   font-family:
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
   font-size: var(--fontSize-1);
-  padding: 0 var(--space-2) 0 var(--space-3);
   cursor: pointer;
+  text-align: left;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
 }
-.Tenet-Select--size-small .Tenet-Select__input {
+.Tenet-Select--size-small .Tenet-Select__trigger {
+  height: var(--control-small-size);
   font-size: var(--fontSize-0);
-  padding-left: var(--space-2);
 }
-.Tenet-Select--size-large .Tenet-Select__input {
+.Tenet-Select--size-large .Tenet-Select__trigger {
+  height: var(--control-large-size);
   font-size: var(--fontSize-2);
-  padding-left: var(--space-4);
 }
-.Tenet-Select--disabled .Tenet-Select__input {
+.Tenet-Select__trigger:focus-visible {
+  outline: none;
+  border-color: var(--borderColor-accent-emphasis);
+  box-shadow: 0 0 0 3px var(--bgColor-accent-muted);
+}
+.Tenet-Select--invalid .Tenet-Select__trigger {
+  border-color: var(--fgColor-danger);
+}
+.Tenet-Select--disabled .Tenet-Select__trigger {
+  background-color: var(--bgColor-muted);
+  opacity: 0.7;
   cursor: not-allowed;
 }
-.Tenet-Select__caret {
-  display: inline-flex;
-  align-items: center;
-  padding-right: var(--space-3);
+.Tenet-Select__value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.Tenet-Select__value--placeholder {
   color: var(--fgColor-muted);
+}
+.Tenet-Select__caret {
+  color: var(--fgColor-muted);
+  font-size: var(--fontSize-0);
   pointer-events: none;
+}
+.Tenet-Select__listbox {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + var(--space-1));
+  left: 0;
+  width: 100%;
+  max-height: 240px;
+  overflow-y: auto;
+  margin: 0;
+  padding: var(--space-1);
+  list-style: none;
+  background-color: var(--bgColor-default);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  box-shadow: var(--shadow-medium);
+}
+.Tenet-Select__option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-2);
+  border-radius: var(--borderRadius-small);
+  font-size: var(--fontSize-1);
+  color: var(--fgColor-default);
+  cursor: pointer;
+  user-select: none;
+}
+.Tenet-Select__option--active {
+  background-color: var(--bgColor-muted);
+}
+.Tenet-Select__option--selected {
+  font-weight: var(--fontWeight-semibold);
+}
+.Tenet-Select__option--disabled {
+  color: var(--fgColor-muted);
+  cursor: not-allowed;
+}
+.Tenet-Select__check {
+  width: var(--base-size-16);
+  flex-shrink: 0;
+  color: var(--fgColor-accent);
   font-size: var(--fontSize-0);
 }
 

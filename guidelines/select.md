@@ -1,15 +1,17 @@
 # Select — usage guidelines
 
-**When to use:** choosing one option from a short, known list. Use `Select` (a real `<select>`) inside a `FormControl`; for long/searchable lists use an autocomplete instead.
+**When to use:** choosing one option from a known list. `Select` is a fully accessible listbox combobox (keyboard, typeahead, `aria-activedescendant`) — not a native `<select>`. Use it inside a `FormControl`.
 
 ## Rules
 
 - Give it an accessible name via `FormControl.Label` or `aria-label`.
-- Pass real `<option>` elements as children; use `placeholder` for an unselected prompt (it renders a disabled first option).
-- Use `size` / `block` from the scale; use `invalid` for validation.
-- **Never** build a div-based dropdown or hardcode the caret/border colors — the component owns them.
+- Pass choices as the `options` array (`{ value, label, disabled? }`); use `placeholder` for the unselected state.
+- Control it with `value` + `onChange(value)`, or leave uncontrolled with `defaultValue`. For form submission, pass `name` (it emits a hidden input).
+- Use `size` / `block` from the scale; use `invalid` for validation state.
+- **Never** build a div-based dropdown by hand — getting the ARIA listbox + keyboard right is exactly what this component does for you.
 
 ## Do / Don't
 
-- ✅ `<Select placeholder="Choose…"><option value="public">Public</option></Select>`
-- ❌ `<div className="dropdown" onClick={…}>` — not a select, not keyboard-accessible.
+- ✅ `<Select options={[{ value: 'public', label: 'Public' }]} placeholder="Choose…" />`
+- ✅ inside a form: `<FormControl><FormControl.Label>Visibility</FormControl.Label><Select options={…} /></FormControl>`
+- ❌ `<div className="dropdown" onClick={…}>` — not keyboard-accessible, no roles, no typeahead.

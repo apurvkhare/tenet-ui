@@ -7,6 +7,41 @@
   "source": "src/components/Select/Select.tsx",
   "props": [
     {
+      "name": "options",
+      "type": "{ value: string; label: string; disabled?: boolean }[]",
+      "required": true,
+      "defaultValue": "",
+      "description": "The options to choose from."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "defaultValue": "",
+      "description": "Controlled selected value."
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "defaultValue": "",
+      "description": "Uncontrolled initial value."
+    },
+    {
+      "name": "onChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "defaultValue": "",
+      "description": "Called with the newly selected value."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Select…",
+      "description": "Text shown when nothing is selected."
+    },
+    {
       "name": "size",
       "type": "'small' | 'medium' | 'large'",
       "required": false,
@@ -25,26 +60,20 @@
       "type": "boolean",
       "required": false,
       "defaultValue": "false",
-      "description": "Mark the field invalid (sets aria-invalid and a danger border)."
+      "description": "Invalid state (danger border + aria-invalid)."
     },
     {
-      "name": "placeholder",
+      "name": "name",
       "type": "string",
       "required": false,
       "defaultValue": "",
-      "description": "Placeholder shown as a disabled first option when no value is selected."
-    },
-    {
-      "name": "children",
-      "type": "ReactNode",
-      "required": false,
-      "defaultValue": "",
-      "description": "<option> / <optgroup> elements."
+      "description": "Form field name — emits a hidden input so the value submits with a form."
     }
   ],
   "stories": [
     { "id": "components-select--default" },
-    { "id": "components-select--with-placeholder" }
+    { "id": "components-select--with-placeholder" },
+    { "id": "components-select--with-disabled-option" }
   ],
   "subcomponents": []
 }
