@@ -1,0 +1,20 @@
+/* Tenet DataTable — toolbar chrome on top of the Table primitives. */
+.Tenet-DataTable__header {
+  padding: var(--space-4) var(--space-4) 0;
+}
+
+.Tenet-DataTable__toolbar {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+
+.Tenet-DataTable__search {
+  min-width: var(--base-size-32);
+  flex: 1 1 240px;
+  max-width: 360px;
+}
+
+.Tenet-DataTable__empty {
+  padding-block: var(--space-5);
+  color: var(--fgColor-muted);
+}

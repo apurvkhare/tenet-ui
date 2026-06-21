@@ -1,4 +1,4 @@
-import { forwardRef, useId, Children, isValidElement, cloneElement, useState, useRef, useCallback, useEffect, createContext, useContext } from 'react';
+import { forwardRef, useId, Children, isValidElement, cloneElement, useState, useRef, useCallback, useEffect, createContext, useContext, useMemo } from 'react';
 import { jsxs, jsx } from 'react/jsx-runtime';
 
 // src/components/Button/Button.tsx
@@ -563,7 +563,293 @@ var RadioGroup = forwardRef(function RadioGroup2({ name, label, caption, value, 
     }
   );
 });
+var cx12 = (...parts) => parts.filter(Boolean).join(" ");
+var Switch = forwardRef(function Switch2({ label, caption, size = "medium", invalid = false, id, className, disabled, ...rest }, ref) {
+  const generatedId = useId();
+  const inputId = id ?? generatedId;
+  const captionId = caption ? `${inputId}-caption` : void 0;
+  return /* @__PURE__ */ jsxs(
+    "span",
+    {
+      className: cx12(
+        "Tenet-Switch",
+        `Tenet-Switch--size-${size}`,
+        invalid && "Tenet-Switch--invalid",
+        disabled && "Tenet-Switch--disabled",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsxs("span", { className: "Tenet-Switch__control", children: [
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              ref,
+              id: inputId,
+              type: "checkbox",
+              role: "switch",
+              className: "Tenet-Switch__input",
+              disabled,
+              "aria-invalid": invalid || void 0,
+              "aria-describedby": captionId,
+              ...rest
+            }
+          ),
+          /* @__PURE__ */ jsx("span", { className: "Tenet-Switch__track", "aria-hidden": "true", children: /* @__PURE__ */ jsx("span", { className: "Tenet-Switch__knob" }) })
+        ] }),
+        label && /* @__PURE__ */ jsxs("span", { className: "Tenet-Switch__text", children: [
+          /* @__PURE__ */ jsx("label", { htmlFor: inputId, className: "Tenet-Switch__label", children: label }),
+          caption && /* @__PURE__ */ jsx("span", { id: captionId, className: "Tenet-Switch__caption", children: caption })
+        ] })
+      ]
+    }
+  );
+});
+var cx13 = (...parts) => parts.filter(Boolean).join(" ");
+var toText = (n) => n == null ? "" : String(n);
+var parse = (s) => {
+  const trimmed = s.trim();
+  if (trimmed === "") return null;
+  const n = Number(trimmed);
+  return Number.isNaN(n) ? null : n;
+};
+var clamp = (n, min, max) => {
+  let out = n;
+  if (min != null && out < min) out = min;
+  if (max != null && out > max) out = max;
+  return out;
+};
+var NumberInput = forwardRef(function NumberInput2({
+  value,
+  defaultValue,
+  onChange,
+  min,
+  max,
+  step = 1,
+  size = "medium",
+  block = false,
+  invalid = false,
+  className,
+  disabled,
+  id,
+  "aria-label": ariaLabel,
+  ...rest
+}, ref) {
+  const isControlled = value !== void 0;
+  const [text, setText] = useState(() => toText(isControlled ? value : defaultValue));
+  const innerRef = useRef(null);
+  useEffect(() => {
+    if (!isControlled) return;
+    if (parse(text) !== value) setText(toText(value));
+  }, [value]);
+  const current = parse(text);
+  const commit = (next) => {
+    if (!isControlled) setText(next);
+    onChange?.(parse(next));
+  };
+  const stepBy = (direction) => {
+    const base = current ?? min ?? 0;
+    const next = clamp(base + direction * step, min, max);
+    commit(toText(next));
+    innerRef.current?.focus();
+  };
+  const handleKeyDown = (e) => {
+    if (disabled) return;
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      stepBy(1);
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      stepBy(-1);
+    }
+  };
+  const decDisabled = disabled || min != null && current != null && current <= min;
+  const incDisabled = disabled || max != null && current != null && current >= max;
+  const setRef = (node) => {
+    innerRef.current = node;
+    if (typeof ref === "function") ref(node);
+    else if (ref) ref.current = node;
+  };
+  return /* @__PURE__ */ jsxs(
+    "span",
+    {
+      className: cx13(
+        "Tenet-NumberInput",
+        `Tenet-NumberInput--size-${size}`,
+        block && "Tenet-NumberInput--block",
+        invalid && "Tenet-NumberInput--invalid",
+        disabled && "Tenet-NumberInput--disabled",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsx(
+          "input",
+          {
+            ref: setRef,
+            id,
+            type: "text",
+            inputMode: "decimal",
+            role: "spinbutton",
+            "aria-label": ariaLabel,
+            "aria-valuenow": current ?? void 0,
+            "aria-valuemin": min,
+            "aria-valuemax": max,
+            "aria-invalid": invalid || void 0,
+            className: "Tenet-NumberInput__input",
+            value: text,
+            disabled,
+            onChange: (e) => commit(e.target.value),
+            onKeyDown: handleKeyDown,
+            ...rest
+          }
+        ),
+        /* @__PURE__ */ jsxs("span", { className: "Tenet-NumberInput__steppers", "aria-hidden": "true", children: [
+          /* @__PURE__ */ jsx(
+            "button",
+            {
+              type: "button",
+              tabIndex: -1,
+              className: "Tenet-NumberInput__stepper",
+              disabled: incDisabled,
+              "aria-label": "Increment",
+              onClick: () => stepBy(1),
+              children: "\u25B2"
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            "button",
+            {
+              type: "button",
+              tabIndex: -1,
+              className: "Tenet-NumberInput__stepper",
+              disabled: decDisabled,
+              "aria-label": "Decrement",
+              onClick: () => stepBy(-1),
+              children: "\u25BC"
+            }
+          )
+        ] })
+      ]
+    }
+  );
+});
+var cx14 = (...parts) => parts.filter(Boolean).join(" ");
+function readValue(column, row) {
+  if (column.accessor) return column.accessor(row);
+  return row[column.id];
+}
+var toText2 = (value) => value == null ? "" : String(value);
+function compare(a, b) {
+  if (typeof a === "number" && typeof b === "number") return a - b;
+  return toText2(a).localeCompare(toText2(b), void 0, { numeric: true });
+}
+function DataTable({
+  columns,
+  data,
+  rowKey,
+  searchable = true,
+  searchPlaceholder = "Search\u2026",
+  title,
+  subtitle,
+  actions,
+  density = "normal",
+  emptyText = "No matching rows.",
+  className
+}) {
+  const [search, setSearch] = useState("");
+  const [filters, setFilters] = useState({});
+  const [sort, setSort] = useState(null);
+  const filterableColumns = columns.filter((c) => c.filterable);
+  const filterOptions = useMemo(() => {
+    const map = {};
+    for (const column of filterableColumns) {
+      const seen = /* @__PURE__ */ new Set();
+      for (const row of data) {
+        const text = toText2(readValue(column, row));
+        if (text !== "") seen.add(text);
+      }
+      map[column.id] = Array.from(seen).sort((a, b) => a.localeCompare(b, void 0, { numeric: true }));
+    }
+    return map;
+  }, [data, columns]);
+  const rows = useMemo(() => {
+    let result = data;
+    for (const column of filterableColumns) {
+      const active = filters[column.id];
+      if (active) result = result.filter((row) => toText2(readValue(column, row)) === active);
+    }
+    const query = search.trim().toLowerCase();
+    if (query) {
+      result = result.filter(
+        (row) => columns.some((column) => toText2(readValue(column, row)).toLowerCase().includes(query))
+      );
+    }
+    if (sort) {
+      const column = columns.find((c) => c.id === sort.columnId);
+      if (column) {
+        const sign = sort.direction === "ascending" ? 1 : -1;
+        result = [...result].sort((a, b) => sign * compare(readValue(column, a), readValue(column, b)));
+      }
+    }
+    return result;
+  }, [data, columns, filters, search, sort]);
+  const toggleSort = (columnId) => {
+    setSort((prev) => {
+      if (prev?.columnId !== columnId) return { columnId, direction: "ascending" };
+      if (prev.direction === "ascending") return { columnId, direction: "descending" };
+      return null;
+    });
+  };
+  const sortDirectionFor = (columnId) => sort?.columnId === columnId ? sort.direction : "none";
+  return /* @__PURE__ */ jsx("div", { className: cx14("Tenet-DataTable", className), children: /* @__PURE__ */ jsxs(Table2.Container, { children: [
+    (title || subtitle || actions) && /* @__PURE__ */ jsxs(Stack2, { direction: "horizontal", align: "center", justify: "between", className: "Tenet-DataTable__header", children: [
+      /* @__PURE__ */ jsxs(Stack2.Item, { grow: true, children: [
+        title && /* @__PURE__ */ jsx(Table2.Title, { children: title }),
+        subtitle && /* @__PURE__ */ jsx(Table2.Subtitle, { children: subtitle })
+      ] }),
+      actions
+    ] }),
+    (searchable || filterableColumns.length > 0) && /* @__PURE__ */ jsxs(Stack2, { direction: "horizontal", gap: "condensed", align: "center", wrap: true, className: "Tenet-DataTable__toolbar", children: [
+      searchable && /* @__PURE__ */ jsx(
+        TextInput,
+        {
+          "aria-label": "Search",
+          leadingVisual: /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "\u{1F50D}" }),
+          placeholder: searchPlaceholder,
+          value: search,
+          onChange: (e) => setSearch(e.target.value),
+          className: "Tenet-DataTable__search"
+        }
+      ),
+      filterableColumns.map((column) => /* @__PURE__ */ jsx(
+        Select,
+        {
+          "aria-label": `Filter by ${column.id}`,
+          value: filters[column.id] ?? "",
+          onChange: (value) => setFilters((prev) => ({ ...prev, [column.id]: value })),
+          options: [
+            { value: "", label: "All" },
+            ...filterOptions[column.id].map((v) => ({ value: v, label: v }))
+          ]
+        },
+        column.id
+      ))
+    ] }),
+    /* @__PURE__ */ jsxs(Table2, { density, children: [
+      /* @__PURE__ */ jsx(Table2.Head, { children: /* @__PURE__ */ jsx(Table2.Row, { children: columns.map((column) => /* @__PURE__ */ jsx(
+        Table2.Header,
+        {
+          align: column.align,
+          sortDirection: column.sortable ? sortDirectionFor(column.id) : void 0,
+          onClick: column.sortable ? () => toggleSort(column.id) : void 0,
+          children: column.header
+        },
+        column.id
+      )) }) }),
+      /* @__PURE__ */ jsx(Table2.Body, { children: rows.length === 0 ? /* @__PURE__ */ jsx(Table2.Row, { children: /* @__PURE__ */ jsx(Table2.Cell, { align: "center", colSpan: columns.length, className: "Tenet-DataTable__empty", children: emptyText }) }) : rows.map((row, index) => /* @__PURE__ */ jsx(Table2.Row, { children: columns.map((column) => /* @__PURE__ */ jsx(Table2.Cell, { align: column.align, children: column.cell ? column.cell(row) : toText2(readValue(column, row)) }, column.id)) }, rowKey ? rowKey(row, index) : index)) })
+    ] })
+  ] }) });
+}
 
-export { Button, Card, Checkbox, FormControl2 as FormControl, Label, Radio, RadioGroup, Select, Stack2 as Stack, Table2 as Table, TextInput, Textarea };
+export { Button, Card, Checkbox, DataTable, FormControl2 as FormControl, Label, NumberInput, Radio, RadioGroup, Select, Stack2 as Stack, Switch, Table2 as Table, TextInput, Textarea };
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

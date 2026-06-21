@@ -12,3 +12,6 @@ export * from './components/Textarea';
 export * from './components/Select';
 export * from './components/Checkbox';
 export * from './components/Radio';
+export * from './components/Switch';
+export * from './components/NumberInput';
+export * from './components/DataTable';

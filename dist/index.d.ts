@@ -318,4 +318,100 @@ declare const Radio: react.ForwardRefExoticComponent<RadioProps & react.RefAttri
  */
 declare const RadioGroup: react.ForwardRefExoticComponent<RadioGroupProps & react.RefAttributes<HTMLFieldSetElement>>;
 
-export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, Card, type CardPadding, type CardProps, type CardVariant, type CellAlign, Checkbox, type CheckboxProps, FormControl, type FormControlCaptionProps, type FormControlLabelProps, type FormControlProps, type FormControlValidationProps, Label$1 as Label, type LabelProps, type LabelSize, type LabelVariant, Radio, RadioGroup, type RadioGroupProps, type RadioProps, Select, type SelectOption, type SelectProps, type SelectSize, type SortDirection, Stack, type StackAlign, type StackDirection, type StackGap, type StackItemProps, type StackJustify, type StackPadding, type StackProps, Table, type TableActionsProps, type TableCellProps, type TableContainerProps, type TableDensity, type TableHeaderProps, type TableProps, type TableRowProps, type TableSectionProps, type TableSubtitleProps, type TableTitleProps, TextInput, type TextInputProps, type TextInputSize, Textarea, type TextareaProps, type TextareaResize, type ValidationVariant };
+type SwitchSize = 'small' | 'medium';
+interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+    /** Visible label rendered next to the switch. */
+    label?: ReactNode;
+    /** Optional helper text under the label. */
+    caption?: ReactNode;
+    /** Control track / knob scale. */
+    size?: SwitchSize;
+    /** Mark the field as invalid (sets `aria-invalid` and a danger border). */
+    invalid?: boolean;
+}
+
+/**
+ * Tenet switch. A real `<input type="checkbox" role="switch">` styled as a sliding toggle —
+ * use it for an immediate on/off setting (not for a value you submit on a separate save).
+ * Keyboard + screen-reader behaviour comes from the native input; the track/knob are CSS.
+ */
+declare const Switch: react.ForwardRefExoticComponent<SwitchProps & react.RefAttributes<HTMLInputElement>>;
+
+type NumberInputSize = 'small' | 'medium' | 'large';
+interface NumberInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'value' | 'defaultValue' | 'onChange'> {
+    /** Controlled value. Use `null`/`undefined` for an empty field. */
+    value?: number | null;
+    /** Uncontrolled initial value. */
+    defaultValue?: number | null;
+    /** Called with the parsed numeric value (or `null` when the field is cleared). */
+    onChange?: (value: number | null) => void;
+    /** Smallest allowed value. Stepping/clamping respects it. */
+    min?: number;
+    /** Largest allowed value. Stepping/clamping respects it. */
+    max?: number;
+    /** Increment applied by the steppers and arrow keys. */
+    step?: number;
+    /** Control height / font scale. */
+    size?: NumberInputSize;
+    /** Stretch the field to fill the available width. */
+    block?: boolean;
+    /** Mark the field as invalid (sets `aria-invalid` and a danger border). */
+    invalid?: boolean;
+}
+
+/**
+ * Tenet number field. A text input constrained to numbers, with +/- steppers and arrow-key
+ * stepping that respect `min` / `max` / `step`. Reports a parsed `number | null` (not a string)
+ * via `onChange`, so callers never re-parse. Always give it an accessible name.
+ */
+declare const NumberInput: react.ForwardRefExoticComponent<NumberInputProps & react.RefAttributes<HTMLInputElement>>;
+
+interface DataTableColumn<Row> {
+    /** Stable key — also used to read the cell value when `accessor` is omitted. */
+    id: string;
+    /** Column heading text. */
+    header: ReactNode;
+    /** Read the raw value for a row. Defaults to `row[id]`. Used for sorting + filtering. */
+    accessor?: (row: Row) => unknown;
+    /** Custom cell renderer. Defaults to rendering the accessor value as text. */
+    cell?: (row: Row) => ReactNode;
+    /** Cell + header alignment. */
+    align?: CellAlign;
+    /** Allow clicking the header to sort by this column. */
+    sortable?: boolean;
+    /** Show a per-column dropdown filter built from the distinct values in the data. */
+    filterable?: boolean;
+}
+interface DataTableProps<Row> {
+    /** Column definitions, left to right. */
+    columns: DataTableColumn<Row>[];
+    /** The rows to render. */
+    data: Row[];
+    /** Stable React key for a row. Defaults to the row index. */
+    rowKey?: (row: Row, index: number) => string | number;
+    /** Show the global search box. */
+    searchable?: boolean;
+    /** Placeholder for the global search box. */
+    searchPlaceholder?: string;
+    /** Optional surface title (rendered in a `Table.Container`). */
+    title?: ReactNode;
+    /** Optional surface subtitle. */
+    subtitle?: ReactNode;
+    /** Actions rendered at the top-right of the toolbar (e.g. a "New" button). */
+    actions?: ReactNode;
+    /** Row height / cell padding scale. */
+    density?: TableDensity;
+    /** Message shown when no rows match the active filters. */
+    emptyText?: ReactNode;
+    className?: string;
+}
+
+/**
+ * Tenet data table. A higher-level table driven by `columns` + `data`: optional global search,
+ * per-column dropdown filters, and client-side sort — all built on the `Table` primitives and
+ * the `TextInput` / `Select` fields, so it stays on-system. For a fully custom layout, drop down
+ * to `Table.*` directly.
+ */
+declare function DataTable<Row>({ columns, data, rowKey, searchable, searchPlaceholder, title, subtitle, actions, density, emptyText, className, }: DataTableProps<Row>): react_jsx_runtime.JSX.Element;
+
+export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, Card, type CardPadding, type CardProps, type CardVariant, type CellAlign, Checkbox, type CheckboxProps, DataTable, type DataTableColumn, type DataTableProps, FormControl, type FormControlCaptionProps, type FormControlLabelProps, type FormControlProps, type FormControlValidationProps, Label$1 as Label, type LabelProps, type LabelSize, type LabelVariant, NumberInput, type NumberInputProps, type NumberInputSize, Radio, RadioGroup, type RadioGroupProps, type RadioProps, Select, type SelectOption, type SelectProps, type SelectSize, type SortDirection, Stack, type StackAlign, type StackDirection, type StackGap, type StackItemProps, type StackJustify, type StackPadding, type StackProps, Switch, type SwitchProps, type SwitchSize, Table, type TableActionsProps, type TableCellProps, type TableContainerProps, type TableDensity, type TableHeaderProps, type TableProps, type TableRowProps, type TableSectionProps, type TableSubtitleProps, type TableTitleProps, TextInput, type TextInputProps, type TextInputSize, Textarea, type TextareaProps, type TextareaResize, type ValidationVariant };

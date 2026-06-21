@@ -694,4 +694,203 @@
   gap: var(--space-2);
   margin-top: var(--space-2);
 }
+
+/* src/components/Switch/Switch.css */
+.Tenet-Switch {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+.Tenet-Switch__control {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-top: var(--base-size-4);
+}
+.Tenet-Switch__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.Tenet-Switch__track {
+  display: inline-flex;
+  align-items: center;
+  width: var(--base-size-40);
+  height: var(--base-size-24);
+  padding: 0 var(--base-size-4);
+  border-radius: var(--borderRadius-full);
+  background-color: var(--bgColor-emphasis);
+  transition: background-color 0.16s ease;
+}
+.Tenet-Switch__knob {
+  width: var(--base-size-16);
+  height: var(--base-size-16);
+  border-radius: var(--borderRadius-full);
+  background-color: var(--fgColor-onEmphasis);
+  transition: transform 0.16s ease;
+}
+.Tenet-Switch__input:checked + .Tenet-Switch__track {
+  background-color: var(--bgColor-accent-emphasis);
+}
+.Tenet-Switch__input:checked + .Tenet-Switch__track .Tenet-Switch__knob {
+  transform: translateX(var(--base-size-16));
+}
+.Tenet-Switch__input:focus-visible + .Tenet-Switch__track {
+  outline: 2px solid var(--borderColor-accent-emphasis);
+  outline-offset: 2px;
+}
+.Tenet-Switch--size-small .Tenet-Switch__track {
+  width: var(--base-size-32);
+  height: var(--base-size-16);
+  padding: 0 2px;
+}
+.Tenet-Switch--size-small .Tenet-Switch__knob {
+  width: var(--base-size-12);
+  height: var(--base-size-12);
+}
+.Tenet-Switch--size-small .Tenet-Switch__input:checked + .Tenet-Switch__track .Tenet-Switch__knob {
+  transform: translateX(var(--base-size-16));
+}
+.Tenet-Switch--invalid .Tenet-Switch__track {
+  outline: var(--borderWidth-thin) solid var(--fgColor-danger);
+}
+.Tenet-Switch--disabled {
+  opacity: 0.6;
+}
+.Tenet-Switch--disabled .Tenet-Switch__input,
+.Tenet-Switch--disabled .Tenet-Switch__label {
+  cursor: not-allowed;
+}
+.Tenet-Switch__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.Tenet-Switch__label {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: var(--fontSize-1);
+  color: var(--fgColor-default);
+  cursor: pointer;
+}
+.Tenet-Switch__caption {
+  font-size: var(--fontSize-0);
+  color: var(--fgColor-muted);
+}
+
+/* src/components/NumberInput/NumberInput.css */
+.Tenet-NumberInput {
+  display: inline-flex;
+  align-items: stretch;
+  height: var(--control-medium-size);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  background-color: var(--bgColor-default);
+  color: var(--fgColor-default);
+  box-shadow: var(--shadow-resting);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+  overflow: hidden;
+}
+.Tenet-NumberInput:focus-within {
+  border-color: var(--borderColor-accent-emphasis);
+  box-shadow: 0 0 0 3px var(--bgColor-accent-muted);
+}
+.Tenet-NumberInput--block {
+  display: flex;
+  width: 100%;
+}
+.Tenet-NumberInput--invalid {
+  border-color: var(--fgColor-danger);
+}
+.Tenet-NumberInput--disabled {
+  background-color: var(--bgColor-muted);
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.Tenet-NumberInput--size-small {
+  height: var(--control-small-size);
+}
+.Tenet-NumberInput--size-large {
+  height: var(--control-large-size);
+}
+.Tenet-NumberInput__input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 var(--space-3);
+  border: none;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: var(--fontSize-1);
+}
+.Tenet-NumberInput--size-small .Tenet-NumberInput__input {
+  padding: 0 var(--space-2);
+  font-size: var(--fontSize-0);
+}
+.Tenet-NumberInput--size-large .Tenet-NumberInput__input {
+  padding: 0 var(--space-4);
+  font-size: var(--fontSize-2);
+}
+.Tenet-NumberInput__steppers {
+  display: flex;
+  flex-direction: column;
+  border-left: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+.Tenet-NumberInput__stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: var(--base-size-24);
+  padding: 0;
+  border: none;
+  background-color: var(--bgColor-muted);
+  color: var(--fgColor-muted);
+  font-size: 8px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+.Tenet-NumberInput__stepper:first-child {
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+.Tenet-NumberInput__stepper:hover:not(:disabled) {
+  background-color: var(--bgColor-accent-muted);
+  color: var(--fgColor-accent);
+}
+.Tenet-NumberInput__stepper:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* src/components/DataTable/DataTable.css */
+.Tenet-DataTable__header {
+  padding: var(--space-4) var(--space-4) 0;
+}
+.Tenet-DataTable__toolbar {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+.Tenet-DataTable__search {
+  min-width: var(--base-size-32);
+  flex: 1 1 240px;
+  max-width: 360px;
+}
+.Tenet-DataTable__empty {
+  padding-block: var(--space-5);
+  color: var(--fgColor-muted);
+}
 /*# sourceMappingURL=index.css.map */
