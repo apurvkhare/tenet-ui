@@ -852,10 +852,310 @@ function DataTable({
   ] }) });
 }
 
+// src/components/Calendar/dateUtils.ts
+var startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+var startOfMonth = (d) => new Date(d.getFullYear(), d.getMonth(), 1);
+var addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+var addMonths = (d, n) => new Date(d.getFullYear(), d.getMonth() + n, d.getDate());
+var isSameDay = (a, b) => !!a && !!b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+var isSameMonth = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth();
+var isOutOfRange = (day, min, max) => {
+  const t = startOfDay(day).getTime();
+  if (min && t < startOfDay(min).getTime()) return true;
+  if (max && t > startOfDay(max).getTime()) return true;
+  return false;
+};
+var clampToRange = (day, min, max) => {
+  if (min && startOfDay(day).getTime() < startOfDay(min).getTime()) return startOfDay(min);
+  if (max && startOfDay(day).getTime() > startOfDay(max).getTime()) return startOfDay(max);
+  return day;
+};
+var dayKey = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+function monthGrid(month, weekStartsOn) {
+  const first = startOfMonth(month);
+  const offset = (first.getDay() - weekStartsOn + 7) % 7;
+  const gridStart = addDays(first, -offset);
+  return Array.from({ length: 42 }, (_, i) => addDays(gridStart, i));
+}
+function weekdayLabels(weekStartsOn, locale) {
+  const fmt = new Intl.DateTimeFormat(locale, { weekday: "short" });
+  const sunday = new Date(2023, 0, 1);
+  return Array.from({ length: 7 }, (_, i) => fmt.format(addDays(sunday, (i + weekStartsOn) % 7)));
+}
+var formatMonthYear = (d, locale) => new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" }).format(d);
+var formatFullDate = (d, locale) => new Intl.DateTimeFormat(locale, { weekday: "long", month: "long", day: "numeric", year: "numeric" }).format(d);
+var formatDate = (d, locale) => new Intl.DateTimeFormat(locale, { month: "short", day: "numeric", year: "numeric" }).format(d);
+var cx15 = (...parts) => parts.filter(Boolean).join(" ");
+function Calendar({
+  value,
+  defaultValue,
+  onChange,
+  month,
+  defaultMonth,
+  onMonthChange,
+  min,
+  max,
+  weekStartsOn = 0,
+  locale,
+  className,
+  "aria-label": ariaLabel
+}) {
+  const today = startOfDay(/* @__PURE__ */ new Date());
+  const isControlled = value !== void 0;
+  const [internal, setInternal] = react.useState(defaultValue ?? null);
+  const selected = isControlled ? value ?? null : internal;
+  const monthControlled = month !== void 0;
+  const [internalMonth, setInternalMonth] = react.useState(
+    () => startOfMonth(defaultMonth ?? selected ?? today)
+  );
+  const visibleMonth = monthControlled ? startOfMonth(month) : internalMonth;
+  const [focused, setFocused] = react.useState(() => clampToRange(selected ?? today, min, max));
+  const gridRef = react.useRef(null);
+  const shouldFocus = react.useRef(false);
+  react.useEffect(() => {
+    if (!shouldFocus.current) return;
+    shouldFocus.current = false;
+    gridRef.current?.querySelector(`[data-day="${dayKey(focused)}"]`)?.focus();
+  }, [focused]);
+  const setMonth = (next) => {
+    const m = startOfMonth(next);
+    if (!monthControlled) setInternalMonth(m);
+    onMonthChange?.(m);
+  };
+  const select = (day) => {
+    if (isOutOfRange(day, min, max)) return;
+    if (!isControlled) setInternal(day);
+    onChange?.(day);
+    if (!isSameMonth(day, visibleMonth)) setMonth(day);
+  };
+  const moveFocus = (next) => {
+    const clamped = clampToRange(next, min, max);
+    setFocused(clamped);
+    shouldFocus.current = true;
+    if (!isSameMonth(clamped, visibleMonth)) setMonth(clamped);
+  };
+  const onKeyDown = (e) => {
+    switch (e.key) {
+      case "ArrowLeft":
+        e.preventDefault();
+        moveFocus(addDays(focused, -1));
+        break;
+      case "ArrowRight":
+        e.preventDefault();
+        moveFocus(addDays(focused, 1));
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        moveFocus(addDays(focused, -7));
+        break;
+      case "ArrowDown":
+        e.preventDefault();
+        moveFocus(addDays(focused, 7));
+        break;
+      case "Home":
+        e.preventDefault();
+        moveFocus(addDays(focused, -((focused.getDay() - weekStartsOn + 7) % 7)));
+        break;
+      case "End":
+        e.preventDefault();
+        moveFocus(addDays(focused, 6 - (focused.getDay() - weekStartsOn + 7) % 7));
+        break;
+      case "PageUp":
+        e.preventDefault();
+        moveFocus(addMonths(focused, -1));
+        break;
+      case "PageDown":
+        e.preventDefault();
+        moveFocus(addMonths(focused, 1));
+        break;
+      case "Enter":
+      case " ":
+        e.preventDefault();
+        select(focused);
+        break;
+    }
+  };
+  const weekdays = weekdayLabels(weekStartsOn, locale);
+  const days = monthGrid(visibleMonth, weekStartsOn);
+  const weeks = Array.from({ length: 6 }, (_, w) => days.slice(w * 7, w * 7 + 7));
+  const prevDisabled = !!min && startOfMonth(visibleMonth).getTime() <= startOfMonth(min).getTime();
+  const nextDisabled = !!max && startOfMonth(visibleMonth).getTime() >= startOfMonth(max).getTime();
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cx15("Tenet-Calendar", className), role: "group", "aria-label": ariaLabel ?? "Calendar", children: [
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "Tenet-Calendar__header", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(
+        "button",
+        {
+          type: "button",
+          className: "Tenet-Calendar__nav",
+          "aria-label": "Previous month",
+          disabled: prevDisabled,
+          onClick: () => setMonth(addMonths(visibleMonth, -1)),
+          children: "\u2039"
+        }
+      ),
+      /* @__PURE__ */ jsxRuntime.jsx("div", { className: "Tenet-Calendar__heading", "aria-live": "polite", children: formatMonthYear(visibleMonth, locale) }),
+      /* @__PURE__ */ jsxRuntime.jsx(
+        "button",
+        {
+          type: "button",
+          className: "Tenet-Calendar__nav",
+          "aria-label": "Next month",
+          disabled: nextDisabled,
+          onClick: () => setMonth(addMonths(visibleMonth, 1)),
+          children: "\u203A"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { ref: gridRef, className: "Tenet-Calendar__grid", role: "grid", "aria-label": formatMonthYear(visibleMonth, locale), onKeyDown, children: [
+      /* @__PURE__ */ jsxRuntime.jsx("div", { className: "Tenet-Calendar__weekrow", role: "row", children: weekdays.map((label, i) => /* @__PURE__ */ jsxRuntime.jsx("span", { role: "columnheader", className: "Tenet-Calendar__weekday", "aria-label": label, children: label.slice(0, 2) }, i)) }),
+      weeks.map((week, wi) => /* @__PURE__ */ jsxRuntime.jsx("div", { className: "Tenet-Calendar__weekrow", role: "row", children: week.map((day) => {
+        const inMonth = isSameMonth(day, visibleMonth);
+        const disabled = isOutOfRange(day, min, max);
+        const isSelected = isSameDay(day, selected);
+        const isToday = isSameDay(day, today);
+        const isFocusTarget = isSameDay(day, focused);
+        return /* @__PURE__ */ jsxRuntime.jsx("div", { role: "gridcell", "aria-selected": isSelected, className: "Tenet-Calendar__cell", children: /* @__PURE__ */ jsxRuntime.jsx(
+          "button",
+          {
+            type: "button",
+            "data-day": dayKey(day),
+            tabIndex: isFocusTarget ? 0 : -1,
+            disabled,
+            "aria-label": formatFullDate(day, locale),
+            "aria-current": isToday ? "date" : void 0,
+            className: cx15(
+              "Tenet-Calendar__day",
+              !inMonth && "Tenet-Calendar__day--outside",
+              isSelected && "Tenet-Calendar__day--selected",
+              isToday && !isSelected && "Tenet-Calendar__day--today"
+            ),
+            onClick: () => select(day),
+            onFocus: () => setFocused(day),
+            children: day.getDate()
+          }
+        ) }, dayKey(day));
+      }) }, wi))
+    ] })
+  ] });
+}
+var cx16 = (...parts) => parts.filter(Boolean).join(" ");
+var DatePicker = react.forwardRef(function DatePicker2({
+  value,
+  defaultValue,
+  onChange,
+  min,
+  max,
+  weekStartsOn = 0,
+  locale,
+  placeholder = "Select a date\u2026",
+  size = "medium",
+  block = false,
+  invalid = false,
+  disabled = false,
+  required = false,
+  name,
+  id,
+  className,
+  "aria-label": ariaLabel,
+  "aria-describedby": describedBy
+}, ref) {
+  const reactId = react.useId();
+  const triggerId = id ?? `${reactId}-trigger`;
+  const dialogId = `${reactId}-dialog`;
+  const isControlled = value !== void 0;
+  const [internal, setInternal] = react.useState(defaultValue ?? null);
+  const selected = isControlled ? value ?? null : internal;
+  const [open, setOpen] = react.useState(false);
+  const wrapRef = react.useRef(null);
+  const close = (refocus = true) => {
+    setOpen(false);
+    if (refocus) wrapRef.current?.querySelector(".Tenet-DatePicker__trigger")?.focus();
+  };
+  react.useEffect(() => {
+    if (!open) return;
+    const onDown = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [open]);
+  react.useEffect(() => {
+    if (!open) return;
+    const el = wrapRef.current?.querySelector('.Tenet-Calendar__day[tabindex="0"]');
+    el?.focus();
+  }, [open]);
+  const handleSelect = (date) => {
+    if (!isControlled) setInternal(date);
+    onChange?.(date);
+    close();
+  };
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "span",
+    {
+      ref: wrapRef,
+      className: cx16(
+        "Tenet-DatePicker",
+        `Tenet-DatePicker--size-${size}`,
+        block && "Tenet-DatePicker--block",
+        invalid && "Tenet-DatePicker--invalid",
+        disabled && "Tenet-DatePicker--disabled",
+        className
+      ),
+      onKeyDown: (e) => {
+        if (e.key === "Escape" && open) {
+          e.preventDefault();
+          close();
+        }
+      },
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsxs(
+          "button",
+          {
+            ref,
+            type: "button",
+            id: triggerId,
+            "aria-haspopup": "dialog",
+            "aria-expanded": open,
+            "aria-controls": open ? dialogId : void 0,
+            "aria-label": ariaLabel,
+            "aria-invalid": invalid || void 0,
+            "aria-required": required || void 0,
+            "aria-describedby": describedBy,
+            disabled,
+            className: "Tenet-DatePicker__trigger",
+            onClick: () => !disabled && setOpen((o) => !o),
+            children: [
+              /* @__PURE__ */ jsxRuntime.jsx("span", { className: "Tenet-DatePicker__icon", "aria-hidden": "true", children: "\u{1F4C5}" }),
+              /* @__PURE__ */ jsxRuntime.jsx("span", { className: cx16("Tenet-DatePicker__value", !selected && "Tenet-DatePicker__value--placeholder"), children: selected ? formatDate(selected, locale) : placeholder })
+            ]
+          }
+        ),
+        open && /* @__PURE__ */ jsxRuntime.jsx("div", { id: dialogId, role: "dialog", "aria-modal": "false", "aria-label": ariaLabel ?? "Choose date", className: "Tenet-DatePicker__popover", children: /* @__PURE__ */ jsxRuntime.jsx(
+          Calendar,
+          {
+            value: selected,
+            defaultMonth: selected ?? void 0,
+            onChange: handleSelect,
+            min,
+            max,
+            weekStartsOn,
+            locale,
+            "aria-label": ariaLabel ?? "Choose date",
+            className: "Tenet-DatePicker__calendar"
+          }
+        ) }),
+        name && /* @__PURE__ */ jsxRuntime.jsx("input", { type: "hidden", name, value: selected ? dayKey(selected) : "" })
+      ]
+    }
+  );
+});
+
 exports.Button = Button;
+exports.Calendar = Calendar;
 exports.Card = Card;
 exports.Checkbox = Checkbox;
 exports.DataTable = DataTable;
+exports.DatePicker = DatePicker;
 exports.FormControl = FormControl2;
 exports.Label = Label;
 exports.NumberInput = NumberInput;

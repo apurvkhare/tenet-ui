@@ -72,6 +72,94 @@
       ],
       "subcomponents": []
     },
+    "calendar": {
+      "id": "calendar",
+      "name": "Calendar",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Calendar/Calendar.tsx",
+      "props": [
+        {
+          "name": "value",
+          "type": "Date | null",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled selected date."
+        },
+        {
+          "name": "defaultValue",
+          "type": "Date | null",
+          "required": false,
+          "defaultValue": "",
+          "description": "Uncontrolled initial selected date."
+        },
+        {
+          "name": "onChange",
+          "type": "(date: Date) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called with the chosen date."
+        },
+        {
+          "name": "month",
+          "type": "Date",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled visible month."
+        },
+        {
+          "name": "defaultMonth",
+          "type": "Date",
+          "required": false,
+          "defaultValue": "selected | today",
+          "description": "Uncontrolled initial visible month."
+        },
+        {
+          "name": "min",
+          "type": "Date",
+          "required": false,
+          "defaultValue": "",
+          "description": "Earliest selectable day (inclusive)."
+        },
+        {
+          "name": "max",
+          "type": "Date",
+          "required": false,
+          "defaultValue": "",
+          "description": "Latest selectable day (inclusive)."
+        },
+        {
+          "name": "weekStartsOn",
+          "type": "0 | 1",
+          "required": false,
+          "defaultValue": "0",
+          "description": "First day of the week (0 = Sunday, 1 = Monday)."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "defaultValue": "runtime locale",
+          "description": "BCP-47 locale for month / weekday formatting."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-calendar--default"
+        },
+        {
+          "id": "components-calendar--with-selection"
+        },
+        {
+          "id": "components-calendar--monday-start"
+        },
+        {
+          "id": "components-calendar--with-range"
+        }
+      ],
+      "subcomponents": []
+    },
     "card": {
       "id": "card",
       "name": "Card",
@@ -254,6 +342,122 @@
         },
         {
           "id": "components-datatable--search-only"
+        }
+      ],
+      "subcomponents": []
+    },
+    "date-picker": {
+      "id": "date-picker",
+      "name": "DatePicker",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/DatePicker/DatePicker.tsx",
+      "props": [
+        {
+          "name": "value",
+          "type": "Date | null",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled selected date."
+        },
+        {
+          "name": "defaultValue",
+          "type": "Date | null",
+          "required": false,
+          "defaultValue": "",
+          "description": "Uncontrolled initial selected date."
+        },
+        {
+          "name": "onChange",
+          "type": "(date: Date) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called with the chosen date."
+        },
+        {
+          "name": "min",
+          "type": "Date",
+          "required": false,
+          "defaultValue": "",
+          "description": "Earliest selectable day (inclusive)."
+        },
+        {
+          "name": "max",
+          "type": "Date",
+          "required": false,
+          "defaultValue": "",
+          "description": "Latest selectable day (inclusive)."
+        },
+        {
+          "name": "weekStartsOn",
+          "type": "0 | 1",
+          "required": false,
+          "defaultValue": "0",
+          "description": "First day of the week (0 = Sunday, 1 = Monday)."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "defaultValue": "runtime locale",
+          "description": "BCP-47 locale for the displayed date + calendar."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Select a date…",
+          "description": "Trigger text when no date is selected."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Control height / font scale."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Stretch the trigger to fill the available width."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Invalid state (danger border + aria-invalid)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Disable the control."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Form field name — emits a hidden yyyy-mm-dd input."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-datepicker--default"
+        },
+        {
+          "id": "components-datepicker--with-value"
+        },
+        {
+          "id": "components-datepicker--with-range"
+        },
+        {
+          "id": "components-datepicker--disabled"
         }
       ],
       "subcomponents": []

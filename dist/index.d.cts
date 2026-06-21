@@ -414,4 +414,84 @@ interface DataTableProps<Row> {
  */
 declare function DataTable<Row>({ columns, data, rowKey, searchable, searchPlaceholder, title, subtitle, actions, density, emptyText, className, }: DataTableProps<Row>): react_jsx_runtime.JSX.Element;
 
-export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, Card, type CardPadding, type CardProps, type CardVariant, type CellAlign, Checkbox, type CheckboxProps, DataTable, type DataTableColumn, type DataTableProps, FormControl, type FormControlCaptionProps, type FormControlLabelProps, type FormControlProps, type FormControlValidationProps, Label$1 as Label, type LabelProps, type LabelSize, type LabelVariant, NumberInput, type NumberInputProps, type NumberInputSize, Radio, RadioGroup, type RadioGroupProps, type RadioProps, Select, type SelectOption, type SelectProps, type SelectSize, type SortDirection, Stack, type StackAlign, type StackDirection, type StackGap, type StackItemProps, type StackJustify, type StackPadding, type StackProps, Switch, type SwitchProps, type SwitchSize, Table, type TableActionsProps, type TableCellProps, type TableContainerProps, type TableDensity, type TableHeaderProps, type TableProps, type TableRowProps, type TableSectionProps, type TableSubtitleProps, type TableTitleProps, TextInput, type TextInputProps, type TextInputSize, Textarea, type TextareaProps, type TextareaResize, type ValidationVariant };
+type WeekStart = 0 | 1;
+
+interface CalendarProps {
+    /** Controlled selected date (null = nothing selected). */
+    value?: Date | null;
+    /** Uncontrolled initial selected date. */
+    defaultValue?: Date | null;
+    /** Called with the chosen date. */
+    onChange?: (date: Date) => void;
+    /** Controlled visible month (any day within the month). */
+    month?: Date;
+    /** Uncontrolled initial visible month. Defaults to the selected date's month, else today. */
+    defaultMonth?: Date;
+    /** Called when the visible month changes (nav buttons / keyboard paging). */
+    onMonthChange?: (month: Date) => void;
+    /** Earliest selectable day (inclusive). */
+    min?: Date;
+    /** Latest selectable day (inclusive). */
+    max?: Date;
+    /** First day of the week: 0 = Sunday (default), 1 = Monday. */
+    weekStartsOn?: WeekStart;
+    /** BCP-47 locale for month / weekday formatting. Defaults to the runtime locale. */
+    locale?: string;
+    className?: string;
+    'aria-label'?: string;
+}
+
+/**
+ * Tenet calendar — a month-grid date picker surface. Full keyboard support (arrows move by day/
+ * week, Home/End jump within the week, PageUp/PageDown change month, Enter/Space select), a roving
+ * tab stop, and the ARIA grid pattern. Use it inline, or let `DatePicker` host it in a popover.
+ */
+declare function Calendar({ value, defaultValue, onChange, month, defaultMonth, onMonthChange, min, max, weekStartsOn, locale, className, 'aria-label': ariaLabel, }: CalendarProps): react_jsx_runtime.JSX.Element;
+
+type DatePickerSize = 'small' | 'medium' | 'large';
+interface DatePickerProps {
+    /** Controlled selected date (null = empty). */
+    value?: Date | null;
+    /** Uncontrolled initial selected date. */
+    defaultValue?: Date | null;
+    /** Called with the chosen date. */
+    onChange?: (date: Date) => void;
+    /** Earliest selectable day (inclusive). */
+    min?: Date;
+    /** Latest selectable day (inclusive). */
+    max?: Date;
+    /** First day of the week: 0 = Sunday (default), 1 = Monday. */
+    weekStartsOn?: WeekStart;
+    /** BCP-47 locale for the displayed date + calendar. Defaults to the runtime locale. */
+    locale?: string;
+    /** Text shown in the trigger when no date is selected. */
+    placeholder?: string;
+    /** Control height / font scale. */
+    size?: DatePickerSize;
+    /** Stretch the trigger to fill the available width. */
+    block?: boolean;
+    /** Invalid state (danger border + aria-invalid). */
+    invalid?: boolean;
+    /** Disable the control. */
+    disabled?: boolean;
+    /** Required (sets aria-required; pairs with FormControl). */
+    required?: boolean;
+    /** Form field name — emits a hidden input (yyyy-mm-dd) so the value submits with a form. */
+    name?: string;
+    /** Id applied to the trigger (FormControl sets this automatically). */
+    id?: string;
+    className?: string;
+    'aria-label'?: string;
+    'aria-describedby'?: string;
+}
+
+/**
+ * Tenet date picker — a token-styled field that opens a `Calendar` popover. Selecting a day (mouse
+ * or keyboard) commits the value and closes the menu; Escape closes; clicking outside closes. The
+ * trigger carries the ARIA combobox/dialog wiring, the Calendar carries the grid + keyboard model.
+ * Controlled or uncontrolled, FormControl-compatible, and emits a hidden yyyy-mm-dd input when
+ * given a `name`. Always give it an accessible name via FormControl or `aria-label`.
+ */
+declare const DatePicker: react.ForwardRefExoticComponent<DatePickerProps & react.RefAttributes<HTMLButtonElement>>;
+
+export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, Calendar, type CalendarProps, Card, type CardPadding, type CardProps, type CardVariant, type CellAlign, Checkbox, type CheckboxProps, DataTable, type DataTableColumn, type DataTableProps, DatePicker, type DatePickerProps, type DatePickerSize, FormControl, type FormControlCaptionProps, type FormControlLabelProps, type FormControlProps, type FormControlValidationProps, Label$1 as Label, type LabelProps, type LabelSize, type LabelVariant, NumberInput, type NumberInputProps, type NumberInputSize, Radio, RadioGroup, type RadioGroupProps, type RadioProps, Select, type SelectOption, type SelectProps, type SelectSize, type SortDirection, Stack, type StackAlign, type StackDirection, type StackGap, type StackItemProps, type StackJustify, type StackPadding, type StackProps, Switch, type SwitchProps, type SwitchSize, Table, type TableActionsProps, type TableCellProps, type TableContainerProps, type TableDensity, type TableHeaderProps, type TableProps, type TableRowProps, type TableSectionProps, type TableSubtitleProps, type TableTitleProps, TextInput, type TextInputProps, type TextInputSize, Textarea, type TextareaProps, type TextareaResize, type ValidationVariant, type WeekStart };

@@ -671,7 +671,9 @@
   z-index: 50;
   top: calc(100% + var(--space-1));
   left: 0;
-  width: 100%;
+  min-width: 100%;
+  width: max-content;
+  max-width: min(320px, 90vw);
   max-height: 240px;
   overflow-y: auto;
   margin: 0;
@@ -692,6 +694,7 @@
   color: var(--fgColor-default);
   cursor: pointer;
   user-select: none;
+  white-space: nowrap;
 }
 .Tenet-Select__option--active {
   background-color: var(--bgColor-muted);
@@ -1014,5 +1017,194 @@
 .Tenet-DataTable__empty {
   padding-block: var(--space-5);
   color: var(--fgColor-muted);
+}
+
+/* src/components/Calendar/Calendar.css */
+.Tenet-Calendar {
+  display: inline-block;
+  padding: var(--space-3);
+  background-color: var(--bgColor-default);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  box-shadow: var(--shadow-resting);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  color: var(--fgColor-default);
+}
+.Tenet-Calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+.Tenet-Calendar__heading {
+  font-size: var(--fontSize-1);
+  font-weight: var(--fontWeight-semibold);
+}
+.Tenet-Calendar__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--base-size-28);
+  height: var(--base-size-28);
+  padding: 0;
+  border: none;
+  border-radius: var(--borderRadius-medium);
+  background: transparent;
+  color: var(--fgColor-muted);
+  font-size: var(--fontSize-3);
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+.Tenet-Calendar__nav:hover:not(:disabled) {
+  background-color: var(--bgColor-muted);
+  color: var(--fgColor-default);
+}
+.Tenet-Calendar__nav:focus-visible {
+  outline: 2px solid var(--borderColor-accent-emphasis);
+  outline-offset: 1px;
+}
+.Tenet-Calendar__nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.Tenet-Calendar__weekrow {
+  display: grid;
+  grid-template-columns: repeat(7, var(--base-size-32));
+  gap: 2px;
+}
+.Tenet-Calendar__weekday {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--base-size-24);
+  font-size: var(--fontSize-0);
+  font-weight: var(--fontWeight-semibold);
+  color: var(--fgColor-muted);
+}
+.Tenet-Calendar__cell {
+  display: flex;
+}
+.Tenet-Calendar__day {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--base-size-32);
+  height: var(--base-size-32);
+  padding: 0;
+  border: none;
+  border-radius: var(--borderRadius-medium);
+  background: transparent;
+  color: var(--fgColor-default);
+  font-size: var(--fontSize-1);
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+.Tenet-Calendar__day:hover:not(:disabled) {
+  background-color: var(--bgColor-muted);
+}
+.Tenet-Calendar__day:focus-visible {
+  outline: 2px solid var(--borderColor-accent-emphasis);
+  outline-offset: 1px;
+}
+.Tenet-Calendar__day:disabled {
+  color: var(--fgColor-muted);
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.Tenet-Calendar__day--outside {
+  color: var(--fgColor-muted);
+}
+.Tenet-Calendar__day--today {
+  box-shadow: inset 0 0 0 var(--borderWidth-thin) var(--borderColor-accent-emphasis);
+  color: var(--fgColor-accent);
+  font-weight: var(--fontWeight-semibold);
+}
+.Tenet-Calendar__day--selected,
+.Tenet-Calendar__day--selected:hover {
+  background-color: var(--bgColor-accent-emphasis);
+  color: var(--fgColor-onEmphasis);
+  font-weight: var(--fontWeight-semibold);
+}
+
+/* src/components/DatePicker/DatePicker.css */
+.Tenet-DatePicker {
+  position: relative;
+  display: inline-block;
+}
+.Tenet-DatePicker--block {
+  display: block;
+  width: 100%;
+}
+.Tenet-DatePicker__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-width: var(--base-size-40);
+  height: var(--control-medium-size);
+  padding: 0 var(--space-3);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  background-color: var(--bgColor-default);
+  color: var(--fgColor-default);
+  box-shadow: var(--shadow-resting);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: var(--fontSize-1);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+.Tenet-DatePicker--size-small .Tenet-DatePicker__trigger {
+  height: var(--control-small-size);
+  font-size: var(--fontSize-0);
+}
+.Tenet-DatePicker--size-large .Tenet-DatePicker__trigger {
+  height: var(--control-large-size);
+  font-size: var(--fontSize-2);
+}
+.Tenet-DatePicker__trigger:focus-visible {
+  outline: none;
+  border-color: var(--borderColor-accent-emphasis);
+  box-shadow: 0 0 0 3px var(--bgColor-accent-muted);
+}
+.Tenet-DatePicker--invalid .Tenet-DatePicker__trigger {
+  border-color: var(--fgColor-danger);
+}
+.Tenet-DatePicker--disabled .Tenet-DatePicker__trigger {
+  background-color: var(--bgColor-muted);
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.Tenet-DatePicker__icon {
+  font-size: var(--fontSize-1);
+  line-height: 1;
+}
+.Tenet-DatePicker__value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.Tenet-DatePicker__value--placeholder {
+  color: var(--fgColor-muted);
+}
+.Tenet-DatePicker__popover {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + var(--space-1));
+  left: 0;
+}
+.Tenet-DatePicker__calendar {
+  box-shadow: var(--shadow-medium);
 }
 /*# sourceMappingURL=index.css.map */

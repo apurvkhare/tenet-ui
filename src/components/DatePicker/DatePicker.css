@@ -1,0 +1,78 @@
+/* Tenet DatePicker — field trigger + Calendar popover. */
+.Tenet-DatePicker {
+  position: relative;
+  display: inline-block;
+}
+.Tenet-DatePicker--block {
+  display: block;
+  width: 100%;
+}
+
+.Tenet-DatePicker__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-width: var(--base-size-40);
+  height: var(--control-medium-size);
+  padding: 0 var(--space-3);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  background-color: var(--bgColor-default);
+  color: var(--fgColor-default);
+  box-shadow: var(--shadow-resting);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: var(--fontSize-1);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+.Tenet-DatePicker--size-small .Tenet-DatePicker__trigger {
+  height: var(--control-small-size);
+  font-size: var(--fontSize-0);
+}
+.Tenet-DatePicker--size-large .Tenet-DatePicker__trigger {
+  height: var(--control-large-size);
+  font-size: var(--fontSize-2);
+}
+
+.Tenet-DatePicker__trigger:focus-visible {
+  outline: none;
+  border-color: var(--borderColor-accent-emphasis);
+  box-shadow: 0 0 0 3px var(--bgColor-accent-muted);
+}
+.Tenet-DatePicker--invalid .Tenet-DatePicker__trigger {
+  border-color: var(--fgColor-danger);
+}
+.Tenet-DatePicker--disabled .Tenet-DatePicker__trigger {
+  background-color: var(--bgColor-muted);
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.Tenet-DatePicker__icon {
+  font-size: var(--fontSize-1);
+  line-height: 1;
+}
+.Tenet-DatePicker__value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.Tenet-DatePicker__value--placeholder {
+  color: var(--fgColor-muted);
+}
+
+.Tenet-DatePicker__popover {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + var(--space-1));
+  left: 0;
+}
+
+/* The calendar already has a border/shadow; the popover just positions it. */
+.Tenet-DatePicker__calendar {
+  box-shadow: var(--shadow-medium);
+}
