@@ -1,0 +1,81 @@
+/* Tenet Tag — removable chip for filter tokens / multi-select selections.
+   Soft tinted fill + hairline border, pill radius, normal-case body text (NOT tracked caps —
+   that look belongs to Label). All colors come from semantic tint tokens. */
+.Tenet-Tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  border: var(--borderWidth-thin) solid transparent;
+  border-radius: var(--borderRadius-full);
+  font-family: var(--fontFamily-body);
+  font-weight: var(--fontWeight-medium);
+  font-size: var(--fontSize-1);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.Tenet-Tag__label {
+  display: inline-block;
+}
+
+.Tenet-Tag__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Sizes */
+.Tenet-Tag--size-small {
+  height: var(--base-size-24);
+  padding: 0 var(--space-2);
+  font-size: var(--fontSize-0);
+}
+.Tenet-Tag--size-medium {
+  height: var(--base-size-28);
+  padding: 0 var(--space-3);
+}
+
+/* Reduce the trailing padding when the remove button supplies its own end inset. */
+.Tenet-Tag--removable.Tenet-Tag--size-small {
+  padding-right: var(--space-1);
+}
+.Tenet-Tag--removable.Tenet-Tag--size-medium {
+  padding-right: var(--space-2);
+}
+
+/* Variants — soft tint + matching hairline + readable on-tint text. */
+.Tenet-Tag--variant-default {
+  background-color: var(--bgColor-muted);
+  border-color: var(--borderColor-default);
+  color: var(--fgColor-default);
+}
+.Tenet-Tag--variant-accent {
+  background-color: var(--bgColor-accent-muted);
+  border-color: var(--borderColor-accent-muted);
+  color: var(--fgColor-accent);
+}
+
+/* Remove control — a real button, inherits the tag's tint via currentColor. */
+.Tenet-Tag__remove {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--base-size-16);
+  height: var(--base-size-16);
+  padding: 0;
+  border: none;
+  border-radius: var(--borderRadius-full);
+  background: transparent;
+  color: currentColor;
+  font-size: var(--fontSize-0);
+  line-height: 1;
+  cursor: pointer;
+}
+.Tenet-Tag__remove:hover {
+  background-color: color-mix(in srgb, currentColor 16%, transparent);
+}
+.Tenet-Tag__remove:focus-visible {
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+  outline-offset: 1px;
+}

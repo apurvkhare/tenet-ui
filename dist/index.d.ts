@@ -1,5 +1,5 @@
 import * as react from 'react';
-import { ButtonHTMLAttributes, ReactNode, HTMLAttributes, InputHTMLAttributes, TableHTMLAttributes, ThHTMLAttributes, TdHTMLAttributes, LabelHTMLAttributes, TextareaHTMLAttributes, ReactElement } from 'react';
+import { ButtonHTMLAttributes, ReactNode, HTMLAttributes, InputHTMLAttributes, TableHTMLAttributes, ThHTMLAttributes, TdHTMLAttributes, LabelHTMLAttributes, TextareaHTMLAttributes, ReactElement, AnchorHTMLAttributes } from 'react';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 
 type ButtonVariant = 'default' | 'primary' | 'danger' | 'invisible';
@@ -871,4 +871,158 @@ declare function useToast(): ToastContextValue;
  */
 declare function ToastProvider({ duration, placement, children }: ToastProviderProps): react_jsx_runtime.JSX.Element;
 
-export { Accordion, type AccordionItemProps, type AccordionProps, type AccordionType, Avatar, type AvatarProps, type AvatarShape, type AvatarSize, Badge, type BadgeProps, type BadgeVariant, Banner, type BannerProps, type BannerVariant, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonSize, type ButtonVariant, Calendar, type CalendarProps, Card, type CardPadding, type CardProps, type CardVariant, type CellAlign, Checkbox, type CheckboxProps, DataTable, type DataTableColumn, type DataTableProps, DatePicker, type DatePickerProps, type DatePickerSize, Dialog, type DialogProps, type DialogSize, Divider, type DividerOrientation, type DividerProps, FormControl, type FormControlCaptionProps, type FormControlLabelProps, type FormControlProps, type FormControlValidationProps, Label$1 as Label, type LabelProps, type LabelSize, type LabelVariant, Menu, type MenuAction, type MenuItem, type MenuProps, type MenuSeparator, NumberInput, type NumberInputProps, type NumberInputSize, Pagination, type PaginationProps, Radio, RadioGroup, type RadioGroupProps, type RadioProps, SegmentedControl, type SegmentedControlOption, type SegmentedControlProps, type SegmentedControlSize, Select, type SelectOption, type SelectProps, type SelectSize, type SortDirection, Spinner, type SpinnerProps, type SpinnerSize, Stack, type StackAlign, type StackDirection, type StackGap, type StackItemProps, type StackJustify, type StackPadding, type StackProps, Switch, type SwitchProps, type SwitchSize, type TabPanelProps, type TabProps, Table, type TableActionsProps, type TableCellProps, type TableContainerProps, type TableDensity, type TableHeaderProps, type TableProps, type TableRowProps, type TableSectionProps, type TableSubtitleProps, type TableTitleProps, Tabs, type TabsListProps, type TabsProps, TextInput, type TextInputProps, type TextInputSize, Textarea, type TextareaProps, type TextareaResize, type ToastContextValue, type ToastOptions, ToastProvider, type ToastProviderProps, type ToastVariant, Tooltip, type TooltipPlacement, type TooltipProps, type ValidationVariant, type WeekStart, useToast };
+type IconButtonVariant = 'default' | 'primary' | 'danger' | 'invisible';
+type IconButtonSize = 'small' | 'medium' | 'large';
+interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+    /** The icon to render. This is the only visible content, so the button must also have an accessible name. */
+    icon: ReactNode;
+    /** Visual style of the button. Use `primary` for the single most important action per surface. */
+    variant?: IconButtonVariant;
+    /** Square control size (height = width), mapped to the control-height tokens. */
+    size?: IconButtonSize;
+}
+
+/**
+ * Tenet icon-only button — a square control whose only visible content is an icon. Use it for
+ * compact actions in toolbars, table rows, and dialog corners where a text label won't fit. For
+ * anything with room for a label, prefer `Button` (a labelled button is always clearer).
+ *
+ * Because there is no visible text, an IconButton MUST be given an accessible name via `aria-label`
+ * (or `aria-labelledby`) — otherwise screen-reader users hear nothing. The icon itself is rendered
+ * `aria-hidden`, so the name has to come from the prop.
+ */
+declare const IconButton: react.ForwardRefExoticComponent<IconButtonProps & react.RefAttributes<HTMLButtonElement>>;
+
+type TagVariant = 'default' | 'accent';
+type TagSize = 'small' | 'medium';
+interface TagProps extends HTMLAttributes<HTMLSpanElement> {
+    /** Semantic color scheme. Pick by meaning (accent for the active/selected token), not by raw color. */
+    variant?: TagVariant;
+    /** Tag size. */
+    size?: TagSize;
+    /** Optional leading icon rendered before the label; decorative (aria-hidden). */
+    leadingIcon?: ReactNode;
+    /** The tag label content. */
+    children?: ReactNode;
+    /**
+     * When provided, renders a real remove button. Wire it to drop the tag from your collection.
+     * Tag does not remove itself — it has no internal state.
+     */
+    onRemove?: () => void;
+    /**
+     * Accessible label for the remove button when `children` is not a plain string.
+     * Falls back to the string children, otherwise "Remove".
+     */
+    removeLabel?: string;
+}
+
+/**
+ * Tenet Tag — a removable chip for filter tokens and multi-select selections. Use it for
+ * user-applied tokens the user can dismiss (e.g. active filters, selected recipients). For a
+ * non-interactive status pill (passing/failing), use `Label` instead; for a count/dot, use `Badge`.
+ *
+ * The one rule people get wrong: Tag is stateless. Setting `onRemove` renders a real <button>, but
+ * the parent owns the collection — your handler must drop the item, Tag won't remove itself.
+ */
+declare const Tag: react.ForwardRefExoticComponent<TagProps & react.RefAttributes<HTMLSpanElement>>;
+
+type SkeletonVariant = 'text' | 'rect' | 'circle';
+type SkeletonRadius = 'small' | 'medium' | 'large' | 'full';
+interface SkeletonProps extends HTMLAttributes<HTMLSpanElement> {
+    /** Shape of the placeholder. `text` mimics a line of copy, `rect` a block, `circle` an avatar/icon. */
+    variant?: SkeletonVariant;
+    /** Width applied inline (number → px, string → as-is, e.g. '60%'). */
+    width?: string | number;
+    /** Height applied inline (number → px, string → as-is). For `circle` it mirrors width. */
+    height?: string | number;
+    /** Corner radius token. `circle` always renders as `full` regardless of this prop. */
+    radius?: SkeletonRadius;
+}
+
+/**
+ * Tenet skeleton — a decorative loading placeholder that shimmers while content streams in.
+ * It is `aria-hidden`: announce the wait on the surrounding region with `aria-busy="true"`
+ * (and a visually-hidden status / Spinner label), not on each skeleton block.
+ * Use `text` for lines of copy, `circle` for an avatar, `rect` for a media/card block.
+ */
+declare const Skeleton: react.ForwardRefExoticComponent<SkeletonProps & react.RefAttributes<HTMLSpanElement>>;
+
+type ProgressBarSize = 'small' | 'medium';
+type ProgressBarVariant = 'accent' | 'success' | 'danger';
+interface ProgressBarProps extends HTMLAttributes<HTMLDivElement> {
+    /**
+     * Current progress, from 0 to `max`. Values are clamped into range.
+     * Omit (or pass `undefined`) for an INDETERMINATE bar that shows an
+     * animated sweep instead of a fixed fill.
+     */
+    value?: number;
+    /** Upper bound of the scale. Defaults to 100. */
+    max?: number;
+    /** Track/fill height from the size scale. Defaults to 'medium'. */
+    size?: ProgressBarSize;
+    /** Fill color, mapped to the matching emphasis token. Defaults to 'accent'. */
+    variant?: ProgressBarVariant;
+}
+
+/**
+ * Tenet progress bar — a `role="progressbar"` feedback indicator for the progress of a task.
+ *
+ * Determinate (a `value` is given): shows a fixed fill and reports `aria-valuenow` plus a readable
+ * `aria-valuetext` (e.g. "42%"). Omit `value` for an INDETERMINATE bar (unknown duration) that runs
+ * an animated sweep and omits `aria-valuenow`.
+ *
+ * The one rule people get wrong: a progressbar has no inherent label, so you MUST pass an accessible
+ * name via `aria-label` or `aria-labelledby` — otherwise screen readers announce it nameless.
+ */
+declare const ProgressBar: react.ForwardRefExoticComponent<ProgressBarProps & react.RefAttributes<HTMLDivElement>>;
+
+type LinkUnderline = 'hover' | 'always' | 'none';
+interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+    /** Use the muted foreground color instead of the accent color. */
+    muted?: boolean;
+    /** When the underline is shown. */
+    underline?: LinkUnderline;
+    /**
+     * Marks the link as leading off-site: sets `target="_blank"` +
+     * `rel="noopener noreferrer"` and appends a visually-hidden " (opens in new tab)"
+     * warning for screen-reader users.
+     */
+    external?: boolean;
+}
+
+/**
+ * Tenet link — an inline navigational anchor. Renders a real `<a>` (forwards its ref) so it keeps
+ * native keyboard + activation behavior; style it with `muted` and `underline` instead of writing
+ * raw anchor CSS. Always give it meaningful link text (not "click here"). For an off-site link pass
+ * `external` so it opens in a new tab AND warns screen-reader users it does so.
+ */
+declare const Link: react.ForwardRefExoticComponent<LinkProps & react.RefAttributes<HTMLAnchorElement>>;
+
+type PopoverPlacement = 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
+interface PopoverProps {
+    /**
+     * The trigger element (e.g. a Button). It is cloned and wired with
+     * `aria-haspopup="dialog"`, `aria-expanded`, `aria-controls`, an onClick toggle,
+     * and a ref so focus can be restored to it on close.
+     */
+    trigger: ReactElement;
+    /** The floating content rendered inside the popover surface. */
+    children: ReactNode;
+    /** Where the surface is anchored relative to the trigger. */
+    placement?: PopoverPlacement;
+    /** Accessible name for the popover dialog (falls back to "Popover"). */
+    'aria-label'?: string;
+    className?: string;
+}
+
+/**
+ * Tenet popover — a generic floating container anchored to a trigger (the ARIA non-modal dialog
+ * pattern). On open, focus moves into the surface; Escape closes and returns focus to the trigger;
+ * clicking outside closes; and focus leaving the wrapper (Tab-out) closes it so it can't strand
+ * open behind the page. This is **non-modal**: it does not trap focus, lock scroll, or hide the
+ * background — reach for `Dialog` when you need those. Always give it an accessible name via
+ * `aria-label`.
+ */
+declare function Popover({ trigger, children, placement, 'aria-label': ariaLabel, className, }: PopoverProps): react_jsx_runtime.JSX.Element;
+
+export { Accordion, type AccordionItemProps, type AccordionProps, type AccordionType, Avatar, type AvatarProps, type AvatarShape, type AvatarSize, Badge, type BadgeProps, type BadgeVariant, Banner, type BannerProps, type BannerVariant, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonSize, type ButtonVariant, Calendar, type CalendarProps, Card, type CardPadding, type CardProps, type CardVariant, type CellAlign, Checkbox, type CheckboxProps, DataTable, type DataTableColumn, type DataTableProps, DatePicker, type DatePickerProps, type DatePickerSize, Dialog, type DialogProps, type DialogSize, Divider, type DividerOrientation, type DividerProps, FormControl, type FormControlCaptionProps, type FormControlLabelProps, type FormControlProps, type FormControlValidationProps, IconButton, type IconButtonProps, type IconButtonSize, type IconButtonVariant, Label$1 as Label, type LabelProps, type LabelSize, type LabelVariant, Link, type LinkProps, type LinkUnderline, Menu, type MenuAction, type MenuItem, type MenuProps, type MenuSeparator, NumberInput, type NumberInputProps, type NumberInputSize, Pagination, type PaginationProps, Popover, type PopoverPlacement, type PopoverProps, ProgressBar, type ProgressBarProps, type ProgressBarSize, type ProgressBarVariant, Radio, RadioGroup, type RadioGroupProps, type RadioProps, SegmentedControl, type SegmentedControlOption, type SegmentedControlProps, type SegmentedControlSize, Select, type SelectOption, type SelectProps, type SelectSize, Skeleton, type SkeletonProps, type SkeletonRadius, type SkeletonVariant, type SortDirection, Spinner, type SpinnerProps, type SpinnerSize, Stack, type StackAlign, type StackDirection, type StackGap, type StackItemProps, type StackJustify, type StackPadding, type StackProps, Switch, type SwitchProps, type SwitchSize, type TabPanelProps, type TabProps, Table, type TableActionsProps, type TableCellProps, type TableContainerProps, type TableDensity, type TableHeaderProps, type TableProps, type TableRowProps, type TableSectionProps, type TableSubtitleProps, type TableTitleProps, Tabs, type TabsListProps, type TabsProps, Tag, type TagProps, type TagSize, type TagVariant, TextInput, type TextInputProps, type TextInputSize, Textarea, type TextareaProps, type TextareaResize, type ToastContextValue, type ToastOptions, ToastProvider, type ToastProviderProps, type ToastVariant, Tooltip, type TooltipPlacement, type TooltipProps, type ValidationVariant, type WeekStart, useToast };

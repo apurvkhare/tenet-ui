@@ -1,0 +1,66 @@
+/* Tenet ProgressBar — pill-shaped track with a variant-colored fill. */
+.Tenet-ProgressBar {
+  display: block;
+  width: 100%;
+  height: var(--base-size-8);
+  overflow: hidden;
+  background-color: var(--bgColor-muted);
+  border-radius: var(--borderRadius-full);
+}
+
+.Tenet-ProgressBar--size-small {
+  height: var(--base-size-4);
+}
+.Tenet-ProgressBar--size-medium {
+  height: var(--base-size-8);
+}
+
+.Tenet-ProgressBar__fill {
+  height: 100%;
+  width: 0;
+  border-radius: var(--borderRadius-full);
+  background-color: var(--bgColor-accent-emphasis);
+  transition: width 0.3s ease;
+}
+
+/* Variants — fill uses the matching emphasis token. */
+.Tenet-ProgressBar--variant-accent .Tenet-ProgressBar__fill {
+  background-color: var(--bgColor-accent-emphasis);
+}
+.Tenet-ProgressBar--variant-success .Tenet-ProgressBar__fill {
+  background-color: var(--bgColor-success-emphasis);
+}
+.Tenet-ProgressBar--variant-danger .Tenet-ProgressBar__fill {
+  background-color: var(--bgColor-danger-emphasis);
+}
+
+/* Indeterminate — a sweep that travels across the track. */
+.Tenet-ProgressBar--indeterminate .Tenet-ProgressBar__fill {
+  width: 40%;
+  transition: none;
+  animation: Tenet-ProgressBar-sweep 1.4s ease-in-out infinite;
+}
+
+@keyframes Tenet-ProgressBar-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+/* Respect reduced motion: drop the traveling sweep for a calm opacity pulse on a full-width fill. */
+@media (prefers-reduced-motion: reduce) {
+  .Tenet-ProgressBar--indeterminate .Tenet-ProgressBar__fill {
+    width: 100%;
+    transform: none;
+    animation: Tenet-ProgressBar-pulse 1.6s ease-in-out infinite;
+  }
+}
+
+@keyframes Tenet-ProgressBar-pulse {
+  50% {
+    opacity: 0.4;
+  }
+}

@@ -1,0 +1,55 @@
+/* Tenet Link — inline navigational anchor, styled entirely with design tokens. */
+.Tenet-Link {
+  color: var(--fgColor-accent);
+  font-family: inherit;
+  text-decoration: none;
+  border-radius: var(--borderRadius-small);
+  cursor: pointer;
+}
+
+.Tenet-Link--muted {
+  color: var(--fgColor-muted);
+}
+
+/* Underline behavior */
+.Tenet-Link--underline-always {
+  text-decoration: underline;
+}
+.Tenet-Link--underline-hover:hover,
+.Tenet-Link--underline-always:hover {
+  text-decoration: underline;
+}
+.Tenet-Link--underline-none {
+  text-decoration: none;
+}
+
+/* Muted links still resolve to the accent color on hover for affordance. */
+.Tenet-Link--muted:hover {
+  color: var(--fgColor-accent);
+}
+
+.Tenet-Link:focus-visible {
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+  outline-offset: 2px;
+  border-radius: var(--borderRadius-small);
+}
+
+/* Small "opens in new tab" glyph — decorative, kept inline with the text. */
+.Tenet-Link__externalIcon {
+  display: inline-block;
+  margin-left: var(--space-1);
+  font-size: var(--fontSize-0);
+}
+
+/* Visually-hidden utility (self-contained so Link needs no other CSS). */
+.Tenet-visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

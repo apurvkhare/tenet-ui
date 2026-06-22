@@ -1,0 +1,45 @@
+{
+  "id": "progress-bar",
+  "name": "ProgressBar",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "tenet-ui",
+  "source": "src/components/ProgressBar/ProgressBar.tsx",
+  "props": [
+    {
+      "name": "value",
+      "type": "number",
+      "required": false,
+      "defaultValue": "undefined",
+      "description": "Current progress, from 0 to max (clamped). Omit for an indeterminate bar."
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "required": false,
+      "defaultValue": "100",
+      "description": "Upper bound of the scale."
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium'",
+      "required": false,
+      "defaultValue": "medium",
+      "description": "Track/fill height from the size scale."
+    },
+    {
+      "name": "variant",
+      "type": "'accent' | 'success' | 'danger'",
+      "required": false,
+      "defaultValue": "accent",
+      "description": "Fill color, mapped to the matching emphasis token."
+    }
+  ],
+  "stories": [
+    { "id": "components-progressbar--default" },
+    { "id": "components-progressbar--indeterminate" },
+    { "id": "components-progressbar--variants" },
+    { "id": "components-progressbar--small" }
+  ],
+  "subcomponents": []
+}

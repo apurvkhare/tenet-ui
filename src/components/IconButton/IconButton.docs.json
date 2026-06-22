@@ -1,0 +1,39 @@
+{
+  "id": "icon-button",
+  "name": "IconButton",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "tenet-ui",
+  "source": "src/components/IconButton/IconButton.tsx",
+  "props": [
+    {
+      "name": "icon",
+      "type": "ReactNode",
+      "required": true,
+      "defaultValue": "",
+      "description": "The icon to render. This is the only visible content, so the button must also have an accessible name."
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'primary' | 'danger' | 'invisible'",
+      "required": false,
+      "defaultValue": "default",
+      "description": "Visual style of the button. Use 'primary' for the single most important action per surface."
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium' | 'large'",
+      "required": false,
+      "defaultValue": "medium",
+      "description": "Square control size (height = width), mapped to the control-height tokens."
+    }
+  ],
+  "stories": [
+    { "id": "components-iconbutton--default" },
+    { "id": "components-iconbutton--primary" },
+    { "id": "components-iconbutton--danger" },
+    { "id": "components-iconbutton--invisible" },
+    { "id": "components-iconbutton--sizes" }
+  ],
+  "subcomponents": []
+}

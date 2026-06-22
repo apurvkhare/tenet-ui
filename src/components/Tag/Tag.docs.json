@@ -1,0 +1,60 @@
+{
+  "id": "tag",
+  "name": "Tag",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "tenet-ui",
+  "source": "src/components/Tag/Tag.tsx",
+  "props": [
+    {
+      "name": "variant",
+      "type": "'default' | 'accent'",
+      "required": false,
+      "defaultValue": "default",
+      "description": "Semantic color scheme. Pick by meaning (accent for the active/selected token), not by raw color."
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium'",
+      "required": false,
+      "defaultValue": "medium",
+      "description": "Tag size."
+    },
+    {
+      "name": "leadingIcon",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "",
+      "description": "Optional leading icon rendered before the label; decorative (aria-hidden)."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "",
+      "description": "The tag label content."
+    },
+    {
+      "name": "onRemove",
+      "type": "() => void",
+      "required": false,
+      "defaultValue": "",
+      "description": "When provided, renders a real remove button. Wire it to drop the tag from your collection. Tag does not remove itself — it has no internal state."
+    },
+    {
+      "name": "removeLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "",
+      "description": "Accessible label for the remove button when children is not a plain string. Falls back to the string children, otherwise \"Remove\"."
+    }
+  ],
+  "stories": [
+    { "id": "components-tag--default" },
+    { "id": "components-tag--variants" },
+    { "id": "components-tag--sizes" },
+    { "id": "components-tag--removable" },
+    { "id": "components-tag--with-icon" }
+  ],
+  "subcomponents": []
+}

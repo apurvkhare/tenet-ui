@@ -1931,6 +1931,227 @@ function ToastProvider({ duration = 5e3, placement = "bottom-right", children })
     )
   ] });
 }
+var cx31 = (...parts) => parts.filter(Boolean).join(" ");
+var IconButton = react.forwardRef(function IconButton2({
+  icon,
+  variant = "default",
+  size = "medium",
+  type = "button",
+  className,
+  ...rest
+}, ref) {
+  const nodeEnv = globalThis.process?.env?.NODE_ENV;
+  if (nodeEnv !== "production") {
+    const hasName = Boolean(rest["aria-label"] || rest["aria-labelledby"]);
+    if (!hasName) {
+      console.warn(
+        "IconButton: no accessible name. An icon-only button needs aria-label (or aria-labelledby) so screen-reader users know what it does."
+      );
+    }
+  }
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "button",
+    {
+      ref,
+      type,
+      className: cx31(
+        "Tenet-IconButton",
+        `Tenet-IconButton--variant-${variant}`,
+        `Tenet-IconButton--size-${size}`,
+        className
+      ),
+      ...rest,
+      children: /* @__PURE__ */ jsxRuntime.jsx("span", { className: "Tenet-IconButton__icon", "aria-hidden": "true", children: icon })
+    }
+  );
+});
+var cx32 = (...parts) => parts.filter(Boolean).join(" ");
+var Tag = react.forwardRef(function Tag2({ variant = "default", size = "medium", leadingIcon, onRemove, removeLabel, className, children, ...rest }, ref) {
+  const label = typeof children === "string" && children.length > 0 ? children : removeLabel && removeLabel.length > 0 ? removeLabel : "Remove";
+  const removeAriaLabel = removeLabel && removeLabel.length > 0 ? removeLabel : `Remove ${label}`;
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "span",
+    {
+      ref,
+      className: cx32(
+        "Tenet-Tag",
+        `Tenet-Tag--variant-${variant}`,
+        `Tenet-Tag--size-${size}`,
+        onRemove && "Tenet-Tag--removable",
+        className
+      ),
+      ...rest,
+      children: [
+        leadingIcon != null && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "Tenet-Tag__icon", "aria-hidden": "true", children: leadingIcon }),
+        /* @__PURE__ */ jsxRuntime.jsx("span", { className: "Tenet-Tag__label", children }),
+        onRemove && /* @__PURE__ */ jsxRuntime.jsx("button", { type: "button", className: "Tenet-Tag__remove", "aria-label": removeAriaLabel, onClick: onRemove, children: /* @__PURE__ */ jsxRuntime.jsx("span", { "aria-hidden": "true", children: "\u2715" }) })
+      ]
+    }
+  );
+});
+var cx33 = (...parts) => parts.filter(Boolean).join(" ");
+var toDimension = (value) => typeof value === "number" ? `${value}px` : value;
+var Skeleton = react.forwardRef(function Skeleton2({ variant = "text", width, height, radius, className, style, ...rest }, ref) {
+  const isCircle = variant === "circle";
+  const w = toDimension(width);
+  const h = toDimension(height);
+  const inlineStyle = {
+    ...style,
+    ...w !== void 0 ? { width: w } : null,
+    // A circle stays square: height follows width unless explicitly overridden.
+    ...h !== void 0 ? { height: h } : isCircle && w !== void 0 ? { height: w } : null
+  };
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "span",
+    {
+      ref,
+      "aria-hidden": "true",
+      className: cx33(
+        "Tenet-Skeleton",
+        `Tenet-Skeleton--variant-${variant}`,
+        radius && `Tenet-Skeleton--radius-${radius}`,
+        className
+      ),
+      style: inlineStyle,
+      ...rest
+    }
+  );
+});
+var cx34 = (...parts) => parts.filter(Boolean).join(" ");
+var clamp2 = (n, min, max) => Math.min(Math.max(n, min), max);
+var ProgressBar = react.forwardRef(function ProgressBar2({ value, max = 100, size = "medium", variant = "accent", className, style, ...rest }, ref) {
+  const isIndeterminate = value === void 0;
+  const safeMax = max > 0 ? max : 100;
+  const clamped = isIndeterminate ? void 0 : clamp2(value, 0, safeMax);
+  const percent = clamped === void 0 ? void 0 : Math.round(clamped / safeMax * 100);
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      ref,
+      role: "progressbar",
+      "aria-valuemin": 0,
+      "aria-valuemax": safeMax,
+      "aria-valuenow": isIndeterminate ? void 0 : clamped,
+      "aria-valuetext": isIndeterminate ? void 0 : `${percent}%`,
+      className: cx34(
+        "Tenet-ProgressBar",
+        `Tenet-ProgressBar--size-${size}`,
+        `Tenet-ProgressBar--variant-${variant}`,
+        isIndeterminate && "Tenet-ProgressBar--indeterminate",
+        className
+      ),
+      style,
+      ...rest,
+      children: /* @__PURE__ */ jsxRuntime.jsx(
+        "div",
+        {
+          className: "Tenet-ProgressBar__fill",
+          style: isIndeterminate ? void 0 : { width: `${percent}%` }
+        }
+      )
+    }
+  );
+});
+var cx35 = (...parts) => parts.filter(Boolean).join(" ");
+var Link = react.forwardRef(function Link2({ muted = false, underline = "hover", external = false, className, children, ...rest }, ref) {
+  const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "a",
+    {
+      ref,
+      className: cx35(
+        "Tenet-Link",
+        muted && "Tenet-Link--muted",
+        `Tenet-Link--underline-${underline}`,
+        className
+      ),
+      ...externalProps,
+      ...rest,
+      children: [
+        children,
+        external && /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
+          /* @__PURE__ */ jsxRuntime.jsx("span", { className: "Tenet-Link__externalIcon", "aria-hidden": "true", children: "\u2197" }),
+          /* @__PURE__ */ jsxRuntime.jsx("span", { className: "Tenet-visuallyHidden", children: " (opens in new tab)" })
+        ] })
+      ]
+    }
+  );
+});
+var cx36 = (...parts) => parts.filter(Boolean).join(" ");
+var FOCUSABLE2 = 'a[href],button:not([disabled]),textarea:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])';
+function Popover({
+  trigger,
+  children,
+  placement = "bottom-start",
+  "aria-label": ariaLabel,
+  className
+}) {
+  const reactId = react.useId();
+  const dialogId = `${reactId}-dialog`;
+  const triggerId = `${reactId}-trigger`;
+  const [open, setOpen] = react.useState(false);
+  const wrapRef = react.useRef(null);
+  const triggerRef = react.useRef(null);
+  const close = (refocus = true) => {
+    setOpen(false);
+    if (refocus) triggerRef.current?.focus();
+  };
+  react.useEffect(() => {
+    if (!open) return;
+    const onDown = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [open]);
+  react.useEffect(() => {
+    if (!open) return;
+    const surface = wrapRef.current?.querySelector(".Tenet-Popover__surface");
+    const first = surface?.querySelector(FOCUSABLE2);
+    (first ?? surface)?.focus();
+  }, [open]);
+  const triggerEl = react.cloneElement(trigger, {
+    id: triggerId,
+    ref: (node) => {
+      triggerRef.current = node;
+    },
+    "aria-haspopup": "dialog",
+    "aria-expanded": open,
+    "aria-controls": open ? dialogId : void 0,
+    onClick: () => setOpen((o) => !o)
+  });
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "span",
+    {
+      ref: wrapRef,
+      className: cx36("Tenet-Popover", className),
+      onKeyDown: (e) => {
+        if (e.key === "Escape" && open) {
+          e.preventDefault();
+          close();
+        }
+      },
+      onBlur: (e) => {
+        if (open && !wrapRef.current?.contains(e.relatedTarget)) setOpen(false);
+      },
+      children: [
+        triggerEl,
+        open && /* @__PURE__ */ jsxRuntime.jsx(
+          "div",
+          {
+            id: dialogId,
+            role: "dialog",
+            "aria-modal": "false",
+            "aria-label": ariaLabel ?? "Popover",
+            tabIndex: -1,
+            className: cx36("Tenet-Popover__surface", `Tenet-Popover--placement-${placement}`),
+            children
+          }
+        )
+      ]
+    }
+  );
+}
 
 exports.Accordion = Accordion;
 exports.Avatar = Avatar;
@@ -1946,19 +2167,25 @@ exports.DatePicker = DatePicker;
 exports.Dialog = Dialog;
 exports.Divider = Divider;
 exports.FormControl = FormControl2;
+exports.IconButton = IconButton;
 exports.Label = Label;
+exports.Link = Link;
 exports.Menu = Menu;
 exports.NumberInput = NumberInput;
 exports.Pagination = Pagination;
+exports.Popover = Popover;
+exports.ProgressBar = ProgressBar;
 exports.Radio = Radio;
 exports.RadioGroup = RadioGroup;
 exports.SegmentedControl = SegmentedControl;
 exports.Select = Select;
+exports.Skeleton = Skeleton;
 exports.Spinner = Spinner;
 exports.Stack = Stack2;
 exports.Switch = Switch;
 exports.Table = Table2;
 exports.Tabs = Tabs;
+exports.Tag = Tag;
 exports.TextInput = TextInput;
 exports.Textarea = Textarea;
 exports.ToastProvider = ToastProvider;

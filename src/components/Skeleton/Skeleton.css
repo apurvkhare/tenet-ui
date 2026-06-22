@@ -1,0 +1,73 @@
+/* Tenet Skeleton — decorative loading placeholder with a subtle token-built shimmer. */
+.Tenet-Skeleton {
+  display: block;
+  /* Base fill is the recessed surface; the sweep is a slightly lighter mix on top. */
+  background-color: var(--bgColor-muted);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--bgColor-default) 70%, var(--bgColor-muted)) 50%,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+  background-position: -150% 0;
+  border-radius: var(--borderRadius-medium);
+  animation: Tenet-Skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+/* text: one line of copy. Height tracks a line of body text via the font-size token. */
+.Tenet-Skeleton--variant-text {
+  width: 100%;
+  height: var(--fontSize-2);
+  border-radius: var(--borderRadius-small);
+  /* leave a hair of vertical rhythm so stacked lines read as separate lines */
+  margin-block: var(--space-1);
+}
+
+/* rect: a block sized by width/height props (defaults to a sensible box). */
+.Tenet-Skeleton--variant-rect {
+  width: 100%;
+  height: var(--base-size-40);
+}
+
+/* circle: equal w/h + pill radius (avatar / icon placeholder). */
+.Tenet-Skeleton--variant-circle {
+  width: var(--base-size-40);
+  height: var(--base-size-40);
+  border-radius: var(--borderRadius-full);
+}
+
+/* Optional radius override (ignored visually for circle, which is always full). */
+.Tenet-Skeleton--radius-small {
+  border-radius: var(--borderRadius-small);
+}
+.Tenet-Skeleton--radius-medium {
+  border-radius: var(--borderRadius-medium);
+}
+.Tenet-Skeleton--radius-large {
+  border-radius: var(--borderRadius-large);
+}
+.Tenet-Skeleton--radius-full {
+  border-radius: var(--borderRadius-full);
+}
+
+@keyframes Tenet-Skeleton-shimmer {
+  to {
+    background-position: 150% 0;
+  }
+}
+
+@keyframes Tenet-Skeleton-pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* Respect reduced motion: drop the moving sweep for a gentle opacity pulse. */
+@media (prefers-reduced-motion: reduce) {
+  .Tenet-Skeleton {
+    background-image: none;
+    animation: Tenet-Skeleton-pulse 1.6s ease-in-out infinite;
+  }
+}

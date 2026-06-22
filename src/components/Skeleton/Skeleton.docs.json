@@ -1,0 +1,43 @@
+{
+  "id": "skeleton",
+  "name": "Skeleton",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "tenet-ui",
+  "source": "src/components/Skeleton/Skeleton.tsx",
+  "props": [
+    {
+      "name": "variant",
+      "type": "'text' | 'rect' | 'circle'",
+      "required": false,
+      "defaultValue": "text",
+      "description": "Shape of the placeholder. `text` mimics a line of copy, `rect` a block, `circle` an avatar/icon."
+    },
+    {
+      "name": "width",
+      "type": "string | number",
+      "required": false,
+      "description": "Width applied inline (number → px, string → as-is, e.g. '60%')."
+    },
+    {
+      "name": "height",
+      "type": "string | number",
+      "required": false,
+      "description": "Height applied inline (number → px, string → as-is). For `circle` it mirrors width."
+    },
+    {
+      "name": "radius",
+      "type": "'small' | 'medium' | 'large' | 'full'",
+      "required": false,
+      "description": "Corner radius token. `circle` always renders as `full` regardless of this prop."
+    }
+  ],
+  "stories": [
+    { "id": "components-skeleton--default" },
+    { "id": "components-skeleton--text" },
+    { "id": "components-skeleton--rect" },
+    { "id": "components-skeleton--circle" },
+    { "id": "components-skeleton--card" }
+  ],
+  "subcomponents": []
+}

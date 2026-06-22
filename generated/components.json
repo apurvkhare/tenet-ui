@@ -931,6 +931,55 @@
         }
       ]
     },
+    "icon-button": {
+      "id": "icon-button",
+      "name": "IconButton",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/IconButton/IconButton.tsx",
+      "props": [
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": "",
+          "description": "The icon to render. This is the only visible content, so the button must also have an accessible name."
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'primary' | 'danger' | 'invisible'",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Visual style of the button. Use 'primary' for the single most important action per surface."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Square control size (height = width), mapped to the control-height tokens."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-iconbutton--default"
+        },
+        {
+          "id": "components-iconbutton--primary"
+        },
+        {
+          "id": "components-iconbutton--danger"
+        },
+        {
+          "id": "components-iconbutton--invisible"
+        },
+        {
+          "id": "components-iconbutton--sizes"
+        }
+      ],
+      "subcomponents": []
+    },
     "label": {
       "id": "label",
       "name": "Label",
@@ -970,6 +1019,55 @@
         },
         {
           "id": "components-label--sizes"
+        }
+      ],
+      "subcomponents": []
+    },
+    "link": {
+      "id": "link",
+      "name": "Link",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Link/Link.tsx",
+      "props": [
+        {
+          "name": "muted",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Use the muted foreground color instead of the accent color."
+        },
+        {
+          "name": "underline",
+          "type": "'hover' | 'always' | 'none'",
+          "required": false,
+          "defaultValue": "hover",
+          "description": "When the underline is shown."
+        },
+        {
+          "name": "external",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Marks the link as leading off-site: sets target=\"_blank\" + rel=\"noopener noreferrer\" and appends a visually-hidden \" (opens in new tab)\" warning for screen-reader users."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-link--default"
+        },
+        {
+          "id": "components-link--muted"
+        },
+        {
+          "id": "components-link--always-underlined"
+        },
+        {
+          "id": "components-link--no-underline"
+        },
+        {
+          "id": "components-link--external"
         }
       ],
       "subcomponents": []
@@ -1163,6 +1261,110 @@
         },
         {
           "id": "components-pagination--many-pages"
+        }
+      ],
+      "subcomponents": []
+    },
+    "popover": {
+      "id": "popover",
+      "name": "Popover",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Popover/Popover.tsx",
+      "props": [
+        {
+          "name": "trigger",
+          "type": "ReactElement",
+          "required": true,
+          "defaultValue": "",
+          "description": "The trigger element (e.g. a Button); cloned with aria-haspopup=\"dialog\", aria-expanded, aria-controls, an onClick toggle, and a focus-restore ref."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": "",
+          "description": "The floating content rendered inside the popover surface."
+        },
+        {
+          "name": "placement",
+          "type": "'bottom-start' | 'bottom-end' | 'top-start' | 'top-end'",
+          "required": false,
+          "defaultValue": "bottom-start",
+          "description": "Where the surface is anchored relative to the trigger."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Popover",
+          "description": "Accessible name for the popover dialog."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Extra class on the wrapper element."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-popover--default"
+        }
+      ],
+      "subcomponents": []
+    },
+    "progress-bar": {
+      "id": "progress-bar",
+      "name": "ProgressBar",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/ProgressBar/ProgressBar.tsx",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "required": false,
+          "defaultValue": "undefined",
+          "description": "Current progress, from 0 to max (clamped). Omit for an indeterminate bar."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "defaultValue": "100",
+          "description": "Upper bound of the scale."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Track/fill height from the size scale."
+        },
+        {
+          "name": "variant",
+          "type": "'accent' | 'success' | 'danger'",
+          "required": false,
+          "defaultValue": "accent",
+          "description": "Fill color, mapped to the matching emphasis token."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-progressbar--default"
+        },
+        {
+          "id": "components-progressbar--indeterminate"
+        },
+        {
+          "id": "components-progressbar--variants"
+        },
+        {
+          "id": "components-progressbar--small"
         }
       ],
       "subcomponents": []
@@ -1457,6 +1659,59 @@
         },
         {
           "id": "components-select--with-disabled-option"
+        }
+      ],
+      "subcomponents": []
+    },
+    "skeleton": {
+      "id": "skeleton",
+      "name": "Skeleton",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Skeleton/Skeleton.tsx",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'text' | 'rect' | 'circle'",
+          "required": false,
+          "defaultValue": "text",
+          "description": "Shape of the placeholder. `text` mimics a line of copy, `rect` a block, `circle` an avatar/icon."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "Width applied inline (number → px, string → as-is, e.g. '60%')."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "description": "Height applied inline (number → px, string → as-is). For `circle` it mirrors width."
+        },
+        {
+          "name": "radius",
+          "type": "'small' | 'medium' | 'large' | 'full'",
+          "required": false,
+          "description": "Corner radius token. `circle` always renders as `full` regardless of this prop."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-skeleton--default"
+        },
+        {
+          "id": "components-skeleton--text"
+        },
+        {
+          "id": "components-skeleton--rect"
+        },
+        {
+          "id": "components-skeleton--circle"
+        },
+        {
+          "id": "components-skeleton--card"
         }
       ],
       "subcomponents": []
@@ -1807,6 +2062,76 @@
         "Tabs.Tab",
         "Tabs.Panel"
       ]
+    },
+    "tag": {
+      "id": "tag",
+      "name": "Tag",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Tag/Tag.tsx",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'accent'",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Semantic color scheme. Pick by meaning (accent for the active/selected token), not by raw color."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Tag size."
+        },
+        {
+          "name": "leadingIcon",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Optional leading icon rendered before the label; decorative (aria-hidden)."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "The tag label content."
+        },
+        {
+          "name": "onRemove",
+          "type": "() => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "When provided, renders a real remove button. Wire it to drop the tag from your collection. Tag does not remove itself — it has no internal state."
+        },
+        {
+          "name": "removeLabel",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Accessible label for the remove button when children is not a plain string. Falls back to the string children, otherwise \"Remove\"."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-tag--default"
+        },
+        {
+          "id": "components-tag--variants"
+        },
+        {
+          "id": "components-tag--sizes"
+        },
+        {
+          "id": "components-tag--removable"
+        },
+        {
+          "id": "components-tag--with-icon"
+        }
+      ],
+      "subcomponents": []
     },
     "text-input": {
       "id": "text-input",

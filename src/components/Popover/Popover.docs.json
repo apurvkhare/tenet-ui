@@ -1,0 +1,47 @@
+{
+  "id": "popover",
+  "name": "Popover",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "tenet-ui",
+  "source": "src/components/Popover/Popover.tsx",
+  "props": [
+    {
+      "name": "trigger",
+      "type": "ReactElement",
+      "required": true,
+      "defaultValue": "",
+      "description": "The trigger element (e.g. a Button); cloned with aria-haspopup=\"dialog\", aria-expanded, aria-controls, an onClick toggle, and a focus-restore ref."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "defaultValue": "",
+      "description": "The floating content rendered inside the popover surface."
+    },
+    {
+      "name": "placement",
+      "type": "'bottom-start' | 'bottom-end' | 'top-start' | 'top-end'",
+      "required": false,
+      "defaultValue": "bottom-start",
+      "description": "Where the surface is anchored relative to the trigger."
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Popover",
+      "description": "Accessible name for the popover dialog."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "defaultValue": "",
+      "description": "Extra class on the wrapper element."
+    }
+  ],
+  "stories": [{ "id": "components-popover--default" }],
+  "subcomponents": []
+}

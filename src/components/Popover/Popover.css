@@ -1,0 +1,42 @@
+/* Tenet Popover — non-modal floating container anchored to a trigger. */
+.Tenet-Popover {
+  position: relative;
+  display: inline-block;
+}
+
+.Tenet-Popover__surface {
+  position: absolute;
+  z-index: 50;
+  min-width: var(--base-size-40);
+  max-width: min(320px, 90vw);
+  padding: var(--space-3);
+  background-color: var(--bgColor-default);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-large);
+  box-shadow: var(--shadow-medium);
+  color: var(--fgColor-default);
+  font-family: var(--fontFamily-body);
+  font-size: var(--fontSize-1);
+}
+.Tenet-Popover__surface:focus-visible {
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+  outline-offset: var(--space-1);
+}
+
+/* Placement: vertical edge + horizontal alignment to the trigger. */
+.Tenet-Popover--placement-bottom-start {
+  top: calc(100% + var(--space-1));
+  left: 0;
+}
+.Tenet-Popover--placement-bottom-end {
+  top: calc(100% + var(--space-1));
+  right: 0;
+}
+.Tenet-Popover--placement-top-start {
+  bottom: calc(100% + var(--space-1));
+  left: 0;
+}
+.Tenet-Popover--placement-top-end {
+  bottom: calc(100% + var(--space-1));
+  right: 0;
+}
