@@ -94,7 +94,7 @@ interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'si
  */
 declare const TextInput: react.ForwardRefExoticComponent<TextInputProps & react.RefAttributes<HTMLInputElement>>;
 
-type LabelVariant = 'default' | 'accent' | 'success' | 'danger' | 'muted';
+type LabelVariant = 'default' | 'accent' | 'success' | 'danger' | 'attention' | 'muted';
 type LabelSize = 'small' | 'medium';
 interface LabelProps extends HTMLAttributes<HTMLSpanElement> {
     /** Semantic color scheme. Pick by meaning (success/danger/accent), not by raw color. */

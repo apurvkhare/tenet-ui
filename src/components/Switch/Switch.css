@@ -31,7 +31,8 @@
   height: var(--base-size-24);
   padding: 0 var(--base-size-4);
   border-radius: var(--borderRadius-full);
-  background-color: var(--bgColor-emphasis);
+  /* Off state: a muted neutral track (theme-stable) so the white knob always reads. */
+  background-color: var(--fgColor-muted);
   transition: background-color 0.16s ease;
 }
 
@@ -39,7 +40,8 @@
   width: var(--base-size-16);
   height: var(--base-size-16);
   border-radius: var(--borderRadius-full);
-  background-color: var(--fgColor-onEmphasis);
+  background-color: var(--base-color-white);
+  box-shadow: 0 1px 2px rgba(20, 17, 13, 0.35);
   transition: transform 0.16s ease;
 }
 
@@ -90,7 +92,7 @@
 }
 
 .Tenet-Switch__label {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--fontFamily-body);
   font-size: var(--fontSize-1);
   color: var(--fgColor-default);
   cursor: pointer;

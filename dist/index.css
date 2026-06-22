@@ -10,11 +10,7 @@
   border-radius: var(--borderRadius-medium);
   background-color: var(--bgColor-default);
   color: var(--fgColor-default);
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: var(--fontFamily-body);
   font-size: var(--fontSize-1);
   font-weight: var(--fontWeight-semibold);
   line-height: 1;
@@ -214,11 +210,7 @@
   outline: none;
   background: transparent;
   color: inherit;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: var(--fontFamily-body);
   font-size: var(--fontSize-1);
 }
 .Tenet-TextInput--size-small .Tenet-TextInput__input {
@@ -241,25 +233,27 @@
   display: inline-flex;
   align-items: center;
   border: var(--borderWidth-thin) solid transparent;
-  border-radius: var(--borderRadius-full);
-  font-weight: var(--fontWeight-medium);
+  border-radius: var(--borderRadius-small);
+  font-family: var(--fontFamily-body);
+  font-weight: var(--fontWeight-semibold);
+  font-size: var(--fontSize-0);
+  letter-spacing: var(--letterSpacing-tag);
+  text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
 }
 .Tenet-Label--size-small {
   height: var(--base-size-16);
   padding: 0 var(--space-2);
-  font-size: var(--fontSize-0);
 }
 .Tenet-Label--size-medium {
   height: var(--base-size-24);
   padding: 0 var(--space-3);
-  font-size: var(--fontSize-0);
 }
 .Tenet-Label--variant-default {
   background-color: var(--bgColor-muted);
   border-color: var(--borderColor-default);
-  color: var(--fgColor-default);
+  color: var(--fgColor-muted);
 }
 .Tenet-Label--variant-muted {
   background-color: transparent;
@@ -267,30 +261,31 @@
   color: var(--fgColor-muted);
 }
 .Tenet-Label--variant-accent {
-  background-color: var(--bgColor-accent-emphasis);
-  border-color: var(--bgColor-accent-emphasis);
-  color: var(--fgColor-onEmphasis);
+  background-color: var(--bgColor-accent-muted);
+  border-color: var(--borderColor-accent-muted);
+  color: var(--fgColor-accent);
 }
 .Tenet-Label--variant-success {
-  background-color: var(--bgColor-success-emphasis);
-  border-color: var(--bgColor-success-emphasis);
-  color: var(--fgColor-onEmphasis);
+  background-color: var(--bgColor-success-muted);
+  border-color: var(--borderColor-success-muted);
+  color: var(--fgColor-success);
 }
 .Tenet-Label--variant-danger {
-  background-color: var(--bgColor-danger-emphasis);
-  border-color: var(--bgColor-danger-emphasis);
-  color: var(--fgColor-onEmphasis);
+  background-color: var(--bgColor-danger-muted);
+  border-color: var(--borderColor-danger-muted);
+  color: var(--fgColor-danger);
+}
+.Tenet-Label--variant-attention {
+  background-color: var(--bgColor-attention-muted);
+  border-color: var(--borderColor-attention-muted);
+  color: var(--fgColor-attention);
 }
 
 /* src/components/Table/Table.css */
 .Tenet-Table {
   width: 100%;
   border-collapse: collapse;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: var(--fontFamily-body);
   font-size: var(--fontSize-1);
   color: var(--fgColor-default);
 }
@@ -299,6 +294,8 @@
   color: var(--fgColor-muted);
   font-size: var(--fontSize-0);
   font-weight: var(--fontWeight-semibold);
+  letter-spacing: var(--letterSpacing-tag);
+  text-transform: uppercase;
   text-align: left;
   white-space: nowrap;
   border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
@@ -364,8 +361,10 @@
 }
 .Tenet-Table__title {
   margin: 0;
-  font-size: var(--fontSize-2);
+  font-family: var(--fontFamily-display);
+  font-size: var(--fontSize-3);
   font-weight: var(--fontWeight-semibold);
+  letter-spacing: -0.01em;
   color: var(--fgColor-default);
 }
 .Tenet-Table__subtitle {
@@ -435,11 +434,7 @@
   background-color: var(--bgColor-default);
   color: var(--fgColor-default);
   box-shadow: var(--shadow-resting);
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: var(--fontFamily-body);
   font-size: var(--fontSize-1);
   line-height: 1.5;
   transition: border-color 0.12s ease, box-shadow 0.12s ease;
@@ -498,11 +493,7 @@
   background-color: var(--bgColor-default);
   color: var(--fgColor-default);
   box-shadow: var(--shadow-resting);
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: var(--fontFamily-body);
   font-size: var(--fontSize-1);
   cursor: pointer;
   text-align: left;
@@ -612,11 +603,7 @@
   gap: var(--space-1);
 }
 .Tenet-Checkbox__label {
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: var(--fontFamily-body);
   font-size: var(--fontSize-1);
   color: var(--fgColor-default);
   cursor: pointer;
@@ -652,11 +639,7 @@
   gap: var(--space-1);
 }
 .Tenet-Radio__label {
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: var(--fontFamily-body);
   font-size: var(--fontSize-1);
   color: var(--fgColor-default);
   cursor: pointer;
@@ -726,14 +709,15 @@
   height: var(--base-size-24);
   padding: 0 var(--base-size-4);
   border-radius: var(--borderRadius-full);
-  background-color: var(--bgColor-emphasis);
+  background-color: var(--fgColor-muted);
   transition: background-color 0.16s ease;
 }
 .Tenet-Switch__knob {
   width: var(--base-size-16);
   height: var(--base-size-16);
   border-radius: var(--borderRadius-full);
-  background-color: var(--fgColor-onEmphasis);
+  background-color: var(--base-color-white);
+  box-shadow: 0 1px 2px rgba(20, 17, 13, 0.35);
   transition: transform 0.16s ease;
 }
 .Tenet-Switch__input:checked + .Tenet-Switch__track {
@@ -774,11 +758,7 @@
   gap: var(--space-1);
 }
 .Tenet-Switch__label {
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: var(--fontFamily-body);
   font-size: var(--fontSize-1);
   color: var(--fgColor-default);
   cursor: pointer;
@@ -832,11 +812,7 @@
   outline: none;
   background: transparent;
   color: inherit;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: var(--fontFamily-body);
   font-size: var(--fontSize-1);
 }
 .Tenet-NumberInput--size-small .Tenet-NumberInput__input {
@@ -905,11 +881,7 @@
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium);
   box-shadow: var(--shadow-resting);
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: var(--fontFamily-body);
   color: var(--fgColor-default);
 }
 .Tenet-Calendar__header {
@@ -919,7 +891,8 @@
   margin-bottom: var(--space-2);
 }
 .Tenet-Calendar__heading {
-  font-size: var(--fontSize-1);
+  font-family: var(--fontFamily-display);
+  font-size: var(--fontSize-2);
   font-weight: var(--fontWeight-semibold);
 }
 .Tenet-Calendar__nav {
@@ -1031,11 +1004,7 @@
   background-color: var(--bgColor-default);
   color: var(--fgColor-default);
   box-shadow: var(--shadow-resting);
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: var(--fontFamily-body);
   font-size: var(--fontSize-1);
   cursor: pointer;
   text-align: left;

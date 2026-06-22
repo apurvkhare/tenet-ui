@@ -2,17 +2,19 @@
 .Tenet-Table {
   width: 100%;
   border-collapse: collapse;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--fontFamily-body);
   font-size: var(--fontSize-1);
   color: var(--fgColor-default);
 }
 
-/* Header cells */
+/* Header cells — tracked caps for the editorial column-label look. */
 .Tenet-Table__header {
   background-color: var(--bgColor-muted);
   color: var(--fgColor-muted);
   font-size: var(--fontSize-0);
   font-weight: var(--fontWeight-semibold);
+  letter-spacing: var(--letterSpacing-tag);
+  text-transform: uppercase;
   text-align: left;
   white-space: nowrap;
   border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
@@ -91,8 +93,10 @@
 
 .Tenet-Table__title {
   margin: 0;
-  font-size: var(--fontSize-2);
+  font-family: var(--fontFamily-display);
+  font-size: var(--fontSize-3);
   font-weight: var(--fontWeight-semibold);
+  letter-spacing: -0.01em;
   color: var(--fgColor-default);
 }
 

@@ -10,7 +10,7 @@
   border-radius: var(--borderRadius-medium);
   background-color: var(--bgColor-default);
   color: var(--fgColor-default);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--fontFamily-body);
   font-size: var(--fontSize-1);
   font-weight: var(--fontWeight-semibold);
   line-height: 1;

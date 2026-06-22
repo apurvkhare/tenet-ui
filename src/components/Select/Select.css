@@ -21,7 +21,7 @@
   background-color: var(--bgColor-default);
   color: var(--fgColor-default);
   box-shadow: var(--shadow-resting);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--fontFamily-body);
   font-size: var(--fontSize-1);
   cursor: pointer;
   text-align: left;

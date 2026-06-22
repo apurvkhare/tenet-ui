@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 
-export type LabelVariant = 'default' | 'accent' | 'success' | 'danger' | 'muted';
+export type LabelVariant = 'default' | 'accent' | 'success' | 'danger' | 'attention' | 'muted';
 export type LabelSize = 'small' | 'medium';
 
 export interface LabelProps extends HTMLAttributes<HTMLSpanElement> {
