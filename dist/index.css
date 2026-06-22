@@ -1054,4 +1054,478 @@
 .Tenet-DatePicker__calendar {
   box-shadow: var(--shadow-medium);
 }
+
+/* src/components/Banner/Banner.css */
+.Tenet-Banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: var(--borderWidth-thin) solid transparent;
+  border-left-width: var(--borderWidth-thick);
+  border-radius: var(--borderRadius-medium);
+  font-family: var(--fontFamily-body);
+  font-size: var(--fontSize-1);
+  color: var(--fgColor-default);
+}
+.Tenet-Banner__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  border-radius: var(--borderRadius-full);
+  font-size: var(--fontSize-0);
+  font-weight: var(--fontWeight-bold);
+  color: var(--fgColor-onEmphasis);
+}
+.Tenet-Banner__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.Tenet-Banner__title {
+  margin: 0;
+  font-weight: var(--fontWeight-semibold);
+}
+.Tenet-Banner__body {
+  color: var(--fgColor-muted);
+}
+.Tenet-Banner__body :first-child {
+  margin-top: 0;
+}
+.Tenet-Banner__body :last-child {
+  margin-bottom: 0;
+}
+.Tenet-Banner__dismiss {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  margin: calc(-1 * var(--space-1)) calc(-1 * var(--space-1)) 0 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--borderRadius-small);
+  background: transparent;
+  color: var(--fgColor-muted);
+  font-size: var(--fontSize-0);
+  cursor: pointer;
+}
+.Tenet-Banner__dismiss:hover {
+  background-color: var(--bgColor-muted);
+  color: var(--fgColor-default);
+}
+.Tenet-Banner--variant-info {
+  background-color: var(--bgColor-accent-muted);
+  border-color: var(--borderColor-accent-muted);
+  border-left-color: var(--bgColor-accent-emphasis);
+}
+.Tenet-Banner--variant-info .Tenet-Banner__icon {
+  background-color: var(--bgColor-accent-emphasis);
+}
+.Tenet-Banner--variant-success {
+  background-color: var(--bgColor-success-muted);
+  border-color: var(--borderColor-success-muted);
+  border-left-color: var(--bgColor-success-emphasis);
+}
+.Tenet-Banner--variant-success .Tenet-Banner__icon {
+  background-color: var(--bgColor-success-emphasis);
+}
+.Tenet-Banner--variant-warning {
+  background-color: var(--bgColor-attention-muted);
+  border-color: var(--borderColor-attention-muted);
+  border-left-color: var(--bgColor-attention-emphasis);
+}
+.Tenet-Banner--variant-warning .Tenet-Banner__icon {
+  background-color: var(--bgColor-attention-emphasis);
+  color: var(--base-color-black);
+}
+.Tenet-Banner--variant-danger {
+  background-color: var(--bgColor-danger-muted);
+  border-color: var(--borderColor-danger-muted);
+  border-left-color: var(--bgColor-danger-emphasis);
+}
+.Tenet-Banner--variant-danger .Tenet-Banner__icon {
+  background-color: var(--bgColor-danger-emphasis);
+}
+
+/* src/components/Badge/Badge.css */
+.Tenet-Badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--base-size-16);
+  height: var(--base-size-16);
+  padding: 0 var(--space-1);
+  border-radius: var(--borderRadius-full);
+  font-family: var(--fontFamily-mono);
+  font-size: 11px;
+  font-weight: var(--fontWeight-semibold);
+  line-height: 1;
+  white-space: nowrap;
+}
+.Tenet-Badge--dot {
+  min-width: var(--space-2);
+  width: var(--space-2);
+  height: var(--space-2);
+  padding: 0;
+}
+.Tenet-Badge--variant-default {
+  background-color: var(--bgColor-muted);
+  color: var(--fgColor-muted);
+  box-shadow: inset 0 0 0 var(--borderWidth-thin) var(--borderColor-default);
+}
+.Tenet-Badge--variant-accent {
+  background-color: var(--bgColor-accent-emphasis);
+  color: var(--fgColor-onEmphasis);
+}
+.Tenet-Badge--variant-success {
+  background-color: var(--bgColor-success-emphasis);
+  color: var(--fgColor-onEmphasis);
+}
+.Tenet-Badge--variant-danger {
+  background-color: var(--bgColor-danger-emphasis);
+  color: var(--fgColor-onEmphasis);
+}
+.Tenet-Badge--variant-attention {
+  background-color: var(--bgColor-attention-emphasis);
+  color: var(--base-color-black);
+}
+
+/* src/components/Avatar/Avatar.css */
+.Tenet-Avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  background-color: var(--bgColor-accent-muted);
+  color: var(--fgColor-accent);
+  font-family: var(--fontFamily-body);
+  font-weight: var(--fontWeight-semibold);
+  line-height: 1;
+  user-select: none;
+}
+.Tenet-Avatar__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.Tenet-Avatar--shape-circle {
+  border-radius: var(--borderRadius-full);
+}
+.Tenet-Avatar--shape-rounded {
+  border-radius: var(--borderRadius-medium);
+}
+.Tenet-Avatar--size-small {
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  font-size: 10px;
+}
+.Tenet-Avatar--size-medium {
+  width: var(--base-size-32);
+  height: var(--base-size-32);
+  font-size: var(--fontSize-0);
+}
+.Tenet-Avatar--size-large {
+  width: var(--base-size-40);
+  height: var(--base-size-40);
+  font-size: var(--fontSize-1);
+}
+.Tenet-Avatar--size-xlarge {
+  width: calc(var(--base-size-40) + var(--base-size-24));
+  height: calc(var(--base-size-40) + var(--base-size-24));
+  font-size: var(--fontSize-3);
+}
+
+/* src/components/Spinner/Spinner.css */
+.Tenet-Spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fgColor-accent);
+}
+.Tenet-Spinner__circle {
+  display: block;
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  border: 2px solid color-mix(in srgb, currentColor 25%, transparent);
+  border-top-color: currentColor;
+  border-radius: var(--borderRadius-full);
+  animation: Tenet-Spinner-spin 0.6s linear infinite;
+}
+.Tenet-Spinner--size-small .Tenet-Spinner__circle {
+  width: var(--base-size-16);
+  height: var(--base-size-16);
+  border-width: 2px;
+}
+.Tenet-Spinner--size-large .Tenet-Spinner__circle {
+  width: var(--base-size-40);
+  height: var(--base-size-40);
+  border-width: 3px;
+}
+@keyframes Tenet-Spinner-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .Tenet-Spinner__circle {
+    animation-duration: 1.4s;
+  }
+}
+.Tenet-visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* src/components/Divider/Divider.css */
+.Tenet-Divider {
+  border: 0;
+  background: transparent;
+}
+.Tenet-Divider--horizontal {
+  width: 100%;
+  height: var(--borderWidth-thin);
+  background-color: var(--borderColor-muted);
+}
+.Tenet-Divider--vertical {
+  align-self: stretch;
+  width: var(--borderWidth-thin);
+  min-height: var(--base-size-16);
+  background-color: var(--borderColor-muted);
+}
+.Tenet-Divider--labelled {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: auto;
+  background: transparent;
+}
+.Tenet-Divider--labelled::before,
+.Tenet-Divider--labelled::after {
+  content: "";
+  flex: 1;
+  height: var(--borderWidth-thin);
+  background-color: var(--borderColor-muted);
+}
+.Tenet-Divider__label {
+  font-family: var(--fontFamily-body);
+  font-size: var(--fontSize-0);
+  font-weight: var(--fontWeight-semibold);
+  letter-spacing: var(--letterSpacing-tag);
+  text-transform: uppercase;
+  color: var(--fgColor-muted);
+}
+
+/* src/components/Tabs/Tabs.css */
+.Tenet-Tabs {
+  font-family: var(--fontFamily-body);
+}
+.Tenet-Tabs__list {
+  display: flex;
+  gap: var(--space-4);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+.Tenet-Tabs__tab {
+  position: relative;
+  appearance: none;
+  border: none;
+  background: transparent;
+  padding: var(--space-2) 0;
+  margin-bottom: -1px;
+  border-bottom: var(--borderWidth-thick) solid transparent;
+  color: var(--fgColor-muted);
+  font-family: inherit;
+  font-size: var(--fontSize-1);
+  font-weight: var(--fontWeight-semibold);
+  cursor: pointer;
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+.Tenet-Tabs__tab:hover:not([disabled]) {
+  color: var(--fgColor-default);
+}
+.Tenet-Tabs__tab:focus-visible {
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+  outline-offset: 2px;
+  border-radius: var(--borderRadius-small);
+}
+.Tenet-Tabs__tab[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.Tenet-Tabs__tab--selected {
+  color: var(--fgColor-default);
+  border-bottom-color: var(--bgColor-accent-emphasis);
+}
+.Tenet-Tabs__panel {
+  padding-top: var(--space-4);
+}
+.Tenet-Tabs__panel:focus-visible {
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+  outline-offset: 2px;
+  border-radius: var(--borderRadius-small);
+}
+
+/* src/components/Tooltip/Tooltip.css */
+.Tenet-Tooltip {
+  position: relative;
+  display: inline-flex;
+}
+.Tenet-Tooltip__bubble {
+  position: absolute;
+  z-index: 60;
+  max-width: 240px;
+  width: max-content;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--borderRadius-small);
+  background-color: var(--bgColor-emphasis);
+  color: var(--bgColor-default);
+  font-family: var(--fontFamily-body);
+  font-size: var(--fontSize-0);
+  line-height: 1.4;
+  text-align: center;
+  white-space: normal;
+  box-shadow: var(--shadow-medium);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s ease;
+  pointer-events: none;
+}
+.Tenet-Tooltip__bubble--open {
+  opacity: 1;
+  visibility: visible;
+}
+.Tenet-Tooltip__bubble--top {
+  bottom: calc(100% + var(--space-2));
+  left: 50%;
+  transform: translateX(-50%);
+}
+.Tenet-Tooltip__bubble--bottom {
+  top: calc(100% + var(--space-2));
+  left: 50%;
+  transform: translateX(-50%);
+}
+.Tenet-Tooltip__bubble--left {
+  right: calc(100% + var(--space-2));
+  top: 50%;
+  transform: translateY(-50%);
+}
+.Tenet-Tooltip__bubble--right {
+  left: calc(100% + var(--space-2));
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* src/components/Dialog/Dialog.css */
+.Tenet-Dialog__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--space-6) var(--space-4);
+  overflow-y: auto;
+  background-color: rgba(20, 17, 13, 0.5);
+}
+.Tenet-Dialog {
+  width: 100%;
+  margin: auto;
+  background-color: var(--bgColor-default);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-large);
+  box-shadow: var(--shadow-medium);
+  font-family: var(--fontFamily-body);
+  color: var(--fgColor-default);
+}
+.Tenet-Dialog:focus {
+  outline: none;
+}
+.Tenet-Dialog--size-small {
+  max-width: 360px;
+}
+.Tenet-Dialog--size-medium {
+  max-width: 480px;
+}
+.Tenet-Dialog--size-large {
+  max-width: 640px;
+}
+.Tenet-Dialog__header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-4) var(--space-3);
+}
+.Tenet-Dialog__headings {
+  flex: 1;
+  min-width: 0;
+}
+.Tenet-Dialog__title {
+  margin: 0;
+  font-family: var(--fontFamily-display);
+  font-size: var(--fontSize-3);
+  font-weight: var(--fontWeight-semibold);
+  letter-spacing: -0.01em;
+  color: var(--fgColor-default);
+}
+.Tenet-Dialog__description {
+  margin: var(--space-1) 0 0;
+  font-size: var(--fontSize-1);
+  color: var(--fgColor-muted);
+}
+.Tenet-Dialog__close {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--base-size-28);
+  height: var(--base-size-28);
+  margin: calc(-1 * var(--space-1)) calc(-1 * var(--space-1)) 0 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--borderRadius-small);
+  background: transparent;
+  color: var(--fgColor-muted);
+  font-size: var(--fontSize-1);
+  cursor: pointer;
+}
+.Tenet-Dialog__close:hover {
+  background-color: var(--bgColor-muted);
+  color: var(--fgColor-default);
+}
+.Tenet-Dialog__close:focus-visible {
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+  outline-offset: 2px;
+}
+.Tenet-Dialog__body {
+  padding: 0 var(--space-4) var(--space-4);
+  font-size: var(--fontSize-1);
+  line-height: 1.5;
+}
+.Tenet-Dialog__body :first-child {
+  margin-top: 0;
+}
+.Tenet-Dialog__body :last-child {
+  margin-bottom: 0;
+}
+.Tenet-Dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
 /*# sourceMappingURL=index.css.map */

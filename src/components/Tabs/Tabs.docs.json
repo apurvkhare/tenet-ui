@@ -1,0 +1,33 @@
+{
+  "id": "tabs",
+  "name": "Tabs",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "tenet-ui",
+  "source": "src/components/Tabs/Tabs.tsx",
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "defaultValue": "",
+      "description": "Controlled active tab value."
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "defaultValue": "",
+      "description": "Uncontrolled initial active tab value."
+    },
+    {
+      "name": "onChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "defaultValue": "",
+      "description": "Called when the active tab changes."
+    }
+  ],
+  "stories": [{ "id": "components-tabs--default" }],
+  "subcomponents": ["Tabs.List", "Tabs.Tab", "Tabs.Panel"]
+}

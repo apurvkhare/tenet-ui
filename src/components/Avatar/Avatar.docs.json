@@ -1,0 +1,45 @@
+{
+  "id": "avatar",
+  "name": "Avatar",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "tenet-ui",
+  "source": "src/components/Avatar/Avatar.tsx",
+  "props": [
+    {
+      "name": "src",
+      "type": "string",
+      "required": false,
+      "defaultValue": "",
+      "description": "Image URL. Falls back to initials if missing or it fails to load."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "defaultValue": "",
+      "description": "Name — drives initials and the accessible label."
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium' | 'large' | 'xlarge'",
+      "required": false,
+      "defaultValue": "medium",
+      "description": "Size from the scale."
+    },
+    {
+      "name": "shape",
+      "type": "'circle' | 'rounded'",
+      "required": false,
+      "defaultValue": "circle",
+      "description": "Circle (people) or rounded square (orgs/repos)."
+    }
+  ],
+  "stories": [
+    { "id": "components-avatar--initials" },
+    { "id": "components-avatar--image" },
+    { "id": "components-avatar--org" },
+    { "id": "components-avatar--large" }
+  ],
+  "subcomponents": []
+}

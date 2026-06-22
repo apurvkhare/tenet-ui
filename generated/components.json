@@ -2,6 +2,175 @@
   "schemaVersion": 1,
   "generatedFrom": "src/components/**/*.docs.json",
   "components": {
+    "avatar": {
+      "id": "avatar",
+      "name": "Avatar",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Avatar/Avatar.tsx",
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Image URL. Falls back to initials if missing or it fails to load."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "defaultValue": "",
+          "description": "Name — drives initials and the accessible label."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large' | 'xlarge'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Size from the scale."
+        },
+        {
+          "name": "shape",
+          "type": "'circle' | 'rounded'",
+          "required": false,
+          "defaultValue": "circle",
+          "description": "Circle (people) or rounded square (orgs/repos)."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-avatar--initials"
+        },
+        {
+          "id": "components-avatar--image"
+        },
+        {
+          "id": "components-avatar--org"
+        },
+        {
+          "id": "components-avatar--large"
+        }
+      ],
+      "subcomponents": []
+    },
+    "badge": {
+      "id": "badge",
+      "name": "Badge",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Badge/Badge.tsx",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'accent' | 'success' | 'danger' | 'attention'",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Semantic color scheme."
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "required": false,
+          "defaultValue": "",
+          "description": "Numeric count; renders max+ overflow."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "defaultValue": "99",
+          "description": "Overflow threshold for count."
+        },
+        {
+          "name": "dot",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Render a bare status dot (no text)."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-badge--count"
+        },
+        {
+          "id": "components-badge--overflow"
+        },
+        {
+          "id": "components-badge--dot"
+        },
+        {
+          "id": "components-badge--default"
+        }
+      ],
+      "subcomponents": []
+    },
+    "banner": {
+      "id": "banner",
+      "name": "Banner",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Banner/Banner.tsx",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'info' | 'success' | 'warning' | 'danger'",
+          "required": false,
+          "defaultValue": "info",
+          "description": "Semantic tone. Danger uses role=alert; others role=status."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Bold lead-in line."
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "per variant",
+          "description": "Replace the default leading icon."
+        },
+        {
+          "name": "hideIcon",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Hide the leading icon."
+        },
+        {
+          "name": "onDismiss",
+          "type": "() => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "When set, renders a dismiss button calling this."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-banner--info"
+        },
+        {
+          "id": "components-banner--success"
+        },
+        {
+          "id": "components-banner--warning"
+        },
+        {
+          "id": "components-banner--danger"
+        },
+        {
+          "id": "components-banner--dismissible"
+        }
+      ],
+      "subcomponents": []
+    },
     "button": {
       "id": "button",
       "name": "Button",
@@ -462,6 +631,107 @@
       ],
       "subcomponents": []
     },
+    "dialog": {
+      "id": "dialog",
+      "name": "Dialog",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Dialog/Dialog.tsx",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "defaultValue": "",
+          "description": "Whether the dialog is open."
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": true,
+          "defaultValue": "",
+          "description": "Called on Escape, backdrop click, or the close button."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": "",
+          "description": "Accessible + visible heading."
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Supporting description (wired as aria-describedby)."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Width from the scale."
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Footer actions."
+        },
+        {
+          "name": "closeOnBackdrop",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "true",
+          "description": "Allow closing by clicking the backdrop."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-dialog--default"
+        }
+      ],
+      "subcomponents": []
+    },
+    "divider": {
+      "id": "divider",
+      "name": "Divider",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Divider/Divider.tsx",
+      "props": [
+        {
+          "name": "orientation",
+          "type": "'horizontal' | 'vertical'",
+          "required": false,
+          "defaultValue": "horizontal",
+          "description": "Layout direction."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Optional centered label (horizontal only)."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-divider--horizontal"
+        },
+        {
+          "id": "components-divider--labelled"
+        },
+        {
+          "id": "components-divider--vertical"
+        }
+      ],
+      "subcomponents": []
+    },
     "form-control": {
       "id": "form-control",
       "name": "FormControl",
@@ -877,6 +1147,42 @@
       ],
       "subcomponents": []
     },
+    "spinner": {
+      "id": "spinner",
+      "name": "Spinner",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Spinner/Spinner.tsx",
+      "props": [
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Size from the scale."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Loading",
+          "description": "Accessible label (visually hidden)."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-spinner--default"
+        },
+        {
+          "id": "components-spinner--small"
+        },
+        {
+          "id": "components-spinner--large"
+        }
+      ],
+      "subcomponents": []
+    },
     "stack": {
       "id": "stack",
       "name": "Stack",
@@ -1147,6 +1453,47 @@
         }
       ]
     },
+    "tabs": {
+      "id": "tabs",
+      "name": "Tabs",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Tabs/Tabs.tsx",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled active tab value."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Uncontrolled initial active tab value."
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called when the active tab changes."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-tabs--default"
+        }
+      ],
+      "subcomponents": [
+        "Tabs.List",
+        "Tabs.Tab",
+        "Tabs.Panel"
+      ]
+    },
     "text-input": {
       "id": "text-input",
       "name": "TextInput",
@@ -1250,6 +1597,46 @@
         },
         {
           "id": "components-textarea--invalid"
+        }
+      ],
+      "subcomponents": []
+    },
+    "tooltip": {
+      "id": "tooltip",
+      "name": "Tooltip",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Tooltip/Tooltip.tsx",
+      "props": [
+        {
+          "name": "content",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": "",
+          "description": "Tooltip text/content."
+        },
+        {
+          "name": "placement",
+          "type": "'top' | 'bottom' | 'left' | 'right'",
+          "required": false,
+          "defaultValue": "top",
+          "description": "Side of the trigger to render on."
+        },
+        {
+          "name": "children",
+          "type": "ReactElement",
+          "required": true,
+          "defaultValue": "",
+          "description": "The single focusable trigger element."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-tooltip--default"
+        },
+        {
+          "id": "components-tooltip--bottom"
         }
       ],
       "subcomponents": []

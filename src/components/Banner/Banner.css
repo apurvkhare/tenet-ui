@@ -1,0 +1,106 @@
+/* Tenet Banner — inline message with a soft tint, a status edge, and an icon. */
+.Tenet-Banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: var(--borderWidth-thin) solid transparent;
+  border-left-width: var(--borderWidth-thick);
+  border-radius: var(--borderRadius-medium);
+  font-family: var(--fontFamily-body);
+  font-size: var(--fontSize-1);
+  color: var(--fgColor-default);
+}
+
+.Tenet-Banner__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  border-radius: var(--borderRadius-full);
+  font-size: var(--fontSize-0);
+  font-weight: var(--fontWeight-bold);
+  color: var(--fgColor-onEmphasis);
+}
+
+.Tenet-Banner__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.Tenet-Banner__title {
+  margin: 0;
+  font-weight: var(--fontWeight-semibold);
+}
+.Tenet-Banner__body {
+  color: var(--fgColor-muted);
+}
+.Tenet-Banner__body :first-child {
+  margin-top: 0;
+}
+.Tenet-Banner__body :last-child {
+  margin-bottom: 0;
+}
+
+.Tenet-Banner__dismiss {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  margin: calc(-1 * var(--space-1)) calc(-1 * var(--space-1)) 0 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--borderRadius-small);
+  background: transparent;
+  color: var(--fgColor-muted);
+  font-size: var(--fontSize-0);
+  cursor: pointer;
+}
+.Tenet-Banner__dismiss:hover {
+  background-color: var(--bgColor-muted);
+  color: var(--fgColor-default);
+}
+
+/* Variants — tint surface + matching edge + tinted icon chip. */
+.Tenet-Banner--variant-info {
+  background-color: var(--bgColor-accent-muted);
+  border-color: var(--borderColor-accent-muted);
+  border-left-color: var(--bgColor-accent-emphasis);
+}
+.Tenet-Banner--variant-info .Tenet-Banner__icon {
+  background-color: var(--bgColor-accent-emphasis);
+}
+
+.Tenet-Banner--variant-success {
+  background-color: var(--bgColor-success-muted);
+  border-color: var(--borderColor-success-muted);
+  border-left-color: var(--bgColor-success-emphasis);
+}
+.Tenet-Banner--variant-success .Tenet-Banner__icon {
+  background-color: var(--bgColor-success-emphasis);
+}
+
+.Tenet-Banner--variant-warning {
+  background-color: var(--bgColor-attention-muted);
+  border-color: var(--borderColor-attention-muted);
+  border-left-color: var(--bgColor-attention-emphasis);
+}
+.Tenet-Banner--variant-warning .Tenet-Banner__icon {
+  background-color: var(--bgColor-attention-emphasis);
+  color: var(--base-color-black);
+}
+
+.Tenet-Banner--variant-danger {
+  background-color: var(--bgColor-danger-muted);
+  border-color: var(--borderColor-danger-muted);
+  border-left-color: var(--bgColor-danger-emphasis);
+}
+.Tenet-Banner--variant-danger .Tenet-Banner__icon {
+  background-color: var(--bgColor-danger-emphasis);
+}

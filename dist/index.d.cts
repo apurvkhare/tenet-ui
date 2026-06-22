@@ -1,5 +1,5 @@
 import * as react from 'react';
-import { ButtonHTMLAttributes, ReactNode, HTMLAttributes, InputHTMLAttributes, TableHTMLAttributes, ThHTMLAttributes, TdHTMLAttributes, LabelHTMLAttributes, TextareaHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, ReactNode, HTMLAttributes, InputHTMLAttributes, TableHTMLAttributes, ThHTMLAttributes, TdHTMLAttributes, LabelHTMLAttributes, TextareaHTMLAttributes, ReactElement } from 'react';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 
 type ButtonVariant = 'default' | 'primary' | 'danger' | 'invisible';
@@ -494,4 +494,191 @@ interface DatePickerProps {
  */
 declare const DatePicker: react.ForwardRefExoticComponent<DatePickerProps & react.RefAttributes<HTMLButtonElement>>;
 
-export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, Calendar, type CalendarProps, Card, type CardPadding, type CardProps, type CardVariant, type CellAlign, Checkbox, type CheckboxProps, DataTable, type DataTableColumn, type DataTableProps, DatePicker, type DatePickerProps, type DatePickerSize, FormControl, type FormControlCaptionProps, type FormControlLabelProps, type FormControlProps, type FormControlValidationProps, Label$1 as Label, type LabelProps, type LabelSize, type LabelVariant, NumberInput, type NumberInputProps, type NumberInputSize, Radio, RadioGroup, type RadioGroupProps, type RadioProps, Select, type SelectOption, type SelectProps, type SelectSize, type SortDirection, Stack, type StackAlign, type StackDirection, type StackGap, type StackItemProps, type StackJustify, type StackPadding, type StackProps, Switch, type SwitchProps, type SwitchSize, Table, type TableActionsProps, type TableCellProps, type TableContainerProps, type TableDensity, type TableHeaderProps, type TableProps, type TableRowProps, type TableSectionProps, type TableSubtitleProps, type TableTitleProps, TextInput, type TextInputProps, type TextInputSize, Textarea, type TextareaProps, type TextareaResize, type ValidationVariant, type WeekStart };
+type BannerVariant = 'info' | 'success' | 'warning' | 'danger';
+interface BannerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+    /** Semantic tone. Pick by meaning, not color. */
+    variant?: BannerVariant;
+    /** Optional bold lead-in line. */
+    title?: ReactNode;
+    /** Replace the default leading icon. */
+    icon?: ReactNode;
+    /** Hide the leading icon entirely. */
+    hideIcon?: boolean;
+    /** When provided, renders a dismiss button that calls this. */
+    onDismiss?: () => void;
+    /** Body content. */
+    children?: ReactNode;
+}
+
+/**
+ * Tenet banner — an inline, contextual message tied to the content it sits near (form error,
+ * page-level notice). Colors come from the semantic tint tokens. For transient, floating messages
+ * use a toast instead; for a status word on a row, use `Label`.
+ */
+declare const Banner: react.ForwardRefExoticComponent<BannerProps & react.RefAttributes<HTMLDivElement>>;
+
+type BadgeVariant = 'default' | 'accent' | 'success' | 'danger' | 'attention';
+interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
+    /** Semantic color scheme. */
+    variant?: BadgeVariant;
+    /** Numeric count. Rendered with a `max+` overflow when above `max`. */
+    count?: number;
+    /** Overflow threshold for `count` (e.g. 99 -> "99+"). */
+    max?: number;
+    /** Render a bare status dot (no text). */
+    dot?: boolean;
+    /** Custom content (overrides count). */
+    children?: ReactNode;
+}
+
+/**
+ * Tenet badge — a small count or status dot, typically anchored to an icon or nav item. Use it for
+ * quantities ("3 unread") or presence dots. For a labelled status word (passing/failing) use
+ * `Label` instead.
+ */
+declare const Badge: react.ForwardRefExoticComponent<BadgeProps & react.RefAttributes<HTMLSpanElement>>;
+
+type AvatarSize = 'small' | 'medium' | 'large' | 'xlarge';
+type AvatarShape = 'circle' | 'rounded';
+interface AvatarProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
+    /** Image URL. When omitted (or it fails to load), initials from `name` are shown. */
+    src?: string;
+    /** Person/entity name — used for initials and as the accessible label. */
+    name: string;
+    /** Size from the scale. */
+    size?: AvatarSize;
+    /** Circle (people) or rounded square (orgs/repos). */
+    shape?: AvatarShape;
+}
+
+/**
+ * Tenet avatar — an image, or initials derived from `name` when there is no image (or it fails to
+ * load). Always pass `name`: it drives the initials and the accessible label, so an avatar is never
+ * an unlabelled blob to assistive tech.
+ */
+declare const Avatar: react.ForwardRefExoticComponent<AvatarProps & react.RefAttributes<HTMLSpanElement>>;
+
+type SpinnerSize = 'small' | 'medium' | 'large';
+interface SpinnerProps extends HTMLAttributes<HTMLSpanElement> {
+    /** Size from the scale. */
+    size?: SpinnerSize;
+    /** Accessible label announced to assistive tech (visually hidden). */
+    label?: string;
+}
+
+/**
+ * Tenet spinner — an indeterminate loading indicator. Renders `role="status"` with a visually
+ * hidden label so screen readers announce the loading state. Inherits `currentColor`, so it tints
+ * to whatever text color it sits in.
+ */
+declare const Spinner: react.ForwardRefExoticComponent<SpinnerProps & react.RefAttributes<HTMLSpanElement>>;
+
+type DividerOrientation = 'horizontal' | 'vertical';
+interface DividerProps extends HTMLAttributes<HTMLDivElement> {
+    /** Layout direction. */
+    orientation?: DividerOrientation;
+    /** Optional centered label (horizontal only). */
+    children?: ReactNode;
+}
+
+/**
+ * Tenet divider — a hairline separator. Vertical or horizontal; horizontal optionally carries a
+ * centered label ("OR"). Exposes `role="separator"` with the right orientation so it's a real
+ * landmark, not a styled border.
+ */
+declare const Divider: react.ForwardRefExoticComponent<DividerProps & react.RefAttributes<HTMLDivElement>>;
+
+interface TabsProps {
+    /** Controlled active tab value. */
+    value?: string;
+    /** Uncontrolled initial active tab value. */
+    defaultValue?: string;
+    /** Called when the active tab changes. */
+    onChange?: (value: string) => void;
+    children?: ReactNode;
+    className?: string;
+}
+interface TabsListProps extends HTMLAttributes<HTMLDivElement> {
+    /** Accessible name for the tablist. */
+    'aria-label'?: string;
+    children?: ReactNode;
+}
+interface TabProps {
+    /** Value this tab selects — must match a `Tabs.Panel` value. */
+    value: string;
+    /** Disable this tab. */
+    disabled?: boolean;
+    children?: ReactNode;
+    className?: string;
+}
+interface TabPanelProps {
+    /** Value this panel is shown for. */
+    value: string;
+    children?: ReactNode;
+    className?: string;
+}
+
+/**
+ * Tenet tabs — a controlled or uncontrolled tab set following the ARIA tabs pattern. Compose
+ * `Tabs.List` + `Tabs.Tab` with matching `Tabs.Panel`s. Arrow keys move between tabs (selection
+ * follows focus), Home/End jump to the ends; roles, ids and `aria-controls`/`aria-labelledby` are
+ * wired for you.
+ */
+declare function Tabs({ value, defaultValue, onChange, className, children }: TabsProps): react_jsx_runtime.JSX.Element;
+declare namespace Tabs {
+    var List: typeof TabsList;
+    var Tab: ({ value, disabled, className, children }: TabProps) => react_jsx_runtime.JSX.Element;
+    var Panel: typeof TabPanel;
+}
+declare function TabsList({ className, children, ...rest }: TabsListProps): react_jsx_runtime.JSX.Element;
+declare function TabPanel({ value, className, children }: TabPanelProps): react_jsx_runtime.JSX.Element | null;
+
+type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
+interface TooltipProps {
+    /** Tooltip text/content. */
+    content: ReactNode;
+    /** Side of the trigger to render on. */
+    placement?: TooltipPlacement;
+    /** The single trigger element (must be focusable for keyboard users). */
+    children: ReactElement;
+    className?: string;
+}
+
+/**
+ * Tenet tooltip — a small text hint shown on hover and on keyboard focus (not hover-only, so it's
+ * reachable without a mouse). The trigger is described by the tooltip via `aria-describedby`; the
+ * bubble stays mounted and toggles visibility so that association is always valid. The trigger must
+ * be a single focusable element. Never put essential-only info in a tooltip.
+ */
+declare function Tooltip({ content, placement, children, className }: TooltipProps): react_jsx_runtime.JSX.Element;
+
+type DialogSize = 'small' | 'medium' | 'large';
+interface DialogProps {
+    /** Whether the dialog is open. */
+    open: boolean;
+    /** Called when the user requests close (Escape, backdrop, close button). */
+    onClose: () => void;
+    /** Accessible title — also the visible heading. */
+    title: ReactNode;
+    /** Optional supporting description under the title. */
+    description?: ReactNode;
+    /** Width from the scale. */
+    size?: DialogSize;
+    /** Footer actions (e.g. Cancel / Confirm buttons). */
+    footer?: ReactNode;
+    /** Allow closing by clicking the backdrop. */
+    closeOnBackdrop?: boolean;
+    /** Body content. */
+    children?: ReactNode;
+    className?: string;
+}
+
+/**
+ * Tenet dialog — a modal overlay rendered in a portal. Handles the things hand-rolled modals get
+ * wrong: focus moves in on open and is restored on close, Tab is trapped inside, Escape and the
+ * backdrop close it, body scroll is locked, and it's wired as `role="dialog" aria-modal` with the
+ * title/description as its accessible name. Reach for it for focused tasks and confirmations.
+ */
+declare function Dialog({ open, onClose, title, description, size, footer, closeOnBackdrop, className, children, }: DialogProps): react.ReactPortal | null;
+
+export { Avatar, type AvatarProps, type AvatarShape, type AvatarSize, Badge, type BadgeProps, type BadgeVariant, Banner, type BannerProps, type BannerVariant, Button, type ButtonProps, type ButtonSize, type ButtonVariant, Calendar, type CalendarProps, Card, type CardPadding, type CardProps, type CardVariant, type CellAlign, Checkbox, type CheckboxProps, DataTable, type DataTableColumn, type DataTableProps, DatePicker, type DatePickerProps, type DatePickerSize, Dialog, type DialogProps, type DialogSize, Divider, type DividerOrientation, type DividerProps, FormControl, type FormControlCaptionProps, type FormControlLabelProps, type FormControlProps, type FormControlValidationProps, Label$1 as Label, type LabelProps, type LabelSize, type LabelVariant, NumberInput, type NumberInputProps, type NumberInputSize, Radio, RadioGroup, type RadioGroupProps, type RadioProps, Select, type SelectOption, type SelectProps, type SelectSize, type SortDirection, Spinner, type SpinnerProps, type SpinnerSize, Stack, type StackAlign, type StackDirection, type StackGap, type StackItemProps, type StackJustify, type StackPadding, type StackProps, Switch, type SwitchProps, type SwitchSize, type TabPanelProps, type TabProps, Table, type TableActionsProps, type TableCellProps, type TableContainerProps, type TableDensity, type TableHeaderProps, type TableProps, type TableRowProps, type TableSectionProps, type TableSubtitleProps, type TableTitleProps, Tabs, type TabsListProps, type TabsProps, TextInput, type TextInputProps, type TextInputSize, Textarea, type TextareaProps, type TextareaResize, Tooltip, type TooltipPlacement, type TooltipProps, type ValidationVariant, type WeekStart };

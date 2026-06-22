@@ -1,5 +1,6 @@
 import { forwardRef, useId, Children, isValidElement, cloneElement, useState, useRef, useCallback, useEffect, createContext, useContext, useMemo } from 'react';
 import { jsxs, jsx } from 'react/jsx-runtime';
+import { createPortal } from 'react-dom';
 
 // src/components/Button/Button.tsx
 var cx = (...parts) => parts.filter(Boolean).join(" ");
@@ -1147,7 +1148,309 @@ var DatePicker = forwardRef(function DatePicker2({
     }
   );
 });
+var cx17 = (...parts) => parts.filter(Boolean).join(" ");
+var DEFAULT_ICON = {
+  info: "\u2139",
+  success: "\u2713",
+  warning: "!",
+  danger: "\u2715"
+};
+var Banner = forwardRef(function Banner2({ variant = "info", title, icon, hideIcon = false, onDismiss, className, children, ...rest }, ref) {
+  const role = variant === "danger" ? "alert" : "status";
+  return /* @__PURE__ */ jsxs(
+    "div",
+    {
+      ref,
+      role,
+      className: cx17("Tenet-Banner", `Tenet-Banner--variant-${variant}`, className),
+      ...rest,
+      children: [
+        !hideIcon && /* @__PURE__ */ jsx("span", { className: "Tenet-Banner__icon", "aria-hidden": "true", children: icon ?? DEFAULT_ICON[variant] }),
+        /* @__PURE__ */ jsxs("div", { className: "Tenet-Banner__content", children: [
+          title && /* @__PURE__ */ jsx("p", { className: "Tenet-Banner__title", children: title }),
+          children && /* @__PURE__ */ jsx("div", { className: "Tenet-Banner__body", children })
+        ] }),
+        onDismiss && /* @__PURE__ */ jsx("button", { type: "button", className: "Tenet-Banner__dismiss", "aria-label": "Dismiss", onClick: onDismiss, children: "\u2715" })
+      ]
+    }
+  );
+});
+var cx18 = (...parts) => parts.filter(Boolean).join(" ");
+var Badge = forwardRef(function Badge2({ variant = "default", count, max = 99, dot = false, className, children, ...rest }, ref) {
+  const content = children ?? (count != null ? count > max ? `${max}+` : String(count) : void 0);
+  return /* @__PURE__ */ jsx(
+    "span",
+    {
+      ref,
+      className: cx18("Tenet-Badge", `Tenet-Badge--variant-${variant}`, dot && "Tenet-Badge--dot", className),
+      ...rest,
+      children: !dot && content
+    }
+  );
+});
+var cx19 = (...parts) => parts.filter(Boolean).join(" ");
+function initialsOf(name) {
+  const words = name.trim().split(/[\s-_]+/).filter(Boolean);
+  if (words.length === 0) return "?";
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+  return (words[0][0] + words[words.length - 1][0]).toUpperCase();
+}
+var Avatar = forwardRef(function Avatar2({ src, name, size = "medium", shape = "circle", className, ...rest }, ref) {
+  const [failed, setFailed] = useState(false);
+  const showImage = src && !failed;
+  return /* @__PURE__ */ jsx(
+    "span",
+    {
+      ref,
+      role: "img",
+      "aria-label": name,
+      title: name,
+      className: cx19("Tenet-Avatar", `Tenet-Avatar--size-${size}`, `Tenet-Avatar--shape-${shape}`, className),
+      ...rest,
+      children: showImage ? /* @__PURE__ */ jsx("img", { src, alt: "", className: "Tenet-Avatar__img", onError: () => setFailed(true) }) : /* @__PURE__ */ jsx("span", { className: "Tenet-Avatar__initials", "aria-hidden": "true", children: initialsOf(name) })
+    }
+  );
+});
+var cx20 = (...parts) => parts.filter(Boolean).join(" ");
+var Spinner = forwardRef(function Spinner2({ size = "medium", label = "Loading", className, ...rest }, ref) {
+  return /* @__PURE__ */ jsxs(
+    "span",
+    {
+      ref,
+      role: "status",
+      className: cx20("Tenet-Spinner", `Tenet-Spinner--size-${size}`, className),
+      ...rest,
+      children: [
+        /* @__PURE__ */ jsx("span", { className: "Tenet-Spinner__circle", "aria-hidden": "true" }),
+        /* @__PURE__ */ jsx("span", { className: "Tenet-visuallyHidden", children: label })
+      ]
+    }
+  );
+});
+var cx21 = (...parts) => parts.filter(Boolean).join(" ");
+var Divider = forwardRef(function Divider2({ orientation = "horizontal", className, children, ...rest }, ref) {
+  const labelled = orientation === "horizontal" && children != null;
+  return /* @__PURE__ */ jsx(
+    "div",
+    {
+      ref,
+      role: "separator",
+      "aria-orientation": orientation,
+      className: cx21(
+        "Tenet-Divider",
+        `Tenet-Divider--${orientation}`,
+        labelled && "Tenet-Divider--labelled",
+        className
+      ),
+      ...rest,
+      children: labelled && /* @__PURE__ */ jsx("span", { className: "Tenet-Divider__label", children })
+    }
+  );
+});
+var cx22 = (...parts) => parts.filter(Boolean).join(" ");
+var TabsContext = createContext(null);
+var useTabs = (component) => {
+  const ctx = useContext(TabsContext);
+  if (!ctx) throw new Error(`Tabs.${component} must be used inside <Tabs>`);
+  return ctx;
+};
+var slug = (v) => v.replace(/[^a-zA-Z0-9_-]/g, "_");
+function Tabs({ value, defaultValue, onChange, className, children }) {
+  const baseId = useId();
+  const isControlled = value !== void 0;
+  const [internal, setInternal] = useState(defaultValue);
+  const current = isControlled ? value : internal;
+  const setValue = (v) => {
+    if (!isControlled) setInternal(v);
+    onChange?.(v);
+  };
+  return /* @__PURE__ */ jsx(TabsContext.Provider, { value: { value: current, setValue, baseId }, children: /* @__PURE__ */ jsx("div", { className: cx22("Tenet-Tabs", className), children }) });
+}
+function TabsList({ className, children, ...rest }) {
+  const onKeyDown = (e) => {
+    const keys = ["ArrowRight", "ArrowLeft", "Home", "End"];
+    if (!keys.includes(e.key)) return;
+    const tabs = Array.from(
+      e.currentTarget.querySelectorAll('[role="tab"]:not([aria-disabled="true"])')
+    );
+    if (tabs.length === 0) return;
+    e.preventDefault();
+    const idx = tabs.indexOf(document.activeElement);
+    let next = idx;
+    if (e.key === "ArrowRight") next = (idx + 1) % tabs.length;
+    else if (e.key === "ArrowLeft") next = (idx - 1 + tabs.length) % tabs.length;
+    else if (e.key === "Home") next = 0;
+    else if (e.key === "End") next = tabs.length - 1;
+    tabs[next]?.focus();
+    tabs[next]?.click();
+  };
+  return /* @__PURE__ */ jsx("div", { role: "tablist", className: cx22("Tenet-Tabs__list", className), onKeyDown, ...rest, children });
+}
+function Tab({ value, disabled = false, className, children }) {
+  const { value: active, setValue, baseId } = useTabs("Tab");
+  const selected = active === value;
+  return /* @__PURE__ */ jsx(
+    "button",
+    {
+      type: "button",
+      role: "tab",
+      id: `${baseId}-tab-${slug(value)}`,
+      "aria-selected": selected,
+      "aria-controls": `${baseId}-panel-${slug(value)}`,
+      "aria-disabled": disabled || void 0,
+      disabled,
+      tabIndex: selected ? 0 : -1,
+      className: cx22("Tenet-Tabs__tab", selected && "Tenet-Tabs__tab--selected", className),
+      onClick: () => !disabled && setValue(value),
+      children
+    }
+  );
+}
+function TabPanel({ value, className, children }) {
+  const { value: active, baseId } = useTabs("Panel");
+  if (active !== value) return null;
+  return /* @__PURE__ */ jsx(
+    "div",
+    {
+      role: "tabpanel",
+      id: `${baseId}-panel-${slug(value)}`,
+      "aria-labelledby": `${baseId}-tab-${slug(value)}`,
+      tabIndex: 0,
+      className: cx22("Tenet-Tabs__panel", className),
+      children
+    }
+  );
+}
+Tabs.List = TabsList;
+Tabs.Tab = Tab;
+Tabs.Panel = TabPanel;
+var cx23 = (...parts) => parts.filter(Boolean).join(" ");
+function Tooltip({ content, placement = "top", children, className }) {
+  const id = useId();
+  const [open, setOpen] = useState(false);
+  const trigger = cloneElement(children, {
+    "aria-describedby": id
+  });
+  return /* @__PURE__ */ jsxs(
+    "span",
+    {
+      className: cx23("Tenet-Tooltip", className),
+      onMouseEnter: () => setOpen(true),
+      onMouseLeave: () => setOpen(false),
+      onFocus: () => setOpen(true),
+      onBlur: () => setOpen(false),
+      onKeyDown: (e) => e.key === "Escape" && setOpen(false),
+      children: [
+        trigger,
+        /* @__PURE__ */ jsx(
+          "span",
+          {
+            role: "tooltip",
+            id,
+            className: cx23("Tenet-Tooltip__bubble", `Tenet-Tooltip__bubble--${placement}`, open && "Tenet-Tooltip__bubble--open"),
+            children: content
+          }
+        )
+      ]
+    }
+  );
+}
+var cx24 = (...parts) => parts.filter(Boolean).join(" ");
+var FOCUSABLE = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+function Dialog({
+  open,
+  onClose,
+  title,
+  description,
+  size = "medium",
+  footer,
+  closeOnBackdrop = true,
+  className,
+  children
+}) {
+  const titleId = useId();
+  const descId = useId();
+  const panelRef = useRef(null);
+  const lastFocused = useRef(null);
+  useEffect(() => {
+    if (!open) return;
+    lastFocused.current = document.activeElement;
+    const panel = panelRef.current;
+    const first = panel?.querySelector(FOCUSABLE);
+    (first ?? panel)?.focus();
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      lastFocused.current?.focus?.();
+    };
+  }, [open]);
+  if (!open) return null;
+  const onKeyDown = (e) => {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      onClose();
+      return;
+    }
+    if (e.key !== "Tab") return;
+    const panel = panelRef.current;
+    if (!panel) return;
+    const items = Array.from(panel.querySelectorAll(FOCUSABLE)).filter(
+      (el) => el.offsetParent !== null
+    );
+    if (items.length === 0) {
+      e.preventDefault();
+      return;
+    }
+    const first = items[0];
+    const last = items[items.length - 1];
+    const active = document.activeElement;
+    if (e.shiftKey && active === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && active === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
+  return createPortal(
+    /* @__PURE__ */ jsx(
+      "div",
+      {
+        className: "Tenet-Dialog__backdrop",
+        onMouseDown: (e) => {
+          if (closeOnBackdrop && e.target === e.currentTarget) onClose();
+        },
+        children: /* @__PURE__ */ jsxs(
+          "div",
+          {
+            ref: panelRef,
+            role: "dialog",
+            "aria-modal": "true",
+            "aria-labelledby": titleId,
+            "aria-describedby": description ? descId : void 0,
+            tabIndex: -1,
+            className: cx24("Tenet-Dialog", `Tenet-Dialog--size-${size}`, className),
+            onKeyDown,
+            children: [
+              /* @__PURE__ */ jsxs("div", { className: "Tenet-Dialog__header", children: [
+                /* @__PURE__ */ jsxs("div", { className: "Tenet-Dialog__headings", children: [
+                  /* @__PURE__ */ jsx("h2", { id: titleId, className: "Tenet-Dialog__title", children: title }),
+                  description && /* @__PURE__ */ jsx("p", { id: descId, className: "Tenet-Dialog__description", children: description })
+                ] }),
+                /* @__PURE__ */ jsx("button", { type: "button", className: "Tenet-Dialog__close", "aria-label": "Close", onClick: onClose, children: "\u2715" })
+              ] }),
+              children && /* @__PURE__ */ jsx("div", { className: "Tenet-Dialog__body", children }),
+              footer && /* @__PURE__ */ jsx("div", { className: "Tenet-Dialog__footer", children: footer })
+            ]
+          }
+        )
+      }
+    ),
+    document.body
+  );
+}
 
-export { Button, Calendar, Card, Checkbox, DataTable, DatePicker, FormControl2 as FormControl, Label, NumberInput, Radio, RadioGroup, Select, Stack2 as Stack, Switch, Table2 as Table, TextInput, Textarea };
+export { Avatar, Badge, Banner, Button, Calendar, Card, Checkbox, DataTable, DatePicker, Dialog, Divider, FormControl2 as FormControl, Label, NumberInput, Radio, RadioGroup, Select, Spinner, Stack2 as Stack, Switch, Table2 as Table, Tabs, TextInput, Textarea, Tooltip };
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

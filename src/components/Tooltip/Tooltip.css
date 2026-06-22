@@ -1,0 +1,53 @@
+/* Tenet Tooltip — ink bubble positioned around a trigger. */
+.Tenet-Tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+.Tenet-Tooltip__bubble {
+  position: absolute;
+  z-index: 60;
+  max-width: 240px;
+  width: max-content;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--borderRadius-small);
+  /* emphasis + default are theme inverses, so this stays high-contrast in light AND dark. */
+  background-color: var(--bgColor-emphasis);
+  color: var(--bgColor-default);
+  font-family: var(--fontFamily-body);
+  font-size: var(--fontSize-0);
+  line-height: 1.4;
+  text-align: center;
+  white-space: normal;
+  box-shadow: var(--shadow-medium);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s ease;
+  pointer-events: none;
+}
+.Tenet-Tooltip__bubble--open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Placements */
+.Tenet-Tooltip__bubble--top {
+  bottom: calc(100% + var(--space-2));
+  left: 50%;
+  transform: translateX(-50%);
+}
+.Tenet-Tooltip__bubble--bottom {
+  top: calc(100% + var(--space-2));
+  left: 50%;
+  transform: translateX(-50%);
+}
+.Tenet-Tooltip__bubble--left {
+  right: calc(100% + var(--space-2));
+  top: 50%;
+  transform: translateY(-50%);
+}
+.Tenet-Tooltip__bubble--right {
+  left: calc(100% + var(--space-2));
+  top: 50%;
+  transform: translateY(-50%);
+}

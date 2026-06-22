@@ -1,0 +1,50 @@
+/* Tenet Avatar — image or initials, on a warm tinted chip. */
+.Tenet-Avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  background-color: var(--bgColor-accent-muted);
+  color: var(--fgColor-accent);
+  font-family: var(--fontFamily-body);
+  font-weight: var(--fontWeight-semibold);
+  line-height: 1;
+  user-select: none;
+}
+
+.Tenet-Avatar__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Shapes */
+.Tenet-Avatar--shape-circle {
+  border-radius: var(--borderRadius-full);
+}
+.Tenet-Avatar--shape-rounded {
+  border-radius: var(--borderRadius-medium);
+}
+
+/* Sizes */
+.Tenet-Avatar--size-small {
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  font-size: 10px;
+}
+.Tenet-Avatar--size-medium {
+  width: var(--base-size-32);
+  height: var(--base-size-32);
+  font-size: var(--fontSize-0);
+}
+.Tenet-Avatar--size-large {
+  width: var(--base-size-40);
+  height: var(--base-size-40);
+  font-size: var(--fontSize-1);
+}
+.Tenet-Avatar--size-xlarge {
+  width: calc(var(--base-size-40) + var(--base-size-24));
+  height: calc(var(--base-size-40) + var(--base-size-24));
+  font-size: var(--fontSize-3);
+}

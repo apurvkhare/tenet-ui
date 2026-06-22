@@ -1,0 +1,30 @@
+{
+  "id": "divider",
+  "name": "Divider",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "tenet-ui",
+  "source": "src/components/Divider/Divider.tsx",
+  "props": [
+    {
+      "name": "orientation",
+      "type": "'horizontal' | 'vertical'",
+      "required": false,
+      "defaultValue": "horizontal",
+      "description": "Layout direction."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "",
+      "description": "Optional centered label (horizontal only)."
+    }
+  ],
+  "stories": [
+    { "id": "components-divider--horizontal" },
+    { "id": "components-divider--labelled" },
+    { "id": "components-divider--vertical" }
+  ],
+  "subcomponents": []
+}
