@@ -10,12 +10,14 @@ const cx = (...parts: Array<string | false | undefined>): string => parts.filter
  * Keyboard + screen-reader behaviour comes from the native input; the track/knob are CSS.
  */
 export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
-  { label, caption, size = 'medium', invalid = false, id, className, disabled, ...rest },
+  { label, caption, size = 'medium', invalid = false, id, className, disabled, 'aria-describedby': ariaDescribedby, ...rest },
   ref,
 ) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const captionId = caption ? `${inputId}-caption` : undefined;
+  // Merge our caption id with any caller-supplied describedby instead of overwriting it.
+  const describedBy = [captionId, ariaDescribedby].filter(Boolean).join(' ') || undefined;
 
   return (
     <span
@@ -36,7 +38,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
           className="Tenet-Switch__input"
           disabled={disabled}
           aria-invalid={invalid || undefined}
-          aria-describedby={captionId}
+          aria-describedby={describedBy}
           {...rest}
         />
         <span className="Tenet-Switch__track" aria-hidden="true">

@@ -1,0 +1,142 @@
+/* Tenet Toast — transient notifications in a fixed viewport. */
+.Tenet-Toast__viewport {
+  position: fixed;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: min(360px, calc(100vw - 2 * var(--space-4)));
+  padding: var(--space-4);
+  pointer-events: none;
+}
+.Tenet-Toast__viewport--bottom-right {
+  right: 0;
+  bottom: 0;
+  align-items: flex-end;
+}
+.Tenet-Toast__viewport--bottom-left {
+  left: 0;
+  bottom: 0;
+  align-items: flex-start;
+}
+.Tenet-Toast__viewport--top-right {
+  right: 0;
+  top: 0;
+  align-items: flex-end;
+}
+.Tenet-Toast__viewport--top-left {
+  left: 0;
+  top: 0;
+  align-items: flex-start;
+}
+
+.Tenet-Toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3) var(--space-3);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-left-width: var(--borderWidth-thick);
+  border-radius: var(--borderRadius-medium);
+  background-color: var(--bgColor-default);
+  box-shadow: var(--shadow-medium);
+  font-family: var(--fontFamily-body);
+  color: var(--fgColor-default);
+  animation: Tenet-Toast-in 0.16s ease;
+}
+
+@keyframes Tenet-Toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-2));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .Tenet-Toast {
+    animation: none;
+  }
+}
+
+.Tenet-Toast__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  border-radius: var(--borderRadius-full);
+  font-size: var(--fontSize-0);
+  font-weight: var(--fontWeight-bold);
+  color: var(--fgColor-onEmphasis);
+}
+
+.Tenet-Toast__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.Tenet-Toast__title {
+  margin: 0;
+  font-size: var(--fontSize-1);
+  font-weight: var(--fontWeight-semibold);
+}
+.Tenet-Toast__message {
+  font-size: var(--fontSize-1);
+  color: var(--fgColor-muted);
+}
+
+.Tenet-Toast__dismiss {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  margin: calc(-1 * var(--space-1)) calc(-1 * var(--space-1)) 0 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--borderRadius-small);
+  background: transparent;
+  color: var(--fgColor-muted);
+  font-size: var(--fontSize-0);
+  cursor: pointer;
+}
+.Tenet-Toast__dismiss:hover {
+  background-color: var(--bgColor-muted);
+  color: var(--fgColor-default);
+}
+.Tenet-Toast__dismiss:focus-visible {
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+  outline-offset: 1px;
+}
+
+/* Variants — tinted icon chip + status edge. */
+.Tenet-Toast--variant-info {
+  border-left-color: var(--bgColor-accent-emphasis);
+}
+.Tenet-Toast--variant-info .Tenet-Toast__icon {
+  background-color: var(--bgColor-accent-emphasis);
+}
+.Tenet-Toast--variant-success {
+  border-left-color: var(--bgColor-success-emphasis);
+}
+.Tenet-Toast--variant-success .Tenet-Toast__icon {
+  background-color: var(--bgColor-success-emphasis);
+}
+.Tenet-Toast--variant-warning {
+  border-left-color: var(--bgColor-attention-emphasis);
+}
+.Tenet-Toast--variant-warning .Tenet-Toast__icon {
+  background-color: var(--bgColor-attention-emphasis);
+  color: var(--fgColor-onAttention);
+}
+.Tenet-Toast--variant-danger {
+  border-left-color: var(--bgColor-danger-emphasis);
+}
+.Tenet-Toast--variant-danger .Tenet-Toast__icon {
+  background-color: var(--bgColor-danger-emphasis);
+}

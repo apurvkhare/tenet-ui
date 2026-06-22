@@ -20,16 +20,31 @@
   border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
 }
 
-.Tenet-Table__header--sortable {
+/* Sortable header: the clickable affordance is a real, keyboard-focusable button. */
+.Tenet-Table__sortButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
   cursor: pointer;
   user-select: none;
 }
-.Tenet-Table__header--sortable:hover {
+.Tenet-Table__sortButton:hover {
   color: var(--fgColor-default);
+}
+.Tenet-Table__sortButton:focus-visible {
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+  outline-offset: 2px;
+  border-radius: var(--borderRadius-small);
 }
 
 .Tenet-Table__sort {
-  margin-left: var(--space-1);
   font-size: var(--fontSize-0);
 }
 

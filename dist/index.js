@@ -141,20 +141,31 @@ var Body = forwardRef(function TableBody({ className, children, ...rest }, ref) 
 var Row = forwardRef(function TableRow({ className, children, ...rest }, ref) {
   return /* @__PURE__ */ jsx("tr", { ref, className: cx6("Tenet-Table__row", className), ...rest, children });
 });
-var Header = forwardRef(function TableHeader({ align = "start", sortDirection, scope = "col", className, children, ...rest }, ref) {
+var Header = forwardRef(function TableHeader({ align = "start", sortDirection, scope = "col", className, children, onClick, ...rest }, ref) {
   const sortable = sortDirection !== void 0;
-  return /* @__PURE__ */ jsxs(
+  return /* @__PURE__ */ jsx(
     "th",
     {
       ref,
       scope,
-      "aria-sort": sortable ? sortDirection : void 0,
+      "aria-sort": sortable && sortDirection !== "none" ? sortDirection : void 0,
       className: cx6("Tenet-Table__header", `Tenet-Table__cell--align-${align}`, sortable && "Tenet-Table__header--sortable", className),
       ...rest,
-      children: [
-        children,
-        sortable && /* @__PURE__ */ jsx("span", { className: "Tenet-Table__sort", "aria-hidden": "true", children: sortGlyph[sortDirection] })
-      ]
+      children: sortable ? (
+        // A real button so sorting is reachable & operable by keyboard, not click-only.
+        /* @__PURE__ */ jsxs(
+          "button",
+          {
+            type: "button",
+            className: "Tenet-Table__sortButton",
+            onClick,
+            children: [
+              children,
+              /* @__PURE__ */ jsx("span", { className: "Tenet-Table__sort", "aria-hidden": "true", children: sortGlyph[sortDirection] })
+            ]
+          }
+        )
+      ) : children
     }
   );
 });
@@ -476,20 +487,31 @@ var Select = forwardRef(function Select2({
   );
 });
 var cx10 = (...parts) => parts.filter(Boolean).join(" ");
-var Checkbox = forwardRef(function Checkbox2({ label, caption, id, className, disabled, ...rest }, ref) {
+var Checkbox = forwardRef(function Checkbox2({ label, caption, id, className, disabled, invalid = false, indeterminate = false, "aria-describedby": ariaDescribedby, ...rest }, ref) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const captionId = caption ? `${inputId}-caption` : void 0;
+  const describedBy = [captionId, ariaDescribedby].filter(Boolean).join(" ") || void 0;
+  const innerRef = useRef(null);
+  const setRef = (node) => {
+    innerRef.current = node;
+    if (typeof ref === "function") ref(node);
+    else if (ref) ref.current = node;
+  };
+  useEffect(() => {
+    if (innerRef.current) innerRef.current.indeterminate = indeterminate;
+  }, [indeterminate]);
   return /* @__PURE__ */ jsxs("span", { className: cx10("Tenet-Checkbox", disabled && "Tenet-Checkbox--disabled", className), children: [
     /* @__PURE__ */ jsx(
       "input",
       {
-        ref,
+        ref: setRef,
         id: inputId,
         type: "checkbox",
         className: "Tenet-Checkbox__input",
         disabled,
-        "aria-describedby": captionId,
+        "aria-invalid": invalid || void 0,
+        "aria-describedby": describedBy,
         ...rest
       }
     ),
@@ -565,10 +587,11 @@ var RadioGroup = forwardRef(function RadioGroup2({ name, label, caption, value, 
   );
 });
 var cx12 = (...parts) => parts.filter(Boolean).join(" ");
-var Switch = forwardRef(function Switch2({ label, caption, size = "medium", invalid = false, id, className, disabled, ...rest }, ref) {
+var Switch = forwardRef(function Switch2({ label, caption, size = "medium", invalid = false, id, className, disabled, "aria-describedby": ariaDescribedby, ...rest }, ref) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const captionId = caption ? `${inputId}-caption` : void 0;
+  const describedBy = [captionId, ariaDescribedby].filter(Boolean).join(" ") || void 0;
   return /* @__PURE__ */ jsxs(
     "span",
     {
@@ -591,7 +614,7 @@ var Switch = forwardRef(function Switch2({ label, caption, size = "medium", inva
               className: "Tenet-Switch__input",
               disabled,
               "aria-invalid": invalid || void 0,
-              "aria-describedby": captionId,
+              "aria-describedby": describedBy,
               ...rest
             }
           ),
@@ -692,6 +715,7 @@ var NumberInput = forwardRef(function NumberInput2({
             role: "spinbutton",
             "aria-label": ariaLabel,
             "aria-valuenow": current ?? void 0,
+            "aria-valuetext": current == null ? "Empty" : void 0,
             "aria-valuemin": min,
             "aria-valuemax": max,
             "aria-invalid": invalid || void 0,
@@ -711,7 +735,6 @@ var NumberInput = forwardRef(function NumberInput2({
               tabIndex: -1,
               className: "Tenet-NumberInput__stepper",
               disabled: incDisabled,
-              "aria-label": "Increment",
               onClick: () => stepBy(1),
               children: "\u25B2"
             }
@@ -723,7 +746,6 @@ var NumberInput = forwardRef(function NumberInput2({
               tabIndex: -1,
               className: "Tenet-NumberInput__stepper",
               disabled: decDisabled,
-              "aria-label": "Decrement",
               onClick: () => stepBy(-1),
               children: "\u25BC"
             }
@@ -824,7 +846,7 @@ function DataTable({
       filterableColumns.map((column) => /* @__PURE__ */ jsx(
         Select,
         {
-          "aria-label": `Filter by ${column.id}`,
+          "aria-label": `Filter by ${typeof column.header === "string" ? column.header : column.id}`,
           value: filters[column.id] ?? "",
           onChange: (value) => setFilters((prev) => ({ ...prev, [column.id]: value })),
           options: [
@@ -992,7 +1014,7 @@ function Calendar({
           children: "\u2039"
         }
       ),
-      /* @__PURE__ */ jsx("div", { className: "Tenet-Calendar__heading", "aria-live": "polite", children: formatMonthYear(visibleMonth, locale) }),
+      /* @__PURE__ */ jsx("div", { className: "Tenet-Calendar__heading", children: formatMonthYear(visibleMonth, locale) }),
       /* @__PURE__ */ jsx(
         "button",
         {
@@ -1080,7 +1102,7 @@ var DatePicker = forwardRef(function DatePicker2({
   }, [open]);
   useEffect(() => {
     if (!open) return;
-    const el = wrapRef.current?.querySelector('.Tenet-Calendar__day[tabindex="0"]');
+    const el = wrapRef.current?.querySelector('.Tenet-Calendar__day[tabindex="0"]') ?? wrapRef.current?.querySelector('[role="dialog"]');
     el?.focus();
   }, [open]);
   const handleSelect = (date) => {
@@ -1106,6 +1128,9 @@ var DatePicker = forwardRef(function DatePicker2({
           close();
         }
       },
+      onBlur: (e) => {
+        if (open && !wrapRef.current?.contains(e.relatedTarget)) setOpen(false);
+      },
       children: [
         /* @__PURE__ */ jsxs(
           "button",
@@ -1129,7 +1154,7 @@ var DatePicker = forwardRef(function DatePicker2({
             ]
           }
         ),
-        open && /* @__PURE__ */ jsx("div", { id: dialogId, role: "dialog", "aria-modal": "false", "aria-label": ariaLabel ?? "Choose date", className: "Tenet-DatePicker__popover", children: /* @__PURE__ */ jsx(
+        open && /* @__PURE__ */ jsx("div", { id: dialogId, role: "dialog", "aria-modal": "false", "aria-label": ariaLabel ?? "Choose date", tabIndex: -1, className: "Tenet-DatePicker__popover", children: /* @__PURE__ */ jsx(
           Calendar,
           {
             value: selected,
@@ -1170,7 +1195,7 @@ var Banner = forwardRef(function Banner2({ variant = "info", title, icon, hideIc
           title && /* @__PURE__ */ jsx("p", { className: "Tenet-Banner__title", children: title }),
           children && /* @__PURE__ */ jsx("div", { className: "Tenet-Banner__body", children })
         ] }),
-        onDismiss && /* @__PURE__ */ jsx("button", { type: "button", className: "Tenet-Banner__dismiss", "aria-label": "Dismiss", onClick: onDismiss, children: "\u2715" })
+        onDismiss && /* @__PURE__ */ jsx("button", { type: "button", className: "Tenet-Banner__dismiss", "aria-label": "Dismiss", onClick: onDismiss, children: /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "\u2715" }) })
       ]
     }
   );
@@ -1182,6 +1207,7 @@ var Badge = forwardRef(function Badge2({ variant = "default", count, max = 99, d
     "span",
     {
       ref,
+      "aria-hidden": dot ? true : void 0,
       className: cx18("Tenet-Badge", `Tenet-Badge--variant-${variant}`, dot && "Tenet-Badge--dot", className),
       ...rest,
       children: !dot && content
@@ -1204,7 +1230,6 @@ var Avatar = forwardRef(function Avatar2({ src, name, size = "medium", shape = "
       ref,
       role: "img",
       "aria-label": name,
-      title: name,
       className: cx19("Tenet-Avatar", `Tenet-Avatar--size-${size}`, `Tenet-Avatar--shape-${shape}`, className),
       ...rest,
       children: showImage ? /* @__PURE__ */ jsx("img", { src, alt: "", className: "Tenet-Avatar__img", onError: () => setFailed(true) }) : /* @__PURE__ */ jsx("span", { className: "Tenet-Avatar__initials", "aria-hidden": "true", children: initialsOf(name) })
@@ -1267,6 +1292,7 @@ function Tabs({ value, defaultValue, onChange, className, children }) {
   return /* @__PURE__ */ jsx(TabsContext.Provider, { value: { value: current, setValue, baseId }, children: /* @__PURE__ */ jsx("div", { className: cx22("Tenet-Tabs", className), children }) });
 }
 function TabsList({ className, children, ...rest }) {
+  const { setValue } = useTabs("List");
   const onKeyDown = (e) => {
     const keys = ["ArrowRight", "ArrowLeft", "Home", "End"];
     if (!keys.includes(e.key)) return;
@@ -1281,12 +1307,15 @@ function TabsList({ className, children, ...rest }) {
     else if (e.key === "ArrowLeft") next = (idx - 1 + tabs.length) % tabs.length;
     else if (e.key === "Home") next = 0;
     else if (e.key === "End") next = tabs.length - 1;
-    tabs[next]?.focus();
-    tabs[next]?.click();
+    const target = tabs[next];
+    if (!target) return;
+    target.focus();
+    const v = target.dataset.value;
+    if (v != null) setValue(v);
   };
   return /* @__PURE__ */ jsx("div", { role: "tablist", className: cx22("Tenet-Tabs__list", className), onKeyDown, ...rest, children });
 }
-function Tab({ value, disabled = false, className, children }) {
+function Tab({ value, disabled = false, className, children, onClick, ...rest }) {
   const { value: active, setValue, baseId } = useTabs("Tab");
   const selected = active === value;
   return /* @__PURE__ */ jsx(
@@ -1294,6 +1323,7 @@ function Tab({ value, disabled = false, className, children }) {
     {
       type: "button",
       role: "tab",
+      "data-value": value,
       id: `${baseId}-tab-${slug(value)}`,
       "aria-selected": selected,
       "aria-controls": `${baseId}-panel-${slug(value)}`,
@@ -1301,12 +1331,16 @@ function Tab({ value, disabled = false, className, children }) {
       disabled,
       tabIndex: selected ? 0 : -1,
       className: cx22("Tenet-Tabs__tab", selected && "Tenet-Tabs__tab--selected", className),
-      onClick: () => !disabled && setValue(value),
+      onClick: (e) => {
+        onClick?.(e);
+        if (!disabled) setValue(value);
+      },
+      ...rest,
       children
     }
   );
 }
-function TabPanel({ value, className, children }) {
+function TabPanel({ value, className, children, ...rest }) {
   const { value: active, baseId } = useTabs("Panel");
   if (active !== value) return null;
   return /* @__PURE__ */ jsx(
@@ -1317,6 +1351,7 @@ function TabPanel({ value, className, children }) {
       "aria-labelledby": `${baseId}-tab-${slug(value)}`,
       tabIndex: 0,
       className: cx22("Tenet-Tabs__panel", className),
+      ...rest,
       children
     }
   );
@@ -1328,6 +1363,19 @@ var cx23 = (...parts) => parts.filter(Boolean).join(" ");
 function Tooltip({ content, placement = "top", children, className }) {
   const id = useId();
   const [open, setOpen] = useState(false);
+  const nodeEnv = globalThis.process?.env?.NODE_ENV;
+  if (nodeEnv !== "production") {
+    const type = children.type;
+    const focusableTags = ["button", "a", "input", "select", "textarea"];
+    const props = children.props;
+    const looksFocusable = typeof type === "string" && focusableTags.includes(type) || typeof type !== "string" || // custom component — assume it forwards focus
+    props?.tabIndex != null;
+    if (typeof type === "string" && !looksFocusable) {
+      console.warn(
+        `Tooltip: trigger <${type}> is not focusable, so keyboard users can't reveal the tooltip. Use a focusable element (button/link/input) or add tabIndex={0}.`
+      );
+    }
+  }
   const trigger = cloneElement(children, {
     "aria-describedby": id
   });
@@ -1376,12 +1424,20 @@ function Dialog({
     if (!open) return;
     lastFocused.current = document.activeElement;
     const panel = panelRef.current;
-    const first = panel?.querySelector(FOCUSABLE);
-    (first ?? panel)?.focus();
+    panel?.focus();
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const backdrop = panel?.parentElement;
+    const siblings = Array.from(document.body.children).filter((el) => el !== backdrop);
+    const prevHidden = siblings.map((el) => el.getAttribute("aria-hidden"));
+    siblings.forEach((el) => el.setAttribute("aria-hidden", "true"));
     return () => {
       document.body.style.overflow = prevOverflow;
+      siblings.forEach((el, i) => {
+        const prev = prevHidden[i];
+        if (prev === null) el.removeAttribute("aria-hidden");
+        else el.setAttribute("aria-hidden", prev);
+      });
       lastFocused.current?.focus?.();
     };
   }, [open]);
@@ -1405,7 +1461,10 @@ function Dialog({
     const first = items[0];
     const last = items[items.length - 1];
     const active = document.activeElement;
-    if (e.shiftKey && active === first) {
+    if (!active || !panel.contains(active)) {
+      e.preventDefault();
+      first.focus();
+    } else if (e.shiftKey && active === first) {
       e.preventDefault();
       last.focus();
     } else if (!e.shiftKey && active === last) {
@@ -1438,7 +1497,7 @@ function Dialog({
                   /* @__PURE__ */ jsx("h2", { id: titleId, className: "Tenet-Dialog__title", children: title }),
                   description && /* @__PURE__ */ jsx("p", { id: descId, className: "Tenet-Dialog__description", children: description })
                 ] }),
-                /* @__PURE__ */ jsx("button", { type: "button", className: "Tenet-Dialog__close", "aria-label": "Close", onClick: onClose, children: "\u2715" })
+                /* @__PURE__ */ jsx("button", { type: "button", className: "Tenet-Dialog__close", "aria-label": "Close", onClick: onClose, children: /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "\u2715" }) })
               ] }),
               children && /* @__PURE__ */ jsx("div", { className: "Tenet-Dialog__body", children }),
               footer && /* @__PURE__ */ jsx("div", { className: "Tenet-Dialog__footer", children: footer })
@@ -1450,7 +1509,427 @@ function Dialog({
     document.body
   );
 }
+var cx25 = (...parts) => parts.filter(Boolean).join(" ");
+var Breadcrumbs = forwardRef(function Breadcrumbs2({ items, separator = "/", className, "aria-label": ariaLabel = "Breadcrumb", ...rest }, ref) {
+  return /* @__PURE__ */ jsx("nav", { ref, "aria-label": ariaLabel, className: cx25("Tenet-Breadcrumbs", className), ...rest, children: /* @__PURE__ */ jsx("ol", { className: "Tenet-Breadcrumbs__list", children: items.map((item, i) => {
+    const isLast = i === items.length - 1;
+    return /* @__PURE__ */ jsxs("li", { className: "Tenet-Breadcrumbs__item", children: [
+      item.href && !isLast ? /* @__PURE__ */ jsx("a", { href: item.href, className: "Tenet-Breadcrumbs__link", children: item.label }) : /* @__PURE__ */ jsx("span", { className: "Tenet-Breadcrumbs__current", "aria-current": isLast ? "page" : void 0, children: item.label }),
+      !isLast && /* @__PURE__ */ jsx("span", { className: "Tenet-Breadcrumbs__separator", "aria-hidden": "true", children: separator })
+    ] }, i);
+  }) }) });
+});
+var cx26 = (...parts) => parts.filter(Boolean).join(" ");
+var ELLIPSIS = "ellipsis";
+function pageItems(page, pageCount, siblingCount) {
+  if (pageCount <= 1) return [1];
+  const items = [1];
+  const left = Math.max(2, page - siblingCount);
+  const right = Math.min(pageCount - 1, page + siblingCount);
+  if (left > 2) items.push(ELLIPSIS);
+  for (let i = left; i <= right; i++) items.push(i);
+  if (right < pageCount - 1) items.push(ELLIPSIS);
+  items.push(pageCount);
+  return items;
+}
+var Pagination = forwardRef(function Pagination2({ page, pageCount, onPageChange, siblingCount = 1, className, "aria-label": ariaLabel = "Pagination" }, ref) {
+  const items = pageItems(page, pageCount, siblingCount);
+  const go = (p) => {
+    if (p >= 1 && p <= pageCount && p !== page) onPageChange(p);
+  };
+  return /* @__PURE__ */ jsx("nav", { ref, "aria-label": ariaLabel, className: cx26("Tenet-Pagination", className), children: /* @__PURE__ */ jsxs("ul", { className: "Tenet-Pagination__list", children: [
+    /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(
+      "button",
+      {
+        type: "button",
+        className: "Tenet-Pagination__btn Tenet-Pagination__btn--nav",
+        onClick: () => go(page - 1),
+        disabled: page <= 1,
+        "aria-label": "Previous page",
+        children: "\u2039"
+      }
+    ) }),
+    items.map(
+      (item, i) => item === ELLIPSIS ? /* @__PURE__ */ jsx("li", { className: "Tenet-Pagination__ellipsis", "aria-hidden": "true", children: "\u2026" }, `e${i}`) : /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(
+        "button",
+        {
+          type: "button",
+          className: cx26("Tenet-Pagination__btn", item === page && "Tenet-Pagination__btn--current"),
+          onClick: () => go(item),
+          "aria-current": item === page ? "page" : void 0,
+          "aria-label": `Page ${item}`,
+          children: item
+        }
+      ) }, item)
+    ),
+    /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(
+      "button",
+      {
+        type: "button",
+        className: "Tenet-Pagination__btn Tenet-Pagination__btn--nav",
+        onClick: () => go(page + 1),
+        disabled: page >= pageCount,
+        "aria-label": "Next page",
+        children: "\u203A"
+      }
+    ) })
+  ] }) });
+});
+var cx27 = (...parts) => parts.filter(Boolean).join(" ");
+var AccordionContext = createContext(null);
+var useAccordion = () => {
+  const ctx = useContext(AccordionContext);
+  if (!ctx) throw new Error("Accordion.Item must be used inside <Accordion>");
+  return ctx;
+};
+var slug2 = (v) => v.replace(/[^a-zA-Z0-9_-]/g, "_");
+function Accordion({
+  type = "single",
+  value,
+  defaultValue,
+  onValueChange,
+  className,
+  children
+}) {
+  const baseId = useId();
+  const isControlled = value !== void 0;
+  const [internal, setInternal] = useState(defaultValue ?? []);
+  const open = isControlled ? value : internal;
+  const toggle = (v) => {
+    let next;
+    if (open.includes(v)) next = open.filter((x) => x !== v);
+    else next = type === "single" ? [v] : [...open, v];
+    if (!isControlled) setInternal(next);
+    onValueChange?.(next);
+  };
+  return /* @__PURE__ */ jsx(AccordionContext.Provider, { value: { open, toggle, type, baseId }, children: /* @__PURE__ */ jsx("div", { className: cx27("Tenet-Accordion", className), children }) });
+}
+function AccordionItem({ value, title, disabled = false, className, children }) {
+  const { open, toggle, baseId } = useAccordion();
+  const expanded = open.includes(value);
+  const headerId = `${baseId}-h-${slug2(value)}`;
+  const panelId = `${baseId}-p-${slug2(value)}`;
+  const onKeyDown = (e) => {
+    const keys = ["ArrowDown", "ArrowUp", "Home", "End"];
+    if (!keys.includes(e.key)) return;
+    const root = e.currentTarget.closest(".Tenet-Accordion");
+    if (!root) return;
+    const headers = Array.from(
+      root.querySelectorAll(".Tenet-Accordion__trigger:not([disabled])")
+    );
+    if (headers.length === 0) return;
+    e.preventDefault();
+    const idx = headers.indexOf(e.currentTarget);
+    let next = idx;
+    if (e.key === "ArrowDown") next = (idx + 1) % headers.length;
+    else if (e.key === "ArrowUp") next = (idx - 1 + headers.length) % headers.length;
+    else if (e.key === "Home") next = 0;
+    else if (e.key === "End") next = headers.length - 1;
+    headers[next]?.focus();
+  };
+  return /* @__PURE__ */ jsxs("div", { className: cx27("Tenet-Accordion__item", className), children: [
+    /* @__PURE__ */ jsx("h3", { className: "Tenet-Accordion__heading", children: /* @__PURE__ */ jsxs(
+      "button",
+      {
+        type: "button",
+        id: headerId,
+        className: "Tenet-Accordion__trigger",
+        "aria-expanded": expanded,
+        "aria-controls": panelId,
+        disabled,
+        onClick: () => toggle(value),
+        onKeyDown,
+        children: [
+          /* @__PURE__ */ jsx("span", { className: "Tenet-Accordion__title", children: title }),
+          /* @__PURE__ */ jsx("span", { className: "Tenet-Accordion__chevron", "aria-hidden": "true", children: "\u203A" })
+        ]
+      }
+    ) }),
+    /* @__PURE__ */ jsx(
+      "div",
+      {
+        role: "region",
+        id: panelId,
+        "aria-labelledby": headerId,
+        className: "Tenet-Accordion__panel",
+        hidden: !expanded,
+        children: /* @__PURE__ */ jsx("div", { className: "Tenet-Accordion__content", children })
+      }
+    )
+  ] });
+}
+Accordion.Item = AccordionItem;
+var cx28 = (...parts) => parts.filter(Boolean).join(" ");
+var SegmentedControl = forwardRef(function SegmentedControl2({ options, value, defaultValue, onChange, size = "medium", block = false, className, "aria-label": ariaLabel }, ref) {
+  const isControlled = value !== void 0;
+  const [internal, setInternal] = useState(defaultValue ?? options.find((o) => !o.disabled)?.value ?? "");
+  const current = isControlled ? value : internal;
+  const select = (v) => {
+    if (!isControlled) setInternal(v);
+    onChange?.(v);
+  };
+  const focusValue = options.some((o) => o.value === current) ? current : options.find((o) => !o.disabled)?.value;
+  const onKeyDown = (e) => {
+    const keys = ["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp", "Home", "End"];
+    if (!keys.includes(e.key)) return;
+    const enabled = options.filter((o) => !o.disabled);
+    if (enabled.length === 0) return;
+    e.preventDefault();
+    const idx = enabled.findIndex((o) => o.value === current);
+    let next = idx;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") next = (idx + 1 + enabled.length) % enabled.length;
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = (idx - 1 + enabled.length) % enabled.length;
+    else if (e.key === "Home") next = 0;
+    else if (e.key === "End") next = enabled.length - 1;
+    const target = enabled[next];
+    if (!target) return;
+    select(target.value);
+    e.currentTarget.querySelector(`[data-value="${CSS.escape(target.value)}"]`)?.focus();
+  };
+  return /* @__PURE__ */ jsx(
+    "div",
+    {
+      ref,
+      role: "radiogroup",
+      "aria-label": ariaLabel,
+      className: cx28(
+        "Tenet-SegmentedControl",
+        `Tenet-SegmentedControl--size-${size}`,
+        block && "Tenet-SegmentedControl--block",
+        className
+      ),
+      onKeyDown,
+      children: options.map((opt) => {
+        const selected = opt.value === current;
+        return /* @__PURE__ */ jsx(
+          "button",
+          {
+            type: "button",
+            role: "radio",
+            "data-value": opt.value,
+            "aria-checked": selected,
+            disabled: opt.disabled,
+            tabIndex: opt.value === focusValue ? 0 : -1,
+            className: cx28("Tenet-SegmentedControl__segment", selected && "Tenet-SegmentedControl__segment--selected"),
+            onClick: () => !opt.disabled && select(opt.value),
+            children: opt.label
+          },
+          opt.value
+        );
+      })
+    }
+  );
+});
+var cx29 = (...parts) => parts.filter(Boolean).join(" ");
+var isAction = (item) => item.type !== "separator";
+function nextEnabled2(items, from, dir) {
+  const n = items.length;
+  for (let step = 1; step <= n; step++) {
+    const i = (from + dir * step + n * step) % n;
+    const item = items[i];
+    if (isAction(item) && !item.disabled) return i;
+  }
+  return from;
+}
+var firstEnabled2 = (items) => items.findIndex((it) => isAction(it) && !it.disabled);
+function Menu({ trigger, items, "aria-label": ariaLabel, align = "start", className }) {
+  const reactId = useId();
+  const menuId = `${reactId}-menu`;
+  const triggerId = `${reactId}-trigger`;
+  const itemId = (i) => `${reactId}-item-${i}`;
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(-1);
+  const wrapRef = useRef(null);
+  const triggerRef = useRef(null);
+  const listRef = useRef(null);
+  const openMenu = useCallback(() => {
+    setActive(firstEnabled2(items));
+    setOpen(true);
+  }, [items]);
+  const closeMenu = useCallback((refocus = true) => {
+    setOpen(false);
+    if (refocus) triggerRef.current?.focus();
+  }, []);
+  useEffect(() => {
+    if (!open || active < 0) return;
+    listRef.current?.querySelector(`#${CSS.escape(itemId(active))}`)?.focus();
+  }, [open, active]);
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [open]);
+  const choose = (i) => {
+    const item = items[i];
+    if (item && isAction(item) && !item.disabled) {
+      item.onSelect();
+      closeMenu();
+    }
+  };
+  const onListKeyDown = (e) => {
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        setActive((a) => nextEnabled2(items, a, 1));
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        setActive((a) => nextEnabled2(items, a, -1));
+        break;
+      case "Home":
+        e.preventDefault();
+        setActive(firstEnabled2(items));
+        break;
+      case "End":
+        e.preventDefault();
+        setActive(nextEnabled2(items, firstEnabled2(items), -1));
+        break;
+      case "Enter":
+      case " ":
+        e.preventDefault();
+        if (active >= 0) choose(active);
+        break;
+      case "Escape":
+        e.preventDefault();
+        closeMenu();
+        break;
+      case "Tab":
+        closeMenu(false);
+        break;
+    }
+  };
+  const triggerEl = cloneElement(trigger, {
+    id: triggerId,
+    ref: (node) => {
+      triggerRef.current = node;
+    },
+    "aria-haspopup": "menu",
+    "aria-expanded": open,
+    "aria-controls": open ? menuId : void 0,
+    onClick: () => open ? closeMenu(false) : openMenu(),
+    onKeyDown: (e) => {
+      if (!open && (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ")) {
+        e.preventDefault();
+        openMenu();
+      }
+    }
+  });
+  return /* @__PURE__ */ jsxs("span", { ref: wrapRef, className: cx29("Tenet-Menu", className), children: [
+    triggerEl,
+    open && /* @__PURE__ */ jsx(
+      "ul",
+      {
+        ref: listRef,
+        id: menuId,
+        role: "menu",
+        "aria-label": ariaLabel,
+        "aria-labelledby": ariaLabel ? void 0 : triggerId,
+        className: cx29("Tenet-Menu__list", `Tenet-Menu__list--align-${align}`),
+        onKeyDown: onListKeyDown,
+        children: items.map(
+          (item, i) => isAction(item) ? /* @__PURE__ */ jsx("li", { role: "none", children: /* @__PURE__ */ jsxs(
+            "button",
+            {
+              type: "button",
+              id: itemId(i),
+              role: "menuitem",
+              tabIndex: i === active ? 0 : -1,
+              disabled: item.disabled,
+              className: cx29(
+                "Tenet-Menu__item",
+                item.destructive && "Tenet-Menu__item--destructive"
+              ),
+              onClick: () => choose(i),
+              onMouseEnter: () => setActive(i),
+              children: [
+                item.icon && /* @__PURE__ */ jsx("span", { className: "Tenet-Menu__icon", "aria-hidden": "true", children: item.icon }),
+                item.label
+              ]
+            }
+          ) }, i) : /* @__PURE__ */ jsx("li", { role: "separator", className: "Tenet-Menu__separator" }, i)
+        )
+      }
+    )
+  ] });
+}
+var cx30 = (...parts) => parts.filter(Boolean).join(" ");
+var DEFAULT_ICON2 = { info: "\u2139", success: "\u2713", warning: "!", danger: "\u2715" };
+var ToastContext = createContext(null);
+function useToast() {
+  const ctx = useContext(ToastContext);
+  if (!ctx) throw new Error("useToast must be used inside a <ToastProvider>");
+  return ctx;
+}
+function ToastItem({
+  toast,
+  onDismiss,
+  defaultDuration
+}) {
+  const variant = toast.variant ?? "info";
+  const duration = toast.duration ?? defaultDuration;
+  useEffect(() => {
+    if (duration <= 0) return;
+    const t = setTimeout(() => onDismiss(toast.id), duration);
+    return () => clearTimeout(t);
+  }, [toast.id, duration, onDismiss]);
+  return /* @__PURE__ */ jsxs(
+    "div",
+    {
+      role: variant === "danger" ? "alert" : "status",
+      className: cx30("Tenet-Toast", `Tenet-Toast--variant-${variant}`),
+      children: [
+        /* @__PURE__ */ jsx("span", { className: "Tenet-Toast__icon", "aria-hidden": "true", children: DEFAULT_ICON2[variant] }),
+        /* @__PURE__ */ jsxs("div", { className: "Tenet-Toast__content", children: [
+          toast.title && /* @__PURE__ */ jsx("p", { className: "Tenet-Toast__title", children: toast.title }),
+          /* @__PURE__ */ jsx("div", { className: "Tenet-Toast__message", children: toast.message })
+        ] }),
+        /* @__PURE__ */ jsx(
+          "button",
+          {
+            type: "button",
+            className: "Tenet-Toast__dismiss",
+            "aria-label": "Dismiss",
+            onClick: () => onDismiss(toast.id),
+            children: /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "\u2715" })
+          }
+        )
+      ]
+    }
+  );
+}
+function ToastProvider({ duration = 5e3, placement = "bottom-right", children }) {
+  const [toasts, setToasts] = useState([]);
+  const idRef = useRef(0);
+  const dismiss = useCallback((id) => {
+    setToasts((list) => list.filter((t) => t.id !== id));
+  }, []);
+  const toast = useCallback((options) => {
+    idRef.current += 1;
+    const id = String(idRef.current);
+    setToasts((list) => [...list, { ...options, id }]);
+    return id;
+  }, []);
+  const canPortal = typeof document !== "undefined";
+  return /* @__PURE__ */ jsxs(ToastContext.Provider, { value: { toast, dismiss }, children: [
+    children,
+    canPortal && createPortal(
+      /* @__PURE__ */ jsx(
+        "div",
+        {
+          className: cx30("Tenet-Toast__viewport", `Tenet-Toast__viewport--${placement}`),
+          role: "region",
+          "aria-label": "Notifications",
+          children: toasts.map((t) => /* @__PURE__ */ jsx(ToastItem, { toast: t, onDismiss: dismiss, defaultDuration: duration }, t.id))
+        }
+      ),
+      document.body
+    )
+  ] });
+}
 
-export { Avatar, Badge, Banner, Button, Calendar, Card, Checkbox, DataTable, DatePicker, Dialog, Divider, FormControl2 as FormControl, Label, NumberInput, Radio, RadioGroup, Select, Spinner, Stack2 as Stack, Switch, Table2 as Table, Tabs, TextInput, Textarea, Tooltip };
+export { Accordion, Avatar, Badge, Banner, Breadcrumbs, Button, Calendar, Card, Checkbox, DataTable, DatePicker, Dialog, Divider, FormControl2 as FormControl, Label, Menu, NumberInput, Pagination, Radio, RadioGroup, SegmentedControl, Select, Spinner, Stack2 as Stack, Switch, Table2 as Table, Tabs, TextInput, Textarea, ToastProvider, Tooltip, useToast };
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

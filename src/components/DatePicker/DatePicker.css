@@ -39,7 +39,7 @@
 .Tenet-DatePicker__trigger:focus-visible {
   outline: none;
   border-color: var(--borderColor-accent-emphasis);
-  box-shadow: 0 0 0 3px var(--bgColor-accent-muted);
+  box-shadow: var(--shadow-focus);
 }
 .Tenet-DatePicker--invalid .Tenet-DatePicker__trigger {
   border-color: var(--fgColor-danger);

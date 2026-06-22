@@ -70,6 +70,7 @@
   --control-large-size: 40px;
   --shadow-resting: 0 1px 2px rgba(31, 27, 22, 0.06);
   --shadow-medium: 0 6px 16px rgba(31, 27, 22, 0.12);
+  --shadow-focus: 0 0 0 3px var(--bgColor-accent-muted);
   --fgColor-default: #2a241b;
   --fgColor-muted: #6e6049;
   --fgColor-onEmphasis: #ffffff;
@@ -77,6 +78,7 @@
   --fgColor-danger: #8a2817;
   --fgColor-success: #3c5630;
   --fgColor-attention: #80600f;
+  --fgColor-onAttention: #2a241b;
   --bgColor-default: #ffffff;
   --bgColor-muted: #f4eee3;
   --bgColor-inset: #fbf7f0;
@@ -106,6 +108,7 @@
   --fgColor-danger: #8a2817;
   --fgColor-success: #3c5630;
   --fgColor-attention: #80600f;
+  --fgColor-onAttention: #2a241b;
   --bgColor-default: #ffffff;
   --bgColor-muted: #f4eee3;
   --bgColor-inset: #fbf7f0;
@@ -135,6 +138,7 @@
   --fgColor-danger: #e7a99b;
   --fgColor-success: #9cb87a;
   --fgColor-attention: #dcc06a;
+  --fgColor-onAttention: #2a241b;
   --bgColor-default: #1a1712;
   --bgColor-muted: #211d17;
   --bgColor-inset: #14110d;

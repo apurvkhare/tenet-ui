@@ -109,6 +109,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
         role="spinbutton"
         aria-label={ariaLabel}
         aria-valuenow={current ?? undefined}
+        aria-valuetext={current == null ? 'Empty' : undefined}
         aria-valuemin={min}
         aria-valuemax={max}
         aria-invalid={invalid || undefined}
@@ -120,12 +121,12 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
         {...rest}
       />
       <span className="Tenet-NumberInput__steppers" aria-hidden="true">
+        {/* Steppers are inside an aria-hidden wrapper (arrow keys are the a11y path), so no labels. */}
         <button
           type="button"
           tabIndex={-1}
           className="Tenet-NumberInput__stepper"
           disabled={incDisabled}
-          aria-label="Increment"
           onClick={() => stepBy(1)}
         >
           ▲
@@ -135,7 +136,6 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
           tabIndex={-1}
           className="Tenet-NumberInput__stepper"
           disabled={decDisabled}
-          aria-label="Decrement"
           onClick={() => stepBy(-1)}
         >
           ▼

@@ -16,6 +16,15 @@
   margin-top: var(--base-size-4);
 }
 
+.Tenet-Checkbox__input:focus-visible {
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+  outline-offset: 2px;
+}
+.Tenet-Checkbox__input[aria-invalid='true'] {
+  outline: var(--borderWidth-thin) solid var(--fgColor-danger);
+  outline-offset: 1px;
+}
+
 .Tenet-Checkbox__text {
   display: flex;
   flex-direction: column;

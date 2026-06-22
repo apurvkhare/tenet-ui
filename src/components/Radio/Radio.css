@@ -15,6 +15,11 @@
   margin-top: var(--base-size-4);
 }
 
+.Tenet-Radio__input:focus-visible {
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+  outline-offset: 2px;
+}
+
 .Tenet-Radio__text {
   display: flex;
   flex-direction: column;

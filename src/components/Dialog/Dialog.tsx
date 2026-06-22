@@ -34,14 +34,25 @@ export function Dialog({
     if (!open) return;
     lastFocused.current = document.activeElement as HTMLElement | null;
     const panel = panelRef.current;
-    const first = panel?.querySelector<HTMLElement>(FOCUSABLE);
-    (first ?? panel)?.focus();
+    // Focus the panel itself (not the destructive close button); SR reads it via aria-labelledby.
+    panel?.focus();
 
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
+    // Hide the rest of the page from assistive tech / tab order while the modal is open.
+    const backdrop = panel?.parentElement;
+    const siblings = Array.from(document.body.children).filter((el) => el !== backdrop) as HTMLElement[];
+    const prevHidden = siblings.map((el) => el.getAttribute('aria-hidden'));
+    siblings.forEach((el) => el.setAttribute('aria-hidden', 'true'));
+
     return () => {
       document.body.style.overflow = prevOverflow;
+      siblings.forEach((el, i) => {
+        const prev = prevHidden[i];
+        if (prev === null) el.removeAttribute('aria-hidden');
+        else el.setAttribute('aria-hidden', prev);
+      });
       lastFocused.current?.focus?.();
     };
   }, [open]);
@@ -67,7 +78,11 @@ export function Dialog({
     const first = items[0];
     const last = items[items.length - 1];
     const active = document.activeElement;
-    if (e.shiftKey && active === first) {
+    // If focus escaped the panel entirely, pull it back in.
+    if (!active || !panel.contains(active)) {
+      e.preventDefault();
+      first.focus();
+    } else if (e.shiftKey && active === first) {
       e.preventDefault();
       last.focus();
     } else if (!e.shiftKey && active === last) {
@@ -105,7 +120,7 @@ export function Dialog({
             )}
           </div>
           <button type="button" className="Tenet-Dialog__close" aria-label="Close" onClick={onClose}>
-            ✕
+            <span aria-hidden="true">✕</span>
           </button>
         </div>
         {children && <div className="Tenet-Dialog__body">{children}</div>}

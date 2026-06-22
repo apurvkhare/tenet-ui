@@ -96,6 +96,20 @@
       "required": false,
       "defaultValue": "",
       "description": "Form field name — emits a hidden yyyy-mm-dd input."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Sets aria-required (FormControl wires this)."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "defaultValue": "",
+      "description": "Id for the trigger (FormControl sets this automatically)."
     }
   ],
   "stories": [

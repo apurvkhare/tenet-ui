@@ -1,0 +1,70 @@
+/* Tenet Accordion — stacked disclosures with hairline dividers. */
+.Tenet-Accordion {
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  background-color: var(--bgColor-default);
+  font-family: var(--fontFamily-body);
+  overflow: hidden;
+}
+
+.Tenet-Accordion__item + .Tenet-Accordion__item {
+  border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+
+.Tenet-Accordion__heading {
+  margin: 0;
+}
+
+.Tenet-Accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: none;
+  background: transparent;
+  color: var(--fgColor-default);
+  font-family: inherit;
+  font-size: var(--fontSize-1);
+  font-weight: var(--fontWeight-semibold);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.12s ease;
+}
+.Tenet-Accordion__trigger:hover:not(:disabled) {
+  background-color: var(--bgColor-muted);
+}
+.Tenet-Accordion__trigger:focus-visible {
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+  outline-offset: -2px;
+}
+.Tenet-Accordion__trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.Tenet-Accordion__chevron {
+  flex-shrink: 0;
+  color: var(--fgColor-muted);
+  font-size: var(--fontSize-3);
+  line-height: 1;
+  transform: rotate(90deg);
+  transition: transform 0.16s ease;
+}
+.Tenet-Accordion__trigger[aria-expanded='true'] .Tenet-Accordion__chevron {
+  transform: rotate(-90deg);
+}
+
+.Tenet-Accordion__content {
+  padding: 0 var(--space-4) var(--space-4);
+  font-size: var(--fontSize-1);
+  line-height: 1.5;
+  color: var(--fgColor-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Tenet-Accordion__chevron {
+    transition: none;
+  }
+}

@@ -15,6 +15,24 @@ export function Tooltip({ content, placement = 'top', children, className }: Too
   const id = useId();
   const [open, setOpen] = useState(false);
 
+  const nodeEnv = (globalThis as { process?: { env?: { NODE_ENV?: string } } }).process?.env?.NODE_ENV;
+  if (nodeEnv !== 'production') {
+    const type = (children as ReactElement).type;
+    const focusableTags = ['button', 'a', 'input', 'select', 'textarea'];
+    const props = (children as ReactElement<{ tabIndex?: number; disabled?: boolean }>).props;
+    const looksFocusable =
+      (typeof type === 'string' && focusableTags.includes(type)) ||
+      typeof type !== 'string' || // custom component — assume it forwards focus
+      props?.tabIndex != null;
+    if (typeof type === 'string' && !looksFocusable) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `Tooltip: trigger <${type}> is not focusable, so keyboard users can't reveal the tooltip. ` +
+          `Use a focusable element (button/link/input) or add tabIndex={0}.`,
+      );
+    }
+  }
+
   const trigger = cloneElement(children as ReactElement<{ 'aria-describedby'?: string }>, {
     'aria-describedby': id,
   });

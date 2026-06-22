@@ -1,0 +1,43 @@
+{
+  "id": "accordion",
+  "name": "Accordion",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "tenet-ui",
+  "source": "src/components/Accordion/Accordion.tsx",
+  "props": [
+    {
+      "name": "type",
+      "type": "'single' | 'multiple'",
+      "required": false,
+      "defaultValue": "single",
+      "description": "Allow one open item (collapsible) or many."
+    },
+    {
+      "name": "value",
+      "type": "string[]",
+      "required": false,
+      "defaultValue": "",
+      "description": "Controlled set of open item values."
+    },
+    {
+      "name": "defaultValue",
+      "type": "string[]",
+      "required": false,
+      "defaultValue": "[]",
+      "description": "Uncontrolled initial open item values."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string[]) => void",
+      "required": false,
+      "defaultValue": "",
+      "description": "Called with the new set of open values."
+    }
+  ],
+  "stories": [
+    { "id": "components-accordion--single" },
+    { "id": "components-accordion--multiple" }
+  ],
+  "subcomponents": ["Accordion.Item"]
+}

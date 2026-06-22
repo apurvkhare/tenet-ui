@@ -8,7 +8,7 @@
   padding: 0 var(--space-1);
   border-radius: var(--borderRadius-full);
   font-family: var(--fontFamily-mono);
-  font-size: 11px;
+  font-size: var(--fontSize-0);
   font-weight: var(--fontWeight-semibold);
   line-height: 1;
   white-space: nowrap;
@@ -41,5 +41,5 @@
 }
 .Tenet-Badge--variant-attention {
   background-color: var(--bgColor-attention-emphasis);
-  color: var(--base-color-black);
+  color: var(--fgColor-onAttention);
 }

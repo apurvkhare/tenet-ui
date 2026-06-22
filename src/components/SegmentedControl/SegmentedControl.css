@@ -1,0 +1,60 @@
+/* Tenet SegmentedControl — inset track of mutually-exclusive segments. */
+.Tenet-SegmentedControl {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: var(--control-medium-size);
+  padding: var(--base-size-4);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  background-color: var(--bgColor-muted);
+  font-family: var(--fontFamily-body);
+}
+.Tenet-SegmentedControl--size-small {
+  height: var(--control-small-size);
+}
+.Tenet-SegmentedControl--block {
+  display: flex;
+  width: 100%;
+}
+
+.Tenet-SegmentedControl__segment {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 var(--space-3);
+  border: none;
+  border-radius: var(--borderRadius-small);
+  background: transparent;
+  color: var(--fgColor-muted);
+  font-family: inherit;
+  font-size: var(--fontSize-1);
+  font-weight: var(--fontWeight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
+}
+.Tenet-SegmentedControl--size-small .Tenet-SegmentedControl__segment {
+  font-size: var(--fontSize-0);
+  padding: 0 var(--space-2);
+}
+.Tenet-SegmentedControl__segment:hover:not(:disabled):not(.Tenet-SegmentedControl__segment--selected) {
+  color: var(--fgColor-default);
+}
+.Tenet-SegmentedControl__segment:focus-visible {
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+  outline-offset: 1px;
+}
+.Tenet-SegmentedControl__segment:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.Tenet-SegmentedControl__segment--selected {
+  background-color: var(--bgColor-default);
+  color: var(--fgColor-default);
+  font-weight: var(--fontWeight-semibold);
+  box-shadow: var(--shadow-resting);
+}

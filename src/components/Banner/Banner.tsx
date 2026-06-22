@@ -40,7 +40,7 @@ export const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
       </div>
       {onDismiss && (
         <button type="button" className="Tenet-Banner__dismiss" aria-label="Dismiss" onClick={onDismiss}>
-          ✕
+          <span aria-hidden="true">✕</span>
         </button>
       )}
     </div>

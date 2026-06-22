@@ -8,7 +8,7 @@
   "props": [
     {
       "name": "variant",
-      "type": "'default' | 'accent' | 'success' | 'danger' | 'muted'",
+      "type": "'default' | 'accent' | 'success' | 'danger' | 'attention' | 'muted'",
       "required": false,
       "defaultValue": "default",
       "description": "Semantic color scheme. Pick by meaning (success/danger/accent), not by raw color."

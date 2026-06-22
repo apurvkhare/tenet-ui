@@ -1,0 +1,40 @@
+{
+  "id": "menu",
+  "name": "Menu",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "tenet-ui",
+  "source": "src/components/Menu/Menu.tsx",
+  "props": [
+    {
+      "name": "trigger",
+      "type": "ReactElement",
+      "required": true,
+      "defaultValue": "",
+      "description": "The trigger element (e.g. a Button); wired with menu aria + click."
+    },
+    {
+      "name": "items",
+      "type": "MenuItem[]",
+      "required": true,
+      "defaultValue": "",
+      "description": "Actions ({ label, onSelect, icon?, disabled?, destructive? }) or { type: 'separator' }."
+    },
+    {
+      "name": "align",
+      "type": "'start' | 'end'",
+      "required": false,
+      "defaultValue": "start",
+      "description": "Menu alignment relative to the trigger."
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "required": false,
+      "defaultValue": "trigger label",
+      "description": "Accessible name for the menu."
+    }
+  ],
+  "stories": [{ "id": "components-menu--default" }],
+  "subcomponents": []
+}

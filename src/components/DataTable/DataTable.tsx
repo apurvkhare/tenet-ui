@@ -135,7 +135,7 @@ export function DataTable<Row>({
             {filterableColumns.map((column) => (
               <Select
                 key={column.id}
-                aria-label={`Filter by ${column.id}`}
+                aria-label={`Filter by ${typeof column.header === 'string' ? column.header : column.id}`}
                 value={filters[column.id] ?? ''}
                 onChange={(value) => setFilters((prev) => ({ ...prev, [column.id]: value }))}
                 options={[

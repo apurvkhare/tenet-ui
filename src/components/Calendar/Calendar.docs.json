@@ -42,6 +42,13 @@
       "description": "Uncontrolled initial visible month."
     },
     {
+      "name": "onMonthChange",
+      "type": "(month: Date) => void",
+      "required": false,
+      "defaultValue": "",
+      "description": "Called when the visible month changes (nav / keyboard paging)."
+    },
+    {
       "name": "min",
       "type": "Date",
       "required": false,

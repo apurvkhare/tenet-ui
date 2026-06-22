@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
 
 export interface TabsProps {
   /** Controlled active tab value. */
@@ -17,18 +17,16 @@ export interface TabsListProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
 }
 
-export interface TabProps {
+export interface TabProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'value'> {
   /** Value this tab selects — must match a `Tabs.Panel` value. */
   value: string;
   /** Disable this tab. */
   disabled?: boolean;
   children?: ReactNode;
-  className?: string;
 }
 
-export interface TabPanelProps {
+export interface TabPanelProps extends HTMLAttributes<HTMLDivElement> {
   /** Value this panel is shown for. */
   value: string;
   children?: ReactNode;
-  className?: string;
 }

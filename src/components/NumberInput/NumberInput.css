@@ -14,7 +14,7 @@
 
 .Tenet-NumberInput:focus-within {
   border-color: var(--borderColor-accent-emphasis);
-  box-shadow: 0 0 0 3px var(--bgColor-accent-muted);
+  box-shadow: var(--shadow-focus);
 }
 
 .Tenet-NumberInput--block {
@@ -78,7 +78,7 @@
   border: none;
   background-color: var(--bgColor-muted);
   color: var(--fgColor-muted);
-  font-size: 8px;
+  font-size: var(--fontSize-0);
   line-height: 1;
   cursor: pointer;
   transition: background-color 0.12s ease, color 0.12s ease;

@@ -44,7 +44,7 @@
   color: var(--fgColor-default);
 }
 .Tenet-Calendar__nav:focus-visible {
-  outline: 2px solid var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: 1px;
 }
 .Tenet-Calendar__nav:disabled {
@@ -91,7 +91,7 @@
   background-color: var(--bgColor-muted);
 }
 .Tenet-Calendar__day:focus-visible {
-  outline: 2px solid var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: 1px;
 }
 .Tenet-Calendar__day:disabled {

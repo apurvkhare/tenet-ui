@@ -62,10 +62,12 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(functio
     return () => document.removeEventListener('mousedown', onDown);
   }, [open]);
 
-  // Move focus into the calendar grid when it opens.
+  // Move focus into the calendar grid when it opens (fall back to the dialog container).
   useEffect(() => {
     if (!open) return;
-    const el = wrapRef.current?.querySelector<HTMLButtonElement>('.Tenet-Calendar__day[tabindex="0"]');
+    const el =
+      wrapRef.current?.querySelector<HTMLElement>('.Tenet-Calendar__day[tabindex="0"]') ??
+      wrapRef.current?.querySelector<HTMLElement>('[role="dialog"]');
     el?.focus();
   }, [open]);
 
@@ -92,6 +94,10 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(functio
           close();
         }
       }}
+      onBlur={(e) => {
+        // Tabbing out of the popover (focus leaving the wrapper) closes it without stealing focus.
+        if (open && !wrapRef.current?.contains(e.relatedTarget as Node | null)) setOpen(false);
+      }}
     >
       <button
         ref={ref}
@@ -117,7 +123,7 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(functio
       </button>
 
       {open && (
-        <div id={dialogId} role="dialog" aria-modal="false" aria-label={ariaLabel ?? 'Choose date'} className="Tenet-DatePicker__popover">
+        <div id={dialogId} role="dialog" aria-modal="false" aria-label={ariaLabel ?? 'Choose date'} tabIndex={-1} className="Tenet-DatePicker__popover">
           <Calendar
             value={selected}
             defaultMonth={selected ?? undefined}

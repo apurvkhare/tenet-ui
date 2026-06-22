@@ -10,7 +10,7 @@
   display: block;
   width: var(--base-size-24);
   height: var(--base-size-24);
-  border: 2px solid color-mix(in srgb, currentColor 25%, transparent);
+  border: var(--borderWidth-thick) solid color-mix(in srgb, currentColor 25%, transparent);
   border-top-color: currentColor;
   border-radius: var(--borderRadius-full);
   animation: Tenet-Spinner-spin 0.6s linear infinite;
@@ -19,12 +19,10 @@
 .Tenet-Spinner--size-small .Tenet-Spinner__circle {
   width: var(--base-size-16);
   height: var(--base-size-16);
-  border-width: 2px;
 }
 .Tenet-Spinner--size-large .Tenet-Spinner__circle {
   width: var(--base-size-40);
   height: var(--base-size-40);
-  border-width: 3px;
 }
 
 @keyframes Tenet-Spinner-spin {
@@ -33,9 +31,17 @@
   }
 }
 
+@keyframes Tenet-Spinner-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* Respect reduced motion: drop the rotation for a non-vestibular opacity pulse. */
 @media (prefers-reduced-motion: reduce) {
   .Tenet-Spinner__circle {
-    animation-duration: 1.4s;
+    animation: Tenet-Spinner-pulse 1.2s ease-in-out infinite;
+    border-color: currentColor;
   }
 }
 

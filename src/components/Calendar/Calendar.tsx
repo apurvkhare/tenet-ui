@@ -146,9 +146,7 @@ export function Calendar({
         >
           ‹
         </button>
-        <div className="Tenet-Calendar__heading" aria-live="polite">
-          {formatMonthYear(visibleMonth, locale)}
-        </div>
+        <div className="Tenet-Calendar__heading">{formatMonthYear(visibleMonth, locale)}</div>
         <button
           type="button"
           className="Tenet-Calendar__nav"

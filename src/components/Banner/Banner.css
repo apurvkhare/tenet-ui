@@ -93,7 +93,7 @@
 }
 .Tenet-Banner--variant-warning .Tenet-Banner__icon {
   background-color: var(--bgColor-attention-emphasis);
-  color: var(--base-color-black);
+  color: var(--fgColor-onAttention);
 }
 
 .Tenet-Banner--variant-danger {

@@ -2,6 +2,55 @@
   "schemaVersion": 1,
   "generatedFrom": "src/components/**/*.docs.json",
   "components": {
+    "accordion": {
+      "id": "accordion",
+      "name": "Accordion",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Accordion/Accordion.tsx",
+      "props": [
+        {
+          "name": "type",
+          "type": "'single' | 'multiple'",
+          "required": false,
+          "defaultValue": "single",
+          "description": "Allow one open item (collapsible) or many."
+        },
+        {
+          "name": "value",
+          "type": "string[]",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled set of open item values."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string[]",
+          "required": false,
+          "defaultValue": "[]",
+          "description": "Uncontrolled initial open item values."
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: string[]) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called with the new set of open values."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-accordion--single"
+        },
+        {
+          "id": "components-accordion--multiple"
+        }
+      ],
+      "subcomponents": [
+        "Accordion.Item"
+      ]
+    },
     "avatar": {
       "id": "avatar",
       "name": "Avatar",
@@ -171,6 +220,46 @@
       ],
       "subcomponents": []
     },
+    "breadcrumbs": {
+      "id": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Breadcrumbs/Breadcrumbs.tsx",
+      "props": [
+        {
+          "name": "items",
+          "type": "BreadcrumbItem[]",
+          "required": true,
+          "defaultValue": "",
+          "description": "Ordered trail (root first). Last item is the current page."
+        },
+        {
+          "name": "separator",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "/",
+          "description": "Separator glyph between items (decorative)."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Breadcrumb",
+          "description": "Accessible name for the nav landmark."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-breadcrumbs--default"
+        },
+        {
+          "id": "components-breadcrumbs--chevron-separator"
+        }
+      ],
+      "subcomponents": []
+    },
     "button": {
       "id": "button",
       "name": "Button",
@@ -283,6 +372,13 @@
           "required": false,
           "defaultValue": "selected | today",
           "description": "Uncontrolled initial visible month."
+        },
+        {
+          "name": "onMonthChange",
+          "type": "(month: Date) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called when the visible month changes (nav / keyboard paging)."
         },
         {
           "name": "min",
@@ -613,6 +709,20 @@
           "required": false,
           "defaultValue": "",
           "description": "Form field name — emits a hidden yyyy-mm-dd input."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Sets aria-required (FormControl wires this)."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Id for the trigger (FormControl sets this automatically)."
         }
       ],
       "stories": [
@@ -831,7 +941,7 @@
       "props": [
         {
           "name": "variant",
-          "type": "'default' | 'accent' | 'success' | 'danger' | 'muted'",
+          "type": "'default' | 'accent' | 'success' | 'danger' | 'attention' | 'muted'",
           "required": false,
           "defaultValue": "default",
           "description": "Semantic color scheme. Pick by meaning (success/danger/accent), not by raw color."
@@ -860,6 +970,50 @@
         },
         {
           "id": "components-label--sizes"
+        }
+      ],
+      "subcomponents": []
+    },
+    "menu": {
+      "id": "menu",
+      "name": "Menu",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Menu/Menu.tsx",
+      "props": [
+        {
+          "name": "trigger",
+          "type": "ReactElement",
+          "required": true,
+          "defaultValue": "",
+          "description": "The trigger element (e.g. a Button); wired with menu aria + click."
+        },
+        {
+          "name": "items",
+          "type": "MenuItem[]",
+          "required": true,
+          "defaultValue": "",
+          "description": "Actions ({ label, onSelect, icon?, disabled?, destructive? }) or { type: 'separator' }."
+        },
+        {
+          "name": "align",
+          "type": "'start' | 'end'",
+          "required": false,
+          "defaultValue": "start",
+          "description": "Menu alignment relative to the trigger."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "trigger label",
+          "description": "Accessible name for the menu."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-menu--default"
         }
       ],
       "subcomponents": []
@@ -955,6 +1109,60 @@
         },
         {
           "id": "components-numberinput--disabled"
+        }
+      ],
+      "subcomponents": []
+    },
+    "pagination": {
+      "id": "pagination",
+      "name": "Pagination",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Pagination/Pagination.tsx",
+      "props": [
+        {
+          "name": "page",
+          "type": "number",
+          "required": true,
+          "defaultValue": "",
+          "description": "Current page (1-based)."
+        },
+        {
+          "name": "pageCount",
+          "type": "number",
+          "required": true,
+          "defaultValue": "",
+          "description": "Total number of pages."
+        },
+        {
+          "name": "onPageChange",
+          "type": "(page: number) => void",
+          "required": true,
+          "defaultValue": "",
+          "description": "Called with the requested page."
+        },
+        {
+          "name": "siblingCount",
+          "type": "number",
+          "required": false,
+          "defaultValue": "1",
+          "description": "Page numbers shown either side of the current page."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Pagination",
+          "description": "Accessible name for the nav landmark."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-pagination--default"
+        },
+        {
+          "id": "components-pagination--many-pages"
         }
       ],
       "subcomponents": []
@@ -1062,6 +1270,77 @@
         }
       ]
     },
+    "segmented-control": {
+      "id": "segmented-control",
+      "name": "SegmentedControl",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/SegmentedControl/SegmentedControl.tsx",
+      "props": [
+        {
+          "name": "options",
+          "type": "SegmentedControlOption[]",
+          "required": true,
+          "defaultValue": "",
+          "description": "The segments ({ value, label, disabled? })."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled selected value."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "defaultValue": "first enabled",
+          "description": "Uncontrolled initial value."
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called with the newly selected value."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Control height / font scale."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Stretch segments to fill the width."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Accessible name for the radiogroup (provide one)."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-segmentedcontrol--default"
+        },
+        {
+          "id": "components-segmentedcontrol--small"
+        },
+        {
+          "id": "components-segmentedcontrol--with-disabled-segment"
+        }
+      ],
+      "subcomponents": []
+    },
     "select": {
       "id": "select",
       "name": "Select",
@@ -1132,6 +1411,41 @@
           "required": false,
           "defaultValue": "",
           "description": "Form field name — emits a hidden input so the value submits with a form."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Disable the control."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Sets aria-required (FormControl wires this)."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Id for the trigger (FormControl sets this automatically)."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Accessible name when not inside a FormControl."
+        },
+        {
+          "name": "aria-describedby",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Ids of describing elements (FormControl wires this)."
         }
       ],
       "stories": [
@@ -1600,6 +1914,53 @@
         }
       ],
       "subcomponents": []
+    },
+    "toast": {
+      "id": "toast",
+      "name": "Toast",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Toast/Toast.tsx",
+      "props": [
+        {
+          "name": "duration",
+          "type": "number",
+          "required": false,
+          "defaultValue": "5000",
+          "description": "ToastProvider: default auto-dismiss (ms); 0 keeps until dismissed."
+        },
+        {
+          "name": "placement",
+          "type": "'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'",
+          "required": false,
+          "defaultValue": "bottom-right",
+          "description": "ToastProvider: viewport corner."
+        },
+        {
+          "name": "toast",
+          "type": "(options: ToastOptions) => string",
+          "required": false,
+          "defaultValue": "",
+          "description": "useToast(): show a toast ({ variant?, title?, message, duration? }); returns its id."
+        },
+        {
+          "name": "dismiss",
+          "type": "(id: string) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "useToast(): dismiss a toast by id."
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-toast--default"
+        }
+      ],
+      "subcomponents": [
+        "ToastProvider",
+        "useToast"
+      ]
     },
     "tooltip": {
       "id": "tooltip",

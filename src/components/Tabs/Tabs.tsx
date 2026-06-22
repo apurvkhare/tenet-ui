@@ -44,6 +44,7 @@ export function Tabs({ value, defaultValue, onChange, className, children }: Tab
 }
 
 function TabsList({ className, children, ...rest }: TabsListProps) {
+  const { setValue } = useTabs('List');
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     const keys = ['ArrowRight', 'ArrowLeft', 'Home', 'End'];
     if (!keys.includes(e.key)) return;
@@ -58,8 +59,12 @@ function TabsList({ className, children, ...rest }: TabsListProps) {
     else if (e.key === 'ArrowLeft') next = (idx - 1 + tabs.length) % tabs.length;
     else if (e.key === 'Home') next = 0;
     else if (e.key === 'End') next = tabs.length - 1;
-    tabs[next]?.focus();
-    tabs[next]?.click();
+    const target = tabs[next];
+    if (!target) return;
+    target.focus();
+    // Drive selection directly (no synthetic .click(), so user onClick handlers don't double-fire).
+    const v = target.dataset.value;
+    if (v != null) setValue(v);
   };
 
   return (
@@ -69,13 +74,14 @@ function TabsList({ className, children, ...rest }: TabsListProps) {
   );
 }
 
-function Tab({ value, disabled = false, className, children }: TabProps) {
+function Tab({ value, disabled = false, className, children, onClick, ...rest }: TabProps) {
   const { value: active, setValue, baseId } = useTabs('Tab');
   const selected = active === value;
   return (
     <button
       type="button"
       role="tab"
+      data-value={value}
       id={`${baseId}-tab-${slug(value)}`}
       aria-selected={selected}
       aria-controls={`${baseId}-panel-${slug(value)}`}
@@ -83,14 +89,18 @@ function Tab({ value, disabled = false, className, children }: TabProps) {
       disabled={disabled}
       tabIndex={selected ? 0 : -1}
       className={cx('Tenet-Tabs__tab', selected && 'Tenet-Tabs__tab--selected', className)}
-      onClick={() => !disabled && setValue(value)}
+      onClick={(e) => {
+        onClick?.(e);
+        if (!disabled) setValue(value);
+      }}
+      {...rest}
     >
       {children}
     </button>
   );
 }
 
-function TabPanel({ value, className, children }: TabPanelProps) {
+function TabPanel({ value, className, children, ...rest }: TabPanelProps) {
   const { value: active, baseId } = useTabs('Panel');
   if (active !== value) return null;
   return (
@@ -100,6 +110,7 @@ function TabPanel({ value, className, children }: TabPanelProps) {
       aria-labelledby={`${baseId}-tab-${slug(value)}`}
       tabIndex={0}
       className={cx('Tenet-Tabs__panel', className)}
+      {...rest}
     >
       {children}
     </div>

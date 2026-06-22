@@ -68,6 +68,41 @@
       "required": false,
       "defaultValue": "",
       "description": "Form field name — emits a hidden input so the value submits with a form."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Disable the control."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Sets aria-required (FormControl wires this)."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "defaultValue": "",
+      "description": "Id for the trigger (FormControl sets this automatically)."
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "required": false,
+      "defaultValue": "",
+      "description": "Accessible name when not inside a FormControl."
+    },
+    {
+      "name": "aria-describedby",
+      "type": "string",
+      "required": false,
+      "defaultValue": "",
+      "description": "Ids of describing elements (FormControl wires this)."
     }
   ],
   "stories": [

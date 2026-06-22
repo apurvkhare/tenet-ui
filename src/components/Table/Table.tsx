@@ -110,7 +110,7 @@ const Row = forwardRef<HTMLTableRowElement, TableRowProps>(function TableRow(
 });
 
 const Header = forwardRef<HTMLTableCellElement, TableHeaderProps>(function TableHeader(
-  { align = 'start', sortDirection, scope = 'col', className, children, ...rest },
+  { align = 'start', sortDirection, scope = 'col', className, children, onClick, ...rest },
   ref,
 ) {
   const sortable = sortDirection !== undefined;
@@ -118,15 +118,24 @@ const Header = forwardRef<HTMLTableCellElement, TableHeaderProps>(function Table
     <th
       ref={ref}
       scope={scope}
-      aria-sort={sortable ? sortDirection : undefined}
+      aria-sort={sortable && sortDirection !== 'none' ? sortDirection : undefined}
       className={cx('Tenet-Table__header', `Tenet-Table__cell--align-${align}`, sortable && 'Tenet-Table__header--sortable', className)}
       {...rest}
     >
-      {children}
-      {sortable && (
-        <span className="Tenet-Table__sort" aria-hidden="true">
-          {sortGlyph[sortDirection]}
-        </span>
+      {sortable ? (
+        // A real button so sorting is reachable & operable by keyboard, not click-only.
+        <button
+          type="button"
+          className="Tenet-Table__sortButton"
+          onClick={onClick as unknown as React.MouseEventHandler<HTMLButtonElement> | undefined}
+        >
+          {children}
+          <span className="Tenet-Table__sort" aria-hidden="true">
+            {sortGlyph[sortDirection]}
+          </span>
+        </button>
+      ) : (
+        children
       )}
     </th>
   );

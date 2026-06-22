@@ -19,6 +19,8 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
   return (
     <span
       ref={ref}
+      // A bare dot is decorative; meaning must come from the labelled control it sits on.
+      aria-hidden={dot ? true : undefined}
       className={cx('Tenet-Badge', `Tenet-Badge--variant-${variant}`, dot && 'Tenet-Badge--dot', className)}
       {...rest}
     >

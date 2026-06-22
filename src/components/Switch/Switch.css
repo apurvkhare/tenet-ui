@@ -41,7 +41,7 @@
   height: var(--base-size-16);
   border-radius: var(--borderRadius-full);
   background-color: var(--base-color-white);
-  box-shadow: 0 1px 2px rgba(20, 17, 13, 0.35);
+  box-shadow: var(--shadow-resting);
   transition: transform 0.16s ease;
 }
 
@@ -62,11 +62,11 @@
 .Tenet-Switch--size-small .Tenet-Switch__track {
   width: var(--base-size-32);
   height: var(--base-size-16);
-  padding: 0 2px;
+  padding: 0 var(--base-size-4);
 }
 .Tenet-Switch--size-small .Tenet-Switch__knob {
-  width: var(--base-size-12);
-  height: var(--base-size-12);
+  width: var(--base-size-8);
+  height: var(--base-size-8);
 }
 .Tenet-Switch--size-small .Tenet-Switch__input:checked + .Tenet-Switch__track .Tenet-Switch__knob {
   transform: translateX(var(--base-size-16));

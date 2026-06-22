@@ -1,0 +1,50 @@
+{
+  "id": "pagination",
+  "name": "Pagination",
+  "status": "stable",
+  "a11yReviewed": true,
+  "importPath": "tenet-ui",
+  "source": "src/components/Pagination/Pagination.tsx",
+  "props": [
+    {
+      "name": "page",
+      "type": "number",
+      "required": true,
+      "defaultValue": "",
+      "description": "Current page (1-based)."
+    },
+    {
+      "name": "pageCount",
+      "type": "number",
+      "required": true,
+      "defaultValue": "",
+      "description": "Total number of pages."
+    },
+    {
+      "name": "onPageChange",
+      "type": "(page: number) => void",
+      "required": true,
+      "defaultValue": "",
+      "description": "Called with the requested page."
+    },
+    {
+      "name": "siblingCount",
+      "type": "number",
+      "required": false,
+      "defaultValue": "1",
+      "description": "Page numbers shown either side of the current page."
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Pagination",
+      "description": "Accessible name for the nav landmark."
+    }
+  ],
+  "stories": [
+    { "id": "components-pagination--default" },
+    { "id": "components-pagination--many-pages" }
+  ],
+  "subcomponents": []
+}

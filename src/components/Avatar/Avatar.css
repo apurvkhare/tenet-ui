@@ -31,7 +31,7 @@
 .Tenet-Avatar--size-small {
   width: var(--base-size-24);
   height: var(--base-size-24);
-  font-size: 10px;
+  font-size: var(--fontSize-0);
 }
 .Tenet-Avatar--size-medium {
   width: var(--base-size-32);

@@ -29,7 +29,6 @@ export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
       ref={ref}
       role="img"
       aria-label={name}
-      title={name}
       className={cx('Tenet-Avatar', `Tenet-Avatar--size-${size}`, `Tenet-Avatar--shape-${shape}`, className)}
       {...rest}
     >

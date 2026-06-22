@@ -270,11 +270,16 @@ interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'typ
     label?: ReactNode;
     /** Optional helper text under the label. */
     caption?: ReactNode;
+    /** Mark the field as invalid (sets `aria-invalid`). */
+    invalid?: boolean;
+    /** Tri-state "partially checked" visual (mixed); also sets `aria-checked="mixed"`. */
+    indeterminate?: boolean;
 }
 
 /**
  * Tenet checkbox. A real `<input type="checkbox">` tinted with the accent token, with an
- * associated label and optional caption — use it instead of a styled `<div>` toggle.
+ * associated label and optional caption — use it instead of a styled `<div>` toggle. Supports an
+ * `indeterminate` (mixed) state for "select all" parents.
  */
 declare const Checkbox: react.ForwardRefExoticComponent<CheckboxProps & react.RefAttributes<HTMLInputElement>>;
 
@@ -603,19 +608,17 @@ interface TabsListProps extends HTMLAttributes<HTMLDivElement> {
     'aria-label'?: string;
     children?: ReactNode;
 }
-interface TabProps {
+interface TabProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'value'> {
     /** Value this tab selects — must match a `Tabs.Panel` value. */
     value: string;
     /** Disable this tab. */
     disabled?: boolean;
     children?: ReactNode;
-    className?: string;
 }
-interface TabPanelProps {
+interface TabPanelProps extends HTMLAttributes<HTMLDivElement> {
     /** Value this panel is shown for. */
     value: string;
     children?: ReactNode;
-    className?: string;
 }
 
 /**
@@ -627,11 +630,11 @@ interface TabPanelProps {
 declare function Tabs({ value, defaultValue, onChange, className, children }: TabsProps): react_jsx_runtime.JSX.Element;
 declare namespace Tabs {
     var List: typeof TabsList;
-    var Tab: ({ value, disabled, className, children }: TabProps) => react_jsx_runtime.JSX.Element;
+    var Tab: ({ value, disabled, className, children, onClick, ...rest }: TabProps) => react_jsx_runtime.JSX.Element;
     var Panel: typeof TabPanel;
 }
 declare function TabsList({ className, children, ...rest }: TabsListProps): react_jsx_runtime.JSX.Element;
-declare function TabPanel({ value, className, children }: TabPanelProps): react_jsx_runtime.JSX.Element | null;
+declare function TabPanel({ value, className, children, ...rest }: TabPanelProps): react_jsx_runtime.JSX.Element | null;
 
 type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
 interface TooltipProps {
@@ -681,4 +684,191 @@ interface DialogProps {
  */
 declare function Dialog({ open, onClose, title, description, size, footer, closeOnBackdrop, className, children, }: DialogProps): react.ReactPortal | null;
 
-export { Avatar, type AvatarProps, type AvatarShape, type AvatarSize, Badge, type BadgeProps, type BadgeVariant, Banner, type BannerProps, type BannerVariant, Button, type ButtonProps, type ButtonSize, type ButtonVariant, Calendar, type CalendarProps, Card, type CardPadding, type CardProps, type CardVariant, type CellAlign, Checkbox, type CheckboxProps, DataTable, type DataTableColumn, type DataTableProps, DatePicker, type DatePickerProps, type DatePickerSize, Dialog, type DialogProps, type DialogSize, Divider, type DividerOrientation, type DividerProps, FormControl, type FormControlCaptionProps, type FormControlLabelProps, type FormControlProps, type FormControlValidationProps, Label$1 as Label, type LabelProps, type LabelSize, type LabelVariant, NumberInput, type NumberInputProps, type NumberInputSize, Radio, RadioGroup, type RadioGroupProps, type RadioProps, Select, type SelectOption, type SelectProps, type SelectSize, type SortDirection, Spinner, type SpinnerProps, type SpinnerSize, Stack, type StackAlign, type StackDirection, type StackGap, type StackItemProps, type StackJustify, type StackPadding, type StackProps, Switch, type SwitchProps, type SwitchSize, type TabPanelProps, type TabProps, Table, type TableActionsProps, type TableCellProps, type TableContainerProps, type TableDensity, type TableHeaderProps, type TableProps, type TableRowProps, type TableSectionProps, type TableSubtitleProps, type TableTitleProps, Tabs, type TabsListProps, type TabsProps, TextInput, type TextInputProps, type TextInputSize, Textarea, type TextareaProps, type TextareaResize, Tooltip, type TooltipPlacement, type TooltipProps, type ValidationVariant, type WeekStart };
+interface BreadcrumbItem {
+    /** Visible label. */
+    label: ReactNode;
+    /** Link target. Omit for the current page (rendered as plain text). */
+    href?: string;
+}
+interface BreadcrumbsProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
+    /** Ordered trail, root first. The last item is treated as the current page. */
+    items: BreadcrumbItem[];
+    /** Accessible name for the nav landmark. */
+    'aria-label'?: string;
+    /** Separator glyph between items. */
+    separator?: ReactNode;
+}
+
+/**
+ * Tenet breadcrumbs — the path from the root to the current page. Renders a `<nav>` landmark with
+ * an ordered list; the last item is the current page (`aria-current="page"`, not a link). Pass an
+ * `aria-label` so multiple navs on a page are distinguishable.
+ */
+declare const Breadcrumbs: react.ForwardRefExoticComponent<BreadcrumbsProps & react.RefAttributes<HTMLElement>>;
+
+interface PaginationProps {
+    /** Current page (1-based). */
+    page: number;
+    /** Total number of pages. */
+    pageCount: number;
+    /** Called with the requested page when the user navigates. */
+    onPageChange: (page: number) => void;
+    /** How many page numbers to show around the current page. */
+    siblingCount?: number;
+    /** Accessible name for the nav landmark. */
+    'aria-label'?: string;
+    className?: string;
+}
+
+/**
+ * Tenet pagination — navigate a paged result set. Renders a `<nav>` landmark of real `<button>`s
+ * (keyboard-operable by construction), marks the current page with `aria-current="page"`, and
+ * disables Previous/Next at the ends. Long ranges collapse with ellipses around a window of pages.
+ */
+declare const Pagination: react.ForwardRefExoticComponent<PaginationProps & react.RefAttributes<HTMLElement>>;
+
+type AccordionType = 'single' | 'multiple';
+interface AccordionProps {
+    /** `single` allows one open item (collapsible); `multiple` allows many. */
+    type?: AccordionType;
+    /** Controlled set of open item values. */
+    value?: string[];
+    /** Uncontrolled initial open item values. */
+    defaultValue?: string[];
+    /** Called with the new set of open values. */
+    onValueChange?: (value: string[]) => void;
+    children?: ReactNode;
+    className?: string;
+}
+interface AccordionItemProps {
+    /** Unique value identifying this item. */
+    value: string;
+    /** Header text shown on the trigger button. */
+    title: ReactNode;
+    /** Disable this item. */
+    disabled?: boolean;
+    children?: ReactNode;
+    className?: string;
+}
+
+/**
+ * Tenet accordion — stacked disclosure sections. Each item is a header `<button aria-expanded>`
+ * controlling a labelled region. `type="single"` keeps one open (collapsible), `multiple` allows
+ * many. Headers are arrow-key navigable (Up/Down/Home/End). Controlled or uncontrolled.
+ */
+declare function Accordion({ type, value, defaultValue, onValueChange, className, children, }: AccordionProps): react_jsx_runtime.JSX.Element;
+declare namespace Accordion {
+    var Item: typeof AccordionItem;
+}
+declare function AccordionItem({ value, title, disabled, className, children }: AccordionItemProps): react_jsx_runtime.JSX.Element;
+
+interface SegmentedControlOption {
+    /** Value reported on change. */
+    value: string;
+    /** Visible label. */
+    label: string;
+    /** Disable this segment. */
+    disabled?: boolean;
+}
+type SegmentedControlSize = 'small' | 'medium';
+interface SegmentedControlProps {
+    /** The segments to choose from. */
+    options: SegmentedControlOption[];
+    /** Controlled selected value. */
+    value?: string;
+    /** Uncontrolled initial value. */
+    defaultValue?: string;
+    /** Called with the newly selected value. */
+    onChange?: (value: string) => void;
+    /** Control height / font scale. */
+    size?: SegmentedControlSize;
+    /** Stretch segments to fill the available width. */
+    block?: boolean;
+    /** Accessible name for the group (required for screen readers). */
+    'aria-label'?: string;
+    className?: string;
+}
+
+/**
+ * Tenet segmented control — a compact single-choice switch between a few options (a view toggle,
+ * a filter mode). Implemented as an ARIA radiogroup: arrow keys move and select (selection follows
+ * focus), with a roving tab stop. For many options or free text use `Select`; for on/off use `Switch`.
+ */
+declare const SegmentedControl: react.ForwardRefExoticComponent<SegmentedControlProps & react.RefAttributes<HTMLDivElement>>;
+
+interface MenuAction {
+    type?: 'item';
+    /** Visible label. */
+    label: ReactNode;
+    /** Invoked when the item is chosen (menu then closes). */
+    onSelect: () => void;
+    /** Optional leading icon. */
+    icon?: ReactNode;
+    /** Disable this item. */
+    disabled?: boolean;
+    /** Render in the danger color for destructive actions. */
+    destructive?: boolean;
+}
+interface MenuSeparator {
+    type: 'separator';
+}
+type MenuItem = MenuAction | MenuSeparator;
+interface MenuProps {
+    /** The trigger element (e.g. a Button). It is wired with the menu's aria + click handling. */
+    trigger: ReactElement;
+    /** The actions to show. */
+    items: MenuItem[];
+    /** Accessible name for the menu. */
+    'aria-label'?: string;
+    /** Menu alignment relative to the trigger. */
+    align?: 'start' | 'end';
+    className?: string;
+}
+
+/**
+ * Tenet action menu — a button that opens a popover list of actions (ARIA menu pattern). Arrow keys
+ * move, Enter/Space invoke, Escape closes and returns focus to the trigger, click-outside closes.
+ * Items run their `onSelect` and the menu closes. Distinct from `Select`, which picks a value.
+ */
+declare function Menu({ trigger, items, 'aria-label': ariaLabel, align, className }: MenuProps): react_jsx_runtime.JSX.Element;
+
+type ToastVariant = 'info' | 'success' | 'warning' | 'danger';
+interface ToastOptions {
+    /** Semantic tone. */
+    variant?: ToastVariant;
+    /** Optional bold lead-in line. */
+    title?: ReactNode;
+    /** Main message. */
+    message: ReactNode;
+    /** Auto-dismiss after N ms. 0 keeps it until dismissed. */
+    duration?: number;
+}
+interface ToastContextValue {
+    /** Show a toast; returns its id. */
+    toast: (options: ToastOptions) => string;
+    /** Dismiss a toast by id. */
+    dismiss: (id: string) => void;
+}
+interface ToastProviderProps {
+    /** Default auto-dismiss duration (ms) when an individual toast doesn't set one. */
+    duration?: number;
+    /** Viewport corner. */
+    placement?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
+    children?: ReactNode;
+}
+
+/**
+ * Hook to show toasts. Must be used under a `ToastProvider`.
+ *   const { toast } = useToast();
+ *   toast({ variant: 'success', title: 'Saved', message: 'Your changes are live.' });
+ */
+declare function useToast(): ToastContextValue;
+/**
+ * Tenet toast provider — mounts a portalled, live-region viewport and exposes `useToast()` to any
+ * descendant. Toasts auto-dismiss (configurable), can be dismissed manually, and are announced to
+ * assistive tech (danger = assertive alert, others = polite status). Use toasts for transient,
+ * non-blocking feedback; for inline contextual messages use `Banner`, for blocking flows `Dialog`.
+ */
+declare function ToastProvider({ duration, placement, children }: ToastProviderProps): react_jsx_runtime.JSX.Element;
+
+export { Accordion, type AccordionItemProps, type AccordionProps, type AccordionType, Avatar, type AvatarProps, type AvatarShape, type AvatarSize, Badge, type BadgeProps, type BadgeVariant, Banner, type BannerProps, type BannerVariant, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonSize, type ButtonVariant, Calendar, type CalendarProps, Card, type CardPadding, type CardProps, type CardVariant, type CellAlign, Checkbox, type CheckboxProps, DataTable, type DataTableColumn, type DataTableProps, DatePicker, type DatePickerProps, type DatePickerSize, Dialog, type DialogProps, type DialogSize, Divider, type DividerOrientation, type DividerProps, FormControl, type FormControlCaptionProps, type FormControlLabelProps, type FormControlProps, type FormControlValidationProps, Label$1 as Label, type LabelProps, type LabelSize, type LabelVariant, Menu, type MenuAction, type MenuItem, type MenuProps, type MenuSeparator, NumberInput, type NumberInputProps, type NumberInputSize, Pagination, type PaginationProps, Radio, RadioGroup, type RadioGroupProps, type RadioProps, SegmentedControl, type SegmentedControlOption, type SegmentedControlProps, type SegmentedControlSize, Select, type SelectOption, type SelectProps, type SelectSize, type SortDirection, Spinner, type SpinnerProps, type SpinnerSize, Stack, type StackAlign, type StackDirection, type StackGap, type StackItemProps, type StackJustify, type StackPadding, type StackProps, Switch, type SwitchProps, type SwitchSize, type TabPanelProps, type TabProps, Table, type TableActionsProps, type TableCellProps, type TableContainerProps, type TableDensity, type TableHeaderProps, type TableProps, type TableRowProps, type TableSectionProps, type TableSubtitleProps, type TableTitleProps, Tabs, type TabsListProps, type TabsProps, TextInput, type TextInputProps, type TextInputSize, Textarea, type TextareaProps, type TextareaResize, type ToastContextValue, type ToastOptions, ToastProvider, type ToastProviderProps, type ToastVariant, Tooltip, type TooltipPlacement, type TooltipProps, type ValidationVariant, type WeekStart, useToast };
