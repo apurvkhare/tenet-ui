@@ -65,11 +65,10 @@
   color: var(--fgColor-muted);
 }
 
+/* Position (fixed top/left) is set inline by useAnchoredPosition; this rule is z-index only. */
 .Tenet-DatePicker__popover {
-  position: absolute;
-  z-index: 50;
-  top: calc(100% + var(--space-1));
-  left: 0;
+  /* Above Dialog (100) so a DatePicker opened inside a modal isn't hidden; below Toast (200). */
+  z-index: 150;
 }
 
 /* The calendar already has a border/shadow; the popover just positions it. */

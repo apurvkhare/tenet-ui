@@ -29,6 +29,16 @@
   cursor: not-allowed;
 }
 
+/* Size scale — mirrors TextInput so a Textarea lines up with text fields in a form. */
+.Tenet-Textarea--size-small {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--fontSize-0);
+}
+.Tenet-Textarea--size-large {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--fontSize-2);
+}
+
 .Tenet-Textarea--block {
   display: block;
   width: 100%;

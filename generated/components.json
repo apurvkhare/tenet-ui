@@ -507,6 +507,20 @@
           "required": false,
           "defaultValue": "false",
           "description": "Disable the checkbox."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Mark the field invalid (sets aria-invalid and a danger border)."
+        },
+        {
+          "name": "indeterminate",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Mixed/partial state (e.g. a parent of partially-checked children)."
         }
       ],
       "stories": [
@@ -1648,6 +1662,13 @@
           "required": false,
           "defaultValue": "",
           "description": "Ids of describing elements (FormControl wires this)."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Extra class on the wrapper. Also accepts native button attrs (data-*, style, onBlur…) via rest."
         }
       ],
       "stories": [
@@ -2221,6 +2242,13 @@
           "required": false,
           "defaultValue": "vertical",
           "description": "Which directions the user may resize."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Padding / font scale — matches TextInput so fields line up in a form."
         },
         {
           "name": "rows",

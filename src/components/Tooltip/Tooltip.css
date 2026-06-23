@@ -1,12 +1,12 @@
-/* Tenet Tooltip — ink bubble positioned around a trigger. */
+/* Tenet Tooltip — ink bubble, positioned in a portal by useAnchoredPosition. */
 .Tenet-Tooltip {
-  position: relative;
   display: inline-flex;
 }
 
+/* Position (fixed top/left, placement + flip) is set inline by useAnchoredPosition; this rule is
+   visual only. z-index above Dialog (100) so a tooltip inside a modal isn't hidden; below Toast (200). */
 .Tenet-Tooltip__bubble {
-  position: absolute;
-  z-index: 60;
+  z-index: 150;
   max-width: 240px;
   width: max-content;
   padding: var(--space-1) var(--space-2);
@@ -30,24 +30,8 @@
   visibility: visible;
 }
 
-/* Placements */
-.Tenet-Tooltip__bubble--top {
-  bottom: calc(100% + var(--space-2));
-  left: 50%;
-  transform: translateX(-50%);
-}
-.Tenet-Tooltip__bubble--bottom {
-  top: calc(100% + var(--space-2));
-  left: 50%;
-  transform: translateX(-50%);
-}
-.Tenet-Tooltip__bubble--left {
-  right: calc(100% + var(--space-2));
-  top: 50%;
-  transform: translateY(-50%);
-}
-.Tenet-Tooltip__bubble--right {
-  left: calc(100% + var(--space-2));
-  top: 50%;
-  transform: translateY(-50%);
+@media (prefers-reduced-motion: reduce) {
+  .Tenet-Tooltip__bubble {
+    transition: none;
+  }
 }

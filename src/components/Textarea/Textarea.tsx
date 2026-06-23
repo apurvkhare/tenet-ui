@@ -9,7 +9,7 @@ const cx = (...parts: Array<string | false | undefined>): string => parts.filter
  * instead of a raw `<textarea>`. Always give it an accessible name via FormControl or `aria-label`.
  */
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
-  { block = false, invalid = false, resize = 'vertical', rows = 4, className, ...rest },
+  { block = false, invalid = false, resize = 'vertical', size = 'medium', rows = 4, className, ...rest },
   ref,
 ) {
   return (
@@ -19,6 +19,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
       aria-invalid={invalid || undefined}
       className={cx(
         'Tenet-Textarea',
+        `Tenet-Textarea--size-${size}`,
         block && 'Tenet-Textarea--block',
         invalid && 'Tenet-Textarea--invalid',
         `Tenet-Textarea--resize-${resize}`,

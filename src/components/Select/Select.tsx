@@ -1,5 +1,6 @@
 import { forwardRef, useCallback, useEffect, useId, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
+import { Portal, mergeRefs, useAnchoredPosition } from '../../internal/floating';
 import type { SelectOption, SelectProps } from './Select.types';
 import './Select.css';
 
@@ -43,6 +44,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
     className,
     'aria-label': ariaLabel,
     'aria-describedby': describedBy,
+    ...rest
   },
   ref,
 ) {
@@ -61,8 +63,13 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
   const [active, setActive] = useState(-1);
 
   const wrapRef = useRef<HTMLSpanElement>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const typeahead = useRef<{ buf: string; t: ReturnType<typeof setTimeout> | null }>({ buf: '', t: null });
+
+  // Float the listbox in a portal so it can't be clipped by an ancestor's overflow; match the
+  // trigger width as a floor.
+  const listStyle = useAnchoredPosition({ open, anchorRef: triggerRef, floatingRef: listRef, matchWidth: true });
 
   const commit = useCallback(
     (i: number) => {
@@ -86,7 +93,9 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
   useEffect(() => {
     if (!open) return;
     const onDown = (e: MouseEvent) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
+      const t = e.target as Node;
+      // The listbox is portaled out of wrapRef, so check it explicitly too.
+      if (!wrapRef.current?.contains(t) && !listRef.current?.contains(t)) setOpen(false);
     };
     document.addEventListener('mousedown', onDown);
     return () => document.removeEventListener('mousedown', onDown);
@@ -180,13 +189,14 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
       )}
     >
       <button
-        ref={ref}
+        {...rest}
+        ref={mergeRefs(ref, triggerRef)}
         type="button"
         id={triggerId}
         role="combobox"
         aria-haspopup="listbox"
         aria-expanded={open}
-        aria-controls={listboxId}
+        aria-controls={open ? listboxId : undefined}
         aria-activedescendant={open && active >= 0 ? optionId(active) : undefined}
         aria-label={ariaLabel}
         aria-invalid={invalid || undefined}
@@ -206,7 +216,8 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
       </button>
 
       {open && (
-        <ul ref={listRef} id={listboxId} role="listbox" className="Tenet-Select__listbox" tabIndex={-1}>
+        <Portal>
+        <ul ref={listRef} id={listboxId} role="listbox" className="Tenet-Select__listbox" style={listStyle} tabIndex={-1}>
           {options.map((opt, i) => {
             const isSelected = opt.value === current;
             return (
@@ -233,11 +244,12 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
                 <span className="Tenet-Select__check" aria-hidden="true">
                   {isSelected ? '✓' : ''}
                 </span>
-                {opt.label}
+                <span className="Tenet-Select__optionLabel">{opt.label}</span>
               </li>
             );
           })}
         </ul>
+        </Portal>
       )}
 
       {name && <input type="hidden" name={name} value={current} />}

@@ -1,3 +1,5 @@
+import type { ButtonHTMLAttributes } from 'react';
+
 export type SelectSize = 'small' | 'medium' | 'large';
 
 export interface SelectOption {
@@ -9,7 +11,10 @@ export interface SelectOption {
   disabled?: boolean;
 }
 
-export interface SelectProps {
+// Extends the trigger button's attrs so consumers can pass data-*, style, onBlur, etc.
+// (value/defaultValue/onChange are re-typed for the combobox.)
+export interface SelectProps
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onChange' | 'value' | 'defaultValue'> {
   /** The options to choose from. */
   options: SelectOption[];
   /** Controlled selected value. */

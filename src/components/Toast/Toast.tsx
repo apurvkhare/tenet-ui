@@ -94,6 +94,9 @@ export function ToastProvider({ duration = 5000, placement = 'bottom-right', chi
             className={cx('Tenet-Toast__viewport', `Tenet-Toast__viewport--${placement}`)}
             role="region"
             aria-label="Notifications"
+            // Toasts sit above modals (z-index) and must stay announced while a Dialog is open;
+            // this marks the layer so Dialog's aria-hidden sweep skips it. See Dialog.tsx.
+            data-tenet-layer="toast"
           >
             {toasts.map((t) => (
               <ToastItem key={t.id} toast={t} onDismiss={dismiss} defaultDuration={duration} />

@@ -20,13 +20,15 @@ const RadioGroupContext = createContext<RadioGroupContextValue | null>(null);
  * `RadioGroup`, which wires the shared `name` and selection for you.
  */
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
-  { value, label, caption, id, name, checked, defaultChecked, disabled, onChange, className, ...rest },
+  { value, label, caption, id, name, checked, defaultChecked, disabled, onChange, className, 'aria-describedby': ariaDescribedby, ...rest },
   ref,
 ) {
   const ctx = useContext(RadioGroupContext);
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const captionId = caption ? `${inputId}-caption` : undefined;
+  // Merge the caption link with any caller-supplied describedby instead of clobbering either.
+  const describedBy = [captionId, ariaDescribedby].filter(Boolean).join(' ') || undefined;
 
   const controlled = ctx?.value !== undefined;
   const resolvedChecked = controlled ? ctx?.value === value : checked;
@@ -55,7 +57,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
         checked={resolvedChecked}
         defaultChecked={resolvedDefault}
         disabled={resolvedDisabled}
-        aria-describedby={captionId}
+        aria-describedby={describedBy}
         onChange={handleChange}
         {...rest}
       />
@@ -80,18 +82,19 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
  * `Radio` children via context — so grouping and accessibility are correct without prop drilling.
  */
 export const RadioGroup = forwardRef<HTMLFieldSetElement, RadioGroupProps>(function RadioGroup(
-  { name, label, caption, value, defaultValue, onChange, required = false, disabled = false, className, children, ...rest },
+  { name, label, caption, value, defaultValue, onChange, required = false, disabled = false, className, children, 'aria-describedby': ariaDescribedby, ...rest },
   ref,
 ) {
   const generatedName = useId();
   const groupName = name ?? generatedName;
   const captionId = caption ? `${groupName}-caption` : undefined;
+  const describedBy = [captionId, ariaDescribedby].filter(Boolean).join(' ') || undefined;
 
   return (
     <fieldset
       ref={ref}
       className={cx('Tenet-RadioGroup', className)}
-      aria-describedby={captionId}
+      aria-describedby={describedBy}
       {...rest}
     >
       <legend className="Tenet-RadioGroup__legend">

@@ -40,6 +40,20 @@
       "required": false,
       "defaultValue": "false",
       "description": "Disable the checkbox."
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Mark the field invalid (sets aria-invalid and a danger border)."
+    },
+    {
+      "name": "indeterminate",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Mixed/partial state (e.g. a parent of partially-checked children)."
     }
   ],
   "stories": [

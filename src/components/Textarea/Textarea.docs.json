@@ -28,6 +28,13 @@
       "description": "Which directions the user may resize."
     },
     {
+      "name": "size",
+      "type": "'small' | 'medium' | 'large'",
+      "required": false,
+      "defaultValue": "medium",
+      "description": "Padding / font scale — matches TextInput so fields line up in a form."
+    },
+    {
       "name": "rows",
       "type": "number",
       "required": false,

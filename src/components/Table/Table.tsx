@@ -25,10 +25,14 @@ const TableRoot = forwardRef<HTMLTableElement, TableProps>(function Table(
   { density = 'normal', className, children, ...rest },
   ref,
 ) {
+  // Wrap in a scroll viewport so a table wider than its container scrolls horizontally instead of
+  // being clipped (the container's overflow:hidden masks the rounded corners; this restores reach).
   return (
-    <table ref={ref} className={cx('Tenet-Table', `Tenet-Table--density-${density}`, className)} {...rest}>
-      {children}
-    </table>
+    <div className="Tenet-Table__scroll">
+      <table ref={ref} className={cx('Tenet-Table', `Tenet-Table--density-${density}`, className)} {...rest}>
+        {children}
+      </table>
+    </div>
   );
 });
 

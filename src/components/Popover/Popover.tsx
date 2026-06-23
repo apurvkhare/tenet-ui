@@ -1,5 +1,6 @@
 import { cloneElement, useEffect, useId, useRef, useState } from 'react';
-import type { KeyboardEvent, ReactElement } from 'react';
+import type { KeyboardEvent, MouseEvent as ReactMouseEvent, ReactElement, Ref } from 'react';
+import { Portal, mergeRefs, useAnchoredPosition } from '../../internal/floating';
 import type { PopoverProps } from './Popover.types';
 import './Popover.css';
 
@@ -30,6 +31,10 @@ export function Popover({
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLSpanElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
+  const surfaceRef = useRef<HTMLDivElement>(null);
+
+  // Float the surface in a portal so it can't be clipped by an ancestor's overflow.
+  const surfaceStyle = useAnchoredPosition({ open, anchorRef: triggerRef, floatingRef: surfaceRef, placement });
 
   const close = (refocus = true) => {
     setOpen(false);
@@ -40,7 +45,9 @@ export function Popover({
   useEffect(() => {
     if (!open) return;
     const onDown = (e: MouseEvent) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
+      const t = e.target as Node;
+      // The surface is portaled out of wrapRef, so check it explicitly too.
+      if (!wrapRef.current?.contains(t) && !surfaceRef.current?.contains(t)) setOpen(false);
     };
     document.addEventListener('mousedown', onDown);
     return () => document.removeEventListener('mousedown', onDown);
@@ -49,20 +56,26 @@ export function Popover({
   // Move focus into the surface on open: first focusable child, else the dialog container.
   useEffect(() => {
     if (!open) return;
-    const surface = wrapRef.current?.querySelector<HTMLElement>('.Tenet-Popover__surface');
+    const surface = surfaceRef.current;
     const first = surface?.querySelector<HTMLElement>(FOCUSABLE);
     (first ?? surface)?.focus();
   }, [open]);
 
-  const triggerEl = cloneElement(trigger as ReactElement<Record<string, unknown>>, {
+  // Compose with (don't clobber) the caller's onClick/ref on the trigger.
+  const triggerNode = trigger as ReactElement<Record<string, unknown>> & { ref?: Ref<HTMLElement> };
+  const callerClick = triggerNode.props.onClick as ((e: ReactMouseEvent) => void) | undefined;
+  const triggerEl = cloneElement(triggerNode, {
     id: triggerId,
-    ref: (node: HTMLElement | null) => {
+    ref: mergeRefs(triggerNode.ref, (node: HTMLElement | null) => {
       triggerRef.current = node;
-    },
+    }),
     'aria-haspopup': 'dialog',
     'aria-expanded': open,
     'aria-controls': open ? dialogId : undefined,
-    onClick: () => setOpen((o) => !o),
+    onClick: (e: ReactMouseEvent) => {
+      callerClick?.(e);
+      setOpen((o) => !o);
+    },
   });
 
   return (
@@ -77,21 +90,27 @@ export function Popover({
       }}
       onBlur={(e) => {
         // Focus leaving the wrapper (Tab-out) closes the popover without stealing focus back.
-        if (open && !wrapRef.current?.contains(e.relatedTarget as Node | null)) setOpen(false);
+        // The surface is portaled, so focus moving into it is NOT "leaving" — exclude it.
+        const rt = e.relatedTarget as Node | null;
+        if (open && !wrapRef.current?.contains(rt) && !surfaceRef.current?.contains(rt)) setOpen(false);
       }}
     >
       {triggerEl}
       {open && (
-        <div
-          id={dialogId}
-          role="dialog"
-          aria-modal="false"
-          aria-label={ariaLabel ?? 'Popover'}
-          tabIndex={-1}
-          className={cx('Tenet-Popover__surface', `Tenet-Popover--placement-${placement}`)}
-        >
-          {children}
-        </div>
+        <Portal>
+          <div
+            ref={surfaceRef}
+            id={dialogId}
+            role="dialog"
+            aria-modal="false"
+            aria-label={ariaLabel ?? 'Popover'}
+            tabIndex={-1}
+            style={surfaceStyle}
+            className={cx('Tenet-Popover__surface', `Tenet-Popover--placement-${placement}`)}
+          >
+            {children}
+          </div>
+        </Portal>
       )}
     </span>
   );

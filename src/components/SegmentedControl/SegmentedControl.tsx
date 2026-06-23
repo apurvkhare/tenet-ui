@@ -11,7 +11,7 @@ const cx = (...parts: Array<string | false | undefined>): string => parts.filter
  * focus), with a roving tab stop. For many options or free text use `Select`; for on/off use `Switch`.
  */
 export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps>(function SegmentedControl(
-  { options, value, defaultValue, onChange, size = 'medium', block = false, className, 'aria-label': ariaLabel },
+  { options, value, defaultValue, onChange, size = 'medium', block = false, className, 'aria-label': ariaLabel, ...rest },
   ref,
 ) {
   const isControlled = value !== undefined;
@@ -50,6 +50,7 @@ export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps
 
   return (
     <div
+      {...rest}
       ref={ref}
       role="radiogroup"
       aria-label={ariaLabel}

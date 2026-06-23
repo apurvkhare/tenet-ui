@@ -54,7 +54,7 @@
 }
 
 .Tenet-Switch__input:focus-visible + .Tenet-Switch__track {
-  outline: 2px solid var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: 2px;
 }
 

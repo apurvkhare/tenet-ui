@@ -40,9 +40,12 @@ export function Dialog({
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
-    // Hide the rest of the page from assistive tech / tab order while the modal is open.
+    // Hide the rest of the page from assistive tech / tab order while the modal is open — but NOT
+    // notification layers (Toast) that intentionally sit above the modal and must stay announced.
     const backdrop = panel?.parentElement;
-    const siblings = Array.from(document.body.children).filter((el) => el !== backdrop) as HTMLElement[];
+    const siblings = (Array.from(document.body.children) as HTMLElement[]).filter(
+      (el) => el !== backdrop && !el.hasAttribute('data-tenet-layer'),
+    );
     const prevHidden = siblings.map((el) => el.getAttribute('aria-hidden'));
     siblings.forEach((el) => el.setAttribute('aria-hidden', 'true'));
 

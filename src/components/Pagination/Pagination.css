@@ -5,6 +5,7 @@
 
 .Tenet-Pagination__list {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-1);
   margin: 0;

@@ -1,4 +1,4 @@
-import { forwardRef, useId, Children, isValidElement, cloneElement, useState, useRef, useCallback, useEffect, createContext, useContext, useMemo } from 'react';
+import { forwardRef, useId, Children, isValidElement, cloneElement, useState, useRef, useCallback, useEffect, createContext, useContext, useLayoutEffect, useMemo } from 'react';
 import { jsxs, jsx, Fragment } from 'react/jsx-runtime';
 import { createPortal } from 'react-dom';
 
@@ -118,7 +118,7 @@ var Label = forwardRef(function Label2({ variant = "default", size = "medium", c
 var cx6 = (...parts) => parts.filter(Boolean).join(" ");
 var sortGlyph = { ascending: "\u25B2", descending: "\u25BC", none: "\u2195" };
 var TableRoot = forwardRef(function Table({ density = "normal", className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsx("table", { ref, className: cx6("Tenet-Table", `Tenet-Table--density-${density}`, className), ...rest, children });
+  return /* @__PURE__ */ jsx("div", { className: "Tenet-Table__scroll", children: /* @__PURE__ */ jsx("table", { ref, className: cx6("Tenet-Table", `Tenet-Table--density-${density}`, className), ...rest, children }) });
 });
 var Container = forwardRef(function TableContainer({ className, children, ...rest }, ref) {
   return /* @__PURE__ */ jsx("div", { ref, className: cx6("Tenet-Table__container", className), ...rest, children });
@@ -256,7 +256,7 @@ var FormControlRoot = forwardRef(function FormControl({ id: idProp, required = f
 });
 var FormControl2 = Object.assign(FormControlRoot, { Label: Label3, Caption, Validation });
 var cx8 = (...parts) => parts.filter(Boolean).join(" ");
-var Textarea = forwardRef(function Textarea2({ block = false, invalid = false, resize = "vertical", rows = 4, className, ...rest }, ref) {
+var Textarea = forwardRef(function Textarea2({ block = false, invalid = false, resize = "vertical", size = "medium", rows = 4, className, ...rest }, ref) {
   return /* @__PURE__ */ jsx(
     "textarea",
     {
@@ -265,6 +265,7 @@ var Textarea = forwardRef(function Textarea2({ block = false, invalid = false, r
       "aria-invalid": invalid || void 0,
       className: cx8(
         "Tenet-Textarea",
+        `Tenet-Textarea--size-${size}`,
         block && "Tenet-Textarea--block",
         invalid && "Tenet-Textarea--invalid",
         `Tenet-Textarea--resize-${resize}`,
@@ -274,6 +275,82 @@ var Textarea = forwardRef(function Textarea2({ block = false, invalid = false, r
     }
   );
 });
+var useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+function Portal({ children }) {
+  if (typeof document === "undefined") return null;
+  return createPortal(children, document.body);
+}
+var clamp = (v, min, max) => Math.max(min, Math.min(v, Math.max(min, max)));
+var FLOATING_HIDDEN = {
+  position: "fixed",
+  top: 0,
+  left: -9999,
+  margin: 0
+};
+function useAnchoredPosition({
+  open,
+  anchorRef,
+  floatingRef,
+  placement = "bottom-start",
+  matchWidth = false,
+  gap = 6
+}) {
+  const [style, setStyle] = useState(null);
+  useIsoLayoutEffect(() => {
+    if (!open) {
+      setStyle(null);
+      return;
+    }
+    const anchor = anchorRef.current;
+    const floating = floatingRef.current;
+    if (!anchor || !floating) return;
+    const compute = () => {
+      const a = anchor.getBoundingClientRect();
+      const f = floating.getBoundingClientRect();
+      const vw = document.documentElement.clientWidth;
+      const vh = document.documentElement.clientHeight;
+      let top;
+      let left;
+      if (placement === "left" || placement === "right") {
+        const placeLeft = placement === "left" ? !(a.left < f.width + gap && vw - a.right > a.left) : vw - a.right < f.width + gap && a.left > vw - a.right;
+        left = placeLeft ? a.left - gap - f.width : a.right + gap;
+        top = a.top + a.height / 2 - f.height / 2;
+      } else {
+        const wantTop = placement.startsWith("top");
+        const spaceBelow = vh - a.bottom;
+        const spaceAbove = a.top;
+        const placeTop = wantTop ? !(spaceAbove < f.height + gap && spaceBelow > spaceAbove) : spaceBelow < f.height + gap && spaceAbove > spaceBelow;
+        top = placeTop ? a.top - gap - f.height : a.bottom + gap;
+        if (placement.endsWith("end")) left = a.right - f.width;
+        else if (placement.endsWith("start")) left = a.left;
+        else left = a.left + a.width / 2 - f.width / 2;
+      }
+      top = clamp(top, gap, vh - f.height - gap);
+      left = clamp(left, gap, vw - f.width - gap);
+      const next = { position: "fixed", top: Math.round(top), left: Math.round(left), margin: 0 };
+      if (matchWidth) next.minWidth = Math.round(a.width);
+      setStyle(next);
+    };
+    compute();
+    const onChange = () => compute();
+    window.addEventListener("scroll", onChange, true);
+    window.addEventListener("resize", onChange);
+    return () => {
+      window.removeEventListener("scroll", onChange, true);
+      window.removeEventListener("resize", onChange);
+    };
+  }, [open, placement, matchWidth, gap, anchorRef, floatingRef]);
+  return style ?? FLOATING_HIDDEN;
+}
+function mergeRefs(...refs) {
+  return (node) => {
+    for (const ref of refs) {
+      if (!ref) continue;
+      if (typeof ref === "function") ref(node);
+      else ref.current = node;
+    }
+  };
+}
 var cx9 = (...parts) => parts.filter(Boolean).join(" ");
 function nextEnabled(options, from, dir) {
   const n = options.length;
@@ -303,7 +380,8 @@ var Select = forwardRef(function Select2({
   id,
   className,
   "aria-label": ariaLabel,
-  "aria-describedby": describedBy
+  "aria-describedby": describedBy,
+  ...rest
 }, ref) {
   const reactId = useId();
   const triggerId = id ?? `${reactId}-trigger`;
@@ -317,8 +395,10 @@ var Select = forwardRef(function Select2({
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(-1);
   const wrapRef = useRef(null);
+  const triggerRef = useRef(null);
   const listRef = useRef(null);
   const typeahead = useRef({ buf: "", t: null });
+  const listStyle = useAnchoredPosition({ open, anchorRef: triggerRef, floatingRef: listRef, matchWidth: true });
   const commit = useCallback(
     (i) => {
       const opt = options[i];
@@ -337,7 +417,8 @@ var Select = forwardRef(function Select2({
   useEffect(() => {
     if (!open) return;
     const onDown = (e) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+      const t = e.target;
+      if (!wrapRef.current?.contains(t) && !listRef.current?.contains(t)) setOpen(false);
     };
     document.addEventListener("mousedown", onDown);
     return () => document.removeEventListener("mousedown", onDown);
@@ -429,13 +510,14 @@ var Select = forwardRef(function Select2({
         /* @__PURE__ */ jsxs(
           "button",
           {
-            ref,
+            ...rest,
+            ref: mergeRefs(ref, triggerRef),
             type: "button",
             id: triggerId,
             role: "combobox",
             "aria-haspopup": "listbox",
             "aria-expanded": open,
-            "aria-controls": listboxId,
+            "aria-controls": open ? listboxId : void 0,
             "aria-activedescendant": open && active >= 0 ? optionId(active) : void 0,
             "aria-label": ariaLabel,
             "aria-invalid": invalid || void 0,
@@ -451,7 +533,7 @@ var Select = forwardRef(function Select2({
             ]
           }
         ),
-        open && /* @__PURE__ */ jsx("ul", { ref: listRef, id: listboxId, role: "listbox", className: "Tenet-Select__listbox", tabIndex: -1, children: options.map((opt, i) => {
+        open && /* @__PURE__ */ jsx(Portal, { children: /* @__PURE__ */ jsx("ul", { ref: listRef, id: listboxId, role: "listbox", className: "Tenet-Select__listbox", style: listStyle, tabIndex: -1, children: options.map((opt, i) => {
           const isSelected = opt.value === current;
           return /* @__PURE__ */ jsxs(
             "li",
@@ -475,12 +557,12 @@ var Select = forwardRef(function Select2({
               },
               children: [
                 /* @__PURE__ */ jsx("span", { className: "Tenet-Select__check", "aria-hidden": "true", children: isSelected ? "\u2713" : "" }),
-                opt.label
+                /* @__PURE__ */ jsx("span", { className: "Tenet-Select__optionLabel", children: opt.label })
               ]
             },
             opt.value
           );
-        }) }),
+        }) }) }),
         name && /* @__PURE__ */ jsx("input", { type: "hidden", name, value: current })
       ]
     }
@@ -523,11 +605,12 @@ var Checkbox = forwardRef(function Checkbox2({ label, caption, id, className, di
 });
 var cx11 = (...parts) => parts.filter(Boolean).join(" ");
 var RadioGroupContext = createContext(null);
-var Radio = forwardRef(function Radio2({ value, label, caption, id, name, checked, defaultChecked, disabled, onChange, className, ...rest }, ref) {
+var Radio = forwardRef(function Radio2({ value, label, caption, id, name, checked, defaultChecked, disabled, onChange, className, "aria-describedby": ariaDescribedby, ...rest }, ref) {
   const ctx = useContext(RadioGroupContext);
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const captionId = caption ? `${inputId}-caption` : void 0;
+  const describedBy = [captionId, ariaDescribedby].filter(Boolean).join(" ") || void 0;
   const controlled = ctx?.value !== void 0;
   const resolvedChecked = controlled ? ctx?.value === value : checked;
   const resolvedDefault = !controlled ? ctx?.defaultValue !== void 0 ? ctx.defaultValue === value : defaultChecked : void 0;
@@ -550,7 +633,7 @@ var Radio = forwardRef(function Radio2({ value, label, caption, id, name, checke
         checked: resolvedChecked,
         defaultChecked: resolvedDefault,
         disabled: resolvedDisabled,
-        "aria-describedby": captionId,
+        "aria-describedby": describedBy,
         onChange: handleChange,
         ...rest
       }
@@ -561,16 +644,17 @@ var Radio = forwardRef(function Radio2({ value, label, caption, id, name, checke
     ] })
   ] });
 });
-var RadioGroup = forwardRef(function RadioGroup2({ name, label, caption, value, defaultValue, onChange, required = false, disabled = false, className, children, ...rest }, ref) {
+var RadioGroup = forwardRef(function RadioGroup2({ name, label, caption, value, defaultValue, onChange, required = false, disabled = false, className, children, "aria-describedby": ariaDescribedby, ...rest }, ref) {
   const generatedName = useId();
   const groupName = name ?? generatedName;
   const captionId = caption ? `${groupName}-caption` : void 0;
+  const describedBy = [captionId, ariaDescribedby].filter(Boolean).join(" ") || void 0;
   return /* @__PURE__ */ jsxs(
     "fieldset",
     {
       ref,
       className: cx11("Tenet-RadioGroup", className),
-      "aria-describedby": captionId,
+      "aria-describedby": describedBy,
       ...rest,
       children: [
         /* @__PURE__ */ jsxs("legend", { className: "Tenet-RadioGroup__legend", children: [
@@ -636,7 +720,7 @@ var parse = (s) => {
   const n = Number(trimmed);
   return Number.isNaN(n) ? null : n;
 };
-var clamp = (n, min, max) => {
+var clamp2 = (n, min, max) => {
   let out = n;
   if (min != null && out < min) out = min;
   if (max != null && out > max) out = max;
@@ -672,7 +756,7 @@ var NumberInput = forwardRef(function NumberInput2({
   };
   const stepBy = (direction) => {
     const base = current ?? min ?? 0;
-    const next = clamp(base + direction * step, min, max);
+    const next = clamp2(base + direction * step, min, max);
     commit(toText(next));
     innerRef.current?.focus();
   };
@@ -1088,21 +1172,25 @@ var DatePicker = forwardRef(function DatePicker2({
   const selected = isControlled ? value ?? null : internal;
   const [open, setOpen] = useState(false);
   const wrapRef = useRef(null);
+  const triggerRef = useRef(null);
+  const popoverRef = useRef(null);
+  const popoverStyle = useAnchoredPosition({ open, anchorRef: triggerRef, floatingRef: popoverRef });
   const close = (refocus = true) => {
     setOpen(false);
-    if (refocus) wrapRef.current?.querySelector(".Tenet-DatePicker__trigger")?.focus();
+    if (refocus) triggerRef.current?.focus();
   };
   useEffect(() => {
     if (!open) return;
     const onDown = (e) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+      const t = e.target;
+      if (!wrapRef.current?.contains(t) && !popoverRef.current?.contains(t)) setOpen(false);
     };
     document.addEventListener("mousedown", onDown);
     return () => document.removeEventListener("mousedown", onDown);
   }, [open]);
   useEffect(() => {
     if (!open) return;
-    const el = wrapRef.current?.querySelector('.Tenet-Calendar__day[tabindex="0"]') ?? wrapRef.current?.querySelector('[role="dialog"]');
+    const el = popoverRef.current?.querySelector('.Tenet-Calendar__day[tabindex="0"]') ?? popoverRef.current;
     el?.focus();
   }, [open]);
   const handleSelect = (date) => {
@@ -1129,13 +1217,14 @@ var DatePicker = forwardRef(function DatePicker2({
         }
       },
       onBlur: (e) => {
-        if (open && !wrapRef.current?.contains(e.relatedTarget)) setOpen(false);
+        const rt = e.relatedTarget;
+        if (open && !wrapRef.current?.contains(rt) && !popoverRef.current?.contains(rt)) setOpen(false);
       },
       children: [
         /* @__PURE__ */ jsxs(
           "button",
           {
-            ref,
+            ref: mergeRefs(ref, triggerRef),
             type: "button",
             id: triggerId,
             "aria-haspopup": "dialog",
@@ -1154,7 +1243,7 @@ var DatePicker = forwardRef(function DatePicker2({
             ]
           }
         ),
-        open && /* @__PURE__ */ jsx("div", { id: dialogId, role: "dialog", "aria-modal": "false", "aria-label": ariaLabel ?? "Choose date", tabIndex: -1, className: "Tenet-DatePicker__popover", children: /* @__PURE__ */ jsx(
+        open && /* @__PURE__ */ jsx(Portal, { children: /* @__PURE__ */ jsx("div", { ref: popoverRef, id: dialogId, role: "dialog", "aria-modal": "false", "aria-label": ariaLabel ?? "Choose date", tabIndex: -1, style: popoverStyle, className: "Tenet-DatePicker__popover", children: /* @__PURE__ */ jsx(
           Calendar,
           {
             value: selected,
@@ -1167,7 +1256,7 @@ var DatePicker = forwardRef(function DatePicker2({
             "aria-label": ariaLabel ?? "Choose date",
             className: "Tenet-DatePicker__calendar"
           }
-        ) }),
+        ) }) }),
         name && /* @__PURE__ */ jsx("input", { type: "hidden", name, value: selected ? dayKey(selected) : "" })
       ]
     }
@@ -1363,21 +1452,27 @@ var cx23 = (...parts) => parts.filter(Boolean).join(" ");
 function Tooltip({ content, placement = "top", children, className }) {
   const id = useId();
   const [open, setOpen] = useState(false);
+  const triggerRef = useRef(null);
+  const bubbleRef = useRef(null);
+  const bubbleStyle = useAnchoredPosition({ open, anchorRef: triggerRef, floatingRef: bubbleRef, placement, gap: 8 });
+  const child = children;
   const nodeEnv = globalThis.process?.env?.NODE_ENV;
   if (nodeEnv !== "production") {
-    const type = children.type;
+    const type = child.type;
     const focusableTags = ["button", "a", "input", "select", "textarea"];
-    const props = children.props;
-    const looksFocusable = typeof type === "string" && focusableTags.includes(type) || typeof type !== "string" || // custom component — assume it forwards focus
-    props?.tabIndex != null;
+    const looksFocusable = typeof type === "string" && focusableTags.includes(type) || typeof type !== "string" || child.props?.tabIndex != null;
     if (typeof type === "string" && !looksFocusable) {
       console.warn(
         `Tooltip: trigger <${type}> is not focusable, so keyboard users can't reveal the tooltip. Use a focusable element (button/link/input) or add tabIndex={0}.`
       );
     }
   }
-  const trigger = cloneElement(children, {
-    "aria-describedby": id
+  const describedBy = [child.props["aria-describedby"], id].filter(Boolean).join(" ");
+  const trigger = cloneElement(child, {
+    "aria-describedby": describedBy,
+    ref: mergeRefs(child.ref, (node) => {
+      triggerRef.current = node;
+    })
   });
   return /* @__PURE__ */ jsxs(
     "span",
@@ -1390,15 +1485,17 @@ function Tooltip({ content, placement = "top", children, className }) {
       onKeyDown: (e) => e.key === "Escape" && setOpen(false),
       children: [
         trigger,
-        /* @__PURE__ */ jsx(
+        /* @__PURE__ */ jsx(Portal, { children: /* @__PURE__ */ jsx(
           "span",
           {
+            ref: bubbleRef,
             role: "tooltip",
             id,
-            className: cx23("Tenet-Tooltip__bubble", `Tenet-Tooltip__bubble--${placement}`, open && "Tenet-Tooltip__bubble--open"),
+            style: bubbleStyle,
+            className: cx23("Tenet-Tooltip__bubble", open && "Tenet-Tooltip__bubble--open"),
             children: content
           }
-        )
+        ) })
       ]
     }
   );
@@ -1428,7 +1525,9 @@ function Dialog({
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const backdrop = panel?.parentElement;
-    const siblings = Array.from(document.body.children).filter((el) => el !== backdrop);
+    const siblings = Array.from(document.body.children).filter(
+      (el) => el !== backdrop && !el.hasAttribute("data-tenet-layer")
+    );
     const prevHidden = siblings.map((el) => el.getAttribute("aria-hidden"));
     siblings.forEach((el) => el.setAttribute("aria-hidden", "true"));
     return () => {
@@ -1660,7 +1759,7 @@ function AccordionItem({ value, title, disabled = false, className, children }) 
 }
 Accordion.Item = AccordionItem;
 var cx28 = (...parts) => parts.filter(Boolean).join(" ");
-var SegmentedControl = forwardRef(function SegmentedControl2({ options, value, defaultValue, onChange, size = "medium", block = false, className, "aria-label": ariaLabel }, ref) {
+var SegmentedControl = forwardRef(function SegmentedControl2({ options, value, defaultValue, onChange, size = "medium", block = false, className, "aria-label": ariaLabel, ...rest }, ref) {
   const isControlled = value !== void 0;
   const [internal, setInternal] = useState(defaultValue ?? options.find((o) => !o.disabled)?.value ?? "");
   const current = isControlled ? value : internal;
@@ -1689,6 +1788,7 @@ var SegmentedControl = forwardRef(function SegmentedControl2({ options, value, d
   return /* @__PURE__ */ jsx(
     "div",
     {
+      ...rest,
       ref,
       role: "radiogroup",
       "aria-label": ariaLabel,
@@ -1742,6 +1842,12 @@ function Menu({ trigger, items, "aria-label": ariaLabel, align = "start", classN
   const wrapRef = useRef(null);
   const triggerRef = useRef(null);
   const listRef = useRef(null);
+  const listStyle = useAnchoredPosition({
+    open,
+    anchorRef: triggerRef,
+    floatingRef: listRef,
+    placement: align === "end" ? "bottom-end" : "bottom-start"
+  });
   const openMenu = useCallback(() => {
     setActive(firstEnabled2(items));
     setOpen(true);
@@ -1757,7 +1863,8 @@ function Menu({ trigger, items, "aria-label": ariaLabel, align = "start", classN
   useEffect(() => {
     if (!open) return;
     const onDown = (e) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+      const t = e.target;
+      if (!wrapRef.current?.contains(t) && !listRef.current?.contains(t)) setOpen(false);
     };
     document.addEventListener("mousedown", onDown);
     return () => document.removeEventListener("mousedown", onDown);
@@ -1801,16 +1908,25 @@ function Menu({ trigger, items, "aria-label": ariaLabel, align = "start", classN
         break;
     }
   };
-  const triggerEl = cloneElement(trigger, {
+  const triggerNode = trigger;
+  const triggerProps = triggerNode.props;
+  const callerClick = triggerProps.onClick;
+  const callerKeyDown = triggerProps.onKeyDown;
+  const triggerEl = cloneElement(triggerNode, {
     id: triggerId,
-    ref: (node) => {
+    ref: mergeRefs(triggerNode.ref, (node) => {
       triggerRef.current = node;
-    },
+    }),
     "aria-haspopup": "menu",
     "aria-expanded": open,
     "aria-controls": open ? menuId : void 0,
-    onClick: () => open ? closeMenu(false) : openMenu(),
+    onClick: (e) => {
+      callerClick?.(e);
+      if (open) closeMenu(false);
+      else openMenu();
+    },
     onKeyDown: (e) => {
+      callerKeyDown?.(e);
       if (!open && (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ")) {
         e.preventDefault();
         openMenu();
@@ -1819,7 +1935,7 @@ function Menu({ trigger, items, "aria-label": ariaLabel, align = "start", classN
   });
   return /* @__PURE__ */ jsxs("span", { ref: wrapRef, className: cx29("Tenet-Menu", className), children: [
     triggerEl,
-    open && /* @__PURE__ */ jsx(
+    open && /* @__PURE__ */ jsx(Portal, { children: /* @__PURE__ */ jsx(
       "ul",
       {
         ref: listRef,
@@ -1828,6 +1944,7 @@ function Menu({ trigger, items, "aria-label": ariaLabel, align = "start", classN
         "aria-label": ariaLabel,
         "aria-labelledby": ariaLabel ? void 0 : triggerId,
         className: cx29("Tenet-Menu__list", `Tenet-Menu__list--align-${align}`),
+        style: listStyle,
         onKeyDown: onListKeyDown,
         children: items.map(
           (item, i) => isAction(item) ? /* @__PURE__ */ jsx("li", { role: "none", children: /* @__PURE__ */ jsxs(
@@ -1846,13 +1963,13 @@ function Menu({ trigger, items, "aria-label": ariaLabel, align = "start", classN
               onMouseEnter: () => setActive(i),
               children: [
                 item.icon && /* @__PURE__ */ jsx("span", { className: "Tenet-Menu__icon", "aria-hidden": "true", children: item.icon }),
-                item.label
+                /* @__PURE__ */ jsx("span", { className: "Tenet-Menu__label", children: item.label })
               ]
             }
           ) }, i) : /* @__PURE__ */ jsx("li", { role: "separator", className: "Tenet-Menu__separator" }, i)
         )
       }
-    )
+    ) })
   ] });
 }
 var cx30 = (...parts) => parts.filter(Boolean).join(" ");
@@ -1922,6 +2039,7 @@ function ToastProvider({ duration = 5e3, placement = "bottom-right", children })
           className: cx30("Tenet-Toast__viewport", `Tenet-Toast__viewport--${placement}`),
           role: "region",
           "aria-label": "Notifications",
+          "data-tenet-layer": "toast",
           children: toasts.map((t) => /* @__PURE__ */ jsx(ToastItem, { toast: t, onDismiss: dismiss, defaultDuration: duration }, t.id))
         }
       ),
@@ -2016,11 +2134,11 @@ var Skeleton = forwardRef(function Skeleton2({ variant = "text", width, height, 
   );
 });
 var cx34 = (...parts) => parts.filter(Boolean).join(" ");
-var clamp2 = (n, min, max) => Math.min(Math.max(n, min), max);
+var clamp3 = (n, min, max) => Math.min(Math.max(n, min), max);
 var ProgressBar = forwardRef(function ProgressBar2({ value, max = 100, size = "medium", variant = "accent", className, style, ...rest }, ref) {
   const isIndeterminate = value === void 0;
   const safeMax = max > 0 ? max : 100;
-  const clamped = isIndeterminate ? void 0 : clamp2(value, 0, safeMax);
+  const clamped = isIndeterminate ? void 0 : clamp3(value, 0, safeMax);
   const percent = clamped === void 0 ? void 0 : Math.round(clamped / safeMax * 100);
   return /* @__PURE__ */ jsx(
     "div",
@@ -2090,6 +2208,8 @@ function Popover({
   const [open, setOpen] = useState(false);
   const wrapRef = useRef(null);
   const triggerRef = useRef(null);
+  const surfaceRef = useRef(null);
+  const surfaceStyle = useAnchoredPosition({ open, anchorRef: triggerRef, floatingRef: surfaceRef, placement });
   const close = (refocus = true) => {
     setOpen(false);
     if (refocus) triggerRef.current?.focus();
@@ -2097,26 +2217,32 @@ function Popover({
   useEffect(() => {
     if (!open) return;
     const onDown = (e) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+      const t = e.target;
+      if (!wrapRef.current?.contains(t) && !surfaceRef.current?.contains(t)) setOpen(false);
     };
     document.addEventListener("mousedown", onDown);
     return () => document.removeEventListener("mousedown", onDown);
   }, [open]);
   useEffect(() => {
     if (!open) return;
-    const surface = wrapRef.current?.querySelector(".Tenet-Popover__surface");
+    const surface = surfaceRef.current;
     const first = surface?.querySelector(FOCUSABLE2);
     (first ?? surface)?.focus();
   }, [open]);
-  const triggerEl = cloneElement(trigger, {
+  const triggerNode = trigger;
+  const callerClick = triggerNode.props.onClick;
+  const triggerEl = cloneElement(triggerNode, {
     id: triggerId,
-    ref: (node) => {
+    ref: mergeRefs(triggerNode.ref, (node) => {
       triggerRef.current = node;
-    },
+    }),
     "aria-haspopup": "dialog",
     "aria-expanded": open,
     "aria-controls": open ? dialogId : void 0,
-    onClick: () => setOpen((o) => !o)
+    onClick: (e) => {
+      callerClick?.(e);
+      setOpen((o) => !o);
+    }
   });
   return /* @__PURE__ */ jsxs(
     "span",
@@ -2130,22 +2256,25 @@ function Popover({
         }
       },
       onBlur: (e) => {
-        if (open && !wrapRef.current?.contains(e.relatedTarget)) setOpen(false);
+        const rt = e.relatedTarget;
+        if (open && !wrapRef.current?.contains(rt) && !surfaceRef.current?.contains(rt)) setOpen(false);
       },
       children: [
         triggerEl,
-        open && /* @__PURE__ */ jsx(
+        open && /* @__PURE__ */ jsx(Portal, { children: /* @__PURE__ */ jsx(
           "div",
           {
+            ref: surfaceRef,
             id: dialogId,
             role: "dialog",
             "aria-modal": "false",
             "aria-label": ariaLabel ?? "Popover",
             tabIndex: -1,
+            style: surfaceStyle,
             className: cx36("Tenet-Popover__surface", `Tenet-Popover--placement-${placement}`),
             children
           }
-        )
+        ) })
       ]
     }
   );

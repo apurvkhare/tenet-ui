@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useId, useRef, useState } from 'react';
 import { Calendar } from '../Calendar';
 import { dayKey, formatDate } from '../Calendar/dateUtils';
+import { Portal, mergeRefs, useAnchoredPosition } from '../../internal/floating';
 import type { DatePickerProps } from './DatePicker.types';
 import './DatePicker.css';
 
@@ -46,17 +47,24 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(functio
 
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLSpanElement>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  // Float the calendar popover in a portal so it can't be clipped by an ancestor's overflow.
+  const popoverStyle = useAnchoredPosition({ open, anchorRef: triggerRef, floatingRef: popoverRef });
 
   const close = (refocus = true) => {
     setOpen(false);
-    if (refocus) wrapRef.current?.querySelector<HTMLButtonElement>('.Tenet-DatePicker__trigger')?.focus();
+    if (refocus) triggerRef.current?.focus();
   };
 
   // Close on outside click.
   useEffect(() => {
     if (!open) return;
     const onDown = (e: MouseEvent) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
+      const t = e.target as Node;
+      // The popover is portaled out of wrapRef, so check it explicitly too.
+      if (!wrapRef.current?.contains(t) && !popoverRef.current?.contains(t)) setOpen(false);
     };
     document.addEventListener('mousedown', onDown);
     return () => document.removeEventListener('mousedown', onDown);
@@ -66,8 +74,8 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(functio
   useEffect(() => {
     if (!open) return;
     const el =
-      wrapRef.current?.querySelector<HTMLElement>('.Tenet-Calendar__day[tabindex="0"]') ??
-      wrapRef.current?.querySelector<HTMLElement>('[role="dialog"]');
+      popoverRef.current?.querySelector<HTMLElement>('.Tenet-Calendar__day[tabindex="0"]') ??
+      popoverRef.current;
     el?.focus();
   }, [open]);
 
@@ -95,12 +103,14 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(functio
         }
       }}
       onBlur={(e) => {
-        // Tabbing out of the popover (focus leaving the wrapper) closes it without stealing focus.
-        if (open && !wrapRef.current?.contains(e.relatedTarget as Node | null)) setOpen(false);
+        // Tabbing out (focus leaving the wrapper) closes it without stealing focus. The popover is
+        // portaled, so focus moving into it is NOT "leaving" — exclude it.
+        const rt = e.relatedTarget as Node | null;
+        if (open && !wrapRef.current?.contains(rt) && !popoverRef.current?.contains(rt)) setOpen(false);
       }}
     >
       <button
-        ref={ref}
+        ref={mergeRefs(ref, triggerRef)}
         type="button"
         id={triggerId}
         aria-haspopup="dialog"
@@ -123,7 +133,8 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(functio
       </button>
 
       {open && (
-        <div id={dialogId} role="dialog" aria-modal="false" aria-label={ariaLabel ?? 'Choose date'} tabIndex={-1} className="Tenet-DatePicker__popover">
+        <Portal>
+        <div ref={popoverRef} id={dialogId} role="dialog" aria-modal="false" aria-label={ariaLabel ?? 'Choose date'} tabIndex={-1} style={popoverStyle} className="Tenet-DatePicker__popover">
           <Calendar
             value={selected}
             defaultMonth={selected ?? undefined}
@@ -136,6 +147,7 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(functio
             className="Tenet-DatePicker__calendar"
           />
         </div>
+        </Portal>
       )}
 
       {name && <input type="hidden" name={name} value={selected ? dayKey(selected) : ''} />}

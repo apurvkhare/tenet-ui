@@ -1,0 +1,11 @@
+/* Base reset for tenet-ui components.
+   Without box-sizing:border-box, any component that sets width:100% AND has padding or a border
+   (TextInput, Textarea, NumberInput, Select trigger…) computes wider than its container and
+   overflows it — e.g. a `block` field inside a Dialog spills past the right edge. Scope the reset
+   to Tenet-classed elements and their descendants so a consumer's own box model is untouched. */
+[class^='Tenet-'],
+[class*=' Tenet-'],
+[class^='Tenet-'] *,
+[class*=' Tenet-'] * {
+  box-sizing: border-box;
+}

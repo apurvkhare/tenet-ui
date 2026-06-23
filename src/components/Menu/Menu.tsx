@@ -1,5 +1,6 @@
 import { cloneElement, useCallback, useEffect, useId, useRef, useState } from 'react';
-import type { KeyboardEvent, ReactElement } from 'react';
+import type { KeyboardEvent, MouseEvent as ReactMouseEvent, ReactElement, Ref } from 'react';
+import { Portal, mergeRefs, useAnchoredPosition } from '../../internal/floating';
 import type { MenuAction, MenuItem, MenuProps } from './Menu.types';
 import './Menu.css';
 
@@ -36,6 +37,14 @@ export function Menu({ trigger, items, 'aria-label': ariaLabel, align = 'start',
   const triggerRef = useRef<HTMLElement | null>(null);
   const listRef = useRef<HTMLUListElement>(null);
 
+  // Float the list in a portal so it can't be clipped by an ancestor's overflow.
+  const listStyle = useAnchoredPosition({
+    open,
+    anchorRef: triggerRef,
+    floatingRef: listRef,
+    placement: align === 'end' ? 'bottom-end' : 'bottom-start',
+  });
+
   const openMenu = useCallback(() => {
     setActive(firstEnabled(items));
     setOpen(true);
@@ -56,7 +65,9 @@ export function Menu({ trigger, items, 'aria-label': ariaLabel, align = 'start',
   useEffect(() => {
     if (!open) return;
     const onDown = (e: MouseEvent) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
+      const t = e.target as Node;
+      // The list is portaled out of wrapRef, so check it explicitly too.
+      if (!wrapRef.current?.contains(t) && !listRef.current?.contains(t)) setOpen(false);
     };
     document.addEventListener('mousedown', onDown);
     return () => document.removeEventListener('mousedown', onDown);
@@ -105,16 +116,26 @@ export function Menu({ trigger, items, 'aria-label': ariaLabel, align = 'start',
     }
   };
 
-  const triggerEl = cloneElement(trigger as ReactElement<Record<string, unknown>>, {
+  // Compose with (don't clobber) whatever the caller put on their trigger.
+  const triggerNode = trigger as ReactElement<Record<string, unknown>> & { ref?: Ref<HTMLElement> };
+  const triggerProps = triggerNode.props;
+  const callerClick = triggerProps.onClick as ((e: ReactMouseEvent) => void) | undefined;
+  const callerKeyDown = triggerProps.onKeyDown as ((e: KeyboardEvent) => void) | undefined;
+  const triggerEl = cloneElement(triggerNode, {
     id: triggerId,
-    ref: (node: HTMLElement | null) => {
+    ref: mergeRefs(triggerNode.ref, (node: HTMLElement | null) => {
       triggerRef.current = node;
-    },
+    }),
     'aria-haspopup': 'menu',
     'aria-expanded': open,
     'aria-controls': open ? menuId : undefined,
-    onClick: () => (open ? closeMenu(false) : openMenu()),
+    onClick: (e: ReactMouseEvent) => {
+      callerClick?.(e);
+      if (open) closeMenu(false);
+      else openMenu();
+    },
     onKeyDown: (e: KeyboardEvent) => {
+      callerKeyDown?.(e);
       if (!open && (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ')) {
         e.preventDefault();
         openMenu();
@@ -126,6 +147,7 @@ export function Menu({ trigger, items, 'aria-label': ariaLabel, align = 'start',
     <span ref={wrapRef} className={cx('Tenet-Menu', className)}>
       {triggerEl}
       {open && (
+        <Portal>
         <ul
           ref={listRef}
           id={menuId}
@@ -133,6 +155,7 @@ export function Menu({ trigger, items, 'aria-label': ariaLabel, align = 'start',
           aria-label={ariaLabel}
           aria-labelledby={ariaLabel ? undefined : triggerId}
           className={cx('Tenet-Menu__list', `Tenet-Menu__list--align-${align}`)}
+          style={listStyle}
           onKeyDown={onListKeyDown}
         >
           {items.map((item, i) =>
@@ -156,7 +179,7 @@ export function Menu({ trigger, items, 'aria-label': ariaLabel, align = 'start',
                       {item.icon}
                     </span>
                   )}
-                  {item.label}
+                  <span className="Tenet-Menu__label">{item.label}</span>
                 </button>
               </li>
             ) : (
@@ -164,6 +187,7 @@ export function Menu({ trigger, items, 'aria-label': ariaLabel, align = 'start',
             ),
           )}
         </ul>
+        </Portal>
       )}
     </span>
   );

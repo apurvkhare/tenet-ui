@@ -82,6 +82,7 @@
   --bgColor-default: #ffffff;
   --bgColor-muted: #f4eee3;
   --bgColor-inset: #fbf7f0;
+  --bgColor-backdrop: rgba(20, 17, 13, 0.5);
   --bgColor-emphasis: #2a241b;
   --bgColor-accent-emphasis: #c2502e;
   --bgColor-accent-muted: #f5e4db;
@@ -112,6 +113,7 @@
   --bgColor-default: #ffffff;
   --bgColor-muted: #f4eee3;
   --bgColor-inset: #fbf7f0;
+  --bgColor-backdrop: rgba(20, 17, 13, 0.5);
   --bgColor-emphasis: #2a241b;
   --bgColor-accent-emphasis: #c2502e;
   --bgColor-accent-muted: #f5e4db;
@@ -142,6 +144,7 @@
   --bgColor-default: #1a1712;
   --bgColor-muted: #211d17;
   --bgColor-inset: #14110d;
+  --bgColor-backdrop: rgba(0, 0, 0, 0.6);
   --bgColor-emphasis: #f4eee3;
   --bgColor-accent-emphasis: #c2502e;
   --bgColor-accent-muted: #3a2117;

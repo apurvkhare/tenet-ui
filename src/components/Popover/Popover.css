@@ -4,9 +4,11 @@
   display: inline-block;
 }
 
+/* Position (fixed top/left, placement + flip) is set inline by useAnchoredPosition; this rule is
+   visual only. */
 .Tenet-Popover__surface {
-  position: absolute;
-  z-index: 50;
+  /* Above Dialog (100) so a Popover opened inside a modal isn't hidden; below Toast (200). */
+  z-index: 150;
   min-width: var(--base-size-40);
   max-width: min(320px, 90vw);
   padding: var(--space-3);
@@ -21,22 +23,4 @@
 .Tenet-Popover__surface:focus-visible {
   outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: var(--space-1);
-}
-
-/* Placement: vertical edge + horizontal alignment to the trigger. */
-.Tenet-Popover--placement-bottom-start {
-  top: calc(100% + var(--space-1));
-  left: 0;
-}
-.Tenet-Popover--placement-bottom-end {
-  top: calc(100% + var(--space-1));
-  right: 0;
-}
-.Tenet-Popover--placement-top-start {
-  bottom: calc(100% + var(--space-1));
-  left: 0;
-}
-.Tenet-Popover--placement-top-end {
-  bottom: calc(100% + var(--space-1));
-  right: 0;
 }

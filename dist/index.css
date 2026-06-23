@@ -1,3 +1,11 @@
+/* src/base.css */
+[class^=Tenet-],
+[class*=" Tenet-"],
+[class^=Tenet-] *,
+[class*=" Tenet-"] * {
+  box-sizing: border-box;
+}
+
 /* src/components/Button/Button.css */
 .Tenet-Button {
   display: inline-flex;
@@ -392,10 +400,13 @@
   gap: var(--space-2);
   padding-block: var(--space-3);
 }
-.Tenet-Table__container > .Tenet-Table {
+.Tenet-Table__scroll {
+  overflow-x: auto;
+}
+.Tenet-Table__container > .Tenet-Table__scroll {
   margin-top: var(--space-3);
 }
-.Tenet-Table__container > .Tenet-Table:first-child {
+.Tenet-Table__container > .Tenet-Table__scroll:first-child {
   margin-top: 0;
 }
 
@@ -465,6 +476,14 @@
   background-color: var(--bgColor-muted);
   opacity: 0.7;
   cursor: not-allowed;
+}
+.Tenet-Textarea--size-small {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--fontSize-0);
+}
+.Tenet-Textarea--size-large {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--fontSize-2);
 }
 .Tenet-Textarea--block {
   display: block;
@@ -550,15 +569,12 @@
   pointer-events: none;
 }
 .Tenet-Select__listbox {
-  position: absolute;
-  z-index: 50;
-  top: calc(100% + var(--space-1));
-  left: 0;
-  min-width: 100%;
+  z-index: 150;
   width: max-content;
   max-width: min(320px, 90vw);
   max-height: 240px;
   overflow-y: auto;
+  overflow-x: hidden;
   margin: 0;
   padding: var(--space-1);
   list-style: none;
@@ -577,6 +593,11 @@
   color: var(--fgColor-default);
   cursor: pointer;
   user-select: none;
+}
+.Tenet-Select__optionLabel {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 .Tenet-Select__option--active {
@@ -753,7 +774,7 @@
   transform: translateX(var(--base-size-16));
 }
 .Tenet-Switch__input:focus-visible + .Tenet-Switch__track {
-  outline: 2px solid var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: 2px;
 }
 .Tenet-Switch--size-small .Tenet-Switch__track {
@@ -1071,10 +1092,7 @@
   color: var(--fgColor-muted);
 }
 .Tenet-DatePicker__popover {
-  position: absolute;
-  z-index: 50;
-  top: calc(100% + var(--space-1));
-  left: 0;
+  z-index: 150;
 }
 .Tenet-DatePicker__calendar {
   box-shadow: var(--shadow-medium);
@@ -1410,12 +1428,10 @@
 
 /* src/components/Tooltip/Tooltip.css */
 .Tenet-Tooltip {
-  position: relative;
   display: inline-flex;
 }
 .Tenet-Tooltip__bubble {
-  position: absolute;
-  z-index: 60;
+  z-index: 150;
   max-width: 240px;
   width: max-content;
   padding: var(--space-1) var(--space-2);
@@ -1437,25 +1453,10 @@
   opacity: 1;
   visibility: visible;
 }
-.Tenet-Tooltip__bubble--top {
-  bottom: calc(100% + var(--space-2));
-  left: 50%;
-  transform: translateX(-50%);
-}
-.Tenet-Tooltip__bubble--bottom {
-  top: calc(100% + var(--space-2));
-  left: 50%;
-  transform: translateX(-50%);
-}
-.Tenet-Tooltip__bubble--left {
-  right: calc(100% + var(--space-2));
-  top: 50%;
-  transform: translateY(-50%);
-}
-.Tenet-Tooltip__bubble--right {
-  left: calc(100% + var(--space-2));
-  top: 50%;
-  transform: translateY(-50%);
+@media (prefers-reduced-motion: reduce) {
+  .Tenet-Tooltip__bubble {
+    transition: none;
+  }
 }
 
 /* src/components/Dialog/Dialog.css */
@@ -1468,7 +1469,7 @@
   justify-content: center;
   padding: var(--space-6) var(--space-4);
   overflow-y: auto;
-  background-color: rgba(20, 17, 13, 0.5);
+  background-color: var(--bgColor-backdrop);
 }
 .Tenet-Dialog {
   width: 100%;
@@ -1605,6 +1606,7 @@
 }
 .Tenet-Pagination__list {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-1);
   margin: 0;
@@ -1706,6 +1708,10 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+.Tenet-Accordion__title {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
 .Tenet-Accordion__chevron {
   flex-shrink: 0;
   color: var(--fgColor-muted);
@@ -1797,12 +1803,11 @@
   display: inline-block;
 }
 .Tenet-Menu__list {
-  position: absolute;
-  z-index: 50;
-  top: calc(100% + var(--space-1));
+  z-index: 150;
   min-width: 180px;
   width: max-content;
   max-width: min(280px, 90vw);
+  overflow: hidden;
   margin: 0;
   padding: var(--space-1);
   list-style: none;
@@ -1811,12 +1816,6 @@
   border-radius: var(--borderRadius-medium);
   box-shadow: var(--shadow-medium);
   font-family: var(--fontFamily-body);
-}
-.Tenet-Menu__list--align-start {
-  left: 0;
-}
-.Tenet-Menu__list--align-end {
-  right: 0;
 }
 .Tenet-Menu__item {
   display: flex;
@@ -1831,8 +1830,14 @@
   font-family: inherit;
   font-size: var(--fontSize-1);
   text-align: left;
-  white-space: nowrap;
+  min-width: 0;
   cursor: pointer;
+}
+.Tenet-Menu__label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .Tenet-Menu__item:hover:not(:disabled),
 .Tenet-Menu__item:focus-visible {
@@ -2310,8 +2315,7 @@
   display: inline-block;
 }
 .Tenet-Popover__surface {
-  position: absolute;
-  z-index: 50;
+  z-index: 150;
   min-width: var(--base-size-40);
   max-width: min(320px, 90vw);
   padding: var(--space-3);
@@ -2326,21 +2330,5 @@
 .Tenet-Popover__surface:focus-visible {
   outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: var(--space-1);
-}
-.Tenet-Popover--placement-bottom-start {
-  top: calc(100% + var(--space-1));
-  left: 0;
-}
-.Tenet-Popover--placement-bottom-end {
-  top: calc(100% + var(--space-1));
-  right: 0;
-}
-.Tenet-Popover--placement-top-start {
-  bottom: calc(100% + var(--space-1));
-  left: 0;
-}
-.Tenet-Popover--placement-top-end {
-  bottom: calc(100% + var(--space-1));
-  right: 0;
 }
 /*# sourceMappingURL=index.css.map */

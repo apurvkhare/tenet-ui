@@ -7,9 +7,12 @@ export interface SegmentedControlOption {
   disabled?: boolean;
 }
 
+import type { HTMLAttributes } from 'react';
+
 export type SegmentedControlSize = 'small' | 'medium';
 
-export interface SegmentedControlProps {
+// Extends the root div's attrs so consumers can pass id, data-*, style, onFocus, etc.
+export interface SegmentedControlProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {
   /** The segments to choose from. */
   options: SegmentedControlOption[];
   /** Controlled selected value. */

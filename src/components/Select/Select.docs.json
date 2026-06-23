@@ -103,6 +103,13 @@
       "required": false,
       "defaultValue": "",
       "description": "Ids of describing elements (FormControl wires this)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "defaultValue": "",
+      "description": "Extra class on the wrapper. Also accepts native button attrs (data-*, style, onBlur…) via rest."
     }
   ],
   "stories": [

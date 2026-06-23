@@ -128,10 +128,15 @@
   padding-block: var(--space-3);
 }
 
+/* Horizontal scroll viewport: a wide table scrolls instead of being clipped by the container. */
+.Tenet-Table__scroll {
+  overflow-x: auto;
+}
+
 /* When the table follows header chrome, drop its top so it meets the border cleanly. */
-.Tenet-Table__container > .Tenet-Table {
+.Tenet-Table__container > .Tenet-Table__scroll {
   margin-top: var(--space-3);
 }
-.Tenet-Table__container > .Tenet-Table:first-child {
+.Tenet-Table__container > .Tenet-Table__scroll:first-child {
   margin-top: 0;
 }

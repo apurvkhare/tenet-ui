@@ -4,13 +4,14 @@
   display: inline-block;
 }
 
+/* Position (fixed top/left) is set inline by useAnchoredPosition; this rule is visual only. */
 .Tenet-Menu__list {
-  position: absolute;
-  z-index: 50;
-  top: calc(100% + var(--space-1));
+  /* Above Dialog (100) so a Menu opened inside a modal isn't hidden; below Toast (200). */
+  z-index: 150;
   min-width: 180px;
   width: max-content;
   max-width: min(280px, 90vw);
+  overflow: hidden; /* a long label ellipsizes via __label; never paints past the rounded border */
   margin: 0;
   padding: var(--space-1);
   list-style: none;
@@ -19,12 +20,6 @@
   border-radius: var(--borderRadius-medium);
   box-shadow: var(--shadow-medium);
   font-family: var(--fontFamily-body);
-}
-.Tenet-Menu__list--align-start {
-  left: 0;
-}
-.Tenet-Menu__list--align-end {
-  right: 0;
 }
 
 .Tenet-Menu__item {
@@ -40,8 +35,15 @@
   font-family: inherit;
   font-size: var(--fontSize-1);
   text-align: left;
-  white-space: nowrap;
+  min-width: 0;
   cursor: pointer;
+}
+/* The label truncates with an ellipsis instead of spilling past the menu surface. */
+.Tenet-Menu__label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .Tenet-Menu__item:hover:not(:disabled),
 .Tenet-Menu__item:focus-visible {

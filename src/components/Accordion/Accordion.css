@@ -44,6 +44,12 @@
   cursor: not-allowed;
 }
 
+/* Let a long title shrink/wrap instead of pushing the chevron out or clipping. */
+.Tenet-Accordion__title {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 .Tenet-Accordion__chevron {
   flex-shrink: 0;
   color: var(--fgColor-muted);

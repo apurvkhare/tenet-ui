@@ -203,13 +203,16 @@ declare const FormControl: react.ForwardRefExoticComponent<FormControlProps & re
 };
 
 type TextareaResize = 'none' | 'vertical' | 'horizontal' | 'both';
-interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+type TextareaSize = 'small' | 'medium' | 'large';
+interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'size'> {
     /** Stretch to fill the available width. */
     block?: boolean;
     /** Mark the field invalid (sets aria-invalid and a danger border). */
     invalid?: boolean;
     /** Which directions the user may resize. */
     resize?: TextareaResize;
+    /** Padding / font scale — matches TextInput so fields line up in a form. */
+    size?: TextareaSize;
 }
 
 /**
@@ -227,7 +230,7 @@ interface SelectOption {
     /** Disable this option. */
     disabled?: boolean;
 }
-interface SelectProps {
+interface SelectProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onChange' | 'value' | 'defaultValue'> {
     /** The options to choose from. */
     options: SelectOption[];
     /** Controlled selected value. */
@@ -649,9 +652,11 @@ interface TooltipProps {
 
 /**
  * Tenet tooltip — a small text hint shown on hover and on keyboard focus (not hover-only, so it's
- * reachable without a mouse). The trigger is described by the tooltip via `aria-describedby`; the
- * bubble stays mounted and toggles visibility so that association is always valid. The trigger must
- * be a single focusable element. Never put essential-only info in a tooltip.
+ * reachable without a mouse). The trigger is described by the tooltip via `aria-describedby` (merged
+ * with any the caller already set, not replaced); the bubble stays mounted so that association is
+ * always valid. The bubble renders in a portal and is positioned to the viewport, so it can't be
+ * clipped by an `overflow:hidden` ancestor or run off the screen near an edge. The trigger must be a
+ * single focusable element. Never put essential-only info in a tooltip.
  */
 declare function Tooltip({ content, placement, children, className }: TooltipProps): react_jsx_runtime.JSX.Element;
 
@@ -770,8 +775,9 @@ interface SegmentedControlOption {
     /** Disable this segment. */
     disabled?: boolean;
 }
+
 type SegmentedControlSize = 'small' | 'medium';
-interface SegmentedControlProps {
+interface SegmentedControlProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {
     /** The segments to choose from. */
     options: SegmentedControlOption[];
     /** Controlled selected value. */
@@ -842,6 +848,9 @@ interface ToastOptions {
     message: ReactNode;
     /** Auto-dismiss after N ms. 0 keeps it until dismissed. */
     duration?: number;
+}
+interface ToastEntry extends ToastOptions {
+    id: string;
 }
 interface ToastContextValue {
     /** Show a toast; returns its id. */
@@ -1025,4 +1034,4 @@ interface PopoverProps {
  */
 declare function Popover({ trigger, children, placement, 'aria-label': ariaLabel, className, }: PopoverProps): react_jsx_runtime.JSX.Element;
 
-export { Accordion, type AccordionItemProps, type AccordionProps, type AccordionType, Avatar, type AvatarProps, type AvatarShape, type AvatarSize, Badge, type BadgeProps, type BadgeVariant, Banner, type BannerProps, type BannerVariant, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonSize, type ButtonVariant, Calendar, type CalendarProps, Card, type CardPadding, type CardProps, type CardVariant, type CellAlign, Checkbox, type CheckboxProps, DataTable, type DataTableColumn, type DataTableProps, DatePicker, type DatePickerProps, type DatePickerSize, Dialog, type DialogProps, type DialogSize, Divider, type DividerOrientation, type DividerProps, FormControl, type FormControlCaptionProps, type FormControlLabelProps, type FormControlProps, type FormControlValidationProps, IconButton, type IconButtonProps, type IconButtonSize, type IconButtonVariant, Label$1 as Label, type LabelProps, type LabelSize, type LabelVariant, Link, type LinkProps, type LinkUnderline, Menu, type MenuAction, type MenuItem, type MenuProps, type MenuSeparator, NumberInput, type NumberInputProps, type NumberInputSize, Pagination, type PaginationProps, Popover, type PopoverPlacement, type PopoverProps, ProgressBar, type ProgressBarProps, type ProgressBarSize, type ProgressBarVariant, Radio, RadioGroup, type RadioGroupProps, type RadioProps, SegmentedControl, type SegmentedControlOption, type SegmentedControlProps, type SegmentedControlSize, Select, type SelectOption, type SelectProps, type SelectSize, Skeleton, type SkeletonProps, type SkeletonRadius, type SkeletonVariant, type SortDirection, Spinner, type SpinnerProps, type SpinnerSize, Stack, type StackAlign, type StackDirection, type StackGap, type StackItemProps, type StackJustify, type StackPadding, type StackProps, Switch, type SwitchProps, type SwitchSize, type TabPanelProps, type TabProps, Table, type TableActionsProps, type TableCellProps, type TableContainerProps, type TableDensity, type TableHeaderProps, type TableProps, type TableRowProps, type TableSectionProps, type TableSubtitleProps, type TableTitleProps, Tabs, type TabsListProps, type TabsProps, Tag, type TagProps, type TagSize, type TagVariant, TextInput, type TextInputProps, type TextInputSize, Textarea, type TextareaProps, type TextareaResize, type ToastContextValue, type ToastOptions, ToastProvider, type ToastProviderProps, type ToastVariant, Tooltip, type TooltipPlacement, type TooltipProps, type ValidationVariant, type WeekStart, useToast };
+export { Accordion, type AccordionItemProps, type AccordionProps, type AccordionType, Avatar, type AvatarProps, type AvatarShape, type AvatarSize, Badge, type BadgeProps, type BadgeVariant, Banner, type BannerProps, type BannerVariant, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, Button, type ButtonProps, type ButtonSize, type ButtonVariant, Calendar, type CalendarProps, Card, type CardPadding, type CardProps, type CardVariant, type CellAlign, Checkbox, type CheckboxProps, DataTable, type DataTableColumn, type DataTableProps, DatePicker, type DatePickerProps, type DatePickerSize, Dialog, type DialogProps, type DialogSize, Divider, type DividerOrientation, type DividerProps, FormControl, type FormControlCaptionProps, type FormControlLabelProps, type FormControlProps, type FormControlValidationProps, IconButton, type IconButtonProps, type IconButtonSize, type IconButtonVariant, Label$1 as Label, type LabelProps, type LabelSize, type LabelVariant, Link, type LinkProps, type LinkUnderline, Menu, type MenuAction, type MenuItem, type MenuProps, type MenuSeparator, NumberInput, type NumberInputProps, type NumberInputSize, Pagination, type PaginationProps, Popover, type PopoverPlacement, type PopoverProps, ProgressBar, type ProgressBarProps, type ProgressBarSize, type ProgressBarVariant, Radio, RadioGroup, type RadioGroupProps, type RadioProps, SegmentedControl, type SegmentedControlOption, type SegmentedControlProps, type SegmentedControlSize, Select, type SelectOption, type SelectProps, type SelectSize, Skeleton, type SkeletonProps, type SkeletonRadius, type SkeletonVariant, type SortDirection, Spinner, type SpinnerProps, type SpinnerSize, Stack, type StackAlign, type StackDirection, type StackGap, type StackItemProps, type StackJustify, type StackPadding, type StackProps, Switch, type SwitchProps, type SwitchSize, type TabPanelProps, type TabProps, Table, type TableActionsProps, type TableCellProps, type TableContainerProps, type TableDensity, type TableHeaderProps, type TableProps, type TableRowProps, type TableSectionProps, type TableSubtitleProps, type TableTitleProps, Tabs, type TabsListProps, type TabsProps, Tag, type TagProps, type TagSize, type TagVariant, TextInput, type TextInputProps, type TextInputSize, Textarea, type TextareaProps, type TextareaResize, type ToastContextValue, type ToastEntry, type ToastOptions, ToastProvider, type ToastProviderProps, type ToastVariant, Tooltip, type TooltipPlacement, type TooltipProps, type ValidationVariant, type WeekStart, useToast };

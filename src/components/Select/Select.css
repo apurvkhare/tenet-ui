@@ -66,18 +66,17 @@
   pointer-events: none;
 }
 
-/* Popover listbox */
+/* Popover listbox. Position (fixed top/left) + min-width (= trigger width) are set inline by
+   useAnchoredPosition; this rule is visual + sizing only. */
 .Tenet-Select__listbox {
-  position: absolute;
-  z-index: 50;
-  top: calc(100% + var(--space-1));
-  left: 0;
-  /* Match the trigger as a floor, but grow to fit the longest option instead of clipping. */
-  min-width: 100%;
+  /* Above Dialog (100) so a Select opened inside a modal isn't hidden; below Toast (200). */
+  z-index: 150;
+  /* Grow to fit the longest option instead of clipping; inline min-width floors it at the trigger. */
   width: max-content;
   max-width: min(320px, 90vw);
   max-height: 240px;
   overflow-y: auto;
+  overflow-x: hidden; /* long options ellipsize via __optionLabel rather than scroll sideways */
   margin: 0;
   padding: var(--space-1);
   list-style: none;
@@ -97,6 +96,11 @@
   color: var(--fgColor-default);
   cursor: pointer;
   user-select: none;
+}
+.Tenet-Select__optionLabel {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 /* Active = keyboard/pointer highlight (aria-activedescendant target) */
