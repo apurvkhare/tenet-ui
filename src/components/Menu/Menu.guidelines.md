@@ -1,7 +1,7 @@
 ---
 component: menu
 related: []
-updated: 2026-06-22
+updated: 2026-09-12
 ---
 
 # Menu — usage guidelines
@@ -17,6 +17,8 @@ updated: 2026-06-22
 
 ## Do / Don't
 
-- ✅ `<Menu aria-label="Row actions" trigger={<Button>⋯</Button>} items={[{label:'Edit',onSelect},{type:'separator'},{label:'Delete',onSelect,destructive:true}]} />`
+- ✅ `<Menu aria-label="Row actions" trigger={<IconButton icon={<MoreHorizontalIcon />} aria-label="Row actions" />} items={[{label:'Edit',onSelect},{type:'separator'},{label:'Delete',onSelect,destructive:true}]} />`
 - ❌ Using a Menu to choose a value that should persist in a field — that's `Select`.
 - ❌ A non-focusable trigger (plain `<div>`).
+
+**See also:** `IconButton` as the overflow trigger, `Select` for values, `Popover` for arbitrary content.

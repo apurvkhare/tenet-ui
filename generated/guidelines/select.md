@@ -1,7 +1,7 @@
 ---
 component: select
 related: []
-updated: 2026-06-21
+updated: 2026-09-12
 ---
 
 # Select — usage guidelines
@@ -13,7 +13,7 @@ updated: 2026-06-21
 - Give it an accessible name via `FormControl.Label` or `aria-label`.
 - Pass choices as the `options` array (`{ value, label, disabled? }`); use `placeholder` for the unselected state.
 - Control it with `value` + `onChange(value)`, or leave uncontrolled with `defaultValue`. For form submission, pass `name` (it emits a hidden input).
-- Use `size` / `block` from the scale; use `invalid` for validation state.
+- Use `size` / `fullWidth` from the scale (`block` is the deprecated 0.3.0 name and warns); use `invalid` for validation state.
 - **Never** build a div-based dropdown by hand — getting the ARIA listbox + keyboard right is exactly what this component does for you.
 
 ## Do / Don't
@@ -21,3 +21,5 @@ updated: 2026-06-21
 - ✅ `<Select options={[{ value: 'public', label: 'Public' }]} placeholder="Choose…" />`
 - ✅ inside a form: `<FormControl><FormControl.Label>Visibility</FormControl.Label><Select options={…} /></FormControl>`
 - ❌ `<div className="dropdown" onClick={…}>` — not keyboard-accessible, no roles, no typeahead.
+
+**See also:** `Menu` for actions, `RadioGroup` or `SegmentedControl` for a few visible options; system guideline `forms`.

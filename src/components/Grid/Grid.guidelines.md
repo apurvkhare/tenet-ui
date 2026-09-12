@@ -24,3 +24,5 @@ updated: 2026-09-12
 - ✅ `<Grid columns={2} gap="condensed" rowGap="normal">` — tight columns, roomier rows, both from the scale.
 - ❌ `<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>` — raw grid, off-scale gap, no responsive story.
 - ❌ `<Grid columns={4}>` for a phone-first page — fixed four columns squeeze to nothing at 375px; give it a `base`.
+
+**See also:** `Stack` for one-axis layout, `Card` for the tiles a grid usually holds; system guideline `layout` (gap scale, breakpoints, container widths).

@@ -18,5 +18,5 @@
       "props": "TabPanelProps"
     }
   ],
-  "related": []
+  "related": ["segmented-control", "accordion", "breadcrumbs"]
 }

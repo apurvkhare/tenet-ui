@@ -1,7 +1,7 @@
 ---
 component: icon-button
 related: []
-updated: 2026-06-22
+updated: 2026-09-12
 ---
 
 # IconButton
@@ -55,3 +55,5 @@ Don't — bake the label into the icon and leave the button unnamed:
 // ❌ the <span> text is aria-hidden with the icon; the button is still nameless
 <IconButton icon={<><TrashIcon /> Delete</>} />
 ```
+
+**See also:** `Button` with `leadingIcon` when a label fits, `Tooltip` to reveal the name on hover; system guidelines `iconography` and `accessibility`.

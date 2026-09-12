@@ -42,5 +42,5 @@
       "props": "TableCellProps"
     }
   ],
-  "related": []
+  "related": ["data-table", "empty-state", "pagination", "tag"]
 }

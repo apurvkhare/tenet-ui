@@ -1,7 +1,7 @@
 ---
 component: skeleton
 related: []
-updated: 2026-06-22
+updated: 2026-09-12
 ---
 
 # Skeleton — usage guidelines
@@ -32,3 +32,5 @@ updated: 2026-06-22
   ```tsx
   <Skeleton aria-label="Loading" /> {/* hidden from AT — the label never reaches anyone */}
   ```
+
+**See also:** `Spinner` and `ProgressBar` for other waits, `EmptyState` once data loads empty; system guideline `data-display` (loading rules).

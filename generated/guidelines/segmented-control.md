@@ -1,7 +1,7 @@
 ---
 component: segmented-control
 related: []
-updated: 2026-06-22
+updated: 2026-09-12
 ---
 
 # SegmentedControl — usage guidelines
@@ -14,6 +14,7 @@ updated: 2026-06-22
 - Control with `value` + `onChange`, or uncontrolled with `defaultValue` (defaults to the first enabled segment).
 - Keep labels to one word where possible; the control is meant to be compact.
 - Keyboard is built in: arrows move and select (selection follows focus), Home/End jump, with a roving tab stop. Don't rebuild it from styled buttons.
+- Use `fullWidth` to stretch segments across the container (`block` is the deprecated 0.3.0 name and warns).
 - Don't exceed ~5 segments — past that, it gets cramped and a `Select` is clearer.
 
 ## Do / Don't
@@ -21,3 +22,5 @@ updated: 2026-06-22
 - ✅ `<SegmentedControl aria-label="View" options={[{value:'list',label:'List'},{value:'board',label:'Board'}]} defaultValue="list" />`
 - ❌ Using it for a long list of options, or for a binary on/off (use Switch).
 - ❌ Omitting `aria-label`.
+
+**See also:** `Tabs` for content panes, `Select` for long lists, `Switch` for on/off.

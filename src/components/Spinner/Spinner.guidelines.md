@@ -1,7 +1,7 @@
 ---
 component: spinner
 related: []
-updated: 2026-06-22
+updated: 2026-09-12
 ---
 
 # Spinner — usage guidelines
@@ -19,3 +19,5 @@ updated: 2026-06-22
 - ✅ `<Spinner label="Loading repositories" />`
 - ✅ inside a button: `<Button disabled><Spinner size="small" /> Saving…</Button>`
 - ❌ A spinning `<div>` with no role/label — invisible to assistive tech.
+
+**See also:** `Skeleton` and `ProgressBar`; system guideline `data-display` (loading rules).

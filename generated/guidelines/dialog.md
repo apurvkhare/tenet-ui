@@ -1,7 +1,7 @@
 ---
 component: dialog
 related: []
-updated: 2026-06-22
+updated: 2026-09-12
 ---
 
 # Dialog — usage guidelines
@@ -21,3 +21,5 @@ updated: 2026-06-22
 - ✅ `<Dialog open={open} onClose={close} title="Delete repository?" description="This can't be undone." footer={<><Button variant="invisible" onClick={close}>Cancel</Button><Button variant="danger" onClick={confirm}>Delete</Button></>}>…</Dialog>`
 - ❌ A hand-built overlay div — no focus trap, no scroll lock, no Escape, no restore.
 - ❌ Using a dialog for a transient "Saved!" message — that's a toast.
+
+**See also:** `Popover` for non-modal surfaces, `Banner` and `Toast` for non-blocking messages; system guideline `feedback` has the decision table.

@@ -1,12 +1,12 @@
 ---
 component: badge
 related: []
-updated: 2026-06-22
+updated: 2026-09-12
 ---
 
 # Badge — usage guidelines
 
-**When to use:** a compact count or presence dot attached to something else — unread counts on a nav item, a "new" dot on an avatar. For a labelled status word on a row (passing / failing) use `Label`; for a contextual message use `Banner`.
+**When to use:** a compact count or presence dot attached to something else — unread counts on a nav item, a "new" dot on an avatar. For a labelled status word on a row (passing / failing) use `Tag`; for a contextual message use `Banner`.
 
 ## Rules
 
@@ -19,5 +19,7 @@ updated: 2026-06-22
 
 - ✅ `<Badge variant="danger" count={5} />`
 - ✅ `<Badge dot variant="success" />`
-- ❌ Using a Badge for a status word — that's `Label`.
+- ❌ Using a Badge for a status word — that's `Tag` (a Badge is a count or a dot; a Tag is a word).
 - ❌ Relying on the badge alone to convey critical info to screen-reader users.
+
+**See also:** `Tag` for words; system guideline `data-display` (Badge vs Tag, and the deprecated `Label`).

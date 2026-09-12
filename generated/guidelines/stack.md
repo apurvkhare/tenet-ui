@@ -1,7 +1,7 @@
 ---
 component: stack
 related: []
-updated: 2026-06-21
+updated: 2026-09-12
 ---
 
 # Stack — usage guidelines
@@ -14,6 +14,7 @@ updated: 2026-06-21
 - Use `Stack.Item grow` for the child that should absorb extra space (e.g. a search field in a toolbar) rather than `flex: 1` inline.
 - Use `align` / `justify` for alignment; don't add wrapper `<div>`s just to center things.
 - `padding` (optional) also comes from the `space` scale.
+- `Stack` is one axis. For columns (tiles, side-by-side fields) use `Grid` with `columns` and `Grid.Item span`; it shares the same `gap` scale.
 
 ## Do / Don't
 
@@ -21,3 +22,5 @@ updated: 2026-06-21
 - ✅ `<Stack.Item grow><TextInput … /></Stack.Item>`
 - ❌ `<div style={{ display: 'flex', gap: 12 }}>` — raw flex, hardcoded gap.
 - ❌ A bespoke `Box` component that re-implements spacing with a custom `sx` prop.
+
+**See also:** `Grid` for columns and responsive layouts; system guideline `layout` (gap scale, breakpoints, Card vs plain section).

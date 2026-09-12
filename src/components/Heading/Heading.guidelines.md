@@ -23,3 +23,5 @@ updated: 2026-09-12
 - ✅ `<Heading level={4} truncate>{story.title}</Heading>` — a card title that must fit one line.
 - ❌ `<h1 style={{ fontSize: 36, fontFamily: 'Georgia' }}>` — off-scale, off-token.
 - ❌ `<Heading level={4} as="h1">Settings</Heading>` next to `<Heading level={1} as="h5">` — the outline no longer matches what people see; keep ranks in reading order.
+
+**See also:** `Text` for everything that is not a section title; system guidelines `typography` (the scale, one `level={1}` per page, `as` for honest ranks) and `content` (sentence case).

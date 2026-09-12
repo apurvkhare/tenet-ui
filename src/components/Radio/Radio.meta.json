@@ -10,5 +10,5 @@
       "props": "RadioProps"
     }
   ],
-  "related": []
+  "related": ["checkbox", "switch", "select", "form-control"]
 }

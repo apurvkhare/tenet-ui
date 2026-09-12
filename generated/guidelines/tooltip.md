@@ -1,7 +1,7 @@
 ---
 component: tooltip
 related: []
-updated: 2026-06-22
+updated: 2026-09-12
 ---
 
 # Tooltip — usage guidelines
@@ -18,6 +18,8 @@ updated: 2026-06-22
 ## Do / Don't
 
 - ✅ `<Tooltip content="Saves immediately"><Button>Publish</Button></Tooltip>`
-- ✅ icon button: `<Tooltip content="Delete"><IconButton aria-label="Delete">🗑</IconButton></Tooltip>`
+- ✅ icon button: `<Tooltip content="Delete row"><IconButton icon={<TrashIcon />} aria-label="Delete row" /></Tooltip>`
 - ❌ `<Tooltip content="…"><span>text</span></Tooltip>` — not focusable, keyboard users can't reach it.
 - ❌ Hiding must-have instructions behind hover only.
+
+**See also:** `Popover` for rich content, `IconButton` (the usual trigger); system guideline `iconography`.

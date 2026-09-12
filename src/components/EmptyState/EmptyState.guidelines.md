@@ -6,7 +6,7 @@ updated: 2026-09-12
 
 # EmptyState — usage guidelines
 
-**When to use:** a table, list, inbox, search or filter that has nothing to show — first run ("No stories yet"), an exhausted filter ("No results for 'budget'"), a cleared queue ("You're all caught up"). Render it *in place of* the rows, inside the same `Card`/`Table.Container`, so the layout doesn't jump. It is not for errors (use `Banner variant="danger"`) or for loading (use `Skeleton`/`Spinner`).
+**When to use:** a table, list, inbox, search or filter that has nothing to show — first run ("No stories yet"), an exhausted filter ("No results for 'budget'"), a cleared queue ("You're all caught up"). For zero records, render it *in place of* the rows, inside the same `Card`/`Table.Container`, so the layout doesn't jump. For an exhausted search or filter, keep the table and its toolbar on screen and pass a compact `EmptyState` (`headingLevel={4}`, no `size="large"`) as `DataTable` `emptyText`. It is not for errors (use `Banner variant="danger"`) or for loading (use `Skeleton`/`Spinner`).
 
 ## Rules
 
@@ -20,7 +20,9 @@ updated: 2026-09-12
 ## Do / Don't
 
 - ✅ `<EmptyState title="No stories yet" description="Stories you create or are assigned will appear here." action={<Button variant="primary">Create story</Button>} />`
-- ✅ `<EmptyState title={`No results for “${query}”`} description="Try a different spelling or clear the filters." action={<Button onClick={clear}>Clear filters</Button>} headingLevel={4} />` inside a `DataTable` body.
+- ✅ `<EmptyState title={`No results for “${query}”`} description="Try a different spelling or clear the filters." action={<Button onClick={clear}>Clear filters</Button>} headingLevel={4} />` passed as `DataTable` `emptyText`, so the toolbar and active filters stay.
 - ✅ `<EmptyState size="large" headingLevel={2} icon={<InboxIcon />} title="You're all caught up" />` as a page's only content under its `h1`.
 - ❌ `<div style={{ textAlign: 'center', padding: 40 }}><h3>Nothing here</h3></div>` — off-system and unspecific.
 - ❌ `<EmptyState title="Error" description="Request failed" />` — failures are a `Banner`, not an empty state.
+
+**See also:** `DataTable` (`emptyText` for an exhausted filter), `Banner` for failures, `Skeleton` while loading; system guidelines `data-display` (when a collection shows an EmptyState) and `content` (title, description, and action copy).

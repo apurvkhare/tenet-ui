@@ -25,8 +25,9 @@ updated: 2026-09-12
 - **Default is decorative.** An icon renders `aria-hidden="true"`. This is right whenever the
   meaning is already in adjacent text or in the control's name: `<Button leadingIcon={<PlusIcon />}>New
   article</Button>`, a status word with a check next to it, a chevron on a disclosure.
-- **Pass `label` only when the icon stands alone.** A lone status glyph in a table cell
-  (`<CheckCircleIcon label="Published" />`), a sole indicator in a header. `label` sets
+- **Pass `label` only when the icon stands alone.** A lone glyph in a table cell that carries
+  information no text does (`<PaperclipIcon label="Has attachments" />`), a sole indicator in a
+  header. A *status* is never a lone icon: it is a word in a `Tag` (`<Tag variant="success">Published</Tag>`). `label` sets
   `role="img"` + `aria-label`, so screen readers announce it. Name the **meaning**, not the glyph:
   `label="Published"`, not `label="Check circle"`.
 - Never give an icon a `label` that duplicates visible text beside it — the name is read twice.
@@ -57,7 +58,10 @@ updated: 2026-09-12
 
 - ✅ `<Button leadingIcon={<PlusIcon />}>New article</Button>` — decorative icon, text carries meaning.
 - ✅ `<IconButton icon={<TrashIcon />} variant="danger" aria-label="Delete row" />` — name on the button.
-- ✅ `<CheckCircleIcon label="Published" size={16} />` alone in a status cell — meaningful, labelled.
+- ✅ `<PaperclipIcon label="Has attachments" size={16} />` alone in a table cell — meaningful, labelled.
+- ❌ `<CheckCircleIcon label="Published" size={16} />` alone in a status cell — a status is a `Tag` word, not a glyph.
 - ❌ `<svg width="16" height="16"><path d="M…" /></svg>` — inline SVG for a glyph that exists (`SearchIcon`).
 - ❌ `<IconButton icon={<TrashIcon label="Delete" />} />` — name on the icon, button still nameless.
 - ❌ `<SearchIcon style={{ width: 18, color: '#c2410c' }} />` — off-scale size and a hardcoded color; use `size` and inherit the parent's token.
+
+**See also:** `IconButton` for an icon-only action, `Button` `leadingIcon` when a label fits, `Tag` for status words; system guidelines `iconography` (sizes, decorative vs meaningful, naming) and `accessibility`.

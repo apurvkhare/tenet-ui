@@ -1,7 +1,7 @@
 ---
 component: toast
 related: []
-updated: 2026-06-22
+updated: 2026-09-12
 ---
 
 # Toast — usage guidelines
@@ -26,3 +26,5 @@ updated: 2026-06-22
 - ✅ `<ToastProvider placement="bottom-right"><App /></ToastProvider>`
 - ❌ A toast as the only record of a validation error the user must fix.
 - ❌ Long, interactive content inside a toast — use a Dialog.
+
+**See also:** `Banner` for persistent or anchored messages, `Dialog` for decisions, `FormControl.Validation` for field errors; system guideline `feedback` has the decision table.

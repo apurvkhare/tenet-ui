@@ -23,3 +23,5 @@ updated: 2026-09-12
 - ✅ `<Text tone="danger">Enter a valid email address.</Text>` next to `aria-invalid` on the field.
 - ❌ `<p style={{ color: '#6e6049', fontSize: 13 }}>` — off-scale, off-token, untethered from dark mode.
 - ❌ `<Text tone="success">Draft</Text>` for a table status — a `Tag` gives it the tint + hairline treatment and reads as a status.
+
+**See also:** `Heading` for text that structures the page, `Tag` for status words, `FormControl.Caption` and `FormControl.Validation` for field text; system guidelines `typography` and `color` (which `tone` sits on which surface).

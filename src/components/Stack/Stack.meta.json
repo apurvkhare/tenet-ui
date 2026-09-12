@@ -10,5 +10,5 @@
       "props": "StackItemProps"
     }
   ],
-  "related": []
+  "related": ["grid", "card", "divider"]
 }

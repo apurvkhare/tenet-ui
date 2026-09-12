@@ -18,5 +18,5 @@
       "props": "FormControlValidationProps"
     }
   ],
-  "related": []
+  "related": ["text-input", "textarea", "select", "number-input", "date-picker"]
 }

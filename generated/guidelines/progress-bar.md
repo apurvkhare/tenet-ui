@@ -1,7 +1,7 @@
 ---
 component: progress-bar
 related: []
-updated: 2026-06-22
+updated: 2026-09-12
 ---
 
 # ProgressBar
@@ -51,3 +51,5 @@ a multi-step form, a background job.
 ```
 
 ❌ Faking indeterminate with `value={0}` — that's a real, stalled 0%. Omit `value` instead.
+
+**See also:** `Spinner` and `Skeleton`; system guideline `data-display` (loading rules).

@@ -9,5 +9,5 @@
     { "name": "ToastProvider", "props": "ToastProviderProps" },
     { "name": "useToast", "kind": "hook", "props": "ToastContextValue" }
   ],
-  "related": []
+  "related": ["banner", "dialog", "spinner"]
 }

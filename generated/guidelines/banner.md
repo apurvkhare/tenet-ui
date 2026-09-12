@@ -1,12 +1,12 @@
 ---
 component: banner
 related: []
-updated: 2026-06-22
+updated: 2026-09-12
 ---
 
 # Banner — usage guidelines
 
-**When to use:** an inline, contextual message anchored to the content it describes — a form-level error, a page notice, a "you're approaching your limit" warning. For transient floating feedback use a toast; for a one-word status on a table row use `Label`.
+**When to use:** an inline, contextual message anchored to the content it describes — a form-level error, a page notice, a "you're approaching your limit" warning. For transient floating feedback use a toast; for a one-word status on a table row use `Tag`.
 
 ## Rules
 
@@ -22,3 +22,5 @@ updated: 2026-06-22
 - ✅ `<Banner variant="success" title="Saved" onDismiss={hide}>Your changes are live.</Banner>`
 - ❌ A `<div style={{background:'#fee'}}>` hand-rolled alert — off-system, no role, no AA guarantee.
 - ❌ A dismiss button on a required-fix error.
+
+**See also:** `Toast` (transient), `Dialog` (blocking decision), `FormControl.Validation` (one field); system guideline `feedback` has the decision table.

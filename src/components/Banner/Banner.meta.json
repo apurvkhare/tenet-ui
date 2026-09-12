@@ -5,5 +5,5 @@
   "a11yReviewed": true,
   "props": "BannerProps",
   "subcomponents": [],
-  "related": []
+  "related": ["toast", "dialog", "form-control", "empty-state"]
 }

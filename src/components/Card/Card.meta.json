@@ -5,5 +5,5 @@
   "a11yReviewed": true,
   "props": "CardProps",
   "subcomponents": [],
-  "related": []
+  "related": ["stack", "grid", "heading", "divider"]
 }
