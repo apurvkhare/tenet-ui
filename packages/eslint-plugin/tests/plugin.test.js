@@ -18,7 +18,7 @@ describe('plugin shape', () => {
     for (const id of RULE_IDS) {
       const r = plugin.rules[id];
       assert.ok(r.meta.docs.description, `${id} has a description`);
-      assert.match(r.meta.docs.url, /^https:\/\/apurvkhare\.github\.io\/tenet-ui\//, `${id} links to the guidelines`);
+      assert.match(r.meta.docs.url, /^https:\/\/tenet-ui\.pages\.dev\//, `${id} links to the guidelines`);
       assert.ok(Object.keys(r.meta.messages).length > 0, `${id} has messages`);
     }
   });
