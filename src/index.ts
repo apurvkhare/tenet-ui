@@ -3,7 +3,10 @@
 // component's var(--token) references are undefined and the UI renders unstyled.
 import './base.css';
 export * from './components/Button';
+export * from './components/Heading';
+export * from './components/Text';
 export * from './components/Stack';
+export * from './components/Grid';
 export * from './components/Card';
 export * from './components/TextInput';
 export * from './components/Label';
@@ -33,8 +36,10 @@ export * from './components/SegmentedControl';
 export * from './components/Menu';
 export * from './components/Toast';
 export * from './components/IconButton';
+export * from './components/Icon';
 export * from './components/Tag';
 export * from './components/Skeleton';
 export * from './components/ProgressBar';
 export * from './components/Link';
 export * from './components/Popover';
+export * from './components/EmptyState';

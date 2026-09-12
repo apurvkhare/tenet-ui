@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from './Button';
+import { PlusIcon, ChevronDownIcon } from '../../icons';
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -36,4 +37,13 @@ export const Sizes: Story = {
       </Button>
     </div>
   ),
+};
+
+/** Icons from `tenet-ui/icons` are decorative in the slots; the label text names the action. */
+export const WithLeadingIcon: Story = {
+  args: { variant: 'primary', leadingIcon: <PlusIcon />, children: 'New article' },
+};
+
+export const WithTrailingIcon: Story = {
+  args: { trailingIcon: <ChevronDownIcon />, children: 'More actions' },
 };

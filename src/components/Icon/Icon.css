@@ -1,0 +1,23 @@
+/* Tenet Icon — the <svg> shell for every glyph. Color is currentColor; geometry comes from `size`. */
+.Tenet-Icon {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+/* Sizes — mirror the width/height attributes so an icon keeps its box even under a CSS reset that
+   strips SVG dimensions. 20 has no base-size token, so it is derived from tokens rather than hardcoded. */
+.Tenet-Icon--size-16 {
+  width: var(--base-size-16);
+  height: var(--base-size-16);
+}
+
+.Tenet-Icon--size-20 {
+  width: calc(var(--base-size-16) + var(--base-size-4));
+  height: calc(var(--base-size-16) + var(--base-size-4));
+}
+
+.Tenet-Icon--size-24 {
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+}
