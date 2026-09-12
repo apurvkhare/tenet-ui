@@ -60,6 +60,12 @@
   --fontSize-2: 16px;
   --fontSize-3: 20px;
   --fontSize-4: 28px;
+  --fontSize-5: 36px;
+  --lineHeight-tight: 1.2;
+  --lineHeight-default: 1.5;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 960px;
+  --breakpoint-lg: 1280px;
   --fontWeight-normal: 400;
   --fontWeight-medium: 500;
   --fontWeight-semibold: 600;

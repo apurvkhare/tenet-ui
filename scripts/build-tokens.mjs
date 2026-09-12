@@ -73,6 +73,13 @@ for (const [dotPath, token] of Object.entries(flat)) {
       themed: true,
     });
     entry[theme] = value; // e.g. entry.light / entry.dark
+    if (token.$extensions) {
+      entry.extensions ||= {};
+      entry.extensions[theme] = token.$extensions;
+      // Convenience: documented contrast pairs per theme (see §4.8 of the demo requirements).
+      const contrast = token.$extensions?.tenet?.contrast;
+      if (contrast) (entry.contrast ||= {})[theme] = contrast;
+    }
   } else {
     sharedVars.push({ cssVar, value });
     registry[name] = {
@@ -82,7 +89,44 @@ for (const [dotPath, token] of Object.entries(flat)) {
       type: token.$type ?? null,
       path: parts,
       description: token.$description ?? '',
+      ...(token.$extensions ? { extensions: token.$extensions } : {}),
     };
+  }
+}
+
+// 3b. Verify the documented contrast pairs (fail-closed: a promise the palette no longer keeps
+//     must break the build, not ship). AA = 4.5:1 for normal text, AA-large = 3:1.
+const hexToRgb = (h) => {
+  let s = h.replace('#', '');
+  if (s.length === 3) s = s.split('').map((c) => c + c).join('');
+  return [0, 2, 4].map((i) => parseInt(s.slice(i, i + 2), 16) / 255);
+};
+const luminance = ([r, g, b]) => {
+  const f = (c) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+  return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+};
+const contrastRatio = (a, b) => {
+  const la = luminance(hexToRgb(a));
+  const lb = luminance(hexToRgb(b));
+  return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+};
+let pairCount = 0;
+for (const entry of Object.values(registry)) {
+  if (!entry.contrast) continue;
+  for (const [theme, groups] of Object.entries(entry.contrast)) {
+    for (const [level, min] of [['aa', 4.5], ['aaLarge', 3]]) {
+      for (const bgName of groups[level] ?? []) {
+        const bg = registry[bgName];
+        if (!bg) throw new Error(`${entry.name}: contrast pair references unknown token ${bgName}`);
+        const ratio = contrastRatio(entry[theme], bg[theme]);
+        if (ratio < min) {
+          throw new Error(
+            `${entry.name} on ${bgName} (${theme}) is documented ${level} but measures ${ratio.toFixed(2)}:1 (< ${min})`,
+          );
+        }
+        pairCount++;
+      }
+    }
   }
 }
 
@@ -106,4 +150,5 @@ const themedCount = Object.values(registry).filter((t) => t.themed).length;
 console.log(
   `Built ${Object.keys(registry).length} tokens (${themedCount} themed × ${THEMES.length} themes: ${THEMES.join(', ')})`,
 );
+console.log(`Verified ${pairCount} documented contrast pairs (AA 4.5:1 / AA-large 3:1) across both themes.`);
 console.log(`-> dist/tokens.json + dist/tokens.css`);
