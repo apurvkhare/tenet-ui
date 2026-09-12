@@ -1,0 +1,67 @@
+name: Release
+
+# Tag `vX.Y.Z` (matching package.json "version") → build, publish to npm with provenance,
+# attach baselines to the GitHub release, then tell the design-system MCP server to re-ingest.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write # create the GitHub release + upload baselines
+  id-token: write # npm --provenance (Sigstore)
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      DS_SERVER_INGEST_URL: ${{ secrets.DS_SERVER_INGEST_URL }}
+      DS_SERVER_INGEST_TOKEN: ${{ secrets.DS_SERVER_INGEST_TOKEN }}
+      GH_TOKEN: ${{ secrets.DS_MCP_REPO_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - name: Tag matches package.json version
+        run: |
+          PKG=$(node -p "require('./package.json').version")
+          [ "v$PKG" = "${GITHUB_REF_NAME}" ] || { echo "::error::tag ${GITHUB_REF_NAME} != package.json v$PKG"; exit 1; }
+      - run: npm run typecheck
+      - run: npm run build
+      - run: npm run build-storybook -- --quiet
+      - run: npm run check:story-ids
+      - run: npx playwright install --with-deps chromium-headless-shell
+      - run: npm run check:a11y
+      - name: Build baselines (every story, light + dark)
+        run: npm run build:baselines
+      - name: Pack baselines
+        run: tar -czf baselines-${GITHUB_REF_NAME}.tgz baselines
+      - name: Publish to npm (with provenance)
+        # Requires either an NPM_TOKEN repository secret or npm Trusted Publishing configured for this repo.
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: GitHub release with baselines
+        uses: softprops/action-gh-release@v2
+        with:
+          files: baselines-${{ github.ref_name }}.tgz
+          generate_release_notes: true
+      - name: Notify the design-system MCP server (optional)
+        # The server also polls the npm registry, so this is an optimisation, not a dependency.
+        if: ${{ env.DS_SERVER_INGEST_URL != '' }}
+        run: |
+          curl -fsS -X POST "$DS_SERVER_INGEST_URL" \
+            -H "Authorization: Bearer $DS_SERVER_INGEST_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"package\":\"tenet-ui\",\"version\":\"${GITHUB_REF_NAME#v}\",\"commit\":\"${GITHUB_SHA}\",\"repository\":\"${GITHUB_REPOSITORY}\"}"
+      - name: Dispatch to apurvkhare/tenet-ui-mcp (optional)
+        if: ${{ env.GH_TOKEN != '' }}
+        run: |
+          gh api repos/apurvkhare/tenet-ui-mcp/dispatches \
+            -f event_type=tenet-ui-released \
+            -F 'client_payload[version]='"${GITHUB_REF_NAME#v}" \
+            -F 'client_payload[commit]='"${GITHUB_SHA}"

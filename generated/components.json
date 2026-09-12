@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "package": "tenet-ui",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "generatedFrom": "src/components/**/*.types.ts (props) + *.tsx (defaults) + *.stories.tsx (story ids) + *.meta.json",
   "components": {
     "accordion": {
@@ -115,7 +115,12 @@
           "exportName": "Multiple"
         }
       ],
-      "related": []
+      "related": [
+        "tabs",
+        "card",
+        "stack",
+        "heading"
+      ]
     },
     "avatar": {
       "id": "avatar",
@@ -185,7 +190,12 @@
           "exportName": "Large"
         }
       ],
-      "related": []
+      "related": [
+        "badge",
+        "tag",
+        "tooltip",
+        "skeleton"
+      ]
     },
     "badge": {
       "id": "badge",
@@ -261,7 +271,12 @@
           "exportName": "Default"
         }
       ],
-      "related": []
+      "related": [
+        "tag",
+        "avatar",
+        "icon-button",
+        "text"
+      ]
     },
     "banner": {
       "id": "banner",
@@ -349,7 +364,12 @@
           "exportName": "Dismissible"
         }
       ],
-      "related": []
+      "related": [
+        "toast",
+        "dialog",
+        "form-control",
+        "empty-state"
+      ]
     },
     "breadcrumbs": {
       "id": "breadcrumbs",
@@ -421,7 +441,12 @@
           "exportName": "ChevronSeparator"
         }
       ],
-      "related": []
+      "related": [
+        "link",
+        "pagination",
+        "tabs",
+        "heading"
+      ]
     },
     "button": {
       "id": "button",
@@ -467,11 +492,19 @@
           "description": "Icon rendered after the label."
         },
         {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch the button to fill the available width."
+        },
+        {
           "name": "block",
           "type": "boolean",
           "required": false,
-          "defaultValue": "false",
-          "description": "Stretch the button to fill the available width."
+          "defaultValue": "",
+          "description": "Stretch the button to fill the available width.",
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
         },
         {
           "name": "children",
@@ -508,9 +541,25 @@
           "id": "components-button--sizes",
           "name": "Sizes",
           "exportName": "Sizes"
+        },
+        {
+          "id": "components-button--with-leading-icon",
+          "name": "With Leading Icon",
+          "exportName": "WithLeadingIcon"
+        },
+        {
+          "id": "components-button--with-trailing-icon",
+          "name": "With Trailing Icon",
+          "exportName": "WithTrailingIcon"
         }
       ],
-      "related": []
+      "related": [
+        "icon-button",
+        "link",
+        "dialog",
+        "menu",
+        "icon"
+      ]
     },
     "calendar": {
       "id": "calendar",
@@ -632,7 +681,11 @@
           "exportName": "WithRange"
         }
       ],
-      "related": []
+      "related": [
+        "date-picker",
+        "popover",
+        "form-control"
+      ]
     },
     "card": {
       "id": "card",
@@ -685,7 +738,12 @@
           "exportName": "Muted"
         }
       ],
-      "related": []
+      "related": [
+        "stack",
+        "grid",
+        "heading",
+        "divider"
+      ]
     },
     "checkbox": {
       "id": "checkbox",
@@ -748,7 +806,11 @@
           "exportName": "Checked"
         }
       ],
-      "related": []
+      "related": [
+        "switch",
+        "radio-group",
+        "form-control"
+      ]
     },
     "data-table": {
       "id": "data-table",
@@ -909,7 +971,13 @@
           "exportName": "SearchOnly"
         }
       ],
-      "related": []
+      "related": [
+        "table",
+        "empty-state",
+        "pagination",
+        "tag",
+        "select"
+      ]
     },
     "date-picker": {
       "id": "date-picker",
@@ -987,11 +1055,19 @@
           "typeRef": "DatePickerSize"
         },
         {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch the trigger to fill the available width."
+        },
+        {
           "name": "block",
           "type": "boolean",
           "required": false,
-          "defaultValue": "false",
-          "description": "Stretch the trigger to fill the available width."
+          "defaultValue": "",
+          "description": "Stretch the trigger to fill the available width.",
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
         },
         {
           "name": "invalid",
@@ -1074,7 +1150,12 @@
           "exportName": "Disabled"
         }
       ],
-      "related": []
+      "related": [
+        "calendar",
+        "form-control",
+        "text-input",
+        "popover"
+      ]
     },
     "dialog": {
       "id": "dialog",
@@ -1161,7 +1242,12 @@
           "exportName": "Default"
         }
       ],
-      "related": []
+      "related": [
+        "popover",
+        "button",
+        "banner",
+        "toast"
+      ]
     },
     "divider": {
       "id": "divider",
@@ -1211,7 +1297,118 @@
           "exportName": "Vertical"
         }
       ],
-      "related": []
+      "related": [
+        "stack",
+        "menu",
+        "card"
+      ]
+    },
+    "empty-state": {
+      "id": "empty-state",
+      "name": "EmptyState",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/EmptyState/EmptyState.tsx",
+      "types": "src/components/EmptyState/EmptyState.types.ts",
+      "guidelines": "generated/guidelines/empty-state.md",
+      "extends": [
+        "Omit<HTMLAttributes<HTMLDivElement>, 'title'>"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "defaultValue": "",
+          "description": "Short, specific headline — say what is empty (\"No stories yet\"), not just \"Nothing here\"."
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "One or two sentences: why it is empty and what to do next. Inline content (rendered in a muted `Text`)."
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Decorative illustration or icon; wrapped `aria-hidden` — the title carries the meaning."
+        },
+        {
+          "name": "action",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "The primary next step, usually a `Button variant=\"primary\"`."
+        },
+        {
+          "name": "secondaryAction",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "An optional secondary step next to `action` (a default/invisible `Button` or a `Link`)."
+        },
+        {
+          "name": "size",
+          "type": "'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Overall scale: `medium` for a region inside a page, `large` for a whole-page/first-run state.",
+          "typeRef": "EmptyStateSize"
+        },
+        {
+          "name": "headingLevel",
+          "type": "2 | 3 | 4",
+          "required": false,
+          "defaultValue": "3",
+          "description": "Semantic heading rank of the title (`h2`/`h3`/`h4`) so it fits the surrounding outline. The visual size follows `size`, not this prop.",
+          "typeRef": "EmptyStateHeadingLevel"
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-emptystate--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-emptystate--title-only",
+          "name": "Title Only",
+          "exportName": "TitleOnly"
+        },
+        {
+          "id": "components-emptystate--with-icon",
+          "name": "With Icon",
+          "exportName": "WithIcon"
+        },
+        {
+          "id": "components-emptystate--with-actions",
+          "name": "With Actions",
+          "exportName": "WithActions"
+        },
+        {
+          "id": "components-emptystate--large",
+          "name": "Large",
+          "exportName": "Large"
+        },
+        {
+          "id": "components-emptystate--search-results",
+          "name": "Search Results",
+          "exportName": "SearchResults"
+        }
+      ],
+      "related": [
+        "heading",
+        "text",
+        "button",
+        "data-table",
+        "card"
+      ]
     },
     "form-control": {
       "id": "form-control",
@@ -1343,7 +1540,332 @@
           "exportName": "WithError"
         }
       ],
-      "related": []
+      "related": [
+        "text-input",
+        "textarea",
+        "select",
+        "number-input",
+        "date-picker"
+      ]
+    },
+    "grid": {
+      "id": "grid",
+      "name": "Grid",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Grid/Grid.tsx",
+      "types": "src/components/Grid/Grid.types.ts",
+      "guidelines": "generated/guidelines/grid.md",
+      "extends": [
+        "HTMLAttributes<HTMLDivElement>"
+      ],
+      "props": [
+        {
+          "name": "columns",
+          "type": "number | GridResponsive",
+          "required": false,
+          "defaultValue": "1",
+          "description": "Number of equal-width columns, either fixed or per breakpoint, e.g. `{ base: 1, sm: 2, lg: 4 }`. Each column is `minmax(0, 1fr)` so long content can't blow the track out.",
+          "typeRef": "GridResponsiveValue"
+        },
+        {
+          "name": "gap",
+          "type": "'none' | 'condensed' | 'normal' | 'spacious'",
+          "required": false,
+          "defaultValue": "normal",
+          "description": "Space between rows and columns, from the `space` scale (condensed=8, normal=16, spacious=24).",
+          "typeRef": "GridGap"
+        },
+        {
+          "name": "rowGap",
+          "type": "'none' | 'condensed' | 'normal' | 'spacious'",
+          "required": false,
+          "defaultValue": "",
+          "description": "Overrides the row spacing only, from the same scale; defaults to `gap`.",
+          "typeRef": "GridGap"
+        },
+        {
+          "name": "align",
+          "type": "'start' | 'center' | 'end' | 'stretch'",
+          "required": false,
+          "defaultValue": "",
+          "description": "Block-axis alignment of items within their row (maps to `align-items`).",
+          "typeRef": "GridAlign"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [
+        {
+          "id": "grid-item",
+          "name": "Grid.Item",
+          "props": [
+            {
+              "name": "span",
+              "type": "number | GridResponsive",
+              "required": false,
+              "defaultValue": "",
+              "description": "Number of columns this item spans (`grid-column: span N`), fixed or per breakpoint.",
+              "typeRef": "GridResponsiveValue"
+            },
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "relatedTypes": [
+        {
+          "name": "GridResponsive",
+          "description": "A value per breakpoint. `base` applies from 0 up; `sm`/`md`/`lg` apply from `breakpoint-sm` (640), `breakpoint-md` (960) and `breakpoint-lg` (1280) upward. Missing steps inherit the previous one (lg → md → sm → base).",
+          "members": [
+            {
+              "name": "base",
+              "type": "number",
+              "required": false,
+              "defaultValue": "",
+              "description": "Value from 0 up (mobile-first)."
+            },
+            {
+              "name": "sm",
+              "type": "number",
+              "required": false,
+              "defaultValue": "",
+              "description": "Value from `breakpoint-sm` (640px) up."
+            },
+            {
+              "name": "md",
+              "type": "number",
+              "required": false,
+              "defaultValue": "",
+              "description": "Value from `breakpoint-md` (960px) up."
+            },
+            {
+              "name": "lg",
+              "type": "number",
+              "required": false,
+              "defaultValue": "",
+              "description": "Value from `breakpoint-lg` (1280px) up."
+            }
+          ]
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-grid--fixed-columns",
+          "name": "Fixed Columns",
+          "exportName": "FixedColumns"
+        },
+        {
+          "id": "components-grid--responsive-columns",
+          "name": "Responsive Columns",
+          "exportName": "ResponsiveColumns"
+        },
+        {
+          "id": "components-grid--gaps",
+          "name": "Gaps",
+          "exportName": "Gaps"
+        },
+        {
+          "id": "components-grid--row-gap-override",
+          "name": "Row Gap Override",
+          "exportName": "RowGapOverride"
+        },
+        {
+          "id": "components-grid--align",
+          "name": "Align",
+          "exportName": "Align"
+        },
+        {
+          "id": "components-grid--item-span",
+          "name": "Item Span",
+          "exportName": "ItemSpan"
+        },
+        {
+          "id": "components-grid--stat-cards",
+          "name": "Stat Cards",
+          "exportName": "StatCards"
+        }
+      ],
+      "related": [
+        "stack",
+        "card"
+      ]
+    },
+    "heading": {
+      "id": "heading",
+      "name": "Heading",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Heading/Heading.tsx",
+      "types": "src/components/Heading/Heading.types.ts",
+      "guidelines": "generated/guidelines/heading.md",
+      "extends": [
+        "HTMLAttributes<HTMLHeadingElement>"
+      ],
+      "props": [
+        {
+          "name": "level",
+          "type": "1 | 2 | 3 | 4",
+          "required": false,
+          "defaultValue": "2",
+          "description": "Visual size on the type scale: 1 → `fontSize-5` (36), 2 → `fontSize-4` (28), 3 → `fontSize-3` (20), 4 → `fontSize-2` (16). Also picks the default element (`h1`…`h4`).",
+          "typeRef": "HeadingLevel"
+        },
+        {
+          "name": "as",
+          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'div' | 'span'",
+          "required": false,
+          "defaultValue": "`h${level}`",
+          "description": "Element to render, so document semantics and visual size can differ (e.g. a level-1 look on an `h2` in a page that already has an `h1`).",
+          "typeRef": "HeadingElement"
+        },
+        {
+          "name": "truncate",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Clip overflowing text to a single line with an ellipsis."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Heading text."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-heading--level-1",
+          "name": "Level 1",
+          "exportName": "Level1"
+        },
+        {
+          "id": "components-heading--level-2",
+          "name": "Level 2",
+          "exportName": "Level2"
+        },
+        {
+          "id": "components-heading--level-3",
+          "name": "Level 3",
+          "exportName": "Level3"
+        },
+        {
+          "id": "components-heading--level-4",
+          "name": "Level 4",
+          "exportName": "Level4"
+        },
+        {
+          "id": "components-heading--semantics-vs-size",
+          "name": "Semantics Vs Size",
+          "exportName": "SemanticsVsSize"
+        },
+        {
+          "id": "components-heading--truncate",
+          "name": "Truncate",
+          "exportName": "Truncate"
+        },
+        {
+          "id": "components-heading--type-scale",
+          "name": "Type Scale",
+          "exportName": "TypeScale"
+        }
+      ],
+      "related": [
+        "text",
+        "empty-state",
+        "stack"
+      ]
+    },
+    "icon": {
+      "id": "icon",
+      "name": "Icon",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Icon/Icon.tsx",
+      "types": "src/components/Icon/Icon.types.ts",
+      "guidelines": "generated/guidelines/icon.md",
+      "extends": [
+        "Omit<SVGAttributes<SVGSVGElement>, 'children' | 'width' | 'height' | 'viewBox'>"
+      ],
+      "props": [
+        {
+          "name": "size",
+          "type": "16 | 20 | 24",
+          "required": false,
+          "defaultValue": "16",
+          "description": "Rendered width and height in pixels. `16` sits on the text line inside controls (Button, IconButton, inputs); `20` for large controls and list rows; `24` for empty states, page headers and stat tiles.",
+          "typeRef": "IconSize"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Accessible name. Set it ONLY when the icon carries meaning on its own (no adjacent text names it). When set the SVG gets `role=\"img\"` and `aria-label`; when absent the icon is decorative (`aria-hidden=\"true\"`) and the surrounding control must carry the name."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": "",
+          "description": "The glyph: SVG shape nodes (`<path>`, `<circle>`, …) drawn on Lucide's 24×24 grid. Consumers normally render a named glyph from `tenet-ui/icons` (`<SearchIcon />`) which supplies this."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-icon--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-icon--sizes",
+          "name": "Sizes",
+          "exportName": "Sizes"
+        },
+        {
+          "id": "components-icon--labeled",
+          "name": "Labeled",
+          "exportName": "Labeled"
+        },
+        {
+          "id": "components-icon--gallery",
+          "name": "Gallery",
+          "exportName": "Gallery"
+        },
+        {
+          "id": "components-icon--in-button",
+          "name": "In Button",
+          "exportName": "InButton"
+        },
+        {
+          "id": "components-icon--in-icon-button",
+          "name": "In Icon Button",
+          "exportName": "InIconButton"
+        }
+      ],
+      "related": [
+        "icon-button",
+        "button",
+        "empty-state"
+      ]
     },
     "icon-button": {
       "id": "icon-button",
@@ -1411,12 +1933,17 @@
           "exportName": "Sizes"
         }
       ],
-      "related": []
+      "related": [
+        "button",
+        "icon",
+        "tooltip",
+        "menu"
+      ]
     },
     "label": {
       "id": "label",
       "name": "Label",
-      "status": "stable",
+      "status": "deprecated",
       "a11yReviewed": true,
       "importPath": "tenet-ui",
       "source": "src/components/Label/Label.tsx",
@@ -1469,7 +1996,11 @@
           "exportName": "Sizes"
         }
       ],
-      "related": []
+      "related": [
+        "tag",
+        "badge"
+      ],
+      "deprecated": "Use `Tag` instead (since 0.4.0). `Tag` now carries the same status variants\n(`success` / `danger` / `attention` / `muted` / `accent`) and is read-only when `onRemove` is\nabsent, so one pill component covers both status words and removable chips — and the name no\nlonger collides with `FormControl.Label`. `Label` keeps rendering until 0.5.0."
     },
     "link": {
       "id": "link",
@@ -1536,7 +2067,11 @@
           "exportName": "External"
         }
       ],
-      "related": []
+      "related": [
+        "button",
+        "breadcrumbs",
+        "text"
+      ]
     },
     "menu": {
       "id": "menu",
@@ -1656,7 +2191,13 @@
           "exportName": "Default"
         }
       ],
-      "related": []
+      "related": [
+        "icon-button",
+        "button",
+        "select",
+        "popover",
+        "divider"
+      ]
     },
     "number-input": {
       "id": "number-input",
@@ -1722,11 +2263,19 @@
           "typeRef": "NumberInputSize"
         },
         {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch the field to fill the available width."
+        },
+        {
           "name": "block",
           "type": "boolean",
           "required": false,
-          "defaultValue": "false",
-          "description": "Stretch the field to fill the available width."
+          "defaultValue": "",
+          "description": "Stretch the field to fill the available width.",
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
         },
         {
           "name": "invalid",
@@ -1760,7 +2309,11 @@
           "exportName": "Disabled"
         }
       ],
-      "related": []
+      "related": [
+        "text-input",
+        "form-control",
+        "select"
+      ]
     },
     "pagination": {
       "id": "pagination",
@@ -1830,7 +2383,11 @@
           "exportName": "ManyPages"
         }
       ],
-      "related": []
+      "related": [
+        "data-table",
+        "table",
+        "breadcrumbs"
+      ]
     },
     "popover": {
       "id": "popover",
@@ -1894,7 +2451,12 @@
           "exportName": "TopEnd"
         }
       ],
-      "related": []
+      "related": [
+        "dialog",
+        "menu",
+        "tooltip",
+        "button"
+      ]
     },
     "progress-bar": {
       "id": "progress-bar",
@@ -1964,7 +2526,11 @@
           "exportName": "Small"
         }
       ],
-      "related": []
+      "related": [
+        "spinner",
+        "skeleton",
+        "text"
+      ]
     },
     "radio-group": {
       "id": "radio-group",
@@ -2085,7 +2651,12 @@
           "exportName": "WithCaptions"
         }
       ],
-      "related": []
+      "related": [
+        "checkbox",
+        "switch",
+        "select",
+        "form-control"
+      ]
     },
     "segmented-control": {
       "id": "segmented-control",
@@ -2137,11 +2708,19 @@
           "typeRef": "SegmentedControlSize"
         },
         {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch segments to fill the available width."
+        },
+        {
           "name": "block",
           "type": "boolean",
           "required": false,
-          "defaultValue": "false",
-          "description": "Stretch segments to fill the available width."
+          "defaultValue": "",
+          "description": "Stretch segments to fill the available width.",
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
         },
         {
           "name": "aria-label",
@@ -2205,7 +2784,12 @@
           "exportName": "WithDisabled"
         }
       ],
-      "related": []
+      "related": [
+        "tabs",
+        "select",
+        "switch",
+        "button"
+      ]
     },
     "select": {
       "id": "select",
@@ -2264,11 +2848,19 @@
           "typeRef": "SelectSize"
         },
         {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch to fill the available width."
+        },
+        {
           "name": "block",
           "type": "boolean",
           "required": false,
-          "defaultValue": "false",
-          "description": "Stretch to fill the available width."
+          "defaultValue": "",
+          "description": "Stretch to fill the available width.",
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
         },
         {
           "name": "invalid",
@@ -2374,7 +2966,13 @@
           "exportName": "WithDisabledOption"
         }
       ],
-      "related": []
+      "related": [
+        "form-control",
+        "menu",
+        "text-input",
+        "segmented-control",
+        "radio-group"
+      ]
     },
     "skeleton": {
       "id": "skeleton",
@@ -2449,7 +3047,12 @@
           "exportName": "Card"
         }
       ],
-      "related": []
+      "related": [
+        "spinner",
+        "progress-bar",
+        "card",
+        "avatar"
+      ]
     },
     "spinner": {
       "id": "spinner",
@@ -2499,7 +3102,11 @@
           "exportName": "Large"
         }
       ],
-      "related": []
+      "related": [
+        "skeleton",
+        "progress-bar",
+        "button"
+      ]
     },
     "stack": {
       "id": "stack",
@@ -2609,7 +3216,11 @@
           "exportName": "Toolbar"
         }
       ],
-      "related": []
+      "related": [
+        "grid",
+        "card",
+        "divider"
+      ]
     },
     "switch": {
       "id": "switch",
@@ -2683,7 +3294,11 @@
           "exportName": "Disabled"
         }
       ],
-      "related": []
+      "related": [
+        "checkbox",
+        "radio-group",
+        "form-control"
+      ]
     },
     "table": {
       "id": "table",
@@ -2880,7 +3495,12 @@
           "exportName": "Densities"
         }
       ],
-      "related": []
+      "related": [
+        "data-table",
+        "empty-state",
+        "pagination",
+        "tag"
+      ]
     },
     "tabs": {
       "id": "tabs",
@@ -3006,7 +3626,11 @@
           "exportName": "Default"
         }
       ],
-      "related": []
+      "related": [
+        "segmented-control",
+        "accordion",
+        "breadcrumbs"
+      ]
     },
     "tag": {
       "id": "tag",
@@ -3023,10 +3647,10 @@
       "props": [
         {
           "name": "variant",
-          "type": "'default' | 'accent'",
+          "type": "'default' | 'accent' | 'success' | 'danger' | 'attention' | 'muted'",
           "required": false,
           "defaultValue": "default",
-          "description": "Semantic color scheme. Pick by meaning (accent for the active/selected token), not by raw color.",
+          "description": "Semantic color scheme. Pick by meaning, never by raw color: `accent` for an active/selected token, `success` / `danger` / `attention` for status words, `muted` for a quiet neutral, `default` otherwise.",
           "typeRef": "TagVariant"
         },
         {
@@ -3080,6 +3704,11 @@
           "exportName": "Variants"
         },
         {
+          "id": "components-tag--status-pills",
+          "name": "Status Pills",
+          "exportName": "StatusPills"
+        },
+        {
           "id": "components-tag--sizes",
           "name": "Sizes",
           "exportName": "Sizes"
@@ -3095,7 +3724,151 @@
           "exportName": "Removable"
         }
       ],
-      "related": []
+      "related": [
+        "badge",
+        "label",
+        "text"
+      ]
+    },
+    "text": {
+      "id": "text",
+      "name": "Text",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Text/Text.tsx",
+      "types": "src/components/Text/Text.types.ts",
+      "guidelines": "generated/guidelines/text.md",
+      "extends": [
+        "HTMLAttributes<HTMLElement>"
+      ],
+      "props": [
+        {
+          "name": "as",
+          "type": "'p' | 'span' | 'div' | 'label' | 'strong' | 'em'",
+          "required": false,
+          "defaultValue": "p",
+          "description": "Element to render.",
+          "typeRef": "TextElement"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Size on the body type scale (small=12, medium=14, large=16).",
+          "typeRef": "TextSize"
+        },
+        {
+          "name": "tone",
+          "type": "'default' | 'muted' | 'accent' | 'success' | 'danger' | 'attention'",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Semantic color: `muted` for secondary copy, status tones for validation and state messages.",
+          "typeRef": "TextTone"
+        },
+        {
+          "name": "weight",
+          "type": "'normal' | 'medium' | 'semibold'",
+          "required": false,
+          "defaultValue": "normal",
+          "description": "Font weight.",
+          "typeRef": "TextWeight"
+        },
+        {
+          "name": "truncate",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Clip overflowing text to a single line with an ellipsis."
+        },
+        {
+          "name": "align",
+          "type": "'start' | 'center' | 'end'",
+          "required": false,
+          "defaultValue": "",
+          "description": "Horizontal text alignment (logical: `start`/`end` follow writing direction).",
+          "typeRef": "TextAlign"
+        },
+        {
+          "name": "htmlFor",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Associates the text with a form control; only meaningful with `as=\"label\"`."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Text content."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-text--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-text--small",
+          "name": "Small",
+          "exportName": "Small"
+        },
+        {
+          "id": "components-text--large",
+          "name": "Large",
+          "exportName": "Large"
+        },
+        {
+          "id": "components-text--muted",
+          "name": "Muted",
+          "exportName": "Muted"
+        },
+        {
+          "id": "components-text--tones",
+          "name": "Tones",
+          "exportName": "Tones"
+        },
+        {
+          "id": "components-text--weights",
+          "name": "Weights",
+          "exportName": "Weights"
+        },
+        {
+          "id": "components-text--inline-elements",
+          "name": "Inline Elements",
+          "exportName": "InlineElements"
+        },
+        {
+          "id": "components-text--as-label",
+          "name": "As Label",
+          "exportName": "AsLabel"
+        },
+        {
+          "id": "components-text--truncate",
+          "name": "Truncate",
+          "exportName": "Truncate"
+        },
+        {
+          "id": "components-text--aligned",
+          "name": "Aligned",
+          "exportName": "Aligned"
+        },
+        {
+          "id": "components-text--composed",
+          "name": "Composed",
+          "exportName": "Composed"
+        }
+      ],
+      "related": [
+        "heading",
+        "empty-state",
+        "label"
+      ]
     },
     "text-input": {
       "id": "text-input",
@@ -3119,11 +3892,19 @@
           "typeRef": "TextInputSize"
         },
         {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch the field to fill the available width."
+        },
+        {
           "name": "block",
           "type": "boolean",
           "required": false,
-          "defaultValue": "false",
-          "description": "Stretch the field to fill the available width."
+          "defaultValue": "",
+          "description": "Stretch the field to fill the available width.",
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
         },
         {
           "name": "leadingVisual",
@@ -3171,7 +3952,13 @@
           "exportName": "Sizes"
         }
       ],
-      "related": []
+      "related": [
+        "form-control",
+        "textarea",
+        "number-input",
+        "select",
+        "icon"
+      ]
     },
     "textarea": {
       "id": "textarea",
@@ -3187,11 +3974,19 @@
       ],
       "props": [
         {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch to fill the available width."
+        },
+        {
           "name": "block",
           "type": "boolean",
           "required": false,
-          "defaultValue": "false",
-          "description": "Stretch to fill the available width."
+          "defaultValue": "",
+          "description": "Stretch to fill the available width.",
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
         },
         {
           "name": "invalid",
@@ -3231,7 +4026,10 @@
           "exportName": "Invalid"
         }
       ],
-      "related": []
+      "related": [
+        "text-input",
+        "form-control"
+      ]
     },
     "toast": {
       "id": "toast",
@@ -3402,7 +4200,11 @@
           "exportName": "Default"
         }
       ],
-      "related": []
+      "related": [
+        "banner",
+        "dialog",
+        "spinner"
+      ]
     },
     "tooltip": {
       "id": "tooltip",
@@ -3459,7 +4261,11 @@
           "exportName": "Bottom"
         }
       ],
-      "related": []
+      "related": [
+        "popover",
+        "icon-button",
+        "text"
+      ]
     }
   }
 }

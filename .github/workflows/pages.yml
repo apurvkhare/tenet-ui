@@ -1,0 +1,74 @@
+name: Docs + Storybook (GitHub Pages)
+
+# Deploys the docs site to https://apurvkhare.github.io/tenet-ui/ and the static Storybook to
+# https://apurvkhare.github.io/tenet-ui/storybook/ on every push to main (and on release tags).
+# The docs site emits llms.txt / llms-full.txt / llms-small.txt for the guideline adapter.
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Build Storybook
+        run: npm run build-storybook -- --quiet
+      - name: Build docs site
+        run: npm ci && npm run build
+        working-directory: docs
+        env:
+          DOCS_BASE: /tenet-ui
+          STORYBOOK_URL: https://apurvkhare.github.io/tenet-ui/storybook
+      - name: Assemble site (docs at /, Storybook at /storybook/)
+        run: |
+          rm -rf _site && mkdir -p _site
+          cp -R docs/dist/. _site/
+          mkdir -p _site/storybook && cp -R storybook-static/. _site/storybook/
+          touch _site/.nojekyll
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      DS_SERVER_GUIDELINES_URL: ${{ secrets.DS_SERVER_GUIDELINES_URL }}
+      DS_SERVER_INGEST_TOKEN: ${{ secrets.DS_SERVER_INGEST_TOKEN }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Notify the design-system MCP server's guidelines webhook (optional)
+        if: ${{ env.DS_SERVER_GUIDELINES_URL != '' }}
+        run: |
+          curl -fsS -X POST "$DS_SERVER_GUIDELINES_URL" \
+            -H "Authorization: Bearer $DS_SERVER_INGEST_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"package\":\"tenet-ui\",\"docs\":\"${PAGE_URL}\",\"llms\":\"${PAGE_URL}llms.txt\",\"commit\":\"${GITHUB_SHA}\"}"
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}

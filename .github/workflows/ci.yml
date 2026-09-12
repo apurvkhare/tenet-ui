@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Typecheck, build, catalog drift, Storybook, a11y
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Typecheck (strict)
+        run: npm run typecheck
+      - name: Build package (icons → js → tokens → catalog → styles)
+        run: npm run build
+      - name: Generated artifacts are committed and current (no drift)
+        run: |
+          git diff --exit-code -- generated src/icons dist/tokens.json dist/tokens.css \
+            || { echo "::error::generated output drifted from source — run 'npm run build' and commit"; exit 1; }
+      - name: Build Storybook
+        run: npm run build-storybook -- --quiet
+      - name: Story ids in catalog match the Storybook index
+        run: npm run check:story-ids
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium-headless-shell
+      - name: axe over every story, light and dark
+        run: npm run check:a11y
+      - name: Baselines (smoke subset)
+        run: npm run build:baselines -- --filter button
+      - uses: actions/upload-artifact@v4
+        with:
+          name: storybook-static
+          path: storybook-static
+          retention-days: 7
+
+  eslint-plugin:
+    name: eslint-plugin-tenet-ui tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: packages/eslint-plugin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm test
+
+  docs:
+    name: Docs site builds
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm ci
+        working-directory: docs
+      - run: npm run build
+        working-directory: docs
