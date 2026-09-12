@@ -72,7 +72,7 @@ scripts/                 build-icons · build-tokens · build-catalog · build-s
 .storybook/              Storybook (React + Vite), light/dark toolbar
 docs/                    Astro Starlight docs site (standalone npm project)
 packages/eslint-plugin/  eslint-plugin-tenet-ui (standalone npm project)
-.github/workflows/       ci · release (npm publish with provenance) · pages (docs + Storybook)
+.github/workflows/       ci · release (npm publish via trusted publishing, GitHub Release + baselines) · pages (docs + Storybook → Cloudflare Pages)
 ```
 
 One component is one folder and one PR. Types are the truth: props, defaults and deprecations in the catalog come from the `.types.ts` / `.tsx` files; only `status`, `a11yReviewed`, the subcomponent→interface mapping and `related` are kept by hand in `meta.json`.
@@ -94,15 +94,36 @@ npm run build-storybook  # static Storybook → storybook-static/
 npm run check:story-ids  # catalog story ids == Storybook index
 npm run check:a11y       # axe over every story, light + dark (needs a Playwright browser)
 npm run build:baselines  # per-story screenshots at 1280, light + dark → baselines/
+npm run build:site       # docs + Storybook assembled into _site/ (docs at /, Storybook at /storybook/)
+npm run deploy           # build:site, then publish _site/ to Cloudflare Pages (needs `npx wrangler login` once)
 ```
 
-Docs site: `cd docs && npm ci && npm run build`. Full static site (docs + Storybook): `npm run build:site` → `_site/`; `npm run deploy` publishes it to Cloudflare Pages (project `tenet-ui`, needs `wrangler login` once). ESLint plugin: `cd packages/eslint-plugin && npm ci && npm test`.
+Docs site on its own: `cd docs && npm ci && npm run build`. ESLint plugin: `cd packages/eslint-plugin && npm ci && npm test`.
+
+## Continuous integration
+
+Every push and pull request runs `ci.yml`: strict typecheck, package build, a drift check that fails if `generated/`, `src/icons/` or the built tokens differ from what is committed, the Storybook build, the story-id check, axe over every story in both themes, a baseline smoke run, the ESLint plugin tests, and the docs build.
+
+## Deploying the docs and Storybook
+
+`pages.yml` deploys to Cloudflare Pages (project `tenet-ui`) on every push to `main` and on release tags; pull requests get a preview URL. It needs two repository secrets: `CLOUDFLARE_API_TOKEN` (a token with *Cloudflare Pages: Edit*) and `CLOUDFLARE_ACCOUNT_ID`. The site URL is baked in at build time (`SITE_URL`, default `https://tenet-ui.pages.dev`); Storybook links in the docs point at `<SITE_URL>/storybook`. To deploy from a laptop instead, run `npm run deploy` after a one-time `npx wrangler login`.
 
 ## Releasing
 
+Publishing is automated and token-free. The npm package trusts this repository's `release.yml` workflow through [npm trusted publishing](https://docs.npmjs.com/trusted-publishers) (OpenID Connect), so there is no `NPM_TOKEN` to store or rotate and every version carries a signed provenance attestation linking it to the exact commit and workflow run.
+
 1. Update `CHANGELOG.md` and bump `version` in `package.json`.
-2. `npm run build` and commit the generated output (CI fails on drift).
-3. Tag `vX.Y.Z` and push the tag. The release workflow typechecks, builds, runs the story checks, publishes to npm with provenance (needs `NPM_TOKEN` or npm Trusted Publishing), attaches the baselines to the GitHub release, and notifies the design-system MCP server if its webhook secrets are set.
+2. `npm run build`, then commit the generated output (CI fails on drift).
+3. Create an annotated tag whose name is `v` + the package version, and push it:
+
+   ```bash
+   git tag -a v0.4.0 -m "tenet-ui 0.4.0"
+   git push origin v0.4.0
+   ```
+
+The release workflow refuses to run if the tag and `package.json` disagree. It then typechecks, builds, builds Storybook, checks story ids, runs axe over every story in both themes, builds the full baseline set, publishes to npm with provenance, creates the GitHub Release with generated notes and `baselines-vX.Y.Z.tgz` attached, and, if the optional `DS_SERVER_INGEST_URL` / `DS_SERVER_INGEST_TOKEN` or `DS_MCP_REPO_TOKEN` secrets are set, notifies the design-system MCP server.
+
+To change the trusted publisher (for example after renaming the workflow), delete and recreate it on the package's *Settings* page on npmjs.com: publisher GitHub Actions, repository `apurvkhare/tenet-ui`, workflow filename `release.yml`, no environment, *Allow npm publish* enabled.
 
 ## License
 
