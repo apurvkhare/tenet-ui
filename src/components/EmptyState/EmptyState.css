@@ -1,0 +1,36 @@
+/* Tenet EmptyState — centered headline + explanation + next step. Layout comes from Stack; this file
+   only adds the padding, the measure, and the decorative icon's size and color — all from tokens. */
+.Tenet-EmptyState {
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+}
+.Tenet-EmptyState--size-large {
+  padding: calc(var(--space-6) * 2) var(--space-5);
+}
+
+.Tenet-EmptyState__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--base-size-40);
+  height: var(--base-size-40);
+  color: var(--fgColor-muted);
+}
+.Tenet-EmptyState--size-large .Tenet-EmptyState__icon {
+  width: calc(var(--base-size-40) + var(--base-size-16));
+  height: calc(var(--base-size-40) + var(--base-size-16));
+}
+.Tenet-EmptyState__icon > svg,
+.Tenet-EmptyState__icon > img {
+  width: 100%;
+  height: 100%;
+}
+
+/* Keep the copy to a readable measure even in a wide region */
+.Tenet-EmptyState__body {
+  max-width: 48ch;
+}
+.Tenet-EmptyState__title {
+  text-align: center;
+}

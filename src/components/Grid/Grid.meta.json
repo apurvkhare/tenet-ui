@@ -1,0 +1,14 @@
+{
+  "id": "grid",
+  "name": "Grid",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "GridProps",
+  "subcomponents": [
+    {
+      "name": "Grid.Item",
+      "props": "GridItemProps"
+    }
+  ],
+  "related": ["stack", "card"]
+}

@@ -1,0 +1,69 @@
+/* Tenet Text — body copy on the sans scale. Size, tone and weight are tokens; nothing is hardcoded. */
+.Tenet-Text {
+  margin: 0;
+  font-family: var(--fontFamily-body);
+  line-height: var(--lineHeight-default);
+  color: var(--fgColor-default);
+}
+
+/* Size — the body type scale */
+.Tenet-Text--size-small {
+  font-size: var(--fontSize-0);
+}
+.Tenet-Text--size-medium {
+  font-size: var(--fontSize-1);
+}
+.Tenet-Text--size-large {
+  font-size: var(--fontSize-2);
+}
+
+/* Tone — semantic foreground tokens (AA on default/muted surfaces in both themes) */
+.Tenet-Text--tone-default {
+  color: var(--fgColor-default);
+}
+.Tenet-Text--tone-muted {
+  color: var(--fgColor-muted);
+}
+.Tenet-Text--tone-accent {
+  color: var(--fgColor-accent);
+}
+.Tenet-Text--tone-success {
+  color: var(--fgColor-success);
+}
+.Tenet-Text--tone-danger {
+  color: var(--fgColor-danger);
+}
+.Tenet-Text--tone-attention {
+  color: var(--fgColor-attention);
+}
+
+/* Weight */
+.Tenet-Text--weight-normal {
+  font-weight: var(--fontWeight-normal);
+}
+.Tenet-Text--weight-medium {
+  font-weight: var(--fontWeight-medium);
+}
+.Tenet-Text--weight-semibold {
+  font-weight: var(--fontWeight-semibold);
+}
+
+/* Alignment (logical) */
+.Tenet-Text--align-start {
+  text-align: start;
+}
+.Tenet-Text--align-center {
+  text-align: center;
+}
+.Tenet-Text--align-end {
+  text-align: end;
+}
+
+.Tenet-Text--truncate {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

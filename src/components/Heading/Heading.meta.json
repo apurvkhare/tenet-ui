@@ -1,0 +1,9 @@
+{
+  "id": "heading",
+  "name": "Heading",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "HeadingProps",
+  "subcomponents": [],
+  "related": ["text", "empty-state", "stack"]
+}

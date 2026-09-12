@@ -1,0 +1,97 @@
+/* Tenet Grid — token-based CSS grid layout. Track counts arrive as custom properties set inline by the
+   component (--Tenet-Grid-columns-{base,sm,md,lg}); each breakpoint falls back to the previous one.
+   Spacing comes only from the `space` scale.
+
+   Breakpoints: CSS @media cannot read var(), so the three min-widths below are the literal values of
+   --breakpoint-sm (640px), --breakpoint-md (960px) and --breakpoint-lg (1280px) from tokens/tokens.json.
+   If a breakpoint token changes, change it here too. */
+.Tenet-Grid {
+  display: grid;
+  grid-template-columns: repeat(var(--Tenet-Grid-columns-base, 1), minmax(0, 1fr));
+}
+
+.Tenet-Grid__item {
+  min-width: 0;
+}
+.Tenet-Grid__item--span {
+  grid-column: span var(--Tenet-Grid-Item-span-base, 1);
+}
+
+/* --breakpoint-sm */
+@media (min-width: 640px) {
+  .Tenet-Grid {
+    grid-template-columns: repeat(var(--Tenet-Grid-columns-sm, var(--Tenet-Grid-columns-base, 1)), minmax(0, 1fr));
+  }
+  .Tenet-Grid__item--span {
+    grid-column: span var(--Tenet-Grid-Item-span-sm, var(--Tenet-Grid-Item-span-base, 1));
+  }
+}
+
+/* --breakpoint-md */
+@media (min-width: 960px) {
+  .Tenet-Grid {
+    grid-template-columns: repeat(
+      var(--Tenet-Grid-columns-md, var(--Tenet-Grid-columns-sm, var(--Tenet-Grid-columns-base, 1))),
+      minmax(0, 1fr)
+    );
+  }
+  .Tenet-Grid__item--span {
+    grid-column: span var(--Tenet-Grid-Item-span-md, var(--Tenet-Grid-Item-span-sm, var(--Tenet-Grid-Item-span-base, 1)));
+  }
+}
+
+/* --breakpoint-lg */
+@media (min-width: 1280px) {
+  .Tenet-Grid {
+    grid-template-columns: repeat(
+      var(--Tenet-Grid-columns-lg, var(--Tenet-Grid-columns-md, var(--Tenet-Grid-columns-sm, var(--Tenet-Grid-columns-base, 1)))),
+      minmax(0, 1fr)
+    );
+  }
+  .Tenet-Grid__item--span {
+    grid-column: span
+      var(--Tenet-Grid-Item-span-lg, var(--Tenet-Grid-Item-span-md, var(--Tenet-Grid-Item-span-sm, var(--Tenet-Grid-Item-span-base, 1))));
+  }
+}
+
+/* Gap — from the space scale (both axes) */
+.Tenet-Grid--gap-none {
+  gap: 0;
+}
+.Tenet-Grid--gap-condensed {
+  gap: var(--space-2);
+}
+.Tenet-Grid--gap-normal {
+  gap: var(--space-4);
+}
+.Tenet-Grid--gap-spacious {
+  gap: var(--space-5);
+}
+
+/* Row gap override — declared after `gap` so it wins */
+.Tenet-Grid--rowGap-none {
+  row-gap: 0;
+}
+.Tenet-Grid--rowGap-condensed {
+  row-gap: var(--space-2);
+}
+.Tenet-Grid--rowGap-normal {
+  row-gap: var(--space-4);
+}
+.Tenet-Grid--rowGap-spacious {
+  row-gap: var(--space-5);
+}
+
+/* Block-axis alignment within a row */
+.Tenet-Grid--align-start {
+  align-items: start;
+}
+.Tenet-Grid--align-center {
+  align-items: center;
+}
+.Tenet-Grid--align-end {
+  align-items: end;
+}
+.Tenet-Grid--align-stretch {
+  align-items: stretch;
+}

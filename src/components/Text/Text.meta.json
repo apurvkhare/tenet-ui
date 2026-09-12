@@ -1,0 +1,9 @@
+{
+  "id": "text",
+  "name": "Text",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "TextProps",
+  "subcomponents": [],
+  "related": ["heading", "empty-state", "label"]
+}

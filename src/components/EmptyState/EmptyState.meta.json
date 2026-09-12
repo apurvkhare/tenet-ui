@@ -1,0 +1,9 @@
+{
+  "id": "empty-state",
+  "name": "EmptyState",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "EmptyStateProps",
+  "subcomponents": [],
+  "related": ["heading", "text", "button", "data-table", "card"]
+}
