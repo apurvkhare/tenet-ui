@@ -13,7 +13,7 @@
 .Tenet-SegmentedControl--size-small {
   height: var(--control-small-size);
 }
-.Tenet-SegmentedControl--block {
+.Tenet-SegmentedControl--fullWidth {
   display: flex;
   width: 100%;
 }

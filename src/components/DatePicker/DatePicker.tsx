@@ -4,6 +4,7 @@ import { dayKey, formatDate } from '../Calendar/dateUtils';
 import { Portal, mergeRefs, useAnchoredPosition } from '../../internal/floating';
 import type { DatePickerProps } from './DatePicker.types';
 import './DatePicker.css';
+import { resolveFullWidth } from '../../internal/deprecate';
 
 const cx = (...parts: Array<string | false | undefined>): string => parts.filter(Boolean).join(' ');
 
@@ -25,7 +26,7 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(functio
     locale,
     placeholder = 'Select a date…',
     size = 'medium',
-    block = false,
+    fullWidth, block,
     invalid = false,
     disabled = false,
     required = false,
@@ -37,6 +38,7 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(functio
   },
   ref,
 ) {
+  const isFullWidth = resolveFullWidth('DatePicker', fullWidth, block);
   const reactId = useId();
   const triggerId = id ?? `${reactId}-trigger`;
   const dialogId = `${reactId}-dialog`;
@@ -91,7 +93,7 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(functio
       className={cx(
         'Tenet-DatePicker',
         `Tenet-DatePicker--size-${size}`,
-        block && 'Tenet-DatePicker--block',
+        isFullWidth && 'Tenet-DatePicker--fullWidth',
         invalid && 'Tenet-DatePicker--invalid',
         disabled && 'Tenet-DatePicker--disabled',
         className,

@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import type { ButtonProps } from './Button.types';
 import './Button.css';
+import { resolveFullWidth } from '../../internal/deprecate';
 
 const cx = (...parts: Array<string | false | undefined>): string => parts.filter(Boolean).join(' ');
 
@@ -15,7 +16,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     size = 'medium',
     leadingIcon,
     trailingIcon,
-    block = false,
+    fullWidth, block,
     type = 'button',
     className,
     children,
@@ -23,6 +24,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   },
   ref,
 ) {
+  const isFullWidth = resolveFullWidth('Button', fullWidth, block);
   return (
     <button
       ref={ref}
@@ -31,7 +33,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         'Tenet-Button',
         `Tenet-Button--variant-${variant}`,
         `Tenet-Button--size-${size}`,
-        block && 'Tenet-Button--block',
+        isFullWidth && 'Tenet-Button--fullWidth',
         className,
       )}
       {...rest}

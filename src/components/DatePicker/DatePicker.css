@@ -3,7 +3,7 @@
   position: relative;
   display: inline-block;
 }
-.Tenet-DatePicker--block {
+.Tenet-DatePicker--fullWidth {
   display: block;
   width: 100%;
 }

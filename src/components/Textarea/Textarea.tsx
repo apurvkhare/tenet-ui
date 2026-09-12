@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import type { TextareaProps } from './Textarea.types';
 import './Textarea.css';
+import { resolveFullWidth } from '../../internal/deprecate';
 
 const cx = (...parts: Array<string | false | undefined>): string => parts.filter(Boolean).join(' ');
 
@@ -9,9 +10,10 @@ const cx = (...parts: Array<string | false | undefined>): string => parts.filter
  * instead of a raw `<textarea>`. Always give it an accessible name via FormControl or `aria-label`.
  */
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
-  { block = false, invalid = false, resize = 'vertical', size = 'medium', rows = 4, className, ...rest },
+  { fullWidth, block, invalid = false, resize = 'vertical', size = 'medium', rows = 4, className, ...rest },
   ref,
 ) {
+  const isFullWidth = resolveFullWidth('Textarea', fullWidth, block);
   return (
     <textarea
       ref={ref}
@@ -20,7 +22,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
       className={cx(
         'Tenet-Textarea',
         `Tenet-Textarea--size-${size}`,
-        block && 'Tenet-Textarea--block',
+        isFullWidth && 'Tenet-Textarea--fullWidth',
         invalid && 'Tenet-Textarea--invalid',
         `Tenet-Textarea--resize-${resize}`,
         className,

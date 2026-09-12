@@ -25,6 +25,11 @@ export interface DatePickerProps {
   /** Control height / font scale. */
   size?: DatePickerSize;
   /** Stretch the trigger to fill the available width. */
+  fullWidth?: boolean;
+  /**
+   * Stretch the trigger to fill the available width.
+   * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.
+   */
   block?: boolean;
   /** Invalid state (danger border + aria-invalid). */
   invalid?: boolean;

@@ -1,6 +1,6 @@
-/* Tenet Tag — removable chip for filter tokens / multi-select selections.
-   Soft tinted fill + hairline border, pill radius, normal-case body text (NOT tracked caps —
-   that look belongs to Label). All colors come from semantic tint tokens. */
+/* Tenet Tag — the system's one pill. Read-only status word (no onRemove) or removable chip (onRemove).
+   Soft tinted fill + hairline border, pill radius, normal-case body text. All colors come from
+   semantic tint tokens. Since 0.4.0 it also carries the status variants that `Label` used to own. */
 .Tenet-Tag {
   display: inline-flex;
   align-items: center;
@@ -53,6 +53,26 @@
   background-color: var(--bgColor-accent-muted);
   border-color: var(--borderColor-accent-muted);
   color: var(--fgColor-accent);
+}
+.Tenet-Tag--variant-success {
+  background-color: var(--bgColor-success-muted);
+  border-color: var(--borderColor-success-muted);
+  color: var(--fgColor-success);
+}
+.Tenet-Tag--variant-danger {
+  background-color: var(--bgColor-danger-muted);
+  border-color: var(--borderColor-danger-muted);
+  color: var(--fgColor-danger);
+}
+.Tenet-Tag--variant-attention {
+  background-color: var(--bgColor-attention-muted);
+  border-color: var(--borderColor-attention-muted);
+  color: var(--fgColor-attention);
+}
+.Tenet-Tag--variant-muted {
+  background-color: transparent;
+  border-color: var(--borderColor-default);
+  color: var(--fgColor-muted);
 }
 
 /* Remove control — a real button, inherits the tag's tint via currentColor. */

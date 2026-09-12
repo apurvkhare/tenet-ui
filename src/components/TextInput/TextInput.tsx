@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import type { TextInputProps } from './TextInput.types';
 import './TextInput.css';
+import { resolveFullWidth } from '../../internal/deprecate';
 
 const cx = (...parts: Array<string | false | undefined>): string => parts.filter(Boolean).join(' ');
 
@@ -10,15 +11,16 @@ const cx = (...parts: Array<string | false | undefined>): string => parts.filter
  * Always pass an accessible name via `aria-label` or an associated `<label>`.
  */
 export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
-  { size = 'medium', block = false, leadingVisual, trailingVisual, invalid = false, className, disabled, ...rest },
+  { size = 'medium', fullWidth, block, leadingVisual, trailingVisual, invalid = false, className, disabled, ...rest },
   ref,
 ) {
+  const isFullWidth = resolveFullWidth('TextInput', fullWidth, block);
   return (
     <span
       className={cx(
         'Tenet-TextInput',
         `Tenet-TextInput--size-${size}`,
-        block && 'Tenet-TextInput--block',
+        isFullWidth && 'Tenet-TextInput--fullWidth',
         invalid && 'Tenet-TextInput--invalid',
         disabled && 'Tenet-TextInput--disabled',
         className,

@@ -39,7 +39,7 @@
   font-size: var(--fontSize-2);
 }
 
-.Tenet-Textarea--block {
+.Tenet-Textarea--fullWidth {
   display: block;
   width: 100%;
 }

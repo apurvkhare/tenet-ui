@@ -1,9 +1,12 @@
 {
   "id": "label",
   "name": "Label",
-  "status": "stable",
+  "status": "deprecated",
   "a11yReviewed": true,
   "props": "LabelProps",
   "subcomponents": [],
-  "related": []
+  "related": [
+    "tag",
+    "badge"
+  ]
 }

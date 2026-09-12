@@ -20,6 +20,11 @@ export interface NumberInputProps
   /** Control height / font scale. */
   size?: NumberInputSize;
   /** Stretch the field to fill the available width. */
+  fullWidth?: boolean;
+  /**
+   * Stretch the field to fill the available width.
+   * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.
+   */
   block?: boolean;
   /** Mark the field as invalid (sets `aria-invalid` and a danger border). */
   invalid?: boolean;

@@ -3,7 +3,7 @@
   position: relative;
   display: inline-block;
 }
-.Tenet-Select--block {
+.Tenet-Select--fullWidth {
   display: block;
   width: 100%;
 }

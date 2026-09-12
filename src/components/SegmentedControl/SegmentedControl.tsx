@@ -2,6 +2,7 @@ import { forwardRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import type { SegmentedControlProps } from './SegmentedControl.types';
 import './SegmentedControl.css';
+import { resolveFullWidth } from '../../internal/deprecate';
 
 const cx = (...parts: Array<string | false | undefined>): string => parts.filter(Boolean).join(' ');
 
@@ -11,9 +12,10 @@ const cx = (...parts: Array<string | false | undefined>): string => parts.filter
  * focus), with a roving tab stop. For many options or free text use `Select`; for on/off use `Switch`.
  */
 export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps>(function SegmentedControl(
-  { options, value, defaultValue, onChange, size = 'medium', block = false, className, 'aria-label': ariaLabel, ...rest },
+  { options, value, defaultValue, onChange, size = 'medium', fullWidth, block, className, 'aria-label': ariaLabel, ...rest },
   ref,
 ) {
+  const isFullWidth = resolveFullWidth('SegmentedControl', fullWidth, block);
   const isControlled = value !== undefined;
   const [internal, setInternal] = useState(defaultValue ?? options.find((o) => !o.disabled)?.value ?? '');
   const current = isControlled ? value : internal;
@@ -57,7 +59,7 @@ export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps
       className={cx(
         'Tenet-SegmentedControl',
         `Tenet-SegmentedControl--size-${size}`,
-        block && 'Tenet-SegmentedControl--block',
+        isFullWidth && 'Tenet-SegmentedControl--fullWidth',
         className,
       )}
       onKeyDown={onKeyDown}

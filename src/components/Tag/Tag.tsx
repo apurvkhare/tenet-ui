@@ -5,9 +5,10 @@ import './Tag.css';
 const cx = (...parts: Array<string | false | undefined>): string => parts.filter(Boolean).join(' ');
 
 /**
- * Tenet Tag — a removable chip for filter tokens and multi-select selections. Use it for
- * user-applied tokens the user can dismiss (e.g. active filters, selected recipients). For a
- * non-interactive status pill (passing/failing), use `Label` instead; for a count/dot, use `Badge`.
+ * Tenet Tag — the system's pill. Without `onRemove` it is a read-only word attached to an item
+ * (a status such as "Published", a category, a keyword) coloured by `variant`. With `onRemove` it
+ * becomes a removable chip for user-applied tokens (active filters, selected recipients). For a
+ * count or presence dot use `Badge`. (Replaces the deprecated `Label` since 0.4.0.)
  *
  * The one rule people get wrong: Tag is stateless. Setting `onRemove` renders a real <button>, but
  * the parent owns the collection — your handler must drop the item, Tag won't remove itself.

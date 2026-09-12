@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import type { NumberInputProps } from './NumberInput.types';
 import './NumberInput.css';
+import { resolveFullWidth } from '../../internal/deprecate';
 
 const cx = (...parts: Array<string | false | undefined>): string => parts.filter(Boolean).join(' ');
 
@@ -34,7 +35,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
     max,
     step = 1,
     size = 'medium',
-    block = false,
+    fullWidth, block,
     invalid = false,
     className,
     disabled,
@@ -44,6 +45,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
   },
   ref,
 ) {
+  const isFullWidth = resolveFullWidth('NumberInput', fullWidth, block);
   const isControlled = value !== undefined;
   const [text, setText] = useState<string>(() => toText(isControlled ? value : defaultValue));
   const innerRef = useRef<HTMLInputElement | null>(null);
@@ -95,7 +97,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
       className={cx(
         'Tenet-NumberInput',
         `Tenet-NumberInput--size-${size}`,
-        block && 'Tenet-NumberInput--block',
+        isFullWidth && 'Tenet-NumberInput--fullWidth',
         invalid && 'Tenet-NumberInput--invalid',
         disabled && 'Tenet-NumberInput--disabled',
         className,

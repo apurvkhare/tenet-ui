@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Tag } from './Tag';
 
 const meta: Meta<typeof Tag> = {
@@ -7,7 +7,7 @@ const meta: Meta<typeof Tag> = {
   component: Tag,
   args: { children: 'Tag' },
   argTypes: {
-    variant: { control: 'inline-radio', options: ['default', 'accent'] },
+    variant: { control: 'select', options: ['default', 'accent', 'success', 'danger', 'attention', 'muted'] },
     size: { control: 'inline-radio', options: ['small', 'medium'] },
   },
 };
@@ -22,6 +22,23 @@ export const Variants: Story = {
     <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
       <Tag variant="default">default</Tag>
       <Tag variant="accent">accent</Tag>
+      <Tag variant="success">success</Tag>
+      <Tag variant="danger">danger</Tag>
+      <Tag variant="attention">attention</Tag>
+      <Tag variant="muted">muted</Tag>
+    </div>
+  ),
+};
+
+/** Read-only status words on a row — the use case that used to belong to the deprecated `Label`. */
+export const StatusPills: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
+      <Tag variant="success">Published</Tag>
+      <Tag variant="attention">In review</Tag>
+      <Tag variant="muted">Draft</Tag>
+      <Tag variant="accent">Scheduled</Tag>
+      <Tag variant="danger">Blocked</Tag>
     </div>
   ),
 };

@@ -3,6 +3,7 @@ import type { KeyboardEvent } from 'react';
 import { Portal, mergeRefs, useAnchoredPosition } from '../../internal/floating';
 import type { SelectOption, SelectProps } from './Select.types';
 import './Select.css';
+import { resolveFullWidth } from '../../internal/deprecate';
 
 const cx = (...parts: Array<string | false | undefined>): string => parts.filter(Boolean).join(' ');
 
@@ -35,7 +36,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
     onChange,
     placeholder = 'Select…',
     size = 'medium',
-    block = false,
+    fullWidth, block,
     invalid = false,
     disabled = false,
     required = false,
@@ -48,6 +49,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
   },
   ref,
 ) {
+  const isFullWidth = resolveFullWidth('Select', fullWidth, block);
   const reactId = useId();
   const triggerId = id ?? `${reactId}-trigger`;
   const listboxId = `${reactId}-listbox`;
@@ -181,7 +183,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
       className={cx(
         'Tenet-Select',
         `Tenet-Select--size-${size}`,
-        block && 'Tenet-Select--block',
+        isFullWidth && 'Tenet-Select--fullWidth',
         invalid && 'Tenet-Select--invalid',
         disabled && 'Tenet-Select--disabled',
         open && 'Tenet-Select--open',

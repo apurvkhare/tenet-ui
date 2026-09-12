@@ -17,7 +17,7 @@
   box-shadow: var(--shadow-focus);
 }
 
-.Tenet-NumberInput--block {
+.Tenet-NumberInput--fullWidth {
   display: flex;
   width: 100%;
 }

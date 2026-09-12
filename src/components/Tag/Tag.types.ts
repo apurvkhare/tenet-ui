@@ -1,10 +1,13 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 
-export type TagVariant = 'default' | 'accent';
+export type TagVariant = 'default' | 'accent' | 'success' | 'danger' | 'attention' | 'muted';
 export type TagSize = 'small' | 'medium';
 
 export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
-  /** Semantic color scheme. Pick by meaning (accent for the active/selected token), not by raw color. */
+  /**
+   * Semantic color scheme. Pick by meaning, never by raw color: `accent` for an active/selected token,
+   * `success` / `danger` / `attention` for status words, `muted` for a quiet neutral, `default` otherwise.
+   */
   variant?: TagVariant;
   /** Tag size. */
   size?: TagSize;

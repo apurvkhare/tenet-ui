@@ -27,6 +27,11 @@ export interface SegmentedControlProps extends Omit<HTMLAttributes<HTMLDivElemen
   /** Control height / font scale. */
   size?: SegmentedControlSize;
   /** Stretch segments to fill the available width. */
+  fullWidth?: boolean;
+  /**
+   * Stretch segments to fill the available width.
+   * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.
+   */
   block?: boolean;
   /** Accessible name for the group (required for screen readers). */
   'aria-label'?: string;
