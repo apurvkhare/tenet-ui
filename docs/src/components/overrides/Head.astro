@@ -1,0 +1,30 @@
+---
+// Starlight <Head> override: default head + a content hash for the server's weekly crawl + a
+// sync of tenet-ui's `data-color-mode` with Starlight's `data-theme` so tenet components theme
+// with the site.
+import Default from '@astrojs/starlight/components/Head.astro';
+import { createHash } from 'node:crypto';
+
+const { entry, lastUpdated } = Astro.locals.starlightRoute;
+const data = entry.data as { contentHash?: string };
+// Generated pages carry a hash of their repo inputs; hand-written pages fall back to their own body.
+const contentHash = data.contentHash ?? createHash('sha256').update(entry.body ?? entry.id).digest('hex');
+---
+
+<Default><slot /></Default>
+<meta name="content-hash" content={contentHash} />
+{lastUpdated && <meta name="last-updated" content={lastUpdated.toISOString().slice(0, 10)} />}
+<script is:inline>
+  (function () {
+    var root = document.documentElement;
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    function sync() {
+      var theme = root.dataset.theme;
+      if (theme !== 'light' && theme !== 'dark') theme = mq.matches ? 'dark' : 'light';
+      if (root.dataset.colorMode !== theme) root.dataset.colorMode = theme;
+    }
+    sync();
+    new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    mq.addEventListener('change', sync);
+  })();
+</script>

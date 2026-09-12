@@ -1,0 +1,56 @@
+---
+import { Badge, Code } from '@astrojs/starlight/components';
+import { getComponent, siteMeta, findDeprecation, replacementFromMessage } from '../lib/data';
+
+interface Props {
+  id: string;
+}
+const c = getComponent(Astro.props.id);
+if (!c) throw new Error(`ComponentHeader: unknown component "${Astro.props.id}"`);
+
+const importPath = c.importPath ?? 'tenet-ui';
+const importNames = [c.name, ...(c.subcomponents ?? []).filter((s) => s.kind === 'hook').map((s) => s.name)];
+const importLine = `import { ${importNames.join(', ')} } from '${importPath}';`;
+const deprecation = c.deprecated ? findDeprecation(c.name) : undefined;
+const replacement = deprecation?.replacement ?? replacementFromMessage(c.deprecated);
+const statusVariant = c.status === 'stable' ? 'success' : c.status === 'deprecated' ? 'caution' : 'note';
+---
+
+<div class="tenet-component-header not-content">
+  <div class="tenet-badges">
+    {c.status && <Badge text={`Status: ${c.status}`} variant={statusVariant} />}
+    <Badge text={c.a11yReviewed ? 'Accessibility reviewed' : 'Accessibility review pending'} variant={c.a11yReviewed ? 'success' : 'caution'} />
+    {c.deprecated && <Badge text="Deprecated" variant="danger" />}
+    <span class="tenet-version">{siteMeta.package}@{siteMeta.version}</span>
+  </div>
+  {
+    c.deprecated && (
+      <p class="tenet-deprecation">
+        <strong>Deprecated.</strong> {typeof c.deprecated === 'string' ? c.deprecated : ''}
+        {replacement && !String(c.deprecated).includes(replacement) && (
+          <>
+            {' '}Use <code>{replacement}</code> instead.
+          </>
+        )}
+        {deprecation?.since && <> (since {deprecation.since})</>}
+      </p>
+    )
+  }
+</div>
+
+<Code code={importLine} lang="tsx" title="Import" />
+
+{
+  c.extends && c.extends.length > 0 && (
+    <p class="tenet-extends">
+      Also accepts every prop of {c.extends.map((e, i) => (
+        <>
+          {i > 0 && ', '}
+          <code>{e}</code>
+        </>
+      ))}
+      .
+    </p>
+  )
+}
+{c.source && <p class="tenet-source">Source: <a href={`${siteMeta.repoUrl}/blob/main/${c.source}`}>{c.source}</a></p>}

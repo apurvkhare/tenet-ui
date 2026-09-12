@@ -1,0 +1,30 @@
+---
+import { getComponent, componentList } from '../lib/data';
+
+interface Props {
+  id: string;
+}
+const c = getComponent(Astro.props.id);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+// Related = the catalog's `related` list plus any component that lists this one.
+const ids = new Set<string>(c?.related ?? []);
+for (const other of componentList) if (other.related?.includes(Astro.props.id)) ids.add(other.id);
+ids.delete(Astro.props.id);
+const related = [...ids].map((id) => getComponent(id)).filter((x): x is NonNullable<typeof x> => Boolean(x));
+---
+
+{
+  related.length > 0 && (
+    <>
+      <h2 id="related-components">Related components</h2>
+      <ul class="tenet-related">
+        {related.map((r) => (
+          <li>
+            <a href={`${base}/components/${r.id}/`}>{r.name}</a>
+            {r.deprecated && <span class="tenet-pill tenet-pill--deprecated">deprecated</span>}
+          </li>
+        ))}
+      </ul>
+    </>
+  )
+}

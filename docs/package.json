@@ -1,0 +1,31 @@
+{
+  "name": "tenet-ui-docs",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Documentation site for tenet-ui (Astro Starlight). Every page is generated from the repo at build time.",
+  "scripts": {
+    "generate": "node scripts/generate-pages.mjs",
+    "predev": "npm run generate",
+    "dev": "astro dev",
+    "prebuild": "npm run generate",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/react": "^6.0.5",
+    "@astrojs/starlight": "^0.42.0",
+    "astro": "^7.3.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.34.0",
+    "starlight-llms-txt": "^0.11.0",
+    "tenet-ui": "file:.."
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "gray-matter": "^4.0.3"
+  }
+}

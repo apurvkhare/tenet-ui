@@ -1,0 +1,33 @@
+---
+// Static (no-JS / llms.txt) companion to the live-example island: every story with its Storybook link.
+import { getComponent, storyUrl, siteMeta } from '../lib/data';
+
+interface Props {
+  id: string;
+}
+const c = getComponent(Astro.props.id);
+const stories = c?.stories ?? [];
+---
+
+{
+  stories.length > 0 && (
+    <details class="tenet-story-links">
+      <summary>
+        {stories.length} {stories.length === 1 ? 'story' : 'stories'} for {c!.name} — open in Storybook
+      </summary>
+      <ul>
+        {stories.map((s) => (
+          <li>
+            <a href={storyUrl(s.id)} rel="noopener">
+              {s.name}
+            </a>{' '}
+            <code class="tenet-muted">{s.id}</code>
+          </li>
+        ))}
+      </ul>
+      <p class="tenet-muted">
+        The full matrix (all args, controls, accessibility panel) is in <a href={siteMeta.storybookUrl}>Storybook</a>.
+      </p>
+    </details>
+  )
+}

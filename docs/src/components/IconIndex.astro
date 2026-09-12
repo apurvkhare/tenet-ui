@@ -1,0 +1,42 @@
+---
+// Static, crawlable index of the icon set (the gallery above is client-only).
+import manifest from '../generated/icons.json';
+const data = manifest as { importPath: string; icons: { name: string; component?: string; category: string; keywords: string[] }[] };
+const byCategory = new Map<string, typeof data.icons>();
+for (const i of data.icons) byCategory.set(i.category, [...(byCategory.get(i.category) ?? []), i]);
+---
+
+{
+  data.icons.length > 0 && (
+    <details class="tenet-story-links">
+      <summary>Full icon index ({data.icons.length}) — name, component export and keywords</summary>
+      {[...byCategory.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([cat, list]) => (
+        <>
+          <h3>{cat}</h3>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Icon</th>
+                  <th>Export</th>
+                  <th>Keywords</th>
+                </tr>
+              </thead>
+              <tbody>
+                {list.map((i) => (
+                  <tr>
+                    <td>{i.name}</td>
+                    <td>
+                      <code>{i.component}</code>
+                    </td>
+                    <td>{i.keywords.join(', ')}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      ))}
+    </details>
+  )
+}

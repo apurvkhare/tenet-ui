@@ -1,0 +1,90 @@
+---
+title: Getting started
+description: "Install tenet-ui, import the single stylesheet, set data-color-mode, and render a first component. This is the runtime contract."
+sidebar:
+  order: 0
+---
+
+import { Aside, Steps, Code } from '@astrojs/starlight/components';
+import { siteMeta, componentList } from '../../lib/data';
+
+`tenet-ui` is a React design system: design tokens as CSS custom properties, {componentList.length} accessible components, and an icon set. It ships as one npm package with **one stylesheet**. This page is the runtime contract: follow it and every component renders styled and themed; skip step 2 and nothing does.
+
+<Steps>
+
+1. **Install the package** (React 18+ is a peer dependency).
+
+   ```bash
+   npm install tenet-ui react react-dom
+   ```
+
+2. **Import the stylesheet once**, at your app root, before any component renders.
+
+   ```tsx
+   // main.tsx / app root
+   import 'tenet-ui/styles.css';
+   ```
+
+   <Aside type="caution" title="Without this import, nothing renders styled">
+     Every component's CSS references design tokens as `var(--token)`. The tokens are *defined* in `tenet-ui/styles.css`. If the stylesheet is not loaded, every `var()` is undefined and the components fall back to browser defaults: unstyled buttons, invisible borders, no theming. A page that "looks almost right" while hardcoding hex colors and pixel values is not using tenet-ui; it is imitating it.
+   </Aside>
+
+3. **Pick a color mode** by setting `data-color-mode` on `<html>` (or `<body>`). Light is the default; the themed tokens (`fgColor`, `bgColor`, `borderColor`) re-resolve off this attribute, so theming needs no component changes.
+
+   ```html
+   <html data-color-mode="dark">…</html>
+   ```
+
+   Put it on the document root, not a wrapper: `Menu`, `Select`, `Popover`, `DatePicker`, `Dialog` and `Toast` portal to `document.body` and read the theme from there.
+
+4. **Render a first component.**
+
+   ```tsx
+   import 'tenet-ui/styles.css';
+   import { Button, FormControl, TextInput, Stack } from 'tenet-ui';
+
+   export function Example() {
+     return (
+       <Stack gap="normal">
+         <FormControl required>
+           <FormControl.Label>Email</FormControl.Label>
+           <TextInput type="email" block />
+         </FormControl>
+         <Button variant="primary">Save changes</Button>
+       </Stack>
+     );
+   }
+   ```
+
+</Steps>
+
+## What you get
+
+| Concern | Use | Never |
+|---|---|---|
+| Colors, spacing, type, radii, shadows | the CSS variables on the [Tokens](/tokens/) page (`var(--bgColor-accent-emphasis)`, `var(--space-3)`) | raw hex / px values |
+| Actions, fields, navigation, feedback, data | the [components](/components/) (`Button`, `TextInput`, `Tabs`, `Banner`, `Table`…) | raw `<button>`, `<input>`, `<table>` where a component exists |
+| Headings and body copy | `Heading` and `Text` | raw `<h1>`–`<h6>` with ad-hoc styles |
+| Layout | `Stack` and `Grid` | one-off flex/grid CSS |
+| Icons | [`tenet-ui/icons`](/icons/) via `leadingIcon` / `trailingIcon` / `IconButton` | inline SVG copied from elsewhere |
+
+## Exports
+
+| Entry | What |
+|---|---|
+| `tenet-ui` | every component and its types |
+| `tenet-ui/styles.css` | the single stylesheet: tokens (light + dark) + component CSS |
+| `tenet-ui/icons` | the icon components |
+| `tenet-ui/tokens.css`, `tenet-ui/tokens.json` | tokens only, for tooling |
+| `tenet-ui/generated/components.json` | the type-derived component catalog, for tooling |
+
+## Where to go next
+
+- [Components](/components/): status, props, guidelines and live examples for each component; every example links to the full matrix in [Storybook]({siteMeta.storybookUrl}).
+- [Foundations & patterns](/foundations/): the system-level decisions every component inherits.
+- [Changelog](/changelog/): releases and the deprecation registry.
+- [GitHub repository]({siteMeta.repoUrl}): source, issues and the build scripts that generate this site.
+
+<Aside type="note" title="Machine-readable">
+  This site also publishes [`llms.txt`](/llms.txt), [`llms-full.txt`](/llms-full.txt) and [`llms-small.txt`](/llms-small.txt), and every page carries a `Last updated` date plus a `<meta name="content-hash">` so a crawler can detect change without diffing bodies.
+</Aside>

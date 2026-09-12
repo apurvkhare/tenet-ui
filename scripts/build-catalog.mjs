@@ -183,6 +183,7 @@ function storiesIn(sourceFile) {
 // 2. Assemble the catalog, one component per folder.
 // ---------------------------------------------------------------------------------------------
 const components = {};
+const folderOf = {}; // id -> src/components/<folder> (RadioGroup lives in Radio/)
 const deprecations = [];
 const problems = [];
 const sourceFor = (path) => program.getSourceFile(path);
@@ -248,6 +249,7 @@ for (const name of componentDirs) {
   if (!guidelines) problems.push(`${name}: missing ${name}.guidelines.md`);
   if (!stories.length) problems.push(`${name}: no stories found`);
 
+  folderOf[meta.id] = name;
   const entry = {
     id: meta.id,
     name: meta.name,
@@ -307,7 +309,7 @@ rmSync(guidelinesOut, { recursive: true, force: true });
 mkdirSync(join(guidelinesOut, 'system'), { recursive: true });
 let guidelineCount = 0;
 for (const c of Object.values(components)) {
-  const src = join(componentsDir, c.name, `${c.name}.guidelines.md`);
+  const src = join(componentsDir, folderOf[c.id], `${folderOf[c.id]}.guidelines.md`);
   if (existsSync(src)) {
     copyFileSync(src, join(guidelinesOut, `${c.id}.md`));
     guidelineCount++;

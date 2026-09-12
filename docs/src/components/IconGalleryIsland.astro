@@ -1,0 +1,9 @@
+---
+// Emits the searchable gallery island only inside a real Starlight page (see lib/is-page.ts).
+// llms*.txt output gets the static <IconIndex /> instead.
+import IconGallery from './IconGallery';
+import { isStarlightPage } from '../lib/is-page';
+const live = isStarlightPage(Astro.locals);
+---
+
+{live && <IconGallery client:only="react" />}

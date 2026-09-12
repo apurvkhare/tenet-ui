@@ -1,0 +1,126 @@
+---
+import { tokens, tokenGroup, isColorValue, type Token } from '../lib/data';
+
+interface Props {
+  group: string;
+}
+const rows = tokens.filter((t) => tokenGroup(t) === Astro.props.group);
+const themed = rows.some((t) => t.themed || t.light !== undefined || t.dark !== undefined);
+const isColorGroup = rows.some((t) => t.type === 'color');
+const hasContrast = rows.some((t) => t.contrast);
+
+const fmt = (v: unknown): string => {
+  if (v === undefined || v === null) return '—';
+  if (typeof v === 'object') return JSON.stringify(v);
+  return String(v);
+};
+/** Contrast pairs come as { light: [names] } or { light: { aa: [names], aaLarge: [names] } }. */
+function contrastFor(t: Token, theme: 'light' | 'dark'): { aa: string[]; aaLarge: string[] } | undefined {
+  const c = (t.contrast as Record<string, unknown> | undefined)?.[theme];
+  if (!c) return undefined;
+  if (Array.isArray(c)) return { aa: c.map(String), aaLarge: [] };
+  const o = c as { aa?: unknown[]; aaLarge?: unknown[] };
+  return { aa: (o.aa ?? []).map(String), aaLarge: (o.aaLarge ?? []).map(String) };
+}
+const previewStyle = (t: Token): string | undefined => {
+  if (t.type === 'shadow') return `box-shadow: ${fmt(t.value)}`;
+  if (t.type === 'fontFamily') return `font-family: ${fmt(t.value)}`;
+  if (tokenGroup(t) === 'borderRadius') return `border-radius: ${fmt(t.value)}`;
+  if (tokenGroup(t) === 'space' || tokenGroup(t) === 'control') return `width: ${fmt(t.value)}; height: ${fmt(t.value)}`;
+  if (tokenGroup(t) === 'borderWidth') return `border-bottom-width: ${fmt(t.value)}`;
+  return undefined;
+};
+---
+
+{
+  rows.length === 0 ? (
+    <p class="tenet-muted">No tokens in this group.</p>
+  ) : (
+    <div class="table-scroll">
+      <table class="tenet-tokens">
+        <thead>
+          <tr>
+            <th>Token</th>
+            <th>CSS variable</th>
+            {themed ? (
+              <>
+                <th>Light</th>
+                <th>Dark</th>
+              </>
+            ) : (
+              <th>Value</th>
+            )}
+            {hasContrast && <th>AA on (light / dark)</th>}
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((t) => {
+            const light = themed ? (t.light ?? t.value) : t.value;
+            const dark = themed ? (t.dark ?? t.value) : undefined;
+            const cl = contrastFor(t, 'light');
+            const cd = contrastFor(t, 'dark');
+            return (
+              <tr>
+                <td>
+                  <code>{t.name}</code>
+                </td>
+                <td>
+                  <code class="tenet-cssvar">var({t.cssVar})</code>
+                </td>
+                <td>
+                  {isColorValue(light) && <span class="tenet-swatch" style={`background:${light}`} aria-hidden="true" />}
+                  {!isColorGroup && previewStyle(t) && (
+                    <span class:list={['tenet-preview', `tenet-preview--${tokenGroup(t)}`]} style={previewStyle(t)} aria-hidden="true">
+                      {t.type === 'fontFamily' ? 'Aa' : ''}
+                    </span>
+                  )}
+                  <code>{fmt(light)}</code>
+                </td>
+                {themed && (
+                  <td>
+                    {isColorValue(dark) && <span class="tenet-swatch tenet-swatch--dark" style={`background:${dark}`} aria-hidden="true" />}
+                    <code>{fmt(dark)}</code>
+                  </td>
+                )}
+                {hasContrast && (
+                  <td class="tenet-contrast">
+                    {cl || cd ? (
+                      <>
+                        <div>
+                          <span class="tenet-muted">light:</span>{' '}
+                          {cl?.aa.length ? cl.aa.map((n) => <code>{n}</code>) : <span class="tenet-muted">—</span>}
+                          {cl?.aaLarge.length ? (
+                            <>
+                              {' '}
+                              <span class="tenet-muted">(large text only:</span> {cl.aaLarge.map((n) => <code>{n}</code>)}
+                              <span class="tenet-muted">)</span>
+                            </>
+                          ) : null}
+                        </div>
+                        <div>
+                          <span class="tenet-muted">dark:</span>{' '}
+                          {cd?.aa.length ? cd.aa.map((n) => <code>{n}</code>) : <span class="tenet-muted">—</span>}
+                          {cd?.aaLarge.length ? (
+                            <>
+                              {' '}
+                              <span class="tenet-muted">(large text only:</span> {cd.aaLarge.map((n) => <code>{n}</code>)}
+                              <span class="tenet-muted">)</span>
+                            </>
+                          ) : null}
+                        </div>
+                      </>
+                    ) : (
+                      <span class="tenet-muted">—</span>
+                    )}
+                  </td>
+                )}
+                <td>{t.description || <span class="tenet-muted">—</span>}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  )
+}

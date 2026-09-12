@@ -1,0 +1,54 @@
+---
+import { deprecations, siteMeta, componentList } from '../lib/data';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const pageFor = (componentName: string) => {
+  const root = componentName.split('.')[0]!;
+  const c = componentList.find((x) => x.name === root);
+  return c ? `${base}/components/${c.id}/` : undefined;
+};
+---
+
+{
+  deprecations.length === 0 ? (
+    <p>
+      Nothing is deprecated in <code>{siteMeta.package}@{siteMeta.version}</code>. This registry (<code>generated/deprecations.json</code>) is
+      generated from <code>@deprecated</code> JSDoc tags on components and props and is the migration source for the deprecations check.
+    </p>
+  ) : (
+    <>
+      <p>
+        {deprecations.length} {deprecations.length === 1 ? 'entry' : 'entries'} in the registry (<code>generated/deprecations.json</code>),
+        generated from <code>@deprecated</code> JSDoc tags. Deprecated APIs keep working for one minor release.
+      </p>
+      <div class="table-scroll">
+        <table class="tenet-deprecations">
+          <thead>
+            <tr>
+              <th>Kind</th>
+              <th>Component</th>
+              <th>Prop</th>
+              <th>Replacement</th>
+              <th>Since</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            {deprecations.map((d) => {
+              const href = pageFor(d.component);
+              return (
+                <tr>
+                  <td>{d.kind}</td>
+                  <td>{href ? <a href={href}>{d.component}</a> : d.component}</td>
+                  <td>{d.prop ? <code>{d.prop}</code> : <span class="tenet-muted">—</span>}</td>
+                  <td>{d.replacement ? <code>{d.replacement}</code> : <span class="tenet-muted">—</span>}</td>
+                  <td>{d.since ?? '—'}</td>
+                  <td set:html={(d.message ?? '').replace(/`([^`]+)`/g, '<code>$1</code>')} />
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </>
+  )
+}

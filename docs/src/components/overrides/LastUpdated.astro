@@ -1,0 +1,15 @@
+---
+// Starlight <LastUpdated> override: always show a date. Generated pages set `lastUpdated` from the
+// source frontmatter / git; anything else falls back to the build date so no page is undated.
+import { siteMeta } from '../../lib/data';
+
+const { lang, lastUpdated } = Astro.locals.starlightRoute;
+const date = lastUpdated ?? new Date(siteMeta.buildDate);
+const fromBuild = !lastUpdated;
+---
+
+<p>
+  {Astro.locals.t('page.lastUpdated')}{' '}
+  <time datetime={date.toISOString()}>{date.toLocaleDateString(lang, { dateStyle: 'medium', timeZone: 'UTC' })}</time>
+  {fromBuild && <span class="tenet-muted"> (build date)</span>}
+</p>

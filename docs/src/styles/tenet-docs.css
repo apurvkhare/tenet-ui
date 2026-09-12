@@ -1,0 +1,343 @@
+/* Light tuning of Starlight's theme with tenet-ui tokens (tenet-ui/styles.css is loaded first).
+   Accent = terracotta (clay). Nothing here restyles tenet components. */
+
+:root {
+  --sl-color-accent-low: var(--base-color-clay-300, #f1c9b4);
+  --sl-color-accent: var(--base-color-clay-500, #c2643a);
+  --sl-color-accent-high: var(--base-color-clay-600, #9e4d28);
+  --sl-color-text-accent: var(--base-color-clay-600, #9e4d28);
+  --sl-font-mono: var(--fontFamily-mono, ui-monospace, monospace);
+}
+:root[data-theme='dark'] {
+  --sl-color-accent-low: var(--base-color-clay-600, #9e4d28);
+  --sl-color-accent: var(--base-color-clay-500, #c2643a);
+  --sl-color-accent-high: var(--base-color-clay-300, #f1c9b4);
+  --sl-color-text-accent: var(--base-color-clay-300, #f1c9b4);
+}
+/* Editorial signature: serif display face for page titles and the site title. */
+.sl-markdown-content h1,
+h1[data-page-title],
+.site-title {
+  font-family: var(--fontFamily-display, Georgia, serif);
+  letter-spacing: -0.01em;
+}
+
+/* ---- shared bits ---- */
+.tenet-muted {
+  color: var(--sl-color-gray-3);
+}
+.table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+}
+.sl-markdown-content .table-scroll table {
+  display: table;
+  width: 100%;
+  margin: 0;
+}
+.tenet-pill {
+  display: inline-block;
+  margin-inline-start: 0.5em;
+  padding: 0 0.5em;
+  border-radius: 999px;
+  font-size: var(--sl-text-xs);
+  line-height: 1.6;
+  vertical-align: middle;
+  background: var(--sl-color-orange-low);
+  color: var(--sl-color-orange-high);
+}
+.tenet-required {
+  color: var(--sl-color-red);
+  font-weight: 700;
+}
+.tenet-related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+/* ---- component header ---- */
+.tenet-component-header {
+  margin-bottom: 1rem;
+}
+.tenet-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.tenet-version {
+  font-family: var(--sl-font-mono);
+  font-size: var(--sl-text-xs);
+  color: var(--sl-color-gray-3);
+}
+.tenet-deprecation {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--sl-color-orange);
+  border-radius: 0.375rem;
+  background: var(--sl-color-orange-low);
+  color: var(--sl-color-white);
+}
+.tenet-extends,
+.tenet-source {
+  font-size: var(--sl-text-sm);
+  color: var(--sl-color-gray-3);
+}
+
+/* ---- props tables ---- */
+.tenet-props-section {
+  margin-top: 1.5rem;
+}
+.tenet-props-section h3 .tenet-kind {
+  font-size: var(--sl-text-xs);
+  font-weight: 400;
+  color: var(--sl-color-gray-3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.tenet-kind--deprecated {
+  color: var(--sl-color-orange-high);
+}
+table.tenet-props td,
+table.tenet-tokens td {
+  vertical-align: top;
+}
+table.tenet-props .tenet-type {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+table.tenet-props .tenet-typeref {
+  font-size: var(--sl-text-xs);
+  font-family: var(--sl-font-mono);
+}
+table.tenet-props tr.is-deprecated td:first-child > code {
+  text-decoration: line-through;
+  text-decoration-color: var(--sl-color-orange);
+}
+.tenet-deprecation-inline {
+  margin-top: 0.35rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--sl-color-orange);
+  border-radius: 0.25rem;
+  background: var(--sl-color-orange-low);
+  font-size: var(--sl-text-sm);
+}
+.tenet-legend {
+  font-size: var(--sl-text-xs);
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ---- tokens ---- */
+.tenet-swatch {
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 4px;
+  border: 1px solid var(--sl-color-gray-5);
+  vertical-align: -0.2em;
+  margin-inline-end: 0.5em;
+}
+.tenet-swatch--dark {
+  border-color: var(--sl-color-gray-4);
+}
+.tenet-preview {
+  display: inline-block;
+  vertical-align: middle;
+  margin-inline-end: 0.5em;
+  background: var(--sl-color-accent-low);
+  color: var(--sl-color-text-accent);
+}
+.tenet-preview--space,
+.tenet-preview--control {
+  border-radius: 2px;
+  min-width: 2px;
+  min-height: 2px;
+}
+.tenet-preview--borderRadius {
+  width: 1.5em;
+  height: 1.5em;
+  border: 2px solid var(--sl-color-accent);
+  background: transparent;
+}
+.tenet-preview--borderWidth {
+  width: 2em;
+  height: 0;
+  border-bottom: 1px solid var(--sl-color-text);
+  background: transparent;
+}
+.tenet-preview--shadow {
+  width: 2em;
+  height: 1.5em;
+  border-radius: 4px;
+  background: var(--sl-color-bg);
+}
+.tenet-preview--fontFamily {
+  background: transparent;
+  color: var(--sl-color-text);
+  font-size: 1.25em;
+  line-height: 1;
+}
+.tenet-cssvar {
+  white-space: nowrap;
+}
+.tenet-contrast code {
+  margin-inline-end: 0.35em;
+  font-size: var(--sl-text-xs);
+}
+
+/* ---- live examples ---- */
+.tenet-example {
+  margin: 1rem 0 1.5rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.tenet-example__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.4rem 0.75rem;
+  background: var(--sl-color-gray-6);
+  border-bottom: 1px solid var(--sl-color-gray-5);
+  font-size: var(--sl-text-sm);
+}
+.tenet-example__name {
+  font-weight: 600;
+}
+.tenet-example__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.tenet-example__modes {
+  display: inline-flex;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.tenet-example__mode {
+  border: 0;
+  background: transparent;
+  color: var(--sl-color-gray-2);
+  font: inherit;
+  font-size: var(--sl-text-xs);
+  padding: 0.15rem 0.6rem;
+  cursor: pointer;
+}
+.tenet-example__mode[aria-pressed='true'] {
+  background: var(--sl-color-accent);
+  color: var(--sl-color-black);
+}
+.tenet-example__link {
+  font-size: var(--sl-text-xs);
+}
+/* The canvas is a real tenet surface: tenet's own themed tokens paint it. */
+.tenet-example__canvas {
+  padding: 1.25rem;
+  background: var(--bgColor-default);
+  color: var(--fgColor-default);
+  font-family: var(--fontFamily-body, inherit);
+  /* an explicit per-example mode overrides the site mode inherited from <html> */
+}
+.tenet-example__canvas[data-color-mode] {
+  color-scheme: light;
+}
+.tenet-example__canvas[data-color-mode='dark'] {
+  color-scheme: dark;
+}
+.tenet-example-error {
+  color: var(--sl-color-red-high);
+  font-size: var(--sl-text-sm);
+}
+.tenet-story-links {
+  margin-top: 1rem;
+  font-size: var(--sl-text-sm);
+}
+.tenet-story-links summary {
+  cursor: pointer;
+}
+
+/* ---- icon gallery ---- */
+.tenet-icon-gallery__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.tenet-icon-gallery__controls input[type='search'] {
+  min-width: 18rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 6px;
+  background: var(--sl-color-bg);
+  color: var(--sl-color-text);
+  font: inherit;
+}
+.tenet-icon-gallery__controls select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 6px;
+  background: var(--sl-color-bg);
+  color: var(--sl-color-text);
+  font: inherit;
+}
+.tenet-icon-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: 0.5rem;
+}
+.tenet-icon {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.75rem 0.5rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 8px;
+  background: var(--sl-color-bg);
+  color: var(--sl-color-text);
+  font: inherit;
+  cursor: pointer;
+}
+.tenet-icon:hover,
+.tenet-icon:focus-visible {
+  border-color: var(--sl-color-accent);
+}
+.tenet-icon__svg svg,
+.tenet-icon > svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+}
+.tenet-icon__name {
+  font-size: var(--sl-text-xs);
+  text-align: center;
+  word-break: break-word;
+}
+.tenet-icon__meta {
+  font-family: var(--sl-font-mono);
+  font-size: 0.65rem;
+  color: var(--sl-color-gray-3);
+  text-align: center;
+  word-break: break-word;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

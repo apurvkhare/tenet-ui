@@ -1,0 +1,108 @@
+---
+import { getComponent, findDeprecation, replacementFromMessage, type PropDoc } from '../lib/data';
+
+interface Props {
+  id: string;
+}
+const c = getComponent(Astro.props.id);
+if (!c) throw new Error(`PropsTable: unknown component "${Astro.props.id}"`);
+
+interface Section {
+  heading: string;
+  ownerName: string;
+  kind?: string;
+  deprecated?: string | boolean;
+  props: PropDoc[];
+}
+const sections: Section[] = [
+  { heading: c.name, ownerName: c.name, props: c.props ?? [] },
+  ...(c.subcomponents ?? []).map((s) => ({
+    heading: s.name,
+    ownerName: s.name,
+    kind: s.kind,
+    deprecated: s.deprecated,
+    props: s.props ?? [],
+  })),
+];
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+const fmtDefault = (v: string | undefined) => (v === undefined || v === '' ? '—' : v);
+---
+
+{
+  sections.map((section) => {
+    const anyDeprecated = section.props.some((p) => p.deprecated);
+    return (
+      <section class="tenet-props-section">
+        {sections.length > 1 && (
+          <h3 id={`props-${slug(section.heading)}`}>
+            <code>{section.heading}</code>
+            {section.kind && section.kind !== 'component' && <span class="tenet-kind"> {section.kind}</span>}
+            {section.deprecated && <span class="tenet-kind tenet-kind--deprecated"> deprecated</span>}
+          </h3>
+        )}
+        {section.deprecated && typeof section.deprecated === 'string' && <p class="tenet-deprecation">{section.deprecated}</p>}
+        {section.props.length === 0 ? (
+          <p class="tenet-muted">No props of its own.</p>
+        ) : (
+          <div class="table-scroll">
+            <table class="tenet-props">
+              <thead>
+                <tr>
+                  <th>Prop</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {section.props.map((p) => {
+                  const reg = p.deprecated ? findDeprecation(section.ownerName, p.name) : undefined;
+                  const replacement = reg?.replacement ?? replacementFromMessage(p.deprecated);
+                  return (
+                    <tr class:list={[{ 'is-deprecated': Boolean(p.deprecated) }]}>
+                      <td>
+                        <code>{p.name}</code>
+                        {p.required && (
+                          <span class="tenet-required" title="Required">
+                            {' '}*
+                          </span>
+                        )}
+                        {p.deprecated && <span class="tenet-pill tenet-pill--deprecated">deprecated</span>}
+                      </td>
+                      <td>
+                        <code class="tenet-type">{p.type}</code>
+                        {p.typeRef && <div class="tenet-muted tenet-typeref">{p.typeRef}</div>}
+                      </td>
+                      <td>{fmtDefault(p.defaultValue) === '—' ? <span class="tenet-muted">—</span> : <code>{p.defaultValue}</code>}</td>
+                      <td>
+                        {p.description && <span set:html={p.description.replace(/`([^`]+)`/g, '<code>$1</code>')} />}
+                        {p.deprecated && (
+                          <div class="tenet-deprecation-inline">
+                            <strong>Deprecated{reg?.since ? ` since ${reg.since}` : ''}.</strong>{' '}
+                            {typeof p.deprecated === 'string' ? (
+                              <span set:html={p.deprecated.replace(/`([^`]+)`/g, '<code>$1</code>')} />
+                            ) : replacement ? (
+                              <>
+                                Use <code>{replacement}</code> instead.
+                              </>
+                            ) : null}
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+        {(section.props.some((p) => p.required) || anyDeprecated) && (
+          <p class="tenet-muted tenet-legend">
+            {section.props.some((p) => p.required) && <span>* required</span>}
+            {anyDeprecated && <span>Deprecated props keep working for one minor release; the replacement is named in the row.</span>}
+          </p>
+        )}
+      </section>
+    );
+  })
+}

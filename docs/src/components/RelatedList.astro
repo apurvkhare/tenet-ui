@@ -1,0 +1,31 @@
+---
+// Renders a foundations page's `related:` frontmatter list as links (component ids or system page ids).
+import { getComponent } from '../lib/data';
+
+interface Props {
+  related: string[];
+}
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const items = (Astro.props.related ?? []).map((id) => {
+  const clean = String(id).replace(/^system\//, '');
+  const c = getComponent(clean);
+  return c
+    ? { label: c.name, href: `${base}/components/${c.id}/` }
+    : { label: clean.replace(/-/g, ' ').replace(/^\w/, (m) => m.toUpperCase()), href: `${base}/foundations/${clean}/` };
+});
+---
+
+{
+  items.length > 0 && (
+    <>
+      <h2 id="related">Related</h2>
+      <ul class="tenet-related">
+        {items.map((i) => (
+          <li>
+            <a href={i.href}>{i.label}</a>
+          </li>
+        ))}
+      </ul>
+    </>
+  )
+}

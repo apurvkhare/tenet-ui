@@ -1,0 +1,39 @@
+---
+title: Tenet UI
+description: "Tenet UI is a React design system: semantic tokens, accessible components and icons, shipped as the tenet-ui package with one stylesheet."
+template: splash
+hero:
+  tagline: Semantic design tokens, accessible React components and an icon set, shipped as one npm package with one stylesheet. Every page of this site is generated from the tenet-ui repository at build time.
+  actions:
+    - text: Get started
+      link: getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: Browse components
+      link: components/
+      icon: open-book
+    - text: GitHub
+      link: https://github.com/apurvkhare/tenet-ui
+      icon: github
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import { componentList, tokens, siteMeta } from '../../lib/data';
+
+<CardGrid>
+  <Card title="Components" icon="puzzle">
+    {componentList.length} components, each documented from its TypeScript types, its usage guidelines and its Storybook stories, rendered live. [Browse components](/components/)
+  </Card>
+  <Card title="Tokens" icon="setting">
+    {tokens.length} design tokens as CSS variables with light and dark values. Components only ever reference the semantic layer. [See the tokens](/tokens/)
+  </Card>
+  <Card title="Foundations" icon="document">
+    Color, typography, layout, forms, feedback, data display, iconography, accessibility and content guidance. [Read the foundations](/foundations/)
+  </Card>
+  <Card title="For agents" icon="rocket">
+    This site publishes [`llms.txt`](/llms.txt), [`llms-full.txt`](/llms-full.txt) and [`llms-small.txt`](/llms-small.txt). Every page carries a `Last updated` date and a `content-hash` meta tag.
+  </Card>
+</CardGrid>
+
+<p class="tenet-muted" style="text-align:center;margin-top:2rem">{siteMeta.package}@{siteMeta.version}</p>

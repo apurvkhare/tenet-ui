@@ -1,0 +1,57 @@
+---
+import { getComponent } from '../lib/data';
+
+interface Props {
+  id: string;
+}
+const c = getComponent(Astro.props.id);
+const types = c?.relatedTypes ?? [];
+const md = (s: string | undefined) => (s ? s.replace(/`([^`]+)`/g, '<code>$1</code>') : '');
+---
+
+{
+  types.length > 0 && (
+    <>
+      <h2 id="related-types">Related types</h2>
+      {types.map((t) => (
+        <section class="tenet-props-section">
+          <h3 id={`type-${t.name.toLowerCase()}`}>
+            <code>{t.name}</code>
+          </h3>
+          {t.description && <p set:html={md(t.description)} />}
+          {t.members && t.members.length > 0 ? (
+            <div class="table-scroll">
+              <table class="tenet-props">
+                <thead>
+                  <tr>
+                    <th>Member</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {t.members.map((m) => (
+                    <tr class:list={[{ 'is-deprecated': Boolean(m.deprecated) }]}>
+                      <td>
+                        <code>{m.name}</code>
+                        {m.required && <span class="tenet-required"> *</span>}
+                      </td>
+                      <td>
+                        <code class="tenet-type">{m.type}</code>
+                      </td>
+                      <td>{m.defaultValue ? <code>{m.defaultValue}</code> : <span class="tenet-muted">—</span>}</td>
+                      <td set:html={md(m.description)} />
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p class="tenet-muted">Opaque type — see the source.</p>
+          )}
+        </section>
+      ))}
+    </>
+  )
+}

@@ -1,0 +1,13 @@
+# dependencies & build output
+node_modules/
+dist/
+.astro/
+
+# Generated at build time by scripts/generate-pages.mjs from ../generated, ../dist, ../CHANGELOG.md.
+# Never edit by hand; never commit.
+src/content/docs/components/
+src/content/docs/foundations/
+src/content/docs/tokens.mdx
+src/content/docs/icons.mdx
+src/content/docs/changelog.mdx
+src/generated/
