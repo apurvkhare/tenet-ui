@@ -40,11 +40,13 @@ jobs:
         run: npm run build:baselines
       - name: Pack baselines
         run: tar -czf baselines-${GITHUB_REF_NAME}.tgz baselines
-      - name: Publish to npm (with provenance)
-        # Requires either an NPM_TOKEN repository secret or npm Trusted Publishing configured for this repo.
+      - name: Upgrade npm (trusted publishing needs npm >= 11.5)
+        run: npm install -g npm@latest
+      - name: Publish to npm (trusted publishing via OIDC, provenance attached automatically)
+        # No token: npmjs.com > package tenet-ui > Settings > Trusted publisher = GitHub Actions,
+        # repository apurvkhare/tenet-ui, workflow release.yml. The id-token permission above is
+        # what lets npm verify this workflow run. 2FA is not involved for OIDC publishes.
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: GitHub release with baselines
         uses: softprops/action-gh-release@v2
         with:
