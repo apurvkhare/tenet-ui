@@ -30,7 +30,7 @@ const ROOT = resolve(DOCS, '..');
 const CONTENT = join(DOCS, 'src/content/docs');
 const GEN = join(DOCS, 'src/generated');
 
-const STORYBOOK_URL = process.env.STORYBOOK_URL ?? 'https://apurvkhare.github.io/tenet-ui/storybook';
+const STORYBOOK_URL = process.env.STORYBOOK_URL ?? 'https://tenet-ui.pages.dev/storybook';
 const BUILD_DATE = new Date();
 
 // ---------------------------------------------------------------- helpers

@@ -1,15 +1,15 @@
 # eslint-plugin-tenet-ui
 
-ESLint rules for the [tenet-ui](https://apurvkhare.github.io/tenet-ui/) design system. Six rules, all `error` in the recommended config, each carrying the guideline section it enforces:
+ESLint rules for the [tenet-ui](https://tenet-ui.pages.dev/) design system. Six rules, all `error` in the recommended config, each carrying the guideline section it enforces:
 
 | Rule | Catches | Guideline |
 |---|---|---|
-| `no-raw-color` | hex / `rgb()` / `hsl()` / named colours in styles | [Foundations › Color](https://apurvkhare.github.io/tenet-ui/foundations/color/) |
-| `no-raw-spacing` | raw `px` / `rem` / `em` / bare numbers for spacing and size properties | [Foundations › Layout](https://apurvkhare.github.io/tenet-ui/foundations/layout/) |
-| `prefer-component` | raw `<button>`, `<input>`, `<select>`, `<textarea>`, `<table>`, `<h1>`–`<h6>`, `<a>` where tenet-ui has a component | [Components](https://apurvkhare.github.io/tenet-ui/components/) |
-| `require-styles-import` | entry files that never import `tenet-ui/styles.css` | [Getting started](https://apurvkhare.github.io/tenet-ui/getting-started/) |
-| `no-deprecated-api` | deprecated props and components from the deprecation registry (props are autofixed) | [Changelog › Deprecations](https://apurvkhare.github.io/tenet-ui/changelog/#deprecations) |
-| `no-unknown-token` | `var(--x)` where `--x` is not a tenet-ui token | [Tokens](https://apurvkhare.github.io/tenet-ui/tokens/) |
+| `no-raw-color` | hex / `rgb()` / `hsl()` / named colours in styles | [Foundations › Color](https://tenet-ui.pages.dev/foundations/color/) |
+| `no-raw-spacing` | raw `px` / `rem` / `em` / bare numbers for spacing and size properties | [Foundations › Layout](https://tenet-ui.pages.dev/foundations/layout/) |
+| `prefer-component` | raw `<button>`, `<input>`, `<select>`, `<textarea>`, `<table>`, `<h1>`–`<h6>`, `<a>` where tenet-ui has a component | [Components](https://tenet-ui.pages.dev/components/) |
+| `require-styles-import` | entry files that never import `tenet-ui/styles.css` | [Getting started](https://tenet-ui.pages.dev/getting-started/) |
+| `no-deprecated-api` | deprecated props and components from the deprecation registry (props are autofixed) | [Changelog › Deprecations](https://tenet-ui.pages.dev/changelog/#deprecations) |
+| `no-unknown-token` | `var(--x)` where `--x` is not a tenet-ui token | [Tokens](https://tenet-ui.pages.dev/tokens/) |
 
 Every message names the fix: the exact token whose value you typed, the nearest token when nothing matches, the component to import, or the replacement prop.
 

@@ -9,10 +9,10 @@ import { resolve } from 'node:path';
 const DOCS = fileURLToPath(new URL('.', import.meta.url));
 const ROOT = resolve(DOCS, '..'); // the tenet-ui repo (also what `tenet-ui` resolves to via file:..)
 
-// GitHub Pages serves under /tenet-ui; Vercel or a custom domain sets DOCS_BASE=/.
-const base = process.env.DOCS_BASE ?? '/tenet-ui';
+// Cloudflare Pages serves at the root; set DOCS_BASE=/tenet-ui for a sub-path host like GitHub Pages.
+const base = process.env.DOCS_BASE ?? '/';
 const REPO_URL = 'https://github.com/apurvkhare/tenet-ui';
-const STORYBOOK_URL = process.env.STORYBOOK_URL ?? 'https://apurvkhare.github.io/tenet-ui/storybook';
+const STORYBOOK_URL = process.env.STORYBOOK_URL ?? 'https://tenet-ui.pages.dev/storybook';
 
 /** Rehype plugin: prefix root-relative links/srcs in Markdown content with `base` so GitHub Pages works. */
 function rehypeBaseLinks() {
@@ -33,7 +33,7 @@ function rehypeBaseLinks() {
 }
 
 export default defineConfig({
-  site: 'https://apurvkhare.github.io',
+  site: process.env.SITE_URL ?? 'https://tenet-ui.pages.dev',
   base,
   trailingSlash: 'always',
   markdown: { rehypePlugins: [rehypeBaseLinks] },

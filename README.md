@@ -2,8 +2,8 @@
 
 The Tenet design system: design tokens, React components, and icons for the **Editorial Ink** identity (warm paper neutrals, terracotta accent, serif display headings). Small, real, and machine-readable: every artifact a design-system tool needs — types, stories, tokens, guidelines, icon manifest, deprecation registry, lint rules — is generated from this repo and shipped in the npm package.
 
-- Docs: https://apurvkhare.github.io/tenet-ui/ (with `llms.txt`)
-- Storybook: https://apurvkhare.github.io/tenet-ui/storybook/
+- Docs: https://tenet-ui.pages.dev/ (with `llms.txt`)
+- Storybook: https://tenet-ui.pages.dev/storybook/
 - npm: [`tenet-ui`](https://www.npmjs.com/package/tenet-ui) · [`eslint-plugin-tenet-ui`](packages/eslint-plugin)
 
 ## Install
@@ -68,7 +68,7 @@ src/internal/            floating layer + deprecation helpers
 tokens/tokens.json       DTCG tokens, light + dark
 guidelines/system/       foundations & patterns (color, typography, layout, forms, feedback, data display, iconography, accessibility, content)
 icons/manifest.json      the curated icon list
-scripts/                 build-icons · build-tokens · build-catalog · build-styles · build-baselines · check-a11y · check-story-ids
+scripts/                 build-icons · build-tokens · build-catalog · build-styles · build-baselines · check-a11y · check-story-ids · build-site
 .storybook/              Storybook (React + Vite), light/dark toolbar
 docs/                    Astro Starlight docs site (standalone npm project)
 packages/eslint-plugin/  eslint-plugin-tenet-ui (standalone npm project)
@@ -96,7 +96,7 @@ npm run check:a11y       # axe over every story, light + dark (needs a Playwrigh
 npm run build:baselines  # per-story screenshots at 1280, light + dark → baselines/
 ```
 
-Docs site: `cd docs && npm ci && npm run build`. ESLint plugin: `cd packages/eslint-plugin && npm ci && npm test`.
+Docs site: `cd docs && npm ci && npm run build`. Full static site (docs + Storybook): `npm run build:site` → `_site/`; `npm run deploy` publishes it to Cloudflare Pages (project `tenet-ui`, needs `wrangler login` once). ESLint plugin: `cd packages/eslint-plugin && npm ci && npm test`.
 
 ## Releasing
 

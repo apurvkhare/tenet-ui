@@ -195,7 +195,7 @@ export function getData(context) {
   return idx;
 }
 
-export const DOCS = 'https://apurvkhare.github.io/tenet-ui/';
+export const DOCS = 'https://tenet-ui.pages.dev/';
 export const GUIDELINE = {
   color: { url: `${DOCS}foundations/color/`, label: 'Foundations > Color' },
   spacing: { url: `${DOCS}foundations/layout/`, label: 'Foundations > Layout (space scale)' },

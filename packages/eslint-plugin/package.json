@@ -28,7 +28,7 @@
     "url": "git+https://github.com/apurvkhare/tenet-ui.git",
     "directory": "packages/eslint-plugin"
   },
-  "homepage": "https://apurvkhare.github.io/tenet-ui/",
+  "homepage": "https://tenet-ui.pages.dev/",
   "scripts": {
     "sync-data": "node scripts/sync-data.mjs",
     "test": "node --test \"tests/**/*.test.js\"",
