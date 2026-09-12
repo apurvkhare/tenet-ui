@@ -1,0 +1,4271 @@
+{
+  "schemaVersion": 2,
+  "package": "tenet-ui",
+  "version": "0.4.0",
+  "generatedFrom": "src/components/**/*.types.ts (props) + *.tsx (defaults) + *.stories.tsx (story ids) + *.meta.json",
+  "components": {
+    "accordion": {
+      "id": "accordion",
+      "name": "Accordion",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Accordion/Accordion.tsx",
+      "types": "src/components/Accordion/Accordion.types.ts",
+      "guidelines": "generated/guidelines/accordion.md",
+      "extends": [],
+      "props": [
+        {
+          "name": "type",
+          "type": "'single' | 'multiple'",
+          "required": false,
+          "defaultValue": "single",
+          "description": "`single` allows one open item (collapsible); `multiple` allows many.",
+          "typeRef": "AccordionType"
+        },
+        {
+          "name": "value",
+          "type": "string[]",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled set of open item values."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string[]",
+          "required": false,
+          "defaultValue": "[]",
+          "description": "Uncontrolled initial open item values."
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: string[]) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called with the new set of open values."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [
+        {
+          "id": "accordion-item",
+          "name": "Accordion.Item",
+          "props": [
+            {
+              "name": "value",
+              "type": "string",
+              "required": true,
+              "defaultValue": "",
+              "description": "Unique value identifying this item."
+            },
+            {
+              "name": "title",
+              "type": "ReactNode",
+              "required": true,
+              "defaultValue": "",
+              "description": "Header text shown on the trigger button."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "required": false,
+              "defaultValue": "false",
+              "description": "Disable this item."
+            },
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            },
+            {
+              "name": "className",
+              "type": "string",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-accordion--single",
+          "name": "Single",
+          "exportName": "Single"
+        },
+        {
+          "id": "components-accordion--multiple",
+          "name": "Multiple",
+          "exportName": "Multiple"
+        }
+      ],
+      "related": [
+        "tabs",
+        "card",
+        "stack",
+        "heading"
+      ]
+    },
+    "avatar": {
+      "id": "avatar",
+      "name": "Avatar",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Avatar/Avatar.tsx",
+      "types": "src/components/Avatar/Avatar.types.ts",
+      "guidelines": "generated/guidelines/avatar.md",
+      "extends": [
+        "Omit<HTMLAttributes<HTMLSpanElement>, 'children'>"
+      ],
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Image URL. When omitted (or it fails to load), initials from `name` are shown."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "defaultValue": "",
+          "description": "Person/entity name — used for initials and as the accessible label."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large' | 'xlarge'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Size from the scale.",
+          "typeRef": "AvatarSize"
+        },
+        {
+          "name": "shape",
+          "type": "'circle' | 'rounded'",
+          "required": false,
+          "defaultValue": "circle",
+          "description": "Circle (people) or rounded square (orgs/repos).",
+          "typeRef": "AvatarShape"
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-avatar--initials",
+          "name": "Initials",
+          "exportName": "Initials"
+        },
+        {
+          "id": "components-avatar--image",
+          "name": "Image",
+          "exportName": "Image"
+        },
+        {
+          "id": "components-avatar--org",
+          "name": "Org",
+          "exportName": "Org"
+        },
+        {
+          "id": "components-avatar--large",
+          "name": "Large",
+          "exportName": "Large"
+        }
+      ],
+      "related": [
+        "badge",
+        "tag",
+        "tooltip",
+        "skeleton"
+      ]
+    },
+    "badge": {
+      "id": "badge",
+      "name": "Badge",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Badge/Badge.tsx",
+      "types": "src/components/Badge/Badge.types.ts",
+      "guidelines": "generated/guidelines/badge.md",
+      "extends": [
+        "HTMLAttributes<HTMLSpanElement>"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'accent' | 'success' | 'danger' | 'attention'",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Semantic color scheme.",
+          "typeRef": "BadgeVariant"
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "required": false,
+          "defaultValue": "",
+          "description": "Numeric count. Rendered with a `max+` overflow when above `max`."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "defaultValue": "99",
+          "description": "Overflow threshold for `count` (e.g. 99 -> \"99+\")."
+        },
+        {
+          "name": "dot",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Render a bare status dot (no text)."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Custom content (overrides count)."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-badge--count",
+          "name": "Count",
+          "exportName": "Count"
+        },
+        {
+          "id": "components-badge--overflow",
+          "name": "Overflow",
+          "exportName": "Overflow"
+        },
+        {
+          "id": "components-badge--dot",
+          "name": "Dot",
+          "exportName": "Dot"
+        },
+        {
+          "id": "components-badge--default",
+          "name": "Default",
+          "exportName": "Default"
+        }
+      ],
+      "related": [
+        "tag",
+        "avatar",
+        "icon-button",
+        "text"
+      ]
+    },
+    "banner": {
+      "id": "banner",
+      "name": "Banner",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Banner/Banner.tsx",
+      "types": "src/components/Banner/Banner.types.ts",
+      "guidelines": "generated/guidelines/banner.md",
+      "extends": [
+        "Omit<HTMLAttributes<HTMLDivElement>, 'title'>"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "'info' | 'success' | 'warning' | 'danger'",
+          "required": false,
+          "defaultValue": "info",
+          "description": "Semantic tone. Pick by meaning, not color.",
+          "typeRef": "BannerVariant"
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Optional bold lead-in line."
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "per variant",
+          "description": "Replace the default leading icon."
+        },
+        {
+          "name": "hideIcon",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Hide the leading icon entirely."
+        },
+        {
+          "name": "onDismiss",
+          "type": "() => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "When provided, renders a dismiss button that calls this."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Body content."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-banner--info",
+          "name": "Info",
+          "exportName": "Info"
+        },
+        {
+          "id": "components-banner--success",
+          "name": "Success",
+          "exportName": "Success"
+        },
+        {
+          "id": "components-banner--warning",
+          "name": "Warning",
+          "exportName": "Warning"
+        },
+        {
+          "id": "components-banner--danger",
+          "name": "Danger",
+          "exportName": "Danger"
+        },
+        {
+          "id": "components-banner--dismissible",
+          "name": "Dismissible",
+          "exportName": "Dismissible"
+        }
+      ],
+      "related": [
+        "toast",
+        "dialog",
+        "form-control",
+        "empty-state"
+      ]
+    },
+    "breadcrumbs": {
+      "id": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Breadcrumbs/Breadcrumbs.tsx",
+      "types": "src/components/Breadcrumbs/Breadcrumbs.types.ts",
+      "guidelines": "generated/guidelines/breadcrumbs.md",
+      "extends": [
+        "Omit<HTMLAttributes<HTMLElement>, 'children'>"
+      ],
+      "props": [
+        {
+          "name": "items",
+          "type": "BreadcrumbItem[]",
+          "required": true,
+          "defaultValue": "",
+          "description": "Ordered trail, root first. The last item is treated as the current page."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Breadcrumb",
+          "description": "Accessible name for the nav landmark."
+        },
+        {
+          "name": "separator",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "/",
+          "description": "Separator glyph between items."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [
+        {
+          "name": "BreadcrumbItem",
+          "description": "",
+          "members": [
+            {
+              "name": "label",
+              "type": "ReactNode",
+              "required": true,
+              "defaultValue": "",
+              "description": "Visible label."
+            },
+            {
+              "name": "href",
+              "type": "string",
+              "required": false,
+              "defaultValue": "",
+              "description": "Link target. Omit for the current page (rendered as plain text)."
+            }
+          ]
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-breadcrumbs--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-breadcrumbs--chevron-separator",
+          "name": "Chevron Separator",
+          "exportName": "ChevronSeparator"
+        }
+      ],
+      "related": [
+        "link",
+        "pagination",
+        "tabs",
+        "heading"
+      ]
+    },
+    "button": {
+      "id": "button",
+      "name": "Button",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Button/Button.tsx",
+      "types": "src/components/Button/Button.types.ts",
+      "guidelines": "generated/guidelines/button.md",
+      "extends": [
+        "ButtonHTMLAttributes<HTMLButtonElement>"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'primary' | 'danger' | 'invisible'",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Visual style of the button. Use `primary` for the single most important action per surface.",
+          "typeRef": "ButtonVariant"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Control height / padding scale.",
+          "typeRef": "ButtonSize"
+        },
+        {
+          "name": "leadingIcon",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Icon rendered before the label."
+        },
+        {
+          "name": "trailingIcon",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Icon rendered after the label."
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch the button to fill the available width."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch the button to fill the available width.",
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Button label."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-button--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-button--primary",
+          "name": "Primary",
+          "exportName": "Primary"
+        },
+        {
+          "id": "components-button--danger",
+          "name": "Danger",
+          "exportName": "Danger"
+        },
+        {
+          "id": "components-button--invisible",
+          "name": "Invisible",
+          "exportName": "Invisible"
+        },
+        {
+          "id": "components-button--sizes",
+          "name": "Sizes",
+          "exportName": "Sizes"
+        },
+        {
+          "id": "components-button--with-leading-icon",
+          "name": "With Leading Icon",
+          "exportName": "WithLeadingIcon"
+        },
+        {
+          "id": "components-button--with-trailing-icon",
+          "name": "With Trailing Icon",
+          "exportName": "WithTrailingIcon"
+        }
+      ],
+      "related": [
+        "icon-button",
+        "link",
+        "dialog",
+        "menu",
+        "icon"
+      ]
+    },
+    "calendar": {
+      "id": "calendar",
+      "name": "Calendar",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Calendar/Calendar.tsx",
+      "types": "src/components/Calendar/Calendar.types.ts",
+      "guidelines": "generated/guidelines/calendar.md",
+      "extends": [],
+      "props": [
+        {
+          "name": "value",
+          "type": "Date | null",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled selected date (null = nothing selected)."
+        },
+        {
+          "name": "defaultValue",
+          "type": "Date | null",
+          "required": false,
+          "defaultValue": "",
+          "description": "Uncontrolled initial selected date."
+        },
+        {
+          "name": "onChange",
+          "type": "(date: Date) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called with the chosen date."
+        },
+        {
+          "name": "month",
+          "type": "Date",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled visible month (any day within the month)."
+        },
+        {
+          "name": "defaultMonth",
+          "type": "Date",
+          "required": false,
+          "defaultValue": "selected | today",
+          "description": "Uncontrolled initial visible month. Defaults to the selected date's month, else today."
+        },
+        {
+          "name": "onMonthChange",
+          "type": "(month: Date) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called when the visible month changes (nav buttons / keyboard paging)."
+        },
+        {
+          "name": "min",
+          "type": "Date",
+          "required": false,
+          "defaultValue": "",
+          "description": "Earliest selectable day (inclusive)."
+        },
+        {
+          "name": "max",
+          "type": "Date",
+          "required": false,
+          "defaultValue": "",
+          "description": "Latest selectable day (inclusive)."
+        },
+        {
+          "name": "weekStartsOn",
+          "type": "WeekStart",
+          "required": false,
+          "defaultValue": "0",
+          "description": "First day of the week: 0 = Sunday (default), 1 = Monday."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "defaultValue": "runtime locale",
+          "description": "BCP-47 locale for month / weekday formatting. Defaults to the runtime locale."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-calendar--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-calendar--with-selection",
+          "name": "With Selection",
+          "exportName": "WithSelection"
+        },
+        {
+          "id": "components-calendar--monday-start",
+          "name": "Monday Start",
+          "exportName": "MondayStart"
+        },
+        {
+          "id": "components-calendar--with-range",
+          "name": "With Range",
+          "exportName": "WithRange"
+        }
+      ],
+      "related": [
+        "date-picker",
+        "popover",
+        "form-control"
+      ]
+    },
+    "card": {
+      "id": "card",
+      "name": "Card",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Card/Card.tsx",
+      "types": "src/components/Card/Card.types.ts",
+      "guidelines": "generated/guidelines/card.md",
+      "extends": [
+        "HTMLAttributes<HTMLDivElement>"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'muted'",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Surface style. `default` sits on the page; `muted` is a recessed/secondary surface.",
+          "typeRef": "CardVariant"
+        },
+        {
+          "name": "padding",
+          "type": "'none' | 'condensed' | 'normal' | 'spacious'",
+          "required": false,
+          "defaultValue": "normal",
+          "description": "Inner padding, from the `space` scale.",
+          "typeRef": "CardPadding"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-card--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-card--muted",
+          "name": "Muted",
+          "exportName": "Muted"
+        }
+      ],
+      "related": [
+        "stack",
+        "grid",
+        "heading",
+        "divider"
+      ]
+    },
+    "checkbox": {
+      "id": "checkbox",
+      "name": "Checkbox",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Checkbox/Checkbox.tsx",
+      "types": "src/components/Checkbox/Checkbox.types.ts",
+      "guidelines": "generated/guidelines/checkbox.md",
+      "extends": [
+        "Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>"
+      ],
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Visible label rendered next to the box."
+        },
+        {
+          "name": "caption",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Optional helper text under the label."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Mark the field as invalid (sets `aria-invalid`)."
+        },
+        {
+          "name": "indeterminate",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Tri-state \"partially checked\" visual (mixed); also sets `aria-checked=\"mixed\"`."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-checkbox--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-checkbox--with-caption",
+          "name": "With Caption",
+          "exportName": "WithCaption"
+        },
+        {
+          "id": "components-checkbox--checked",
+          "name": "Checked",
+          "exportName": "Checked"
+        }
+      ],
+      "related": [
+        "switch",
+        "radio-group",
+        "form-control"
+      ]
+    },
+    "data-table": {
+      "id": "data-table",
+      "name": "DataTable",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/DataTable/DataTable.tsx",
+      "types": "src/components/DataTable/DataTable.types.ts",
+      "guidelines": "generated/guidelines/data-table.md",
+      "extends": [],
+      "props": [
+        {
+          "name": "columns",
+          "type": "DataTableColumn<Row>[]",
+          "required": true,
+          "defaultValue": "",
+          "description": "Column definitions, left to right."
+        },
+        {
+          "name": "data",
+          "type": "Row[]",
+          "required": true,
+          "defaultValue": "",
+          "description": "The rows to render."
+        },
+        {
+          "name": "rowKey",
+          "type": "(row: Row, index: number) => string | number",
+          "required": false,
+          "defaultValue": "index",
+          "description": "Stable React key for a row. Defaults to the row index."
+        },
+        {
+          "name": "searchable",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "true",
+          "description": "Show the global search box."
+        },
+        {
+          "name": "searchPlaceholder",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Search…",
+          "description": "Placeholder for the global search box."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Optional surface title (rendered in a `Table.Container`)."
+        },
+        {
+          "name": "subtitle",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Optional surface subtitle."
+        },
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Actions rendered at the top-right of the toolbar (e.g. a \"New\" button)."
+        },
+        {
+          "name": "density",
+          "type": "TableDensity",
+          "required": false,
+          "defaultValue": "normal",
+          "description": "Row height / cell padding scale."
+        },
+        {
+          "name": "emptyText",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "No matching rows.",
+          "description": "Message shown when no rows match the active filters."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [
+        {
+          "name": "DataTableColumn",
+          "description": "",
+          "members": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "defaultValue": "",
+              "description": "Stable key — also used to read the cell value when `accessor` is omitted."
+            },
+            {
+              "name": "header",
+              "type": "ReactNode",
+              "required": true,
+              "defaultValue": "",
+              "description": "Column heading text."
+            },
+            {
+              "name": "accessor",
+              "type": "(row: Row) => unknown",
+              "required": false,
+              "defaultValue": "",
+              "description": "Read the raw value for a row. Defaults to `row[id]`. Used for sorting + filtering."
+            },
+            {
+              "name": "cell",
+              "type": "(row: Row) => ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": "Custom cell renderer. Defaults to rendering the accessor value as text."
+            },
+            {
+              "name": "align",
+              "type": "CellAlign",
+              "required": false,
+              "defaultValue": "",
+              "description": "Cell + header alignment."
+            },
+            {
+              "name": "sortable",
+              "type": "boolean",
+              "required": false,
+              "defaultValue": "",
+              "description": "Allow clicking the header to sort by this column."
+            },
+            {
+              "name": "filterable",
+              "type": "boolean",
+              "required": false,
+              "defaultValue": "",
+              "description": "Show a per-column dropdown filter built from the distinct values in the data."
+            }
+          ]
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-datatable--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-datatable--search-only",
+          "name": "Search Only",
+          "exportName": "SearchOnly"
+        }
+      ],
+      "related": [
+        "table",
+        "empty-state",
+        "pagination",
+        "tag",
+        "select"
+      ]
+    },
+    "date-picker": {
+      "id": "date-picker",
+      "name": "DatePicker",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/DatePicker/DatePicker.tsx",
+      "types": "src/components/DatePicker/DatePicker.types.ts",
+      "guidelines": "generated/guidelines/date-picker.md",
+      "extends": [],
+      "props": [
+        {
+          "name": "value",
+          "type": "Date | null",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled selected date (null = empty)."
+        },
+        {
+          "name": "defaultValue",
+          "type": "Date | null",
+          "required": false,
+          "defaultValue": "",
+          "description": "Uncontrolled initial selected date."
+        },
+        {
+          "name": "onChange",
+          "type": "(date: Date) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called with the chosen date."
+        },
+        {
+          "name": "min",
+          "type": "Date",
+          "required": false,
+          "defaultValue": "",
+          "description": "Earliest selectable day (inclusive)."
+        },
+        {
+          "name": "max",
+          "type": "Date",
+          "required": false,
+          "defaultValue": "",
+          "description": "Latest selectable day (inclusive)."
+        },
+        {
+          "name": "weekStartsOn",
+          "type": "WeekStart",
+          "required": false,
+          "defaultValue": "0",
+          "description": "First day of the week: 0 = Sunday (default), 1 = Monday."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "defaultValue": "runtime locale",
+          "description": "BCP-47 locale for the displayed date + calendar. Defaults to the runtime locale."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Select a date…",
+          "description": "Text shown in the trigger when no date is selected."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Control height / font scale.",
+          "typeRef": "DatePickerSize"
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch the trigger to fill the available width."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch the trigger to fill the available width.",
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Invalid state (danger border + aria-invalid)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Disable the control."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Required (sets aria-required; pairs with FormControl)."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Form field name — emits a hidden input (yyyy-mm-dd) so the value submits with a form."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Id applied to the trigger (FormControl sets this automatically)."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        },
+        {
+          "name": "aria-describedby",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-datepicker--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-datepicker--with-value",
+          "name": "With Value",
+          "exportName": "WithValue"
+        },
+        {
+          "id": "components-datepicker--with-range",
+          "name": "With Range",
+          "exportName": "WithRange"
+        },
+        {
+          "id": "components-datepicker--disabled",
+          "name": "Disabled",
+          "exportName": "Disabled"
+        }
+      ],
+      "related": [
+        "calendar",
+        "form-control",
+        "text-input",
+        "popover"
+      ]
+    },
+    "dialog": {
+      "id": "dialog",
+      "name": "Dialog",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Dialog/Dialog.tsx",
+      "types": "src/components/Dialog/Dialog.types.ts",
+      "guidelines": "generated/guidelines/dialog.md",
+      "extends": [],
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "defaultValue": "",
+          "description": "Whether the dialog is open."
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": true,
+          "defaultValue": "",
+          "description": "Called when the user requests close (Escape, backdrop, close button)."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": "",
+          "description": "Accessible title — also the visible heading."
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Optional supporting description under the title."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Width from the scale.",
+          "typeRef": "DialogSize"
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Footer actions (e.g. Cancel / Confirm buttons)."
+        },
+        {
+          "name": "closeOnBackdrop",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "true",
+          "description": "Allow closing by clicking the backdrop."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Body content."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-dialog--default",
+          "name": "Default",
+          "exportName": "Default"
+        }
+      ],
+      "related": [
+        "popover",
+        "button",
+        "banner",
+        "toast"
+      ]
+    },
+    "divider": {
+      "id": "divider",
+      "name": "Divider",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Divider/Divider.tsx",
+      "types": "src/components/Divider/Divider.types.ts",
+      "guidelines": "generated/guidelines/divider.md",
+      "extends": [
+        "HTMLAttributes<HTMLDivElement>"
+      ],
+      "props": [
+        {
+          "name": "orientation",
+          "type": "'horizontal' | 'vertical'",
+          "required": false,
+          "defaultValue": "horizontal",
+          "description": "Layout direction.",
+          "typeRef": "DividerOrientation"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Optional centered label (horizontal only)."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-divider--horizontal",
+          "name": "Horizontal",
+          "exportName": "Horizontal"
+        },
+        {
+          "id": "components-divider--labelled",
+          "name": "Labelled",
+          "exportName": "Labelled"
+        },
+        {
+          "id": "components-divider--vertical",
+          "name": "Vertical",
+          "exportName": "Vertical"
+        }
+      ],
+      "related": [
+        "stack",
+        "menu",
+        "card"
+      ]
+    },
+    "empty-state": {
+      "id": "empty-state",
+      "name": "EmptyState",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/EmptyState/EmptyState.tsx",
+      "types": "src/components/EmptyState/EmptyState.types.ts",
+      "guidelines": "generated/guidelines/empty-state.md",
+      "extends": [
+        "Omit<HTMLAttributes<HTMLDivElement>, 'title'>"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "defaultValue": "",
+          "description": "Short, specific headline — say what is empty (\"No stories yet\"), not just \"Nothing here\"."
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "One or two sentences: why it is empty and what to do next. Inline content (rendered in a muted `Text`)."
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Decorative illustration or icon; wrapped `aria-hidden` — the title carries the meaning."
+        },
+        {
+          "name": "action",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "The primary next step, usually a `Button variant=\"primary\"`."
+        },
+        {
+          "name": "secondaryAction",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "An optional secondary step next to `action` (a default/invisible `Button` or a `Link`)."
+        },
+        {
+          "name": "size",
+          "type": "'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Overall scale: `medium` for a region inside a page, `large` for a whole-page/first-run state.",
+          "typeRef": "EmptyStateSize"
+        },
+        {
+          "name": "headingLevel",
+          "type": "2 | 3 | 4",
+          "required": false,
+          "defaultValue": "3",
+          "description": "Semantic heading rank of the title (`h2`/`h3`/`h4`) so it fits the surrounding outline. The visual size follows `size`, not this prop.",
+          "typeRef": "EmptyStateHeadingLevel"
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-emptystate--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-emptystate--title-only",
+          "name": "Title Only",
+          "exportName": "TitleOnly"
+        },
+        {
+          "id": "components-emptystate--with-icon",
+          "name": "With Icon",
+          "exportName": "WithIcon"
+        },
+        {
+          "id": "components-emptystate--with-actions",
+          "name": "With Actions",
+          "exportName": "WithActions"
+        },
+        {
+          "id": "components-emptystate--large",
+          "name": "Large",
+          "exportName": "Large"
+        },
+        {
+          "id": "components-emptystate--search-results",
+          "name": "Search Results",
+          "exportName": "SearchResults"
+        }
+      ],
+      "related": [
+        "heading",
+        "text",
+        "button",
+        "data-table",
+        "card"
+      ]
+    },
+    "form-control": {
+      "id": "form-control",
+      "name": "FormControl",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/FormControl/FormControl.tsx",
+      "types": "src/components/FormControl/FormControl.types.ts",
+      "guidelines": "generated/guidelines/form-control.md",
+      "extends": [
+        "HTMLAttributes<HTMLDivElement>"
+      ],
+      "props": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Override the generated id shared by the label and field."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Marks the field required (asterisk on the label + `required` on the input)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Disables the field."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Force the invalid state. Otherwise inferred from a `FormControl.Validation variant=\"error\"`."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [
+        {
+          "id": "formcontrol-label",
+          "name": "FormControl.Label",
+          "props": [
+            {
+              "name": "visuallyHidden",
+              "type": "boolean",
+              "required": false,
+              "defaultValue": "false",
+              "description": "Visually hide the label but keep it for screen readers."
+            },
+            {
+              "name": "required",
+              "type": "boolean",
+              "required": false,
+              "defaultValue": "false",
+              "description": "Injected by FormControl — renders the required asterisk."
+            },
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": "formcontrol-caption",
+          "name": "FormControl.Caption",
+          "props": [
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": "formcontrol-validation",
+          "name": "FormControl.Validation",
+          "props": [
+            {
+              "name": "variant",
+              "type": "'error' | 'success'",
+              "required": false,
+              "defaultValue": "error",
+              "description": "Tone of the message. `error` also drives the field's invalid state.",
+              "typeRef": "ValidationVariant"
+            },
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-formcontrol--text-field",
+          "name": "Text Field",
+          "exportName": "TextField"
+        },
+        {
+          "id": "components-formcontrol--required-with-caption",
+          "name": "Required With Caption",
+          "exportName": "RequiredWithCaption"
+        },
+        {
+          "id": "components-formcontrol--with-error",
+          "name": "With Error",
+          "exportName": "WithError"
+        }
+      ],
+      "related": [
+        "text-input",
+        "textarea",
+        "select",
+        "number-input",
+        "date-picker"
+      ]
+    },
+    "grid": {
+      "id": "grid",
+      "name": "Grid",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Grid/Grid.tsx",
+      "types": "src/components/Grid/Grid.types.ts",
+      "guidelines": "generated/guidelines/grid.md",
+      "extends": [
+        "HTMLAttributes<HTMLDivElement>"
+      ],
+      "props": [
+        {
+          "name": "columns",
+          "type": "number | GridResponsive",
+          "required": false,
+          "defaultValue": "1",
+          "description": "Number of equal-width columns, either fixed or per breakpoint, e.g. `{ base: 1, sm: 2, lg: 4 }`. Each column is `minmax(0, 1fr)` so long content can't blow the track out.",
+          "typeRef": "GridResponsiveValue"
+        },
+        {
+          "name": "gap",
+          "type": "'none' | 'condensed' | 'normal' | 'spacious'",
+          "required": false,
+          "defaultValue": "normal",
+          "description": "Space between rows and columns, from the `space` scale (condensed=8, normal=16, spacious=24).",
+          "typeRef": "GridGap"
+        },
+        {
+          "name": "rowGap",
+          "type": "'none' | 'condensed' | 'normal' | 'spacious'",
+          "required": false,
+          "defaultValue": "",
+          "description": "Overrides the row spacing only, from the same scale; defaults to `gap`.",
+          "typeRef": "GridGap"
+        },
+        {
+          "name": "align",
+          "type": "'start' | 'center' | 'end' | 'stretch'",
+          "required": false,
+          "defaultValue": "",
+          "description": "Block-axis alignment of items within their row (maps to `align-items`).",
+          "typeRef": "GridAlign"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [
+        {
+          "id": "grid-item",
+          "name": "Grid.Item",
+          "props": [
+            {
+              "name": "span",
+              "type": "number | GridResponsive",
+              "required": false,
+              "defaultValue": "",
+              "description": "Number of columns this item spans (`grid-column: span N`), fixed or per breakpoint.",
+              "typeRef": "GridResponsiveValue"
+            },
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "relatedTypes": [
+        {
+          "name": "GridResponsive",
+          "description": "A value per breakpoint. `base` applies from 0 up; `sm`/`md`/`lg` apply from `breakpoint-sm` (640), `breakpoint-md` (960) and `breakpoint-lg` (1280) upward. Missing steps inherit the previous one (lg → md → sm → base).",
+          "members": [
+            {
+              "name": "base",
+              "type": "number",
+              "required": false,
+              "defaultValue": "",
+              "description": "Value from 0 up (mobile-first)."
+            },
+            {
+              "name": "sm",
+              "type": "number",
+              "required": false,
+              "defaultValue": "",
+              "description": "Value from `breakpoint-sm` (640px) up."
+            },
+            {
+              "name": "md",
+              "type": "number",
+              "required": false,
+              "defaultValue": "",
+              "description": "Value from `breakpoint-md` (960px) up."
+            },
+            {
+              "name": "lg",
+              "type": "number",
+              "required": false,
+              "defaultValue": "",
+              "description": "Value from `breakpoint-lg` (1280px) up."
+            }
+          ]
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-grid--fixed-columns",
+          "name": "Fixed Columns",
+          "exportName": "FixedColumns"
+        },
+        {
+          "id": "components-grid--responsive-columns",
+          "name": "Responsive Columns",
+          "exportName": "ResponsiveColumns"
+        },
+        {
+          "id": "components-grid--gaps",
+          "name": "Gaps",
+          "exportName": "Gaps"
+        },
+        {
+          "id": "components-grid--row-gap-override",
+          "name": "Row Gap Override",
+          "exportName": "RowGapOverride"
+        },
+        {
+          "id": "components-grid--align",
+          "name": "Align",
+          "exportName": "Align"
+        },
+        {
+          "id": "components-grid--item-span",
+          "name": "Item Span",
+          "exportName": "ItemSpan"
+        },
+        {
+          "id": "components-grid--stat-cards",
+          "name": "Stat Cards",
+          "exportName": "StatCards"
+        }
+      ],
+      "related": [
+        "stack",
+        "card"
+      ]
+    },
+    "heading": {
+      "id": "heading",
+      "name": "Heading",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Heading/Heading.tsx",
+      "types": "src/components/Heading/Heading.types.ts",
+      "guidelines": "generated/guidelines/heading.md",
+      "extends": [
+        "HTMLAttributes<HTMLHeadingElement>"
+      ],
+      "props": [
+        {
+          "name": "level",
+          "type": "1 | 2 | 3 | 4",
+          "required": false,
+          "defaultValue": "2",
+          "description": "Visual size on the type scale: 1 → `fontSize-5` (36), 2 → `fontSize-4` (28), 3 → `fontSize-3` (20), 4 → `fontSize-2` (16). Also picks the default element (`h1`…`h4`).",
+          "typeRef": "HeadingLevel"
+        },
+        {
+          "name": "as",
+          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'div' | 'span'",
+          "required": false,
+          "defaultValue": "`h${level}`",
+          "description": "Element to render, so document semantics and visual size can differ (e.g. a level-1 look on an `h2` in a page that already has an `h1`).",
+          "typeRef": "HeadingElement"
+        },
+        {
+          "name": "truncate",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Clip overflowing text to a single line with an ellipsis."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Heading text."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-heading--level-1",
+          "name": "Level 1",
+          "exportName": "Level1"
+        },
+        {
+          "id": "components-heading--level-2",
+          "name": "Level 2",
+          "exportName": "Level2"
+        },
+        {
+          "id": "components-heading--level-3",
+          "name": "Level 3",
+          "exportName": "Level3"
+        },
+        {
+          "id": "components-heading--level-4",
+          "name": "Level 4",
+          "exportName": "Level4"
+        },
+        {
+          "id": "components-heading--semantics-vs-size",
+          "name": "Semantics Vs Size",
+          "exportName": "SemanticsVsSize"
+        },
+        {
+          "id": "components-heading--truncate",
+          "name": "Truncate",
+          "exportName": "Truncate"
+        },
+        {
+          "id": "components-heading--type-scale",
+          "name": "Type Scale",
+          "exportName": "TypeScale"
+        }
+      ],
+      "related": [
+        "text",
+        "empty-state",
+        "stack"
+      ]
+    },
+    "icon": {
+      "id": "icon",
+      "name": "Icon",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Icon/Icon.tsx",
+      "types": "src/components/Icon/Icon.types.ts",
+      "guidelines": "generated/guidelines/icon.md",
+      "extends": [
+        "Omit<SVGAttributes<SVGSVGElement>, 'children' | 'width' | 'height' | 'viewBox'>"
+      ],
+      "props": [
+        {
+          "name": "size",
+          "type": "16 | 20 | 24",
+          "required": false,
+          "defaultValue": "16",
+          "description": "Rendered width and height in pixels. `16` sits on the text line inside controls (Button, IconButton, inputs); `20` for large controls and list rows; `24` for empty states, page headers and stat tiles.",
+          "typeRef": "IconSize"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Accessible name. Set it ONLY when the icon carries meaning on its own (no adjacent text names it). When set the SVG gets `role=\"img\"` and `aria-label`; when absent the icon is decorative (`aria-hidden=\"true\"`) and the surrounding control must carry the name."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": "",
+          "description": "The glyph: SVG shape nodes (`<path>`, `<circle>`, …) drawn on Lucide's 24×24 grid. Consumers normally render a named glyph from `tenet-ui/icons` (`<SearchIcon />`) which supplies this."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-icon--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-icon--sizes",
+          "name": "Sizes",
+          "exportName": "Sizes"
+        },
+        {
+          "id": "components-icon--labeled",
+          "name": "Labeled",
+          "exportName": "Labeled"
+        },
+        {
+          "id": "components-icon--gallery",
+          "name": "Gallery",
+          "exportName": "Gallery"
+        },
+        {
+          "id": "components-icon--in-button",
+          "name": "In Button",
+          "exportName": "InButton"
+        },
+        {
+          "id": "components-icon--in-icon-button",
+          "name": "In Icon Button",
+          "exportName": "InIconButton"
+        }
+      ],
+      "related": [
+        "icon-button",
+        "button",
+        "empty-state"
+      ]
+    },
+    "icon-button": {
+      "id": "icon-button",
+      "name": "IconButton",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/IconButton/IconButton.tsx",
+      "types": "src/components/IconButton/IconButton.types.ts",
+      "guidelines": "generated/guidelines/icon-button.md",
+      "extends": [
+        "ButtonHTMLAttributes<HTMLButtonElement>"
+      ],
+      "props": [
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": "",
+          "description": "The icon to render. This is the only visible content, so the button must also have an accessible name."
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'primary' | 'danger' | 'invisible'",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Visual style of the button. Use `primary` for the single most important action per surface.",
+          "typeRef": "IconButtonVariant"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Square control size (height = width), mapped to the control-height tokens.",
+          "typeRef": "IconButtonSize"
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-iconbutton--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-iconbutton--primary",
+          "name": "Primary",
+          "exportName": "Primary"
+        },
+        {
+          "id": "components-iconbutton--danger",
+          "name": "Danger",
+          "exportName": "Danger"
+        },
+        {
+          "id": "components-iconbutton--invisible",
+          "name": "Invisible",
+          "exportName": "Invisible"
+        },
+        {
+          "id": "components-iconbutton--sizes",
+          "name": "Sizes",
+          "exportName": "Sizes"
+        }
+      ],
+      "related": [
+        "button",
+        "icon",
+        "tooltip",
+        "menu"
+      ]
+    },
+    "label": {
+      "id": "label",
+      "name": "Label",
+      "status": "deprecated",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Label/Label.tsx",
+      "types": "src/components/Label/Label.types.ts",
+      "guidelines": "generated/guidelines/label.md",
+      "extends": [
+        "HTMLAttributes<HTMLSpanElement>"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'accent' | 'success' | 'danger' | 'attention' | 'muted'",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Semantic color scheme. Pick by meaning (success/danger/accent), not by raw color.",
+          "typeRef": "LabelVariant"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Label size.",
+          "typeRef": "LabelSize"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-label--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-label--variants",
+          "name": "Variants",
+          "exportName": "Variants"
+        },
+        {
+          "id": "components-label--sizes",
+          "name": "Sizes",
+          "exportName": "Sizes"
+        }
+      ],
+      "related": [
+        "tag",
+        "badge"
+      ],
+      "deprecated": "Use `Tag` instead (since 0.4.0). `Tag` now carries the same status variants\n(`success` / `danger` / `attention` / `muted` / `accent`) and is read-only when `onRemove` is\nabsent, so one pill component covers both status words and removable chips — and the name no\nlonger collides with `FormControl.Label`. `Label` keeps rendering until 0.5.0."
+    },
+    "link": {
+      "id": "link",
+      "name": "Link",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Link/Link.tsx",
+      "types": "src/components/Link/Link.types.ts",
+      "guidelines": "generated/guidelines/link.md",
+      "extends": [
+        "AnchorHTMLAttributes<HTMLAnchorElement>"
+      ],
+      "props": [
+        {
+          "name": "muted",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Use the muted foreground color instead of the accent color."
+        },
+        {
+          "name": "underline",
+          "type": "'hover' | 'always' | 'none'",
+          "required": false,
+          "defaultValue": "hover",
+          "description": "When the underline is shown.",
+          "typeRef": "LinkUnderline"
+        },
+        {
+          "name": "external",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Marks the link as leading off-site: sets `target=\"_blank\"` + `rel=\"noopener noreferrer\"` and appends a visually-hidden \" (opens in new tab)\" warning for screen-reader users."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-link--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-link--muted",
+          "name": "Muted",
+          "exportName": "Muted"
+        },
+        {
+          "id": "components-link--always-underlined",
+          "name": "Always Underlined",
+          "exportName": "AlwaysUnderlined"
+        },
+        {
+          "id": "components-link--no-underline",
+          "name": "No Underline",
+          "exportName": "NoUnderline"
+        },
+        {
+          "id": "components-link--external",
+          "name": "External",
+          "exportName": "External"
+        }
+      ],
+      "related": [
+        "button",
+        "breadcrumbs",
+        "text"
+      ]
+    },
+    "menu": {
+      "id": "menu",
+      "name": "Menu",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Menu/Menu.tsx",
+      "types": "src/components/Menu/Menu.types.ts",
+      "guidelines": "generated/guidelines/menu.md",
+      "extends": [],
+      "props": [
+        {
+          "name": "trigger",
+          "type": "ReactElement",
+          "required": true,
+          "defaultValue": "",
+          "description": "The trigger element (e.g. a Button). It is wired with the menu's aria + click handling."
+        },
+        {
+          "name": "items",
+          "type": "MenuItem[]",
+          "required": true,
+          "defaultValue": "",
+          "description": "The actions to show."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "trigger label",
+          "description": "Accessible name for the menu."
+        },
+        {
+          "name": "align",
+          "type": "'start' | 'end'",
+          "required": false,
+          "defaultValue": "start",
+          "description": "Menu alignment relative to the trigger."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [
+        {
+          "name": "MenuAction",
+          "description": "",
+          "members": [
+            {
+              "name": "type",
+              "type": "'item'",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            },
+            {
+              "name": "label",
+              "type": "ReactNode",
+              "required": true,
+              "defaultValue": "",
+              "description": "Visible label."
+            },
+            {
+              "name": "onSelect",
+              "type": "() => void",
+              "required": true,
+              "defaultValue": "",
+              "description": "Invoked when the item is chosen (menu then closes)."
+            },
+            {
+              "name": "icon",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": "Optional leading icon."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "required": false,
+              "defaultValue": "",
+              "description": "Disable this item."
+            },
+            {
+              "name": "destructive",
+              "type": "boolean",
+              "required": false,
+              "defaultValue": "",
+              "description": "Render in the danger color for destructive actions."
+            }
+          ]
+        },
+        {
+          "name": "MenuSeparator",
+          "description": "",
+          "members": [
+            {
+              "name": "type",
+              "type": "'separator'",
+              "required": true,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-menu--default",
+          "name": "Default",
+          "exportName": "Default"
+        }
+      ],
+      "related": [
+        "icon-button",
+        "button",
+        "select",
+        "popover",
+        "divider"
+      ]
+    },
+    "number-input": {
+      "id": "number-input",
+      "name": "NumberInput",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/NumberInput/NumberInput.tsx",
+      "types": "src/components/NumberInput/NumberInput.types.ts",
+      "guidelines": "generated/guidelines/number-input.md",
+      "extends": [
+        "Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'value' | 'defaultValue' | 'onChange'>"
+      ],
+      "props": [
+        {
+          "name": "value",
+          "type": "number | null",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled value. Use `null`/`undefined` for an empty field."
+        },
+        {
+          "name": "defaultValue",
+          "type": "number | null",
+          "required": false,
+          "defaultValue": "",
+          "description": "Uncontrolled initial value."
+        },
+        {
+          "name": "onChange",
+          "type": "(value: number | null) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called with the parsed numeric value (or `null` when the field is cleared)."
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "defaultValue": "",
+          "description": "Smallest allowed value. Stepping/clamping respects it."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "defaultValue": "",
+          "description": "Largest allowed value. Stepping/clamping respects it."
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": false,
+          "defaultValue": "1",
+          "description": "Increment applied by the steppers and arrow keys."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Control height / font scale.",
+          "typeRef": "NumberInputSize"
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch the field to fill the available width."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch the field to fill the available width.",
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Mark the field as invalid (sets `aria-invalid` and a danger border)."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-numberinput--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-numberinput--with-range",
+          "name": "With Range",
+          "exportName": "WithRange"
+        },
+        {
+          "id": "components-numberinput--empty",
+          "name": "Empty",
+          "exportName": "Empty"
+        },
+        {
+          "id": "components-numberinput--disabled",
+          "name": "Disabled",
+          "exportName": "Disabled"
+        }
+      ],
+      "related": [
+        "text-input",
+        "form-control",
+        "select"
+      ]
+    },
+    "pagination": {
+      "id": "pagination",
+      "name": "Pagination",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Pagination/Pagination.tsx",
+      "types": "src/components/Pagination/Pagination.types.ts",
+      "guidelines": "generated/guidelines/pagination.md",
+      "extends": [],
+      "props": [
+        {
+          "name": "page",
+          "type": "number",
+          "required": true,
+          "defaultValue": "",
+          "description": "Current page (1-based)."
+        },
+        {
+          "name": "pageCount",
+          "type": "number",
+          "required": true,
+          "defaultValue": "",
+          "description": "Total number of pages."
+        },
+        {
+          "name": "onPageChange",
+          "type": "(page: number) => void",
+          "required": true,
+          "defaultValue": "",
+          "description": "Called with the requested page when the user navigates."
+        },
+        {
+          "name": "siblingCount",
+          "type": "number",
+          "required": false,
+          "defaultValue": "1",
+          "description": "How many page numbers to show around the current page."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Pagination",
+          "description": "Accessible name for the nav landmark."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-pagination--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-pagination--many-pages",
+          "name": "Many Pages",
+          "exportName": "ManyPages"
+        }
+      ],
+      "related": [
+        "data-table",
+        "table",
+        "breadcrumbs"
+      ]
+    },
+    "popover": {
+      "id": "popover",
+      "name": "Popover",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Popover/Popover.tsx",
+      "types": "src/components/Popover/Popover.types.ts",
+      "guidelines": "generated/guidelines/popover.md",
+      "extends": [],
+      "props": [
+        {
+          "name": "trigger",
+          "type": "ReactElement",
+          "required": true,
+          "defaultValue": "",
+          "description": "The trigger element (e.g. a Button). It is cloned and wired with `aria-haspopup=\"dialog\"`, `aria-expanded`, `aria-controls`, an onClick toggle, and a ref so focus can be restored to it on close."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": "",
+          "description": "The floating content rendered inside the popover surface."
+        },
+        {
+          "name": "placement",
+          "type": "'bottom-start' | 'bottom-end' | 'top-start' | 'top-end'",
+          "required": false,
+          "defaultValue": "bottom-start",
+          "description": "Where the surface is anchored relative to the trigger.",
+          "typeRef": "PopoverPlacement"
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Popover",
+          "description": "Accessible name for the popover dialog (falls back to \"Popover\")."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-popover--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-popover--top-end",
+          "name": "Top End",
+          "exportName": "TopEnd"
+        }
+      ],
+      "related": [
+        "dialog",
+        "menu",
+        "tooltip",
+        "button"
+      ]
+    },
+    "progress-bar": {
+      "id": "progress-bar",
+      "name": "ProgressBar",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/ProgressBar/ProgressBar.tsx",
+      "types": "src/components/ProgressBar/ProgressBar.types.ts",
+      "guidelines": "generated/guidelines/progress-bar.md",
+      "extends": [
+        "HTMLAttributes<HTMLDivElement>"
+      ],
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "required": false,
+          "defaultValue": "",
+          "description": "Current progress, from 0 to `max`. Values are clamped into range. Omit (or pass `undefined`) for an INDETERMINATE bar that shows an animated sweep instead of a fixed fill."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "defaultValue": "100",
+          "description": "Upper bound of the scale. Defaults to 100."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Track/fill height from the size scale. Defaults to 'medium'.",
+          "typeRef": "ProgressBarSize"
+        },
+        {
+          "name": "variant",
+          "type": "'accent' | 'success' | 'danger'",
+          "required": false,
+          "defaultValue": "accent",
+          "description": "Fill color, mapped to the matching emphasis token. Defaults to 'accent'.",
+          "typeRef": "ProgressBarVariant"
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-progressbar--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-progressbar--indeterminate",
+          "name": "Indeterminate",
+          "exportName": "Indeterminate"
+        },
+        {
+          "id": "components-progressbar--variants",
+          "name": "Variants",
+          "exportName": "Variants"
+        },
+        {
+          "id": "components-progressbar--small",
+          "name": "Small",
+          "exportName": "Small"
+        }
+      ],
+      "related": [
+        "spinner",
+        "skeleton",
+        "text"
+      ]
+    },
+    "radio-group": {
+      "id": "radio-group",
+      "name": "RadioGroup",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Radio/Radio.tsx",
+      "types": "src/components/Radio/Radio.types.ts",
+      "guidelines": "generated/guidelines/radio-group.md",
+      "extends": [
+        "Omit<HTMLAttributes<HTMLFieldSetElement>, 'onChange'>"
+      ],
+      "props": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Shared form field name. Auto-generated if omitted."
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": "",
+          "description": "Group label (rendered as a fieldset legend)."
+        },
+        {
+          "name": "caption",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Optional helper text for the whole group."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled selected value."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Uncontrolled initial selected value."
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called with the newly selected value."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Mark the group required (asterisk on the legend)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Disable every radio in the group."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Radio children."
+        }
+      ],
+      "subcomponents": [
+        {
+          "id": "radio",
+          "name": "Radio",
+          "props": [
+            {
+              "name": "value",
+              "type": "string",
+              "required": true,
+              "defaultValue": "",
+              "description": "The value submitted when this radio is selected (required)."
+            },
+            {
+              "name": "label",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": "Visible label rendered next to the control."
+            },
+            {
+              "name": "caption",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": "Optional helper text under the label."
+            }
+          ]
+        }
+      ],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-radiogroup--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-radiogroup--with-captions",
+          "name": "With Captions",
+          "exportName": "WithCaptions"
+        }
+      ],
+      "related": [
+        "checkbox",
+        "switch",
+        "select",
+        "form-control"
+      ]
+    },
+    "segmented-control": {
+      "id": "segmented-control",
+      "name": "SegmentedControl",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/SegmentedControl/SegmentedControl.tsx",
+      "types": "src/components/SegmentedControl/SegmentedControl.types.ts",
+      "guidelines": "generated/guidelines/segmented-control.md",
+      "extends": [
+        "Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'>"
+      ],
+      "props": [
+        {
+          "name": "options",
+          "type": "SegmentedControlOption[]",
+          "required": true,
+          "defaultValue": "",
+          "description": "The segments to choose from."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled selected value."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "defaultValue": "first enabled option",
+          "description": "Uncontrolled initial value."
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called with the newly selected value."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Control height / font scale.",
+          "typeRef": "SegmentedControlSize"
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch segments to fill the available width."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch segments to fill the available width.",
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Accessible name for the group (required for screen readers)."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [
+        {
+          "name": "SegmentedControlOption",
+          "description": "",
+          "members": [
+            {
+              "name": "value",
+              "type": "string",
+              "required": true,
+              "defaultValue": "",
+              "description": "Value reported on change."
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "required": true,
+              "defaultValue": "",
+              "description": "Visible label."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "required": false,
+              "defaultValue": "",
+              "description": "Disable this segment."
+            }
+          ]
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-segmentedcontrol--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-segmentedcontrol--small",
+          "name": "Small",
+          "exportName": "Small"
+        },
+        {
+          "id": "components-segmentedcontrol--with-disabled",
+          "name": "With Disabled",
+          "exportName": "WithDisabled"
+        }
+      ],
+      "related": [
+        "tabs",
+        "select",
+        "switch",
+        "button"
+      ]
+    },
+    "select": {
+      "id": "select",
+      "name": "Select",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Select/Select.tsx",
+      "types": "src/components/Select/Select.types.ts",
+      "guidelines": "generated/guidelines/select.md",
+      "extends": [
+        "Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onChange' | 'value' | 'defaultValue'>"
+      ],
+      "props": [
+        {
+          "name": "options",
+          "type": "SelectOption[]",
+          "required": true,
+          "defaultValue": "",
+          "description": "The options to choose from."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled selected value."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Uncontrolled initial value."
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called with the newly selected value."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Select…",
+          "description": "Text shown when nothing is selected."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Control height / font scale.",
+          "typeRef": "SelectSize"
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch to fill the available width."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch to fill the available width.",
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Invalid state (danger border + aria-invalid)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Disable the control."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Required (sets aria-required; pairs with FormControl)."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Form field name — emits a hidden input so the value submits with a form."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Id applied to the trigger (FormControl sets this automatically)."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        },
+        {
+          "name": "aria-describedby",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [
+        {
+          "name": "SelectOption",
+          "description": "",
+          "members": [
+            {
+              "name": "value",
+              "type": "string",
+              "required": true,
+              "defaultValue": "",
+              "description": "Value submitted / reported on change."
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "required": true,
+              "defaultValue": "",
+              "description": "Visible option text."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "required": false,
+              "defaultValue": "",
+              "description": "Disable this option."
+            }
+          ]
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-select--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-select--with-placeholder",
+          "name": "With Placeholder",
+          "exportName": "WithPlaceholder"
+        },
+        {
+          "id": "components-select--with-disabled-option",
+          "name": "With Disabled Option",
+          "exportName": "WithDisabledOption"
+        }
+      ],
+      "related": [
+        "form-control",
+        "menu",
+        "text-input",
+        "segmented-control",
+        "radio-group"
+      ]
+    },
+    "skeleton": {
+      "id": "skeleton",
+      "name": "Skeleton",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Skeleton/Skeleton.tsx",
+      "types": "src/components/Skeleton/Skeleton.types.ts",
+      "guidelines": "generated/guidelines/skeleton.md",
+      "extends": [
+        "HTMLAttributes<HTMLSpanElement>"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "'text' | 'rect' | 'circle'",
+          "required": false,
+          "defaultValue": "text",
+          "description": "Shape of the placeholder. `text` mimics a line of copy, `rect` a block, `circle` an avatar/icon.",
+          "typeRef": "SkeletonVariant"
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "defaultValue": "",
+          "description": "Width applied inline (number → px, string → as-is, e.g. '60%')."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "defaultValue": "",
+          "description": "Height applied inline (number → px, string → as-is). For `circle` it mirrors width."
+        },
+        {
+          "name": "radius",
+          "type": "'small' | 'medium' | 'large' | 'full'",
+          "required": false,
+          "defaultValue": "",
+          "description": "Corner radius token. `circle` always renders as `full` regardless of this prop.",
+          "typeRef": "SkeletonRadius"
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-skeleton--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-skeleton--text",
+          "name": "Text",
+          "exportName": "Text"
+        },
+        {
+          "id": "components-skeleton--rect",
+          "name": "Rect",
+          "exportName": "Rect"
+        },
+        {
+          "id": "components-skeleton--circle",
+          "name": "Circle",
+          "exportName": "Circle"
+        },
+        {
+          "id": "components-skeleton--card",
+          "name": "Card",
+          "exportName": "Card"
+        }
+      ],
+      "related": [
+        "spinner",
+        "progress-bar",
+        "card",
+        "avatar"
+      ]
+    },
+    "spinner": {
+      "id": "spinner",
+      "name": "Spinner",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Spinner/Spinner.tsx",
+      "types": "src/components/Spinner/Spinner.types.ts",
+      "guidelines": "generated/guidelines/spinner.md",
+      "extends": [
+        "HTMLAttributes<HTMLSpanElement>"
+      ],
+      "props": [
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Size from the scale.",
+          "typeRef": "SpinnerSize"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Loading",
+          "description": "Accessible label announced to assistive tech (visually hidden)."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-spinner--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-spinner--small",
+          "name": "Small",
+          "exportName": "Small"
+        },
+        {
+          "id": "components-spinner--large",
+          "name": "Large",
+          "exportName": "Large"
+        }
+      ],
+      "related": [
+        "skeleton",
+        "progress-bar",
+        "button"
+      ]
+    },
+    "stack": {
+      "id": "stack",
+      "name": "Stack",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Stack/Stack.tsx",
+      "types": "src/components/Stack/Stack.types.ts",
+      "guidelines": "generated/guidelines/stack.md",
+      "extends": [
+        "HTMLAttributes<HTMLDivElement>"
+      ],
+      "props": [
+        {
+          "name": "direction",
+          "type": "'horizontal' | 'vertical'",
+          "required": false,
+          "defaultValue": "vertical",
+          "description": "Main-axis direction.",
+          "typeRef": "StackDirection"
+        },
+        {
+          "name": "gap",
+          "type": "'none' | 'condensed' | 'normal' | 'spacious'",
+          "required": false,
+          "defaultValue": "normal",
+          "description": "Space between children, from the `space` scale (condensed=8, normal=16, spacious=24).",
+          "typeRef": "StackGap"
+        },
+        {
+          "name": "align",
+          "type": "'start' | 'center' | 'end' | 'stretch'",
+          "required": false,
+          "defaultValue": "",
+          "description": "Cross-axis alignment (maps to `align-items`).",
+          "typeRef": "StackAlign"
+        },
+        {
+          "name": "justify",
+          "type": "'start' | 'center' | 'end' | 'between'",
+          "required": false,
+          "defaultValue": "",
+          "description": "Main-axis distribution (maps to `justify-content`).",
+          "typeRef": "StackJustify"
+        },
+        {
+          "name": "wrap",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Allow children to wrap onto multiple lines."
+        },
+        {
+          "name": "padding",
+          "type": "'none' | 'condensed' | 'normal' | 'spacious'",
+          "required": false,
+          "defaultValue": "",
+          "description": "Inner padding, from the `space` scale.",
+          "typeRef": "StackPadding"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [
+        {
+          "id": "stack-item",
+          "name": "Stack.Item",
+          "props": [
+            {
+              "name": "grow",
+              "type": "boolean",
+              "required": false,
+              "defaultValue": "false",
+              "description": "Grow to fill the available space along the main axis."
+            },
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-stack--vertical",
+          "name": "Vertical",
+          "exportName": "Vertical"
+        },
+        {
+          "id": "components-stack--horizontal",
+          "name": "Horizontal",
+          "exportName": "Horizontal"
+        },
+        {
+          "id": "components-stack--toolbar",
+          "name": "Toolbar",
+          "exportName": "Toolbar"
+        }
+      ],
+      "related": [
+        "grid",
+        "card",
+        "divider"
+      ]
+    },
+    "switch": {
+      "id": "switch",
+      "name": "Switch",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Switch/Switch.tsx",
+      "types": "src/components/Switch/Switch.types.ts",
+      "guidelines": "generated/guidelines/switch.md",
+      "extends": [
+        "Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>"
+      ],
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Visible label rendered next to the switch."
+        },
+        {
+          "name": "caption",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Optional helper text under the label."
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Control track / knob scale.",
+          "typeRef": "SwitchSize"
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Mark the field as invalid (sets `aria-invalid` and a danger border)."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-switch--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-switch--on",
+          "name": "On",
+          "exportName": "On"
+        },
+        {
+          "id": "components-switch--with-caption",
+          "name": "With Caption",
+          "exportName": "WithCaption"
+        },
+        {
+          "id": "components-switch--small",
+          "name": "Small",
+          "exportName": "Small"
+        },
+        {
+          "id": "components-switch--disabled",
+          "name": "Disabled",
+          "exportName": "Disabled"
+        }
+      ],
+      "related": [
+        "checkbox",
+        "radio-group",
+        "form-control"
+      ]
+    },
+    "table": {
+      "id": "table",
+      "name": "Table",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Table/Table.tsx",
+      "types": "src/components/Table/Table.types.ts",
+      "guidelines": "generated/guidelines/table.md",
+      "extends": [
+        "TableHTMLAttributes<HTMLTableElement>"
+      ],
+      "props": [
+        {
+          "name": "density",
+          "type": "'condensed' | 'normal' | 'spacious'",
+          "required": false,
+          "defaultValue": "normal",
+          "description": "Row height / cell padding scale.",
+          "typeRef": "TableDensity"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [
+        {
+          "id": "table-container",
+          "name": "Table.Container",
+          "props": [
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": "table-title",
+          "name": "Table.Title",
+          "props": [
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": "table-subtitle",
+          "name": "Table.Subtitle",
+          "props": [
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": "table-actions",
+          "name": "Table.Actions",
+          "props": [
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": "table-head",
+          "name": "Table.Head",
+          "props": [
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": "table-body",
+          "name": "Table.Body",
+          "props": [
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": "table-row",
+          "name": "Table.Row",
+          "props": [
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": "table-header",
+          "name": "Table.Header",
+          "props": [
+            {
+              "name": "align",
+              "type": "'start' | 'center' | 'end'",
+              "required": false,
+              "defaultValue": "start",
+              "description": "Text alignment within the header cell.",
+              "typeRef": "CellAlign"
+            },
+            {
+              "name": "sortDirection",
+              "type": "'ascending' | 'descending' | 'none'",
+              "required": false,
+              "defaultValue": "",
+              "description": "When set, renders a sort indicator and exposes `aria-sort`. Combine with `onClick`.",
+              "typeRef": "SortDirection"
+            },
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": "table-cell",
+          "name": "Table.Cell",
+          "props": [
+            {
+              "name": "align",
+              "type": "'start' | 'center' | 'end'",
+              "required": false,
+              "defaultValue": "start",
+              "description": "Text alignment within the cell.",
+              "typeRef": "CellAlign"
+            },
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-table--basic",
+          "name": "Basic",
+          "exportName": "Basic"
+        },
+        {
+          "id": "components-table--in-container",
+          "name": "In Container",
+          "exportName": "InContainer"
+        },
+        {
+          "id": "components-table--sortable",
+          "name": "Sortable",
+          "exportName": "Sortable"
+        },
+        {
+          "id": "components-table--densities",
+          "name": "Densities",
+          "exportName": "Densities"
+        }
+      ],
+      "related": [
+        "data-table",
+        "empty-state",
+        "pagination",
+        "tag"
+      ]
+    },
+    "tabs": {
+      "id": "tabs",
+      "name": "Tabs",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Tabs/Tabs.tsx",
+      "types": "src/components/Tabs/Tabs.types.ts",
+      "guidelines": "generated/guidelines/tabs.md",
+      "extends": [],
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Controlled active tab value."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Uncontrolled initial active tab value."
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "Called when the active tab changes."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [
+        {
+          "id": "tabs-list",
+          "name": "Tabs.List",
+          "props": [
+            {
+              "name": "aria-label",
+              "type": "string",
+              "required": false,
+              "defaultValue": "",
+              "description": "Accessible name for the tablist."
+            },
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": "tabs-tab",
+          "name": "Tabs.Tab",
+          "props": [
+            {
+              "name": "value",
+              "type": "string",
+              "required": true,
+              "defaultValue": "",
+              "description": "Value this tab selects — must match a `Tabs.Panel` value."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "required": false,
+              "defaultValue": "false",
+              "description": "Disable this tab."
+            },
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": "tabs-panel",
+          "name": "Tabs.Panel",
+          "props": [
+            {
+              "name": "value",
+              "type": "string",
+              "required": true,
+              "defaultValue": "",
+              "description": "Value this panel is shown for."
+            },
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-tabs--default",
+          "name": "Default",
+          "exportName": "Default"
+        }
+      ],
+      "related": [
+        "segmented-control",
+        "accordion",
+        "breadcrumbs"
+      ]
+    },
+    "tag": {
+      "id": "tag",
+      "name": "Tag",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Tag/Tag.tsx",
+      "types": "src/components/Tag/Tag.types.ts",
+      "guidelines": "generated/guidelines/tag.md",
+      "extends": [
+        "HTMLAttributes<HTMLSpanElement>"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'accent' | 'success' | 'danger' | 'attention' | 'muted'",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Semantic color scheme. Pick by meaning, never by raw color: `accent` for an active/selected token, `success` / `danger` / `attention` for status words, `muted` for a quiet neutral, `default` otherwise.",
+          "typeRef": "TagVariant"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Tag size.",
+          "typeRef": "TagSize"
+        },
+        {
+          "name": "leadingIcon",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Optional leading icon rendered before the label; decorative (aria-hidden)."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "The tag label content."
+        },
+        {
+          "name": "onRemove",
+          "type": "() => void",
+          "required": false,
+          "defaultValue": "",
+          "description": "When provided, renders a real remove button. Wire it to drop the tag from your collection. Tag does not remove itself — it has no internal state."
+        },
+        {
+          "name": "removeLabel",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Accessible label for the remove button when `children` is not a plain string. Falls back to the string children, otherwise \"Remove\"."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-tag--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-tag--variants",
+          "name": "Variants",
+          "exportName": "Variants"
+        },
+        {
+          "id": "components-tag--status-pills",
+          "name": "Status Pills",
+          "exportName": "StatusPills"
+        },
+        {
+          "id": "components-tag--sizes",
+          "name": "Sizes",
+          "exportName": "Sizes"
+        },
+        {
+          "id": "components-tag--with-icon",
+          "name": "With Icon",
+          "exportName": "WithIcon"
+        },
+        {
+          "id": "components-tag--removable",
+          "name": "Removable",
+          "exportName": "Removable"
+        }
+      ],
+      "related": [
+        "badge",
+        "label",
+        "text"
+      ]
+    },
+    "text": {
+      "id": "text",
+      "name": "Text",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Text/Text.tsx",
+      "types": "src/components/Text/Text.types.ts",
+      "guidelines": "generated/guidelines/text.md",
+      "extends": [
+        "HTMLAttributes<HTMLElement>"
+      ],
+      "props": [
+        {
+          "name": "as",
+          "type": "'p' | 'span' | 'div' | 'label' | 'strong' | 'em'",
+          "required": false,
+          "defaultValue": "p",
+          "description": "Element to render.",
+          "typeRef": "TextElement"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Size on the body type scale (small=12, medium=14, large=16).",
+          "typeRef": "TextSize"
+        },
+        {
+          "name": "tone",
+          "type": "'default' | 'muted' | 'accent' | 'success' | 'danger' | 'attention'",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Semantic color: `muted` for secondary copy, status tones for validation and state messages.",
+          "typeRef": "TextTone"
+        },
+        {
+          "name": "weight",
+          "type": "'normal' | 'medium' | 'semibold'",
+          "required": false,
+          "defaultValue": "normal",
+          "description": "Font weight.",
+          "typeRef": "TextWeight"
+        },
+        {
+          "name": "truncate",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Clip overflowing text to a single line with an ellipsis."
+        },
+        {
+          "name": "align",
+          "type": "'start' | 'center' | 'end'",
+          "required": false,
+          "defaultValue": "",
+          "description": "Horizontal text alignment (logical: `start`/`end` follow writing direction).",
+          "typeRef": "TextAlign"
+        },
+        {
+          "name": "htmlFor",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": "Associates the text with a form control; only meaningful with `as=\"label\"`."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Text content."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-text--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-text--small",
+          "name": "Small",
+          "exportName": "Small"
+        },
+        {
+          "id": "components-text--large",
+          "name": "Large",
+          "exportName": "Large"
+        },
+        {
+          "id": "components-text--muted",
+          "name": "Muted",
+          "exportName": "Muted"
+        },
+        {
+          "id": "components-text--tones",
+          "name": "Tones",
+          "exportName": "Tones"
+        },
+        {
+          "id": "components-text--weights",
+          "name": "Weights",
+          "exportName": "Weights"
+        },
+        {
+          "id": "components-text--inline-elements",
+          "name": "Inline Elements",
+          "exportName": "InlineElements"
+        },
+        {
+          "id": "components-text--as-label",
+          "name": "As Label",
+          "exportName": "AsLabel"
+        },
+        {
+          "id": "components-text--truncate",
+          "name": "Truncate",
+          "exportName": "Truncate"
+        },
+        {
+          "id": "components-text--aligned",
+          "name": "Aligned",
+          "exportName": "Aligned"
+        },
+        {
+          "id": "components-text--composed",
+          "name": "Composed",
+          "exportName": "Composed"
+        }
+      ],
+      "related": [
+        "heading",
+        "empty-state",
+        "label"
+      ]
+    },
+    "text-input": {
+      "id": "text-input",
+      "name": "TextInput",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/TextInput/TextInput.tsx",
+      "types": "src/components/TextInput/TextInput.types.ts",
+      "guidelines": "generated/guidelines/text-input.md",
+      "extends": [
+        "Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>"
+      ],
+      "props": [
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Control height / font scale.",
+          "typeRef": "TextInputSize"
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch the field to fill the available width."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch the field to fill the available width.",
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Element rendered before the input (e.g. a search icon)."
+        },
+        {
+          "name": "trailingVisual",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": "Element rendered after the input."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Mark the field as invalid (sets `aria-invalid` and a danger border)."
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-textinput--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-textinput--with-leading-visual",
+          "name": "With Leading Visual",
+          "exportName": "WithLeadingVisual"
+        },
+        {
+          "id": "components-textinput--invalid",
+          "name": "Invalid",
+          "exportName": "Invalid"
+        },
+        {
+          "id": "components-textinput--sizes",
+          "name": "Sizes",
+          "exportName": "Sizes"
+        }
+      ],
+      "related": [
+        "form-control",
+        "textarea",
+        "number-input",
+        "select",
+        "icon"
+      ]
+    },
+    "textarea": {
+      "id": "textarea",
+      "name": "Textarea",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Textarea/Textarea.tsx",
+      "types": "src/components/Textarea/Textarea.types.ts",
+      "guidelines": "generated/guidelines/textarea.md",
+      "extends": [
+        "Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'size'>"
+      ],
+      "props": [
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch to fill the available width."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "",
+          "description": "Stretch to fill the available width.",
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": "false",
+          "description": "Mark the field invalid (sets aria-invalid and a danger border)."
+        },
+        {
+          "name": "resize",
+          "type": "'none' | 'vertical' | 'horizontal' | 'both'",
+          "required": false,
+          "defaultValue": "vertical",
+          "description": "Which directions the user may resize.",
+          "typeRef": "TextareaResize"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "required": false,
+          "defaultValue": "medium",
+          "description": "Padding / font scale — matches TextInput so fields line up in a form.",
+          "typeRef": "TextareaSize"
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-textarea--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-textarea--invalid",
+          "name": "Invalid",
+          "exportName": "Invalid"
+        }
+      ],
+      "related": [
+        "text-input",
+        "form-control"
+      ]
+    },
+    "toast": {
+      "id": "toast",
+      "name": "Toast",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Toast/Toast.tsx",
+      "types": "src/components/Toast/Toast.types.ts",
+      "guidelines": "generated/guidelines/toast.md",
+      "extends": [],
+      "props": [
+        {
+          "name": "duration",
+          "type": "number",
+          "required": false,
+          "defaultValue": "5000",
+          "description": "Default auto-dismiss duration (ms) when an individual toast doesn't set one."
+        },
+        {
+          "name": "placement",
+          "type": "'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'",
+          "required": false,
+          "defaultValue": "bottom-right",
+          "description": "Viewport corner."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [
+        {
+          "id": "toastprovider",
+          "name": "ToastProvider",
+          "props": [
+            {
+              "name": "duration",
+              "type": "number",
+              "required": false,
+              "defaultValue": "5000",
+              "description": "Default auto-dismiss duration (ms) when an individual toast doesn't set one."
+            },
+            {
+              "name": "placement",
+              "type": "'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'",
+              "required": false,
+              "defaultValue": "bottom-right",
+              "description": "Viewport corner."
+            },
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": "usetoast",
+          "name": "useToast",
+          "kind": "hook",
+          "props": [
+            {
+              "name": "toast",
+              "type": "(options: ToastOptions) => string",
+              "required": true,
+              "defaultValue": "",
+              "description": "Show a toast; returns its id."
+            },
+            {
+              "name": "dismiss",
+              "type": "(id: string) => void",
+              "required": true,
+              "defaultValue": "",
+              "description": "Dismiss a toast by id."
+            }
+          ]
+        }
+      ],
+      "relatedTypes": [
+        {
+          "name": "ToastOptions",
+          "description": "",
+          "members": [
+            {
+              "name": "variant",
+              "type": "'info' | 'success' | 'warning' | 'danger'",
+              "required": false,
+              "defaultValue": "",
+              "description": "Semantic tone.",
+              "typeRef": "ToastVariant"
+            },
+            {
+              "name": "title",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": "Optional bold lead-in line."
+            },
+            {
+              "name": "message",
+              "type": "ReactNode",
+              "required": true,
+              "defaultValue": "",
+              "description": "Main message."
+            },
+            {
+              "name": "duration",
+              "type": "number",
+              "required": false,
+              "defaultValue": "",
+              "description": "Auto-dismiss after N ms. 0 keeps it until dismissed."
+            }
+          ]
+        },
+        {
+          "name": "ToastEntry",
+          "description": "",
+          "members": [
+            {
+              "name": "variant",
+              "type": "'info' | 'success' | 'warning' | 'danger'",
+              "required": false,
+              "defaultValue": "",
+              "description": "Semantic tone.",
+              "typeRef": "ToastVariant"
+            },
+            {
+              "name": "title",
+              "type": "ReactNode",
+              "required": false,
+              "defaultValue": "",
+              "description": "Optional bold lead-in line."
+            },
+            {
+              "name": "message",
+              "type": "ReactNode",
+              "required": true,
+              "defaultValue": "",
+              "description": "Main message."
+            },
+            {
+              "name": "duration",
+              "type": "number",
+              "required": false,
+              "defaultValue": "",
+              "description": "Auto-dismiss after N ms. 0 keeps it until dismissed."
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "defaultValue": "",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "stories": [
+        {
+          "id": "components-toast--default",
+          "name": "Default",
+          "exportName": "Default"
+        }
+      ],
+      "related": [
+        "banner",
+        "dialog",
+        "spinner"
+      ]
+    },
+    "tooltip": {
+      "id": "tooltip",
+      "name": "Tooltip",
+      "status": "stable",
+      "a11yReviewed": true,
+      "importPath": "tenet-ui",
+      "source": "src/components/Tooltip/Tooltip.tsx",
+      "types": "src/components/Tooltip/Tooltip.types.ts",
+      "guidelines": "generated/guidelines/tooltip.md",
+      "extends": [],
+      "props": [
+        {
+          "name": "content",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": "",
+          "description": "Tooltip text/content."
+        },
+        {
+          "name": "placement",
+          "type": "'top' | 'bottom' | 'left' | 'right'",
+          "required": false,
+          "defaultValue": "top",
+          "description": "Side of the trigger to render on.",
+          "typeRef": "TooltipPlacement"
+        },
+        {
+          "name": "children",
+          "type": "ReactElement",
+          "required": true,
+          "defaultValue": "",
+          "description": "The single trigger element (must be focusable for keyboard users)."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        }
+      ],
+      "subcomponents": [],
+      "relatedTypes": [],
+      "stories": [
+        {
+          "id": "components-tooltip--default",
+          "name": "Default",
+          "exportName": "Default"
+        },
+        {
+          "id": "components-tooltip--bottom",
+          "name": "Bottom",
+          "exportName": "Bottom"
+        }
+      ],
+      "related": [
+        "popover",
+        "icon-button",
+        "text"
+      ]
+    }
+  }
+}
