@@ -5,18 +5,38 @@ var jsxRuntime = require('react/jsx-runtime');
 var reactDom = require('react-dom');
 
 // src/components/Button/Button.tsx
+
+// src/internal/deprecate.ts
+var warned = /* @__PURE__ */ new Set();
+var isDev = () => {
+  const nodeEnv = globalThis.process?.env?.NODE_ENV;
+  return nodeEnv !== "production";
+};
+function warnDeprecated(key, message) {
+  if (!isDev() || warned.has(key)) return;
+  warned.add(key);
+  console.warn(`tenet-ui: ${message}`);
+}
+function resolveFullWidth(component, fullWidth, block) {
+  if (block !== void 0) {
+    warnDeprecated(`${component}.block`, `<${component} block> is deprecated since 0.4.0 \u2014 use <${component} fullWidth> instead. \`block\` will be removed in 0.5.0.`);
+  }
+  return fullWidth ?? block ?? false;
+}
 var cx = (...parts) => parts.filter(Boolean).join(" ");
 var Button = react.forwardRef(function Button2({
   variant = "default",
   size = "medium",
   leadingIcon,
   trailingIcon,
-  block = false,
+  fullWidth,
+  block,
   type = "button",
   className,
   children,
   ...rest
 }, ref) {
+  const isFullWidth = resolveFullWidth("Button", fullWidth, block);
   return /* @__PURE__ */ jsxRuntime.jsxs(
     "button",
     {
@@ -26,7 +46,7 @@ var Button = react.forwardRef(function Button2({
         "Tenet-Button",
         `Tenet-Button--variant-${variant}`,
         `Tenet-Button--size-${size}`,
-        block && "Tenet-Button--block",
+        isFullWidth && "Tenet-Button--fullWidth",
         className
       ),
       ...rest,
@@ -39,12 +59,45 @@ var Button = react.forwardRef(function Button2({
   );
 });
 var cx2 = (...parts) => parts.filter(Boolean).join(" ");
+var Heading = react.forwardRef(function Heading2({ level = 2, as, truncate = false, className, children, ...rest }, ref) {
+  const element = as ?? `h${level}`;
+  return react.createElement(
+    element,
+    {
+      ref,
+      className: cx2("Tenet-Heading", `Tenet-Heading--level-${level}`, truncate && "Tenet-Heading--truncate", className),
+      ...rest
+    },
+    children
+  );
+});
+var cx3 = (...parts) => parts.filter(Boolean).join(" ");
+var Text = react.forwardRef(function Text2({ as = "p", size = "medium", tone = "default", weight = "normal", truncate = false, align, className, children, ...rest }, ref) {
+  return react.createElement(
+    as,
+    {
+      ref,
+      className: cx3(
+        "Tenet-Text",
+        `Tenet-Text--size-${size}`,
+        `Tenet-Text--tone-${tone}`,
+        `Tenet-Text--weight-${weight}`,
+        align && `Tenet-Text--align-${align}`,
+        truncate && "Tenet-Text--truncate",
+        className
+      ),
+      ...rest
+    },
+    children
+  );
+});
+var cx4 = (...parts) => parts.filter(Boolean).join(" ");
 var StackRoot = react.forwardRef(function Stack({ direction = "vertical", gap = "normal", align, justify, wrap = false, padding, className, children, ...rest }, ref) {
   return /* @__PURE__ */ jsxRuntime.jsx(
     "div",
     {
       ref,
-      className: cx2(
+      className: cx4(
         "Tenet-Stack",
         `Tenet-Stack--direction-${direction}`,
         `Tenet-Stack--gap-${gap}`,
@@ -60,30 +113,77 @@ var StackRoot = react.forwardRef(function Stack({ direction = "vertical", gap = 
   );
 });
 var StackItem = react.forwardRef(function StackItem2({ grow = false, className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { ref, className: cx2("Tenet-Stack__item", grow && "Tenet-Stack__item--grow", className), ...rest, children });
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { ref, className: cx4("Tenet-Stack__item", grow && "Tenet-Stack__item--grow", className), ...rest, children });
 });
 var Stack2 = Object.assign(StackRoot, { Item: StackItem });
-var cx3 = (...parts) => parts.filter(Boolean).join(" ");
-var Card = react.forwardRef(function Card2({ variant = "default", padding = "normal", className, children, ...rest }, ref) {
+var cx5 = (...parts) => parts.filter(Boolean).join(" ");
+var BREAKPOINTS = ["base", "sm", "md", "lg"];
+function responsiveVars(prefix, value) {
+  const vars = {};
+  if (value === void 0) return vars;
+  if (typeof value === "number") {
+    vars[`${prefix}-base`] = value;
+    return vars;
+  }
+  for (const bp of BREAKPOINTS) {
+    const v = value[bp];
+    if (v !== void 0) vars[`${prefix}-${bp}`] = v;
+  }
+  return vars;
+}
+var GridRoot = react.forwardRef(function Grid({ columns = 1, gap = "normal", rowGap, align, className, style, children, ...rest }, ref) {
   return /* @__PURE__ */ jsxRuntime.jsx(
     "div",
     {
       ref,
-      className: cx3("Tenet-Card", `Tenet-Card--variant-${variant}`, `Tenet-Card--padding-${padding}`, className),
+      className: cx5(
+        "Tenet-Grid",
+        `Tenet-Grid--gap-${gap}`,
+        rowGap && `Tenet-Grid--rowGap-${rowGap}`,
+        align && `Tenet-Grid--align-${align}`,
+        className
+      ),
+      style: { ...responsiveVars("--Tenet-Grid-columns", columns), ...style },
       ...rest,
       children
     }
   );
 });
-var cx4 = (...parts) => parts.filter(Boolean).join(" ");
-var TextInput = react.forwardRef(function TextInput2({ size = "medium", block = false, leadingVisual, trailingVisual, invalid = false, className, disabled, ...rest }, ref) {
+var GridItem = react.forwardRef(function GridItem2({ span, className, style, children, ...rest }, ref) {
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      ref,
+      className: cx5("Tenet-Grid__item", span !== void 0 && "Tenet-Grid__item--span", className),
+      style: { ...responsiveVars("--Tenet-Grid-Item-span", span), ...style },
+      ...rest,
+      children
+    }
+  );
+});
+var Grid2 = Object.assign(GridRoot, { Item: GridItem });
+var cx6 = (...parts) => parts.filter(Boolean).join(" ");
+var Card = react.forwardRef(function Card2({ variant = "default", padding = "normal", className, children, ...rest }, ref) {
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      ref,
+      className: cx6("Tenet-Card", `Tenet-Card--variant-${variant}`, `Tenet-Card--padding-${padding}`, className),
+      ...rest,
+      children
+    }
+  );
+});
+var cx7 = (...parts) => parts.filter(Boolean).join(" ");
+var TextInput = react.forwardRef(function TextInput2({ size = "medium", fullWidth, block, leadingVisual, trailingVisual, invalid = false, className, disabled, ...rest }, ref) {
+  const isFullWidth = resolveFullWidth("TextInput", fullWidth, block);
   return /* @__PURE__ */ jsxRuntime.jsxs(
     "span",
     {
-      className: cx4(
+      className: cx7(
         "Tenet-TextInput",
         `Tenet-TextInput--size-${size}`,
-        block && "Tenet-TextInput--block",
+        isFullWidth && "Tenet-TextInput--fullWidth",
         invalid && "Tenet-TextInput--invalid",
         disabled && "Tenet-TextInput--disabled",
         className
@@ -105,43 +205,44 @@ var TextInput = react.forwardRef(function TextInput2({ size = "medium", block = 
     }
   );
 });
-var cx5 = (...parts) => parts.filter(Boolean).join(" ");
+var cx8 = (...parts) => parts.filter(Boolean).join(" ");
 var Label = react.forwardRef(function Label2({ variant = "default", size = "medium", className, children, ...rest }, ref) {
+  warnDeprecated("Label", '<Label> is deprecated since 0.4.0 \u2014 use <Tag variant="\u2026"> instead (same variants; read-only without onRemove). Label will be removed in 0.5.0.');
   return /* @__PURE__ */ jsxRuntime.jsx(
     "span",
     {
       ref,
-      className: cx5("Tenet-Label", `Tenet-Label--variant-${variant}`, `Tenet-Label--size-${size}`, className),
+      className: cx8("Tenet-Label", `Tenet-Label--variant-${variant}`, `Tenet-Label--size-${size}`, className),
       ...rest,
       children
     }
   );
 });
-var cx6 = (...parts) => parts.filter(Boolean).join(" ");
+var cx9 = (...parts) => parts.filter(Boolean).join(" ");
 var sortGlyph = { ascending: "\u25B2", descending: "\u25BC", none: "\u2195" };
 var TableRoot = react.forwardRef(function Table({ density = "normal", className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "Tenet-Table__scroll", children: /* @__PURE__ */ jsxRuntime.jsx("table", { ref, className: cx6("Tenet-Table", `Tenet-Table--density-${density}`, className), ...rest, children }) });
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "Tenet-Table__scroll", children: /* @__PURE__ */ jsxRuntime.jsx("table", { ref, className: cx9("Tenet-Table", `Tenet-Table--density-${density}`, className), ...rest, children }) });
 });
 var Container = react.forwardRef(function TableContainer({ className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { ref, className: cx6("Tenet-Table__container", className), ...rest, children });
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { ref, className: cx9("Tenet-Table__container", className), ...rest, children });
 });
 var Title = react.forwardRef(function TableTitle({ className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsxRuntime.jsx("h2", { ref, className: cx6("Tenet-Table__title", className), ...rest, children });
+  return /* @__PURE__ */ jsxRuntime.jsx("h2", { ref, className: cx9("Tenet-Table__title", className), ...rest, children });
 });
 var Subtitle = react.forwardRef(function TableSubtitle({ className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsxRuntime.jsx("p", { ref, className: cx6("Tenet-Table__subtitle", className), ...rest, children });
+  return /* @__PURE__ */ jsxRuntime.jsx("p", { ref, className: cx9("Tenet-Table__subtitle", className), ...rest, children });
 });
 var Actions = react.forwardRef(function TableActions({ className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { ref, className: cx6("Tenet-Table__actions", className), ...rest, children });
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { ref, className: cx9("Tenet-Table__actions", className), ...rest, children });
 });
 var Head = react.forwardRef(function TableHead({ className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsxRuntime.jsx("thead", { ref, className: cx6("Tenet-Table__head", className), ...rest, children });
+  return /* @__PURE__ */ jsxRuntime.jsx("thead", { ref, className: cx9("Tenet-Table__head", className), ...rest, children });
 });
 var Body = react.forwardRef(function TableBody({ className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsxRuntime.jsx("tbody", { ref, className: cx6("Tenet-Table__body", className), ...rest, children });
+  return /* @__PURE__ */ jsxRuntime.jsx("tbody", { ref, className: cx9("Tenet-Table__body", className), ...rest, children });
 });
 var Row = react.forwardRef(function TableRow({ className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsxRuntime.jsx("tr", { ref, className: cx6("Tenet-Table__row", className), ...rest, children });
+  return /* @__PURE__ */ jsxRuntime.jsx("tr", { ref, className: cx9("Tenet-Table__row", className), ...rest, children });
 });
 var Header = react.forwardRef(function TableHeader({ align = "start", sortDirection, scope = "col", className, children, onClick, ...rest }, ref) {
   const sortable = sortDirection !== void 0;
@@ -151,7 +252,7 @@ var Header = react.forwardRef(function TableHeader({ align = "start", sortDirect
       ref,
       scope,
       "aria-sort": sortable && sortDirection !== "none" ? sortDirection : void 0,
-      className: cx6("Tenet-Table__header", `Tenet-Table__cell--align-${align}`, sortable && "Tenet-Table__header--sortable", className),
+      className: cx9("Tenet-Table__header", `Tenet-Table__cell--align-${align}`, sortable && "Tenet-Table__header--sortable", className),
       ...rest,
       children: sortable ? (
         // A real button so sorting is reachable & operable by keyboard, not click-only.
@@ -172,7 +273,7 @@ var Header = react.forwardRef(function TableHeader({ align = "start", sortDirect
   );
 });
 var Cell = react.forwardRef(function TableCell({ align = "start", className, children, ...rest }, ref) {
-  return /* @__PURE__ */ jsxRuntime.jsx("td", { ref, className: cx6("Tenet-Table__cell", `Tenet-Table__cell--align-${align}`, className), ...rest, children });
+  return /* @__PURE__ */ jsxRuntime.jsx("td", { ref, className: cx9("Tenet-Table__cell", `Tenet-Table__cell--align-${align}`, className), ...rest, children });
 });
 var Table2 = Object.assign(TableRoot, {
   Container,
@@ -185,9 +286,9 @@ var Table2 = Object.assign(TableRoot, {
   Header,
   Cell
 });
-var cx7 = (...parts) => parts.filter(Boolean).join(" ");
+var cx10 = (...parts) => parts.filter(Boolean).join(" ");
 function Label3({ visuallyHidden = false, required = false, className, children, ...rest }) {
-  return /* @__PURE__ */ jsxRuntime.jsxs("label", { className: cx7("Tenet-FormControl__label", visuallyHidden && "Tenet-visuallyHidden", className), ...rest, children: [
+  return /* @__PURE__ */ jsxRuntime.jsxs("label", { className: cx10("Tenet-FormControl__label", visuallyHidden && "Tenet-visuallyHidden", className), ...rest, children: [
     children,
     required && /* @__PURE__ */ jsxRuntime.jsxs("span", { className: "Tenet-FormControl__required", "aria-hidden": "true", children: [
       " ",
@@ -196,14 +297,14 @@ function Label3({ visuallyHidden = false, required = false, className, children,
   ] });
 }
 function Caption({ className, children, ...rest }) {
-  return /* @__PURE__ */ jsxRuntime.jsx("span", { className: cx7("Tenet-FormControl__caption", className), ...rest, children });
+  return /* @__PURE__ */ jsxRuntime.jsx("span", { className: cx10("Tenet-FormControl__caption", className), ...rest, children });
 }
 function Validation({ variant = "error", className, children, ...rest }) {
   return /* @__PURE__ */ jsxRuntime.jsx(
     "span",
     {
       role: variant === "error" ? "alert" : void 0,
-      className: cx7("Tenet-FormControl__validation", `Tenet-FormControl__validation--${variant}`, className),
+      className: cx10("Tenet-FormControl__validation", `Tenet-FormControl__validation--${variant}`, className),
       ...rest,
       children
     }
@@ -254,21 +355,22 @@ var FormControlRoot = react.forwardRef(function FormControl({ id: idProp, requir
       disabled: p.disabled ?? (disabled || void 0)
     });
   });
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { ref, className: cx7("Tenet-FormControl", className), ...rest, children: mapped });
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { ref, className: cx10("Tenet-FormControl", className), ...rest, children: mapped });
 });
 var FormControl2 = Object.assign(FormControlRoot, { Label: Label3, Caption, Validation });
-var cx8 = (...parts) => parts.filter(Boolean).join(" ");
-var Textarea = react.forwardRef(function Textarea2({ block = false, invalid = false, resize = "vertical", size = "medium", rows = 4, className, ...rest }, ref) {
+var cx11 = (...parts) => parts.filter(Boolean).join(" ");
+var Textarea = react.forwardRef(function Textarea2({ fullWidth, block, invalid = false, resize = "vertical", size = "medium", rows = 4, className, ...rest }, ref) {
+  const isFullWidth = resolveFullWidth("Textarea", fullWidth, block);
   return /* @__PURE__ */ jsxRuntime.jsx(
     "textarea",
     {
       ref,
       rows,
       "aria-invalid": invalid || void 0,
-      className: cx8(
+      className: cx11(
         "Tenet-Textarea",
         `Tenet-Textarea--size-${size}`,
-        block && "Tenet-Textarea--block",
+        isFullWidth && "Tenet-Textarea--fullWidth",
         invalid && "Tenet-Textarea--invalid",
         `Tenet-Textarea--resize-${resize}`,
         className
@@ -353,7 +455,7 @@ function mergeRefs(...refs) {
     }
   };
 }
-var cx9 = (...parts) => parts.filter(Boolean).join(" ");
+var cx12 = (...parts) => parts.filter(Boolean).join(" ");
 function nextEnabled(options, from, dir) {
   const n = options.length;
   for (let step = 1; step <= n; step++) {
@@ -374,7 +476,8 @@ var Select = react.forwardRef(function Select2({
   onChange,
   placeholder = "Select\u2026",
   size = "medium",
-  block = false,
+  fullWidth,
+  block,
   invalid = false,
   disabled = false,
   required = false,
@@ -385,6 +488,7 @@ var Select = react.forwardRef(function Select2({
   "aria-describedby": describedBy,
   ...rest
 }, ref) {
+  const isFullWidth = resolveFullWidth("Select", fullWidth, block);
   const reactId = react.useId();
   const triggerId = id ?? `${reactId}-trigger`;
   const listboxId = `${reactId}-listbox`;
@@ -499,10 +603,10 @@ var Select = react.forwardRef(function Select2({
     "span",
     {
       ref: wrapRef,
-      className: cx9(
+      className: cx12(
         "Tenet-Select",
         `Tenet-Select--size-${size}`,
-        block && "Tenet-Select--block",
+        isFullWidth && "Tenet-Select--fullWidth",
         invalid && "Tenet-Select--invalid",
         disabled && "Tenet-Select--disabled",
         open && "Tenet-Select--open",
@@ -530,7 +634,7 @@ var Select = react.forwardRef(function Select2({
             onClick: () => open ? closeMenu() : openMenu(),
             onKeyDown,
             children: [
-              /* @__PURE__ */ jsxRuntime.jsx("span", { className: cx9("Tenet-Select__value", !selected && "Tenet-Select__value--placeholder"), children: selected ? selected.label : placeholder }),
+              /* @__PURE__ */ jsxRuntime.jsx("span", { className: cx12("Tenet-Select__value", !selected && "Tenet-Select__value--placeholder"), children: selected ? selected.label : placeholder }),
               /* @__PURE__ */ jsxRuntime.jsx("span", { className: "Tenet-Select__caret", "aria-hidden": "true", children: "\u25BE" })
             ]
           }
@@ -544,7 +648,7 @@ var Select = react.forwardRef(function Select2({
               role: "option",
               "aria-selected": isSelected,
               "aria-disabled": opt.disabled || void 0,
-              className: cx9(
+              className: cx12(
                 "Tenet-Select__option",
                 i === active && "Tenet-Select__option--active",
                 isSelected && "Tenet-Select__option--selected",
@@ -570,7 +674,7 @@ var Select = react.forwardRef(function Select2({
     }
   );
 });
-var cx10 = (...parts) => parts.filter(Boolean).join(" ");
+var cx13 = (...parts) => parts.filter(Boolean).join(" ");
 var Checkbox = react.forwardRef(function Checkbox2({ label, caption, id, className, disabled, invalid = false, indeterminate = false, "aria-describedby": ariaDescribedby, ...rest }, ref) {
   const generatedId = react.useId();
   const inputId = id ?? generatedId;
@@ -585,7 +689,7 @@ var Checkbox = react.forwardRef(function Checkbox2({ label, caption, id, classNa
   react.useEffect(() => {
     if (innerRef.current) innerRef.current.indeterminate = indeterminate;
   }, [indeterminate]);
-  return /* @__PURE__ */ jsxRuntime.jsxs("span", { className: cx10("Tenet-Checkbox", disabled && "Tenet-Checkbox--disabled", className), children: [
+  return /* @__PURE__ */ jsxRuntime.jsxs("span", { className: cx13("Tenet-Checkbox", disabled && "Tenet-Checkbox--disabled", className), children: [
     /* @__PURE__ */ jsxRuntime.jsx(
       "input",
       {
@@ -605,7 +709,7 @@ var Checkbox = react.forwardRef(function Checkbox2({ label, caption, id, classNa
     ] })
   ] });
 });
-var cx11 = (...parts) => parts.filter(Boolean).join(" ");
+var cx14 = (...parts) => parts.filter(Boolean).join(" ");
 var RadioGroupContext = react.createContext(null);
 var Radio = react.forwardRef(function Radio2({ value, label, caption, id, name, checked, defaultChecked, disabled, onChange, className, "aria-describedby": ariaDescribedby, ...rest }, ref) {
   const ctx = react.useContext(RadioGroupContext);
@@ -622,7 +726,7 @@ var Radio = react.forwardRef(function Radio2({ value, label, caption, id, name, 
     onChange?.(event);
     ctx?.onChange?.(value);
   };
-  return /* @__PURE__ */ jsxRuntime.jsxs("span", { className: cx11("Tenet-Radio", resolvedDisabled && "Tenet-Radio--disabled", className), children: [
+  return /* @__PURE__ */ jsxRuntime.jsxs("span", { className: cx14("Tenet-Radio", resolvedDisabled && "Tenet-Radio--disabled", className), children: [
     /* @__PURE__ */ jsxRuntime.jsx(
       "input",
       {
@@ -655,7 +759,7 @@ var RadioGroup = react.forwardRef(function RadioGroup2({ name, label, caption, v
     "fieldset",
     {
       ref,
-      className: cx11("Tenet-RadioGroup", className),
+      className: cx14("Tenet-RadioGroup", className),
       "aria-describedby": describedBy,
       ...rest,
       children: [
@@ -672,7 +776,7 @@ var RadioGroup = react.forwardRef(function RadioGroup2({ name, label, caption, v
     }
   );
 });
-var cx12 = (...parts) => parts.filter(Boolean).join(" ");
+var cx15 = (...parts) => parts.filter(Boolean).join(" ");
 var Switch = react.forwardRef(function Switch2({ label, caption, size = "medium", invalid = false, id, className, disabled, "aria-describedby": ariaDescribedby, ...rest }, ref) {
   const generatedId = react.useId();
   const inputId = id ?? generatedId;
@@ -681,7 +785,7 @@ var Switch = react.forwardRef(function Switch2({ label, caption, size = "medium"
   return /* @__PURE__ */ jsxRuntime.jsxs(
     "span",
     {
-      className: cx12(
+      className: cx15(
         "Tenet-Switch",
         `Tenet-Switch--size-${size}`,
         invalid && "Tenet-Switch--invalid",
@@ -714,7 +818,7 @@ var Switch = react.forwardRef(function Switch2({ label, caption, size = "medium"
     }
   );
 });
-var cx13 = (...parts) => parts.filter(Boolean).join(" ");
+var cx16 = (...parts) => parts.filter(Boolean).join(" ");
 var toText = (n) => n == null ? "" : String(n);
 var parse = (s) => {
   const trimmed = s.trim();
@@ -736,7 +840,8 @@ var NumberInput = react.forwardRef(function NumberInput2({
   max,
   step = 1,
   size = "medium",
-  block = false,
+  fullWidth,
+  block,
   invalid = false,
   className,
   disabled,
@@ -744,6 +849,7 @@ var NumberInput = react.forwardRef(function NumberInput2({
   "aria-label": ariaLabel,
   ...rest
 }, ref) {
+  const isFullWidth = resolveFullWidth("NumberInput", fullWidth, block);
   const isControlled = value !== void 0;
   const [text, setText] = react.useState(() => toText(isControlled ? value : defaultValue));
   const innerRef = react.useRef(null);
@@ -782,10 +888,10 @@ var NumberInput = react.forwardRef(function NumberInput2({
   return /* @__PURE__ */ jsxRuntime.jsxs(
     "span",
     {
-      className: cx13(
+      className: cx16(
         "Tenet-NumberInput",
         `Tenet-NumberInput--size-${size}`,
-        block && "Tenet-NumberInput--block",
+        isFullWidth && "Tenet-NumberInput--fullWidth",
         invalid && "Tenet-NumberInput--invalid",
         disabled && "Tenet-NumberInput--disabled",
         className
@@ -841,7 +947,7 @@ var NumberInput = react.forwardRef(function NumberInput2({
     }
   );
 });
-var cx14 = (...parts) => parts.filter(Boolean).join(" ");
+var cx17 = (...parts) => parts.filter(Boolean).join(" ");
 function readValue(column, row) {
   if (column.accessor) return column.accessor(row);
   return row[column.id];
@@ -909,7 +1015,7 @@ function DataTable({
     });
   };
   const sortDirectionFor = (columnId) => sort?.columnId === columnId ? sort.direction : "none";
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: cx14("Tenet-DataTable", className), children: /* @__PURE__ */ jsxRuntime.jsxs(Table2.Container, { children: [
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: cx17("Tenet-DataTable", className), children: /* @__PURE__ */ jsxRuntime.jsxs(Table2.Container, { children: [
     (title || subtitle || actions) && /* @__PURE__ */ jsxRuntime.jsxs(Stack2, { direction: "horizontal", align: "center", justify: "between", className: "Tenet-DataTable__header", children: [
       /* @__PURE__ */ jsxRuntime.jsxs(Stack2.Item, { grow: true, children: [
         title && /* @__PURE__ */ jsxRuntime.jsx(Table2.Title, { children: title }),
@@ -992,7 +1098,7 @@ function weekdayLabels(weekStartsOn, locale) {
 var formatMonthYear = (d, locale) => new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" }).format(d);
 var formatFullDate = (d, locale) => new Intl.DateTimeFormat(locale, { weekday: "long", month: "long", day: "numeric", year: "numeric" }).format(d);
 var formatDate = (d, locale) => new Intl.DateTimeFormat(locale, { month: "short", day: "numeric", year: "numeric" }).format(d);
-var cx15 = (...parts) => parts.filter(Boolean).join(" ");
+var cx18 = (...parts) => parts.filter(Boolean).join(" ");
 function Calendar({
   value,
   defaultValue,
@@ -1087,7 +1193,7 @@ function Calendar({
   const weeks = Array.from({ length: 6 }, (_, w) => days.slice(w * 7, w * 7 + 7));
   const prevDisabled = !!min && startOfMonth(visibleMonth).getTime() <= startOfMonth(min).getTime();
   const nextDisabled = !!max && startOfMonth(visibleMonth).getTime() >= startOfMonth(max).getTime();
-  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cx15("Tenet-Calendar", className), role: "group", "aria-label": ariaLabel ?? "Calendar", children: [
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cx18("Tenet-Calendar", className), role: "group", "aria-label": ariaLabel ?? "Calendar", children: [
     /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "Tenet-Calendar__header", children: [
       /* @__PURE__ */ jsxRuntime.jsx(
         "button",
@@ -1130,7 +1236,7 @@ function Calendar({
             disabled,
             "aria-label": formatFullDate(day, locale),
             "aria-current": isToday ? "date" : void 0,
-            className: cx15(
+            className: cx18(
               "Tenet-Calendar__day",
               !inMonth && "Tenet-Calendar__day--outside",
               isSelected && "Tenet-Calendar__day--selected",
@@ -1145,7 +1251,7 @@ function Calendar({
     ] })
   ] });
 }
-var cx16 = (...parts) => parts.filter(Boolean).join(" ");
+var cx19 = (...parts) => parts.filter(Boolean).join(" ");
 var DatePicker = react.forwardRef(function DatePicker2({
   value,
   defaultValue,
@@ -1156,7 +1262,8 @@ var DatePicker = react.forwardRef(function DatePicker2({
   locale,
   placeholder = "Select a date\u2026",
   size = "medium",
-  block = false,
+  fullWidth,
+  block,
   invalid = false,
   disabled = false,
   required = false,
@@ -1166,6 +1273,7 @@ var DatePicker = react.forwardRef(function DatePicker2({
   "aria-label": ariaLabel,
   "aria-describedby": describedBy
 }, ref) {
+  const isFullWidth = resolveFullWidth("DatePicker", fullWidth, block);
   const reactId = react.useId();
   const triggerId = id ?? `${reactId}-trigger`;
   const dialogId = `${reactId}-dialog`;
@@ -1204,10 +1312,10 @@ var DatePicker = react.forwardRef(function DatePicker2({
     "span",
     {
       ref: wrapRef,
-      className: cx16(
+      className: cx19(
         "Tenet-DatePicker",
         `Tenet-DatePicker--size-${size}`,
-        block && "Tenet-DatePicker--block",
+        isFullWidth && "Tenet-DatePicker--fullWidth",
         invalid && "Tenet-DatePicker--invalid",
         disabled && "Tenet-DatePicker--disabled",
         className
@@ -1241,7 +1349,7 @@ var DatePicker = react.forwardRef(function DatePicker2({
             onClick: () => !disabled && setOpen((o) => !o),
             children: [
               /* @__PURE__ */ jsxRuntime.jsx("span", { className: "Tenet-DatePicker__icon", "aria-hidden": "true", children: "\u{1F4C5}" }),
-              /* @__PURE__ */ jsxRuntime.jsx("span", { className: cx16("Tenet-DatePicker__value", !selected && "Tenet-DatePicker__value--placeholder"), children: selected ? formatDate(selected, locale) : placeholder })
+              /* @__PURE__ */ jsxRuntime.jsx("span", { className: cx19("Tenet-DatePicker__value", !selected && "Tenet-DatePicker__value--placeholder"), children: selected ? formatDate(selected, locale) : placeholder })
             ]
           }
         ),
@@ -1264,7 +1372,7 @@ var DatePicker = react.forwardRef(function DatePicker2({
     }
   );
 });
-var cx17 = (...parts) => parts.filter(Boolean).join(" ");
+var cx20 = (...parts) => parts.filter(Boolean).join(" ");
 var DEFAULT_ICON = {
   info: "\u2139",
   success: "\u2713",
@@ -1278,7 +1386,7 @@ var Banner = react.forwardRef(function Banner2({ variant = "info", title, icon, 
     {
       ref,
       role,
-      className: cx17("Tenet-Banner", `Tenet-Banner--variant-${variant}`, className),
+      className: cx20("Tenet-Banner", `Tenet-Banner--variant-${variant}`, className),
       ...rest,
       children: [
         !hideIcon && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "Tenet-Banner__icon", "aria-hidden": "true", children: icon ?? DEFAULT_ICON[variant] }),
@@ -1291,7 +1399,7 @@ var Banner = react.forwardRef(function Banner2({ variant = "info", title, icon, 
     }
   );
 });
-var cx18 = (...parts) => parts.filter(Boolean).join(" ");
+var cx21 = (...parts) => parts.filter(Boolean).join(" ");
 var Badge = react.forwardRef(function Badge2({ variant = "default", count, max = 99, dot = false, className, children, ...rest }, ref) {
   const content = children ?? (count != null ? count > max ? `${max}+` : String(count) : void 0);
   return /* @__PURE__ */ jsxRuntime.jsx(
@@ -1299,13 +1407,13 @@ var Badge = react.forwardRef(function Badge2({ variant = "default", count, max =
     {
       ref,
       "aria-hidden": dot ? true : void 0,
-      className: cx18("Tenet-Badge", `Tenet-Badge--variant-${variant}`, dot && "Tenet-Badge--dot", className),
+      className: cx21("Tenet-Badge", `Tenet-Badge--variant-${variant}`, dot && "Tenet-Badge--dot", className),
       ...rest,
       children: !dot && content
     }
   );
 });
-var cx19 = (...parts) => parts.filter(Boolean).join(" ");
+var cx22 = (...parts) => parts.filter(Boolean).join(" ");
 function initialsOf(name) {
   const words = name.trim().split(/[\s-_]+/).filter(Boolean);
   if (words.length === 0) return "?";
@@ -1321,20 +1429,20 @@ var Avatar = react.forwardRef(function Avatar2({ src, name, size = "medium", sha
       ref,
       role: "img",
       "aria-label": name,
-      className: cx19("Tenet-Avatar", `Tenet-Avatar--size-${size}`, `Tenet-Avatar--shape-${shape}`, className),
+      className: cx22("Tenet-Avatar", `Tenet-Avatar--size-${size}`, `Tenet-Avatar--shape-${shape}`, className),
       ...rest,
       children: showImage ? /* @__PURE__ */ jsxRuntime.jsx("img", { src, alt: "", className: "Tenet-Avatar__img", onError: () => setFailed(true) }) : /* @__PURE__ */ jsxRuntime.jsx("span", { className: "Tenet-Avatar__initials", "aria-hidden": "true", children: initialsOf(name) })
     }
   );
 });
-var cx20 = (...parts) => parts.filter(Boolean).join(" ");
+var cx23 = (...parts) => parts.filter(Boolean).join(" ");
 var Spinner = react.forwardRef(function Spinner2({ size = "medium", label = "Loading", className, ...rest }, ref) {
   return /* @__PURE__ */ jsxRuntime.jsxs(
     "span",
     {
       ref,
       role: "status",
-      className: cx20("Tenet-Spinner", `Tenet-Spinner--size-${size}`, className),
+      className: cx23("Tenet-Spinner", `Tenet-Spinner--size-${size}`, className),
       ...rest,
       children: [
         /* @__PURE__ */ jsxRuntime.jsx("span", { className: "Tenet-Spinner__circle", "aria-hidden": "true" }),
@@ -1343,7 +1451,7 @@ var Spinner = react.forwardRef(function Spinner2({ size = "medium", label = "Loa
     }
   );
 });
-var cx21 = (...parts) => parts.filter(Boolean).join(" ");
+var cx24 = (...parts) => parts.filter(Boolean).join(" ");
 var Divider = react.forwardRef(function Divider2({ orientation = "horizontal", className, children, ...rest }, ref) {
   const labelled = orientation === "horizontal" && children != null;
   return /* @__PURE__ */ jsxRuntime.jsx(
@@ -1352,7 +1460,7 @@ var Divider = react.forwardRef(function Divider2({ orientation = "horizontal", c
       ref,
       role: "separator",
       "aria-orientation": orientation,
-      className: cx21(
+      className: cx24(
         "Tenet-Divider",
         `Tenet-Divider--${orientation}`,
         labelled && "Tenet-Divider--labelled",
@@ -1363,7 +1471,7 @@ var Divider = react.forwardRef(function Divider2({ orientation = "horizontal", c
     }
   );
 });
-var cx22 = (...parts) => parts.filter(Boolean).join(" ");
+var cx25 = (...parts) => parts.filter(Boolean).join(" ");
 var TabsContext = react.createContext(null);
 var useTabs = (component) => {
   const ctx = react.useContext(TabsContext);
@@ -1380,7 +1488,7 @@ function Tabs({ value, defaultValue, onChange, className, children }) {
     if (!isControlled) setInternal(v);
     onChange?.(v);
   };
-  return /* @__PURE__ */ jsxRuntime.jsx(TabsContext.Provider, { value: { value: current, setValue, baseId }, children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: cx22("Tenet-Tabs", className), children }) });
+  return /* @__PURE__ */ jsxRuntime.jsx(TabsContext.Provider, { value: { value: current, setValue, baseId }, children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: cx25("Tenet-Tabs", className), children }) });
 }
 function TabsList({ className, children, ...rest }) {
   const { setValue } = useTabs("List");
@@ -1404,7 +1512,7 @@ function TabsList({ className, children, ...rest }) {
     const v = target.dataset.value;
     if (v != null) setValue(v);
   };
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { role: "tablist", className: cx22("Tenet-Tabs__list", className), onKeyDown, ...rest, children });
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { role: "tablist", className: cx25("Tenet-Tabs__list", className), onKeyDown, ...rest, children });
 }
 function Tab({ value, disabled = false, className, children, onClick, ...rest }) {
   const { value: active, setValue, baseId } = useTabs("Tab");
@@ -1421,7 +1529,7 @@ function Tab({ value, disabled = false, className, children, onClick, ...rest })
       "aria-disabled": disabled || void 0,
       disabled,
       tabIndex: selected ? 0 : -1,
-      className: cx22("Tenet-Tabs__tab", selected && "Tenet-Tabs__tab--selected", className),
+      className: cx25("Tenet-Tabs__tab", selected && "Tenet-Tabs__tab--selected", className),
       onClick: (e) => {
         onClick?.(e);
         if (!disabled) setValue(value);
@@ -1441,7 +1549,7 @@ function TabPanel({ value, className, children, ...rest }) {
       id: `${baseId}-panel-${slug(value)}`,
       "aria-labelledby": `${baseId}-tab-${slug(value)}`,
       tabIndex: 0,
-      className: cx22("Tenet-Tabs__panel", className),
+      className: cx25("Tenet-Tabs__panel", className),
       ...rest,
       children
     }
@@ -1450,7 +1558,7 @@ function TabPanel({ value, className, children, ...rest }) {
 Tabs.List = TabsList;
 Tabs.Tab = Tab;
 Tabs.Panel = TabPanel;
-var cx23 = (...parts) => parts.filter(Boolean).join(" ");
+var cx26 = (...parts) => parts.filter(Boolean).join(" ");
 function Tooltip({ content, placement = "top", children, className }) {
   const id = react.useId();
   const [open, setOpen] = react.useState(false);
@@ -1479,7 +1587,7 @@ function Tooltip({ content, placement = "top", children, className }) {
   return /* @__PURE__ */ jsxRuntime.jsxs(
     "span",
     {
-      className: cx23("Tenet-Tooltip", className),
+      className: cx26("Tenet-Tooltip", className),
       onMouseEnter: () => setOpen(true),
       onMouseLeave: () => setOpen(false),
       onFocus: () => setOpen(true),
@@ -1494,7 +1602,7 @@ function Tooltip({ content, placement = "top", children, className }) {
             role: "tooltip",
             id,
             style: bubbleStyle,
-            className: cx23("Tenet-Tooltip__bubble", open && "Tenet-Tooltip__bubble--open"),
+            className: cx26("Tenet-Tooltip__bubble", open && "Tenet-Tooltip__bubble--open"),
             children: content
           }
         ) })
@@ -1502,7 +1610,7 @@ function Tooltip({ content, placement = "top", children, className }) {
     }
   );
 }
-var cx24 = (...parts) => parts.filter(Boolean).join(" ");
+var cx27 = (...parts) => parts.filter(Boolean).join(" ");
 var FOCUSABLE = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 function Dialog({
   open,
@@ -1590,7 +1698,7 @@ function Dialog({
             "aria-labelledby": titleId,
             "aria-describedby": description ? descId : void 0,
             tabIndex: -1,
-            className: cx24("Tenet-Dialog", `Tenet-Dialog--size-${size}`, className),
+            className: cx27("Tenet-Dialog", `Tenet-Dialog--size-${size}`, className),
             onKeyDown,
             children: [
               /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "Tenet-Dialog__header", children: [
@@ -1610,9 +1718,9 @@ function Dialog({
     document.body
   );
 }
-var cx25 = (...parts) => parts.filter(Boolean).join(" ");
+var cx28 = (...parts) => parts.filter(Boolean).join(" ");
 var Breadcrumbs = react.forwardRef(function Breadcrumbs2({ items, separator = "/", className, "aria-label": ariaLabel = "Breadcrumb", ...rest }, ref) {
-  return /* @__PURE__ */ jsxRuntime.jsx("nav", { ref, "aria-label": ariaLabel, className: cx25("Tenet-Breadcrumbs", className), ...rest, children: /* @__PURE__ */ jsxRuntime.jsx("ol", { className: "Tenet-Breadcrumbs__list", children: items.map((item, i) => {
+  return /* @__PURE__ */ jsxRuntime.jsx("nav", { ref, "aria-label": ariaLabel, className: cx28("Tenet-Breadcrumbs", className), ...rest, children: /* @__PURE__ */ jsxRuntime.jsx("ol", { className: "Tenet-Breadcrumbs__list", children: items.map((item, i) => {
     const isLast = i === items.length - 1;
     return /* @__PURE__ */ jsxRuntime.jsxs("li", { className: "Tenet-Breadcrumbs__item", children: [
       item.href && !isLast ? /* @__PURE__ */ jsxRuntime.jsx("a", { href: item.href, className: "Tenet-Breadcrumbs__link", children: item.label }) : /* @__PURE__ */ jsxRuntime.jsx("span", { className: "Tenet-Breadcrumbs__current", "aria-current": isLast ? "page" : void 0, children: item.label }),
@@ -1620,7 +1728,7 @@ var Breadcrumbs = react.forwardRef(function Breadcrumbs2({ items, separator = "/
     ] }, i);
   }) }) });
 });
-var cx26 = (...parts) => parts.filter(Boolean).join(" ");
+var cx29 = (...parts) => parts.filter(Boolean).join(" ");
 var ELLIPSIS = "ellipsis";
 function pageItems(page, pageCount, siblingCount) {
   if (pageCount <= 1) return [1];
@@ -1638,7 +1746,7 @@ var Pagination = react.forwardRef(function Pagination2({ page, pageCount, onPage
   const go = (p) => {
     if (p >= 1 && p <= pageCount && p !== page) onPageChange(p);
   };
-  return /* @__PURE__ */ jsxRuntime.jsx("nav", { ref, "aria-label": ariaLabel, className: cx26("Tenet-Pagination", className), children: /* @__PURE__ */ jsxRuntime.jsxs("ul", { className: "Tenet-Pagination__list", children: [
+  return /* @__PURE__ */ jsxRuntime.jsx("nav", { ref, "aria-label": ariaLabel, className: cx29("Tenet-Pagination", className), children: /* @__PURE__ */ jsxRuntime.jsxs("ul", { className: "Tenet-Pagination__list", children: [
     /* @__PURE__ */ jsxRuntime.jsx("li", { children: /* @__PURE__ */ jsxRuntime.jsx(
       "button",
       {
@@ -1655,7 +1763,7 @@ var Pagination = react.forwardRef(function Pagination2({ page, pageCount, onPage
         "button",
         {
           type: "button",
-          className: cx26("Tenet-Pagination__btn", item === page && "Tenet-Pagination__btn--current"),
+          className: cx29("Tenet-Pagination__btn", item === page && "Tenet-Pagination__btn--current"),
           onClick: () => go(item),
           "aria-current": item === page ? "page" : void 0,
           "aria-label": `Page ${item}`,
@@ -1676,7 +1784,7 @@ var Pagination = react.forwardRef(function Pagination2({ page, pageCount, onPage
     ) })
   ] }) });
 });
-var cx27 = (...parts) => parts.filter(Boolean).join(" ");
+var cx30 = (...parts) => parts.filter(Boolean).join(" ");
 var AccordionContext = react.createContext(null);
 var useAccordion = () => {
   const ctx = react.useContext(AccordionContext);
@@ -1703,7 +1811,7 @@ function Accordion({
     if (!isControlled) setInternal(next);
     onValueChange?.(next);
   };
-  return /* @__PURE__ */ jsxRuntime.jsx(AccordionContext.Provider, { value: { open, toggle, type, baseId }, children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: cx27("Tenet-Accordion", className), children }) });
+  return /* @__PURE__ */ jsxRuntime.jsx(AccordionContext.Provider, { value: { open, toggle, type, baseId }, children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: cx30("Tenet-Accordion", className), children }) });
 }
 function AccordionItem({ value, title, disabled = false, className, children }) {
   const { open, toggle, baseId } = useAccordion();
@@ -1728,7 +1836,7 @@ function AccordionItem({ value, title, disabled = false, className, children }) 
     else if (e.key === "End") next = headers.length - 1;
     headers[next]?.focus();
   };
-  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cx27("Tenet-Accordion__item", className), children: [
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cx30("Tenet-Accordion__item", className), children: [
     /* @__PURE__ */ jsxRuntime.jsx("h3", { className: "Tenet-Accordion__heading", children: /* @__PURE__ */ jsxRuntime.jsxs(
       "button",
       {
@@ -1760,8 +1868,9 @@ function AccordionItem({ value, title, disabled = false, className, children }) 
   ] });
 }
 Accordion.Item = AccordionItem;
-var cx28 = (...parts) => parts.filter(Boolean).join(" ");
-var SegmentedControl = react.forwardRef(function SegmentedControl2({ options, value, defaultValue, onChange, size = "medium", block = false, className, "aria-label": ariaLabel, ...rest }, ref) {
+var cx31 = (...parts) => parts.filter(Boolean).join(" ");
+var SegmentedControl = react.forwardRef(function SegmentedControl2({ options, value, defaultValue, onChange, size = "medium", fullWidth, block, className, "aria-label": ariaLabel, ...rest }, ref) {
+  const isFullWidth = resolveFullWidth("SegmentedControl", fullWidth, block);
   const isControlled = value !== void 0;
   const [internal, setInternal] = react.useState(defaultValue ?? options.find((o) => !o.disabled)?.value ?? "");
   const current = isControlled ? value : internal;
@@ -1794,10 +1903,10 @@ var SegmentedControl = react.forwardRef(function SegmentedControl2({ options, va
       ref,
       role: "radiogroup",
       "aria-label": ariaLabel,
-      className: cx28(
+      className: cx31(
         "Tenet-SegmentedControl",
         `Tenet-SegmentedControl--size-${size}`,
-        block && "Tenet-SegmentedControl--block",
+        isFullWidth && "Tenet-SegmentedControl--fullWidth",
         className
       ),
       onKeyDown,
@@ -1812,7 +1921,7 @@ var SegmentedControl = react.forwardRef(function SegmentedControl2({ options, va
             "aria-checked": selected,
             disabled: opt.disabled,
             tabIndex: opt.value === focusValue ? 0 : -1,
-            className: cx28("Tenet-SegmentedControl__segment", selected && "Tenet-SegmentedControl__segment--selected"),
+            className: cx31("Tenet-SegmentedControl__segment", selected && "Tenet-SegmentedControl__segment--selected"),
             onClick: () => !opt.disabled && select(opt.value),
             children: opt.label
           },
@@ -1822,7 +1931,7 @@ var SegmentedControl = react.forwardRef(function SegmentedControl2({ options, va
     }
   );
 });
-var cx29 = (...parts) => parts.filter(Boolean).join(" ");
+var cx32 = (...parts) => parts.filter(Boolean).join(" ");
 var isAction = (item) => item.type !== "separator";
 function nextEnabled2(items, from, dir) {
   const n = items.length;
@@ -1935,7 +2044,7 @@ function Menu({ trigger, items, "aria-label": ariaLabel, align = "start", classN
       }
     }
   });
-  return /* @__PURE__ */ jsxRuntime.jsxs("span", { ref: wrapRef, className: cx29("Tenet-Menu", className), children: [
+  return /* @__PURE__ */ jsxRuntime.jsxs("span", { ref: wrapRef, className: cx32("Tenet-Menu", className), children: [
     triggerEl,
     open && /* @__PURE__ */ jsxRuntime.jsx(Portal, { children: /* @__PURE__ */ jsxRuntime.jsx(
       "ul",
@@ -1945,7 +2054,7 @@ function Menu({ trigger, items, "aria-label": ariaLabel, align = "start", classN
         role: "menu",
         "aria-label": ariaLabel,
         "aria-labelledby": ariaLabel ? void 0 : triggerId,
-        className: cx29("Tenet-Menu__list", `Tenet-Menu__list--align-${align}`),
+        className: cx32("Tenet-Menu__list", `Tenet-Menu__list--align-${align}`),
         style: listStyle,
         onKeyDown: onListKeyDown,
         children: items.map(
@@ -1957,7 +2066,7 @@ function Menu({ trigger, items, "aria-label": ariaLabel, align = "start", classN
               role: "menuitem",
               tabIndex: i === active ? 0 : -1,
               disabled: item.disabled,
-              className: cx29(
+              className: cx32(
                 "Tenet-Menu__item",
                 item.destructive && "Tenet-Menu__item--destructive"
               ),
@@ -1974,7 +2083,7 @@ function Menu({ trigger, items, "aria-label": ariaLabel, align = "start", classN
     ) })
   ] });
 }
-var cx30 = (...parts) => parts.filter(Boolean).join(" ");
+var cx33 = (...parts) => parts.filter(Boolean).join(" ");
 var DEFAULT_ICON2 = { info: "\u2139", success: "\u2713", warning: "!", danger: "\u2715" };
 var ToastContext = react.createContext(null);
 function useToast() {
@@ -1998,7 +2107,7 @@ function ToastItem({
     "div",
     {
       role: variant === "danger" ? "alert" : "status",
-      className: cx30("Tenet-Toast", `Tenet-Toast--variant-${variant}`),
+      className: cx33("Tenet-Toast", `Tenet-Toast--variant-${variant}`),
       children: [
         /* @__PURE__ */ jsxRuntime.jsx("span", { className: "Tenet-Toast__icon", "aria-hidden": "true", children: DEFAULT_ICON2[variant] }),
         /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "Tenet-Toast__content", children: [
@@ -2038,7 +2147,7 @@ function ToastProvider({ duration = 5e3, placement = "bottom-right", children })
       /* @__PURE__ */ jsxRuntime.jsx(
         "div",
         {
-          className: cx30("Tenet-Toast__viewport", `Tenet-Toast__viewport--${placement}`),
+          className: cx33("Tenet-Toast__viewport", `Tenet-Toast__viewport--${placement}`),
           role: "region",
           "aria-label": "Notifications",
           "data-tenet-layer": "toast",
@@ -2049,7 +2158,7 @@ function ToastProvider({ duration = 5e3, placement = "bottom-right", children })
     )
   ] });
 }
-var cx31 = (...parts) => parts.filter(Boolean).join(" ");
+var cx34 = (...parts) => parts.filter(Boolean).join(" ");
 var IconButton = react.forwardRef(function IconButton2({
   icon,
   variant = "default",
@@ -2072,7 +2181,7 @@ var IconButton = react.forwardRef(function IconButton2({
     {
       ref,
       type,
-      className: cx31(
+      className: cx34(
         "Tenet-IconButton",
         `Tenet-IconButton--variant-${variant}`,
         `Tenet-IconButton--size-${size}`,
@@ -2083,7 +2192,30 @@ var IconButton = react.forwardRef(function IconButton2({
     }
   );
 });
-var cx32 = (...parts) => parts.filter(Boolean).join(" ");
+var cx35 = (...parts) => parts.filter(Boolean).join(" ");
+var Icon = react.forwardRef(function Icon2({ size = 16, label, className, children, ...rest }, ref) {
+  const a11y = label ? { role: "img", "aria-label": label } : { "aria-hidden": true, focusable: "false" };
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "svg",
+    {
+      ref,
+      xmlns: "http://www.w3.org/2000/svg",
+      width: size,
+      height: size,
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      strokeWidth: 2,
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      className: cx35("Tenet-Icon", `Tenet-Icon--size-${size}`, className),
+      ...a11y,
+      ...rest,
+      children
+    }
+  );
+});
+var cx36 = (...parts) => parts.filter(Boolean).join(" ");
 var Tag = react.forwardRef(function Tag2({ variant = "default", size = "medium", leadingIcon, onRemove, removeLabel, className, children, ...rest }, ref) {
   const label = typeof children === "string" && children.length > 0 ? children : removeLabel && removeLabel.length > 0 ? removeLabel : "Remove";
   const removeAriaLabel = removeLabel && removeLabel.length > 0 ? removeLabel : `Remove ${label}`;
@@ -2091,7 +2223,7 @@ var Tag = react.forwardRef(function Tag2({ variant = "default", size = "medium",
     "span",
     {
       ref,
-      className: cx32(
+      className: cx36(
         "Tenet-Tag",
         `Tenet-Tag--variant-${variant}`,
         `Tenet-Tag--size-${size}`,
@@ -2107,7 +2239,7 @@ var Tag = react.forwardRef(function Tag2({ variant = "default", size = "medium",
     }
   );
 });
-var cx33 = (...parts) => parts.filter(Boolean).join(" ");
+var cx37 = (...parts) => parts.filter(Boolean).join(" ");
 var toDimension = (value) => typeof value === "number" ? `${value}px` : value;
 var Skeleton = react.forwardRef(function Skeleton2({ variant = "text", width, height, radius, className, style, ...rest }, ref) {
   const isCircle = variant === "circle";
@@ -2124,7 +2256,7 @@ var Skeleton = react.forwardRef(function Skeleton2({ variant = "text", width, he
     {
       ref,
       "aria-hidden": "true",
-      className: cx33(
+      className: cx37(
         "Tenet-Skeleton",
         `Tenet-Skeleton--variant-${variant}`,
         radius && `Tenet-Skeleton--radius-${radius}`,
@@ -2135,7 +2267,7 @@ var Skeleton = react.forwardRef(function Skeleton2({ variant = "text", width, he
     }
   );
 });
-var cx34 = (...parts) => parts.filter(Boolean).join(" ");
+var cx38 = (...parts) => parts.filter(Boolean).join(" ");
 var clamp3 = (n, min, max) => Math.min(Math.max(n, min), max);
 var ProgressBar = react.forwardRef(function ProgressBar2({ value, max = 100, size = "medium", variant = "accent", className, style, ...rest }, ref) {
   const isIndeterminate = value === void 0;
@@ -2151,7 +2283,7 @@ var ProgressBar = react.forwardRef(function ProgressBar2({ value, max = 100, siz
       "aria-valuemax": safeMax,
       "aria-valuenow": isIndeterminate ? void 0 : clamped,
       "aria-valuetext": isIndeterminate ? void 0 : `${percent}%`,
-      className: cx34(
+      className: cx38(
         "Tenet-ProgressBar",
         `Tenet-ProgressBar--size-${size}`,
         `Tenet-ProgressBar--variant-${variant}`,
@@ -2170,14 +2302,14 @@ var ProgressBar = react.forwardRef(function ProgressBar2({ value, max = 100, siz
     }
   );
 });
-var cx35 = (...parts) => parts.filter(Boolean).join(" ");
+var cx39 = (...parts) => parts.filter(Boolean).join(" ");
 var Link = react.forwardRef(function Link2({ muted = false, underline = "hover", external = false, className, children, ...rest }, ref) {
   const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
   return /* @__PURE__ */ jsxRuntime.jsxs(
     "a",
     {
       ref,
-      className: cx35(
+      className: cx39(
         "Tenet-Link",
         muted && "Tenet-Link--muted",
         `Tenet-Link--underline-${underline}`,
@@ -2195,7 +2327,7 @@ var Link = react.forwardRef(function Link2({ muted = false, underline = "hover",
     }
   );
 });
-var cx36 = (...parts) => parts.filter(Boolean).join(" ");
+var cx40 = (...parts) => parts.filter(Boolean).join(" ");
 var FOCUSABLE2 = 'a[href],button:not([disabled]),textarea:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])';
 function Popover({
   trigger,
@@ -2250,7 +2382,7 @@ function Popover({
     "span",
     {
       ref: wrapRef,
-      className: cx36("Tenet-Popover", className),
+      className: cx40("Tenet-Popover", className),
       onKeyDown: (e) => {
         if (e.key === "Escape" && open) {
           e.preventDefault();
@@ -2273,7 +2405,7 @@ function Popover({
             "aria-label": ariaLabel ?? "Popover",
             tabIndex: -1,
             style: surfaceStyle,
-            className: cx36("Tenet-Popover__surface", `Tenet-Popover--placement-${placement}`),
+            className: cx40("Tenet-Popover__surface", `Tenet-Popover--placement-${placement}`),
             children
           }
         ) })
@@ -2281,6 +2413,40 @@ function Popover({
     }
   );
 }
+var cx41 = (...parts) => parts.filter(Boolean).join(" ");
+var EmptyState = react.forwardRef(function EmptyState2({ title, description, icon, action, secondaryAction, size = "medium", headingLevel = 3, className, ...rest }, ref) {
+  const hasActions = Boolean(action || secondaryAction);
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    Stack2,
+    {
+      ref,
+      align: "center",
+      gap: size === "large" ? "spacious" : "normal",
+      className: cx41("Tenet-EmptyState", `Tenet-EmptyState--size-${size}`, className),
+      ...rest,
+      children: [
+        icon && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "Tenet-EmptyState__icon", "aria-hidden": "true", children: icon }),
+        /* @__PURE__ */ jsxRuntime.jsxs(Stack2, { align: "center", gap: "condensed", className: "Tenet-EmptyState__body", children: [
+          /* @__PURE__ */ jsxRuntime.jsx(Heading, { level: size === "large" ? 2 : 3, as: `h${headingLevel}`, className: "Tenet-EmptyState__title", children: title }),
+          description && /* @__PURE__ */ jsxRuntime.jsx(
+            Text,
+            {
+              tone: "muted",
+              size: size === "large" ? "large" : "medium",
+              align: "center",
+              className: "Tenet-EmptyState__description",
+              children: description
+            }
+          )
+        ] }),
+        hasActions && /* @__PURE__ */ jsxRuntime.jsxs(Stack2, { direction: "horizontal", gap: "condensed", justify: "center", align: "center", wrap: true, className: "Tenet-EmptyState__actions", children: [
+          action,
+          secondaryAction
+        ] })
+      ]
+    }
+  );
+});
 
 exports.Accordion = Accordion;
 exports.Avatar = Avatar;
@@ -2295,7 +2461,11 @@ exports.DataTable = DataTable;
 exports.DatePicker = DatePicker;
 exports.Dialog = Dialog;
 exports.Divider = Divider;
+exports.EmptyState = EmptyState;
 exports.FormControl = FormControl2;
+exports.Grid = Grid2;
+exports.Heading = Heading;
+exports.Icon = Icon;
 exports.IconButton = IconButton;
 exports.Label = Label;
 exports.Link = Link;
@@ -2315,6 +2485,7 @@ exports.Switch = Switch;
 exports.Table = Table2;
 exports.Tabs = Tabs;
 exports.Tag = Tag;
+exports.Text = Text;
 exports.TextInput = TextInput;
 exports.Textarea = Textarea;
 exports.ToastProvider = ToastProvider;

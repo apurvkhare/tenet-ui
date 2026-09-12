@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { Dialog } from './Dialog';
 import { Button } from '../Button';
 
@@ -37,5 +38,22 @@ export const Default: Story = {
         </Dialog>
       </>
     );
+  },
+  // Open via the trigger → modal dialog is visible with focus trapped inside → Escape closes it and
+  // returns focus to the trigger. The Dialog portals to <body>, so query the document, not the canvas.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    const trigger = canvas.getByRole('button', { name: 'Delete repository' });
+    await userEvent.click(trigger);
+
+    const dialog = await body.findByRole('dialog', { name: 'Delete repository?' });
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toHaveAttribute('aria-modal', 'true');
+    await waitFor(() => expect(dialog.contains(canvasElement.ownerDocument.activeElement)).toBe(true));
+
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
+    await expect(trigger).toHaveFocus();
   },
 };

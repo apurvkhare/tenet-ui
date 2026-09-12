@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { DataTable } from './DataTable';
 import { Label } from '../Label';
 import type { DataTableColumn } from './DataTable.types';

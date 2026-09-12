@@ -1,0 +1,19 @@
+/* Storybook preview chrome — tokens only, so the canvas follows the active color mode exactly like
+   a consumer app would. Loaded after dist/tokens.css and src/base.css (see preview.tsx). */
+html,
+body,
+.sb-show-main {
+  background: var(--bgColor-default);
+  color: var(--fgColor-default);
+  font-family: var(--fontFamily-body);
+  /* Baselines/a11y snapshots switch modes via the URL; never animate that switch. */
+  color-scheme: light;
+}
+
+html[data-color-mode='dark'] {
+  color-scheme: dark;
+}
+
+.sb-show-main.sb-main-padded {
+  padding: var(--space-4);
+}

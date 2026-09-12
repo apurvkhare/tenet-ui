@@ -1,4 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { Tabs } from './Tabs';
 
 const meta: Meta<typeof Tabs> = {
@@ -26,4 +27,26 @@ export const Default: Story = {
       <Tabs.Panel value="settings">Settings.</Tabs.Panel>
     </Tabs>
   ),
+  // ARIA tabs: click the second tab → aria-selected moves and its panel renders; ArrowRight moves
+  // focus AND selection (selection follows focus) to the next enabled tab.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const overview = canvas.getByRole('tab', { name: 'Overview' });
+    const issues = canvas.getByRole('tab', { name: 'Issues' });
+    await expect(overview).toHaveAttribute('aria-selected', 'true');
+
+    await userEvent.click(issues);
+    await expect(issues).toHaveAttribute('aria-selected', 'true');
+    await expect(overview).toHaveAttribute('aria-selected', 'false');
+    const panel = canvas.getByRole('tabpanel');
+    await expect(panel).toBeVisible();
+    await expect(panel).toHaveTextContent('42 open issues.');
+    await expect(panel).toHaveAttribute('aria-labelledby', issues.id);
+
+    await userEvent.keyboard('{ArrowRight}');
+    const pulls = canvas.getByRole('tab', { name: 'Pull requests' });
+    await expect(pulls).toHaveFocus();
+    await expect(pulls).toHaveAttribute('aria-selected', 'true');
+    await expect(canvas.getByRole('tabpanel')).toHaveTextContent('3 open pull requests.');
+  },
 };
