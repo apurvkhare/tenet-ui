@@ -8,7 +8,10 @@ export interface BannerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title
   variant?: BannerVariant;
   /** Optional bold lead-in line. */
   title?: ReactNode;
-  /** Replace the default leading icon. */
+  /**
+   * Replace the default leading icon.
+   * @default per variant
+   */
   icon?: ReactNode;
   /** Hide the leading icon entirely. */
   hideIcon?: boolean;

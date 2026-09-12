@@ -1,0 +1,9 @@
+{
+  "id": "text-input",
+  "name": "TextInput",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "TextInputProps",
+  "subcomponents": [],
+  "related": []
+}

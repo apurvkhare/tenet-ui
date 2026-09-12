@@ -1,0 +1,9 @@
+{
+  "id": "textarea",
+  "name": "Textarea",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "TextareaProps",
+  "subcomponents": [],
+  "related": []
+}

@@ -1,0 +1,9 @@
+{
+  "id": "date-picker",
+  "name": "DatePicker",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "DatePickerProps",
+  "subcomponents": [],
+  "related": []
+}

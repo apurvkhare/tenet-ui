@@ -1,0 +1,9 @@
+{
+  "id": "dialog",
+  "name": "Dialog",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "DialogProps",
+  "subcomponents": [],
+  "related": []
+}

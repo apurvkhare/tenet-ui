@@ -1,5 +1,5 @@
 // Public entry for tenet-ui. Consumers import components from here; they must also import the
-// token stylesheet once at their app root: `import 'tenet-ui/tokens.css'` — without it every
+// stylesheet once at their app root: `import 'tenet-ui/styles.css'` (tokens + component styles) — without it every
 // component's var(--token) references are undefined and the UI renders unstyled.
 import './base.css';
 export * from './components/Button';

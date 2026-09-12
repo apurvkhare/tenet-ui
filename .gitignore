@@ -1,3 +1,10 @@
 node_modules/
+storybook-static/
+baselines/
+docs/dist/
+docs/.astro/
+packages/*/node_modules/
+.DS_Store
+.impeccable/
 *.tgz
-dist/*.map
+*.log

@@ -25,7 +25,10 @@ export interface MenuProps {
   trigger: ReactElement;
   /** The actions to show. */
   items: MenuItem[];
-  /** Accessible name for the menu. */
+  /**
+   * Accessible name for the menu.
+   * @default trigger label
+   */
   'aria-label'?: string;
   /** Menu alignment relative to the trigger. */
   align?: 'start' | 'end';

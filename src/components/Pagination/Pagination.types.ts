@@ -7,7 +7,10 @@ export interface PaginationProps {
   onPageChange: (page: number) => void;
   /** How many page numbers to show around the current page. */
   siblingCount?: number;
-  /** Accessible name for the nav landmark. */
+  /**
+   * Accessible name for the nav landmark.
+   * @default Pagination
+   */
   'aria-label'?: string;
   className?: string;
 }

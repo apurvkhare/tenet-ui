@@ -17,7 +17,10 @@ export interface SegmentedControlProps extends Omit<HTMLAttributes<HTMLDivElemen
   options: SegmentedControlOption[];
   /** Controlled selected value. */
   value?: string;
-  /** Uncontrolled initial value. */
+  /**
+   * Uncontrolled initial value.
+   * @default first enabled option
+   */
   defaultValue?: string;
   /** Called with the newly selected value. */
   onChange?: (value: string) => void;

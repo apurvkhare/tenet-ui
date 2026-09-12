@@ -1,0 +1,9 @@
+{
+  "id": "switch",
+  "name": "Switch",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "SwitchProps",
+  "subcomponents": [],
+  "related": []
+}

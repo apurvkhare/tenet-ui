@@ -1,0 +1,9 @@
+{
+  "id": "banner",
+  "name": "Banner",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "BannerProps",
+  "subcomponents": [],
+  "related": []
+}

@@ -1,0 +1,9 @@
+{
+  "id": "breadcrumbs",
+  "name": "Breadcrumbs",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "BreadcrumbsProps",
+  "subcomponents": [],
+  "related": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "form-control",
+  "name": "FormControl",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "FormControlProps",
+  "subcomponents": [
+    {
+      "name": "FormControl.Label",
+      "props": "FormControlLabelProps"
+    },
+    {
+      "name": "FormControl.Caption",
+      "props": "FormControlCaptionProps"
+    },
+    {
+      "name": "FormControl.Validation",
+      "props": "FormControlValidationProps"
+    }
+  ],
+  "related": []
+}

@@ -1,0 +1,9 @@
+{
+  "id": "link",
+  "name": "Link",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "LinkProps",
+  "subcomponents": [],
+  "related": []
+}

@@ -10,7 +10,10 @@ export interface BreadcrumbItem {
 export interface BreadcrumbsProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
   /** Ordered trail, root first. The last item is treated as the current page. */
   items: BreadcrumbItem[];
-  /** Accessible name for the nav landmark. */
+  /**
+   * Accessible name for the nav landmark.
+   * @default Breadcrumb
+   */
   'aria-label'?: string;
   /** Separator glyph between items. */
   separator?: ReactNode;

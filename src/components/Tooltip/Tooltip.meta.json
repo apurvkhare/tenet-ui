@@ -1,0 +1,9 @@
+{
+  "id": "tooltip",
+  "name": "Tooltip",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "TooltipProps",
+  "subcomponents": [],
+  "related": []
+}

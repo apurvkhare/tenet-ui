@@ -1,0 +1,13 @@
+{
+  "id": "toast",
+  "name": "Toast",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "ToastProviderProps",
+  "fn": "ToastProvider",
+  "subcomponents": [
+    { "name": "ToastProvider", "props": "ToastProviderProps" },
+    { "name": "useToast", "kind": "hook", "props": "ToastContextValue" }
+  ],
+  "related": []
+}

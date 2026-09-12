@@ -15,7 +15,10 @@ export interface DatePickerProps {
   max?: Date;
   /** First day of the week: 0 = Sunday (default), 1 = Monday. */
   weekStartsOn?: WeekStart;
-  /** BCP-47 locale for the displayed date + calendar. Defaults to the runtime locale. */
+  /**
+   * BCP-47 locale for the displayed date + calendar. Defaults to the runtime locale.
+   * @default runtime locale
+   */
   locale?: string;
   /** Text shown in the trigger when no date is selected. */
   placeholder?: string;

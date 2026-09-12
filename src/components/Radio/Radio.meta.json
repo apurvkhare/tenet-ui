@@ -1,0 +1,14 @@
+{
+  "id": "radio-group",
+  "name": "RadioGroup",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "RadioGroupProps",
+  "subcomponents": [
+    {
+      "name": "Radio",
+      "props": "RadioProps"
+    }
+  ],
+  "related": []
+}

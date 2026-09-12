@@ -1,0 +1,9 @@
+{
+  "id": "number-input",
+  "name": "NumberInput",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "NumberInputProps",
+  "subcomponents": [],
+  "related": []
+}

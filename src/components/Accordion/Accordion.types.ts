@@ -7,7 +7,10 @@ export interface AccordionProps {
   type?: AccordionType;
   /** Controlled set of open item values. */
   value?: string[];
-  /** Uncontrolled initial open item values. */
+  /**
+   * Uncontrolled initial open item values.
+   * @default []
+   */
   defaultValue?: string[];
   /** Called with the new set of open values. */
   onValueChange?: (value: string[]) => void;

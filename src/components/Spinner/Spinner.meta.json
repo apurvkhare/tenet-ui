@@ -1,0 +1,9 @@
+{
+  "id": "spinner",
+  "name": "Spinner",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "SpinnerProps",
+  "subcomponents": [],
+  "related": []
+}

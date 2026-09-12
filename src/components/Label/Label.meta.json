@@ -1,0 +1,9 @@
+{
+  "id": "label",
+  "name": "Label",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "LabelProps",
+  "subcomponents": [],
+  "related": []
+}

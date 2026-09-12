@@ -1,0 +1,9 @@
+{
+  "id": "select",
+  "name": "Select",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "SelectProps",
+  "subcomponents": [],
+  "related": []
+}

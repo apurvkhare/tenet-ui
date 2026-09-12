@@ -1,0 +1,9 @@
+{
+  "id": "checkbox",
+  "name": "Checkbox",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "CheckboxProps",
+  "subcomponents": [],
+  "related": []
+}

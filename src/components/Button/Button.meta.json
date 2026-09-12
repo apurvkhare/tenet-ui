@@ -1,0 +1,9 @@
+{
+  "id": "button",
+  "name": "Button",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "ButtonProps",
+  "subcomponents": [],
+  "related": []
+}

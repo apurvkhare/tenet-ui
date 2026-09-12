@@ -1,0 +1,9 @@
+{
+  "id": "progress-bar",
+  "name": "ProgressBar",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "ProgressBarProps",
+  "subcomponents": [],
+  "related": []
+}

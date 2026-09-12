@@ -1,0 +1,14 @@
+{
+  "id": "stack",
+  "name": "Stack",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "StackProps",
+  "subcomponents": [
+    {
+      "name": "Stack.Item",
+      "props": "StackItemProps"
+    }
+  ],
+  "related": []
+}

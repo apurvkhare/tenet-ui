@@ -1,0 +1,9 @@
+{
+  "id": "popover",
+  "name": "Popover",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "PopoverProps",
+  "subcomponents": [],
+  "related": []
+}

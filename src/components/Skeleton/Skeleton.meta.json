@@ -1,0 +1,9 @@
+{
+  "id": "skeleton",
+  "name": "Skeleton",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "SkeletonProps",
+  "subcomponents": [],
+  "related": []
+}

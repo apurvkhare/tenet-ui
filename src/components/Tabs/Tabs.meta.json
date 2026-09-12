@@ -1,0 +1,22 @@
+{
+  "id": "tabs",
+  "name": "Tabs",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "TabsProps",
+  "subcomponents": [
+    {
+      "name": "Tabs.List",
+      "props": "TabsListProps"
+    },
+    {
+      "name": "Tabs.Tab",
+      "props": "TabProps"
+    },
+    {
+      "name": "Tabs.Panel",
+      "props": "TabPanelProps"
+    }
+  ],
+  "related": []
+}

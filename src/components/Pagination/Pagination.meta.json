@@ -1,0 +1,9 @@
+{
+  "id": "pagination",
+  "name": "Pagination",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "PaginationProps",
+  "subcomponents": [],
+  "related": []
+}

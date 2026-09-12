@@ -1,0 +1,9 @@
+{
+  "id": "avatar",
+  "name": "Avatar",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "AvatarProps",
+  "subcomponents": [],
+  "related": []
+}

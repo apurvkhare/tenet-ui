@@ -1,0 +1,9 @@
+{
+  "id": "badge",
+  "name": "Badge",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "BadgeProps",
+  "subcomponents": [],
+  "related": []
+}

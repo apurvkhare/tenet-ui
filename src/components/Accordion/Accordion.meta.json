@@ -1,0 +1,14 @@
+{
+  "id": "accordion",
+  "name": "Accordion",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "AccordionProps",
+  "subcomponents": [
+    {
+      "name": "Accordion.Item",
+      "props": "AccordionItemProps"
+    }
+  ],
+  "related": []
+}

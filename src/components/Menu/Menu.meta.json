@@ -1,0 +1,9 @@
+{
+  "id": "menu",
+  "name": "Menu",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "MenuProps",
+  "subcomponents": [],
+  "related": []
+}

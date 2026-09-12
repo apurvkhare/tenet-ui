@@ -1,0 +1,9 @@
+{
+  "id": "segmented-control",
+  "name": "SegmentedControl",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "SegmentedControlProps",
+  "subcomponents": [],
+  "related": []
+}

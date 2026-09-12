@@ -1,0 +1,9 @@
+{
+  "id": "icon-button",
+  "name": "IconButton",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "IconButtonProps",
+  "subcomponents": [],
+  "related": []
+}

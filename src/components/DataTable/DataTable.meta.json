@@ -1,0 +1,9 @@
+{
+  "id": "data-table",
+  "name": "DataTable",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "DataTableProps",
+  "subcomponents": [],
+  "related": []
+}

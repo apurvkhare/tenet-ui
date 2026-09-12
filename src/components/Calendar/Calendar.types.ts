@@ -11,7 +11,10 @@ export interface CalendarProps {
   onChange?: (date: Date) => void;
   /** Controlled visible month (any day within the month). */
   month?: Date;
-  /** Uncontrolled initial visible month. Defaults to the selected date's month, else today. */
+  /**
+   * Uncontrolled initial visible month. Defaults to the selected date's month, else today.
+   * @default selected | today
+   */
   defaultMonth?: Date;
   /** Called when the visible month changes (nav buttons / keyboard paging). */
   onMonthChange?: (month: Date) => void;
@@ -21,7 +24,10 @@ export interface CalendarProps {
   max?: Date;
   /** First day of the week: 0 = Sunday (default), 1 = Monday. */
   weekStartsOn?: WeekStart;
-  /** BCP-47 locale for month / weekday formatting. Defaults to the runtime locale. */
+  /**
+   * BCP-47 locale for month / weekday formatting. Defaults to the runtime locale.
+   * @default runtime locale
+   */
   locale?: string;
   className?: string;
   'aria-label'?: string;

@@ -1,0 +1,9 @@
+{
+  "id": "calendar",
+  "name": "Calendar",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "CalendarProps",
+  "subcomponents": [],
+  "related": []
+}

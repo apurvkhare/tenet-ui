@@ -1,0 +1,9 @@
+{
+  "id": "tag",
+  "name": "Tag",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "TagProps",
+  "subcomponents": [],
+  "related": []
+}

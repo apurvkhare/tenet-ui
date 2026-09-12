@@ -13,7 +13,10 @@ export interface PopoverProps {
   children: ReactNode;
   /** Where the surface is anchored relative to the trigger. */
   placement?: PopoverPlacement;
-  /** Accessible name for the popover dialog (falls back to "Popover"). */
+  /**
+   * Accessible name for the popover dialog (falls back to "Popover").
+   * @default Popover
+   */
   'aria-label'?: string;
   className?: string;
 }

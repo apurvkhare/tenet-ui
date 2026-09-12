@@ -1,0 +1,9 @@
+{
+  "id": "card",
+  "name": "Card",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "CardProps",
+  "subcomponents": [],
+  "related": []
+}

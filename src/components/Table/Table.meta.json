@@ -1,0 +1,46 @@
+{
+  "id": "table",
+  "name": "Table",
+  "status": "stable",
+  "a11yReviewed": true,
+  "props": "TableProps",
+  "subcomponents": [
+    {
+      "name": "Table.Container",
+      "props": "TableContainerProps"
+    },
+    {
+      "name": "Table.Title",
+      "props": "TableTitleProps"
+    },
+    {
+      "name": "Table.Subtitle",
+      "props": "TableSubtitleProps"
+    },
+    {
+      "name": "Table.Actions",
+      "props": "TableActionsProps"
+    },
+    {
+      "name": "Table.Head",
+      "props": "TableSectionProps"
+    },
+    {
+      "name": "Table.Body",
+      "props": "TableSectionProps"
+    },
+    {
+      "name": "Table.Row",
+      "props": "TableRowProps"
+    },
+    {
+      "name": "Table.Header",
+      "props": "TableHeaderProps"
+    },
+    {
+      "name": "Table.Cell",
+      "props": "TableCellProps"
+    }
+  ],
+  "related": []
+}

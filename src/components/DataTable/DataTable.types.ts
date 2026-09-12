@@ -23,7 +23,10 @@ export interface DataTableProps<Row> {
   columns: DataTableColumn<Row>[];
   /** The rows to render. */
   data: Row[];
-  /** Stable React key for a row. Defaults to the row index. */
+  /**
+   * Stable React key for a row. Defaults to the row index.
+   * @default index
+   */
   rowKey?: (row: Row, index: number) => string | number;
   /** Show the global search box. */
   searchable?: boolean;

@@ -1,9 +1,17 @@
 {
   "name": "tenet-ui",
   "version": "0.3.0",
-  "description": "Tenet Design System — a small, realistic in-house design system (tokens + React components) used to demo the design-system skill.",
+  "description": "Tenet Design System — design tokens, React components, and icons for the Editorial Ink identity.",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apurvkhare/tenet-ui.git"
+  },
+  "homepage": "https://apurvkhare.github.io/tenet-ui/",
+  "bugs": {
+    "url": "https://github.com/apurvkhare/tenet-ui/issues"
+  },
   "author": "Tenet",
   "keywords": [
     "design-system",
