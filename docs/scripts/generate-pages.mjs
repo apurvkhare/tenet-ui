@@ -3,7 +3,7 @@
 // Inputs (all read-only, all outside docs/):
 //   ../generated/components.json        component catalog (schemaVersion 2)
 //   ../generated/guidelines/<id>.md     per-component usage guidelines
-//   ../generated/guidelines/system/*.md foundations & patterns
+//   ../generated/guidelines/system/*.md system pages (foundations, patterns, guidelines, releases)
 //   ../generated/deprecations.json      deprecation registry
 //   ../generated/icons.json             icon manifest (optional)
 //   ../dist/tokens.json                 flat token registry
@@ -11,7 +11,7 @@
 //   ../src/components/<Name>/<Name>.stories.tsx  story modules (for live examples + hashing)
 //
 // Outputs (all gitignored, see docs/.gitignore):
-//   src/content/docs/components/*.mdx, foundations/*.mdx, tokens.mdx, icons.mdx, changelog.mdx
+//   src/content/docs/components/*.mdx, {foundations,patterns,guidelines,releases}/*.mdx, tokens.mdx, icons.mdx, changelog.mdx
 //   src/generated/*.json (normalized copies the Astro components import), src/generated/examples/*.tsx
 //
 // Nothing here is authored twice: the MDX only carries frontmatter + markdown bodies copied from the
@@ -145,7 +145,7 @@ const iconsManifest = readJson(join(ROOT, 'generated/icons.json'), undefined);
 const changelog = read(join(ROOT, 'CHANGELOG.md')) ?? '# Changelog\n\nNo changelog published yet.\n';
 
 // Fresh output dirs.
-for (const dir of [join(CONTENT, 'components'), join(CONTENT, 'foundations'), GEN]) {
+for (const dir of [join(CONTENT, 'components'), GEN]) {
   rmSync(dir, { recursive: true, force: true });
   mkdirSync(dir, { recursive: true });
 }
@@ -325,32 +325,71 @@ ${body}
   );
 }
 
-// ---------------------------------------------------------------- foundations (system pages)
-const SYSTEM_ORDER = ['color', 'typography', 'layout', 'forms', 'feedback', 'data-display', 'iconography', 'accessibility', 'content'];
+// ---------------------------------------------------------------- system pages, grouped by layer
+// Each guidelines/system/*.md page declares its layer in frontmatter (`layer:`). The layer picks the
+// URL and sidebar group, so the site's structure mirrors the design-system layers; the file names
+// (and therefore the MCP server's page ids) never change.
+const LAYERS = {
+  foundation: {
+    dir: 'foundations',
+    title: 'Foundations',
+    description: 'The decisions every component inherits: color, typography, layout, iconography, motion, design tokens and theming.',
+    intro: 'Foundations are the decisions every component inherits. Tokens carry them into code; the [token reference](/tokens/) and the [icon gallery](/icons/) list every value.',
+    order: ['color', 'typography', 'layout', 'iconography', 'motion', 'design-tokens', 'theming'],
+  },
+  pattern: {
+    dir: 'patterns',
+    title: 'Patterns',
+    description: 'Reusable combinations of tenet-ui components that solve a recurring problem: forms, feedback and data display.',
+    intro: 'Patterns are reusable combinations of components that solve a recurring problem. Each page says which components to combine, and when to pick one over another.',
+    order: ['forms', 'feedback', 'data-display'],
+  },
+  guideline: {
+    dir: 'guidelines',
+    title: 'Guidelines',
+    description: 'Accessibility and content rules that apply across every layer of tenet-ui.',
+    intro: 'Guidelines apply across every layer: to tokens, components and patterns alike, and to the app code that uses them.',
+    order: ['accessibility', 'content'],
+  },
+  release: {
+    dir: 'releases',
+    title: 'Releases',
+    description: 'How tenet-ui is versioned, what each component status promises, how APIs are deprecated, and how to migrate.',
+    intro: 'What a version number promises, how APIs are retired, and how to move between versions. Release notes are in the [Changelog](/changelog/).',
+    order: ['versioning', 'migrating-to-0-5'],
+  },
+};
 const systemDir = join(ROOT, 'generated/guidelines/system');
 const systemFiles = existsSync(systemDir) ? readdirSync(systemDir).filter((f) => f.endsWith('.md')) : [];
 const systemPages = [];
+for (const layer of Object.values(LAYERS)) {
+  rmSync(join(CONTENT, layer.dir), { recursive: true, force: true });
+  mkdirSync(join(CONTENT, layer.dir), { recursive: true });
+}
 for (const file of systemFiles) {
   const id = file.replace(/\.md$/, '');
   const raw = readFileSync(join(systemDir, file), 'utf8');
   const fm = matter(raw);
+  const layerKey = LAYERS[fm.data.layer] ? fm.data.layer : 'foundation';
+  if (!LAYERS[fm.data.layer]) console.warn(`[docs] ${file}: no valid \`layer:\` in frontmatter; filed under foundations`);
+  const layer = LAYERS[layerKey];
   const title = fm.data.title ?? fm.content.match(/^#\s+(.+)$/m)?.[1] ?? id;
   const updated = normDate(fm.data.updated) ?? gitDate(`generated/guidelines/system/${file}`) ?? isoDate(BUILD_DATE);
-  const orderIdx = SYSTEM_ORDER.indexOf(id);
+  const orderIdx = layer.order.indexOf(id);
   const order = orderIdx === -1 ? 100 + systemPages.length : orderIdx + 1;
   const related = Array.isArray(fm.data.related) ? fm.data.related : [];
-  systemPages.push({ id, title, updated, order });
+  systemPages.push({ id, title, updated, order, layer: layerKey, href: `/${layer.dir}/${id}/` });
   write(
-    join(CONTENT, 'foundations', `${id}.mdx`),
+    join(CONTENT, layer.dir, `${id}.mdx`),
     `---
 title: ${yamlStr(title)}
-description: ${yamlStr(firstParagraph(fm.content, `${title} — tenet-ui foundations.`))}
+description: ${yamlStr(firstParagraph(fm.content, `${title}: tenet-ui ${layer.title.toLowerCase()}.`))}
 lastUpdated: ${updated}
 contentHash: ${sha256(raw)}
 sidebar:
   order: ${order}
 ---
-{/* GENERATED by docs/scripts/generate-pages.mjs from generated/guidelines/system/${file} — do not edit. */}
+{/* GENERATED by docs/scripts/generate-pages.mjs from generated/guidelines/system/${file}. Do not edit. */}
 import RelatedList from '../../../components/RelatedList.astro';
 
 ${escapeMdx(stripH1(fm.content))}
@@ -361,28 +400,32 @@ ${escapeMdx(stripH1(fm.content))}
   summary.foundations++;
 }
 systemPages.sort((a, b) => a.order - b.order);
-write(
-  join(CONTENT, 'foundations', 'index.mdx'),
-  `---
-title: Foundations & patterns
-description: "System-level guidance for tenet-ui: color, typography, layout, forms, feedback, data display, iconography, accessibility and content."
-lastUpdated: ${systemPages.map((p) => p.updated).sort().at(-1) ?? isoDate(BUILD_DATE)}
-contentHash: ${sha256(systemPages)}
+write(join(GEN, 'system-pages.json'), JSON.stringify(systemPages, null, 2));
+for (const [key, layer] of Object.entries(LAYERS)) {
+  const pages = systemPages.filter((p) => p.layer === key);
+  write(
+    join(CONTENT, layer.dir, 'index.mdx'),
+    `---
+title: ${yamlStr(layer.title)}
+description: ${yamlStr(layer.description)}
+lastUpdated: ${pages.map((p) => p.updated).sort().at(-1) ?? isoDate(BUILD_DATE)}
+contentHash: ${sha256(pages)}
 sidebar:
   label: Overview
   order: 0
 ---
-{/* GENERATED by docs/scripts/generate-pages.mjs from generated/guidelines/system/ — do not edit. */}
+{/* GENERATED by docs/scripts/generate-pages.mjs from generated/guidelines/system/. Do not edit. */}
 
-Foundations describe the decisions that every component inherits; patterns describe how components combine. These pages are the same markdown the design-system MCP server reads.
+${layer.intro} These pages are the same markdown the design-system MCP server reads.
 
 ${
-  systemPages.length
-    ? systemPages.map((p) => `- [${p.title}](/foundations/${p.id}/) — updated ${p.updated}`).join('\n')
-    : `:::note[Not published yet]\nNo foundations pages have been published yet (\`generated/guidelines/system/\` is empty). They appear here automatically once written.\n:::`
+  pages.length
+    ? pages.map((p) => `- [${p.title}](${p.href}): updated ${p.updated}`).join('\n')
+    : `:::note[Not published yet]\nNo ${layer.title.toLowerCase()} pages have been published yet. They appear here automatically once written.\n:::`
 }
 `,
-);
+  );
+}
 
 // ---------------------------------------------------------------- tokens
 const TOKEN_GROUP_ORDER = [
@@ -415,12 +458,12 @@ const GROUP_BLURB = {
   fontWeight: 'Font weights.',
   letterSpacing: 'Letter spacing (tracking).',
   control: 'Control heights for small / medium / large interactive elements.',
-  shadow: 'Elevation shadows.',
+  shadow: 'Elevation shadows, plus the focus halo for fields. `shadow-focus` is themed because its colour is `bgColor-accent-muted` in each theme.',
   breakpoint: 'Layout breakpoints. `@media` cannot read `var()`, so components hardcode the same values with a comment.',
   fgColor: 'Foreground (text and icon) colors, themed. The AA column lists the `bgColor` tokens each is rated on.',
   bgColor: 'Background colors, themed.',
   borderColor: 'Border colors, themed.',
-  base: 'Primitive palette and size values. Components never use these directly — they reference the semantic tokens above.',
+  base: 'Tier 1: the raw palette and size values. App code never uses them; semantic tokens alias them. Components are the exception, for sizes only: 22 component stylesheets use `--base-size-*` for fixed widths and heights, and the switch thumb uses `--base-color-white`.',
 };
 write(
   join(CONTENT, 'tokens.mdx'),
@@ -435,7 +478,7 @@ tableOfContents:
 {/* GENERATED by docs/scripts/generate-pages.mjs from dist/tokens.json — do not edit. */}
 import TokenTable from '../../components/TokenTable.astro';
 
-Tokens are CSS custom properties shipped in \`tenet-ui/styles.css\`. Theme-agnostic tokens live on \`:root\`; themed tokens (\`fgColor\`, \`bgColor\`, \`borderColor\`) switch on \`[data-color-mode="light" | "dark"]\`. Components reference **semantic** tokens only — the \`base\` palette at the bottom exists to be aliased, not used.
+Tokens are CSS custom properties shipped in \`tenet-ui/styles.css\`. Theme-agnostic tokens live on \`:root\`; themed tokens (\`fgColor\`, \`bgColor\`, \`borderColor\` and \`shadow-focus\`) switch on \`[data-color-mode="light" | "dark"]\`. The **Tier** column says what each token is for: \`base\` is a raw value, \`semantic\` is a decision with a meaning, \`component\` belongs to one family of components. App code uses semantic and component tokens only. [Design tokens](/foundations/design-tokens/) explains the tiers, the naming and the source format.
 
 ${tokens.length} tokens · ${groups.length} groups · \`${pkg.name}@${pkg.version}\`
 
@@ -565,7 +608,7 @@ ${escapeMdx(stripH1(changelog))}
 
 // ---------------------------------------------------------------- report
 console.log(
-  `[docs] generated ${summary.components} component pages (${summary.examples} live examples), ${summary.foundations} foundations pages, ${groups.length} token groups (${tokens.length} tokens), ${summary.icons} icons, changelog (${(deprecations.deprecations ?? []).length} deprecations)`,
+  `[docs] generated ${summary.components} component pages (${summary.examples} live examples), ${summary.foundations} system pages, ${groups.length} token groups (${tokens.length} tokens), ${summary.icons} icons, changelog (${(deprecations.deprecations ?? []).length} deprecations)`,
 );
 if (summary.missingGuidelines.length) console.log(`[docs] no guidelines yet: ${summary.missingGuidelines.join(', ')}`);
 if (summary.missingStories.length) console.log(`[docs] no stories yet: ${summary.missingStories.join(', ')}`);

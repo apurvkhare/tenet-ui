@@ -2,6 +2,7 @@
 title: Data display
 component: system
 page: data-display
+layer: pattern
 related: [table, data-table, badge, tag, empty-state, avatar, skeleton, spinner, progress-bar, pagination, label]
 updated: 2026-09-12
 ---

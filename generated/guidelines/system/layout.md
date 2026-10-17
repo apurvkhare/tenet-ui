@@ -2,6 +2,7 @@
 title: Layout
 component: system
 page: layout
+layer: foundation
 related: [stack, grid, card, divider, typography]
 updated: 2026-09-12
 ---

@@ -2,7 +2,40 @@
 
 All notable changes to **tenet-ui** are documented here. This project follows
 [Semantic Versioning](https://semver.org/). Pre-1.0, breaking changes may land in
-a **minor** release.
+a **minor** release. The [versioning policy](https://tenet-ui.pages.dev/releases/versioning/)
+says what each version and component status promises.
+
+## Unreleased
+
+### Changed (potentially breaking)
+- **Tokens:** `tokens/tokens.json` now uses the DTCG 2025.10 value formats:
+  colours are `{ colorSpace, components, alpha?, hex }` objects, dimensions are
+  `{ value, unit }`, `lineHeight` and `fontWeight` are numbers, font families
+  are arrays, and shadows are `{ color, offsetX, offsetY, blur, spread }`
+  objects. `scripts/build-tokens.mjs` validates every value against these
+  shapes and still emits plain CSS strings, so `dist/tokens.css` and
+  `dist/tokens.json` values are unchanged except for the two tokens below.
+- **`shadow-focus` is themed.** It moved under `themes.light` / `themes.dark`
+  and its colour references each theme's `bgColor.accent.muted`. In
+  `tenet-ui/tokens.json` it now has `themed: true` with `light` and `dark`
+  values instead of `value`. This also fixes the halo colour in a dark section
+  nested inside a light page, where the old `:root` value resolved to the light
+  tint.
+- **`letterSpacing-tag`** is `0.48px` instead of `0.04em` (DTCG dimensions allow
+  only `px` and `rem`). Every use is at 12px, where the two are equal.
+
+### Added
+- **Token tiers:** every token carries `$extensions.tenet.tier` (`base`,
+  `semantic` or `component`), copied to `tenet-ui/tokens.json` under
+  `extensions`. The docs token reference shows a Tier column.
+- **System guidelines:** Design tokens, Theming, Motion, Versioning and
+  Migrating to 0.5. Content gains Voice, Tone by situation and inclusive
+  language rules; Accessibility states a WCAG 2.2 AA target, how tenet-ui is
+  tested, and its known limitations. Every system page declares a `layer`
+  (`foundation`, `pattern`, `guideline` or `release`) in its frontmatter.
+- **Docs site:** the sidebar is grouped by layer (Foundations, Components,
+  Patterns, Guidelines, Releases). Pattern and guideline pages moved from
+  `/foundations/` to `/patterns/` and `/guidelines/`; the old URLs redirect.
 
 ## 0.4.0 — 2026-09-12
 

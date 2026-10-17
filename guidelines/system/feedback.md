@@ -2,6 +2,7 @@
 title: Feedback
 component: system
 page: feedback
+layer: pattern
 related: [banner, toast, dialog, form-control, spinner, skeleton, progress-bar, empty-state, forms]
 updated: 2026-09-12
 ---

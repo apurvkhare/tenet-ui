@@ -1,5 +1,5 @@
 ---
-import { tokens, tokenGroup, isColorValue, type Token } from '../lib/data';
+import { tokens, tokenGroup, tokenTier, isColorValue, type Token } from '../lib/data';
 
 interface Props {
   group: string;
@@ -23,7 +23,7 @@ function contrastFor(t: Token, theme: 'light' | 'dark'): { aa: string[]; aaLarge
   return { aa: (o.aa ?? []).map(String), aaLarge: (o.aaLarge ?? []).map(String) };
 }
 const previewStyle = (t: Token): string | undefined => {
-  if (t.type === 'shadow') return `box-shadow: ${fmt(t.value)}`;
+  if (t.type === 'shadow') return `box-shadow: ${fmt(t.value ?? t.light)}`;
   if (t.type === 'fontFamily') return `font-family: ${fmt(t.value)}`;
   if (tokenGroup(t) === 'borderRadius') return `border-radius: ${fmt(t.value)}`;
   if (tokenGroup(t) === 'space' || tokenGroup(t) === 'control') return `width: ${fmt(t.value)}; height: ${fmt(t.value)}`;
@@ -41,6 +41,7 @@ const previewStyle = (t: Token): string | undefined => {
         <thead>
           <tr>
             <th>Token</th>
+            <th>Tier</th>
             <th>CSS variable</th>
             {themed ? (
               <>
@@ -65,6 +66,7 @@ const previewStyle = (t: Token): string | undefined => {
                 <td>
                   <code>{t.name}</code>
                 </td>
+                <td>{tokenTier(t) ?? <span class="tenet-muted">—</span>}</td>
                 <td>
                   <code class="tenet-cssvar">var({t.cssVar})</code>
                 </td>

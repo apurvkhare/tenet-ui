@@ -2,13 +2,14 @@
 title: Color
 component: system
 page: color
+layer: foundation
 related: [typography, accessibility, button, tag, badge, banner, card]
-updated: 2026-09-12
+updated: 2026-10-17
 ---
 
 # Color
 
-Editorial Ink has one accent (clay, terracotta) and three status hues (olive success, brick danger, ochre attention) on warm paper neutrals. App code never touches a hue directly: it picks a semantic token or a component `variant`, and the token flips between `data-color-mode="light"` and `data-color-mode="dark"` on `<html>`. Every pair listed here passes WCAG AA in both themes; any pairing not listed here is unverified and an audit should flag it.
+Editorial Ink has one accent (clay, terracotta) and three status hues (olive success, brick danger, ochre attention) on warm paper neutrals. App code never touches a hue directly: it picks a semantic token or a component `variant`, and the token flips between `data-color-mode="light"` and `data-color-mode="dark"` on `<html>`. Every pair listed here meets the WCAG 2.2 AA contrast minimum in both themes (SC 1.4.3: 4.5:1 for normal text, 3:1 for large text); any pairing not listed here is unverified and an audit should flag it.
 
 ## Rules
 

@@ -36,6 +36,14 @@ export default defineConfig({
   site: process.env.SITE_URL ?? 'https://tenet-ui.pages.dev',
   base,
   trailingSlash: 'always',
+  // Pages that moved when the sidebar was regrouped by layer (2026-10).
+  redirects: {
+    '/foundations/forms/': '/patterns/forms/',
+    '/foundations/feedback/': '/patterns/feedback/',
+    '/foundations/data-display/': '/patterns/data-display/',
+    '/foundations/accessibility/': '/guidelines/accessibility/',
+    '/foundations/content/': '/guidelines/content/',
+  },
   markdown: { rehypePlugins: [rehypeBaseLinks] },
   integrations: [
     react(),
@@ -54,13 +62,22 @@ export default defineConfig({
         Head: './src/components/overrides/Head.astro',
         LastUpdated: './src/components/overrides/LastUpdated.astro',
       },
+      // The sidebar mirrors the design-system layers. System pages are routed into foundations/,
+      // patterns/, guidelines/ and releases/ by the `layer:` frontmatter (docs/scripts/generate-pages.mjs).
       sidebar: [
         { label: 'Getting started', link: '/getting-started/' },
-        { label: 'Foundations', items: [{ autogenerate: { directory: 'foundations' } }] },
+        {
+          label: 'Foundations',
+          items: [
+            { autogenerate: { directory: 'foundations' } },
+            { label: 'Token reference', link: '/tokens/' },
+            { label: 'Icon gallery', link: '/icons/' },
+          ],
+        },
         { label: 'Components', items: [{ autogenerate: { directory: 'components' } }] },
-        { label: 'Icons', link: '/icons/' },
-        { label: 'Tokens', link: '/tokens/' },
-        { label: 'Changelog', link: '/changelog/' },
+        { label: 'Patterns', items: [{ autogenerate: { directory: 'patterns' } }] },
+        { label: 'Guidelines', items: [{ autogenerate: { directory: 'guidelines' } }] },
+        { label: 'Releases', items: [{ autogenerate: { directory: 'releases' } }, { label: 'Changelog', link: '/changelog/' }] },
       ],
       plugins: [
         starlightLlmsTxt({
@@ -68,16 +85,18 @@ export default defineConfig({
           description:
             'Documentation for tenet-ui, a React design system. Components import from `tenet-ui`, icons from `tenet-ui/icons`, and every app must import `tenet-ui/styles.css` once; theming is `data-color-mode="light|dark"` on <html>. Component pages carry the usage guidelines, the type-derived props table (deprecated props name their replacement) and the story list; the Tokens page lists every CSS variable with light/dark values.',
           details:
-            '- Prefer semantic tokens (`--fgColor-*`, `--bgColor-*`, `--borderColor-*`, `--space-*`) over raw values; the `base-*` palette is not for direct use.\n- Use the component for the job (Button, IconButton, Heading, Text, Table…) instead of raw HTML elements.\n- The deprecations registry on the Changelog page is the migration source between versions.',
+            '- Prefer semantic tokens (`--fgColor-*`, `--bgColor-*`, `--borderColor-*`, `--space-*`) over raw values; the `base-*` palette is not for direct use. The tier of each token (base, semantic, component) is in `tokens.json` under `extensions`.\n- Use the component for the job (Button, IconButton, Heading, Text, Table…) instead of raw HTML elements.\n- The deprecations registry on the Changelog page is the migration source between versions.',
           optionalLinks: [
             { label: 'Storybook (full story matrix)', url: STORYBOOK_URL },
             { label: 'GitHub repository', url: REPO_URL },
           ],
           customSets: [
             { label: 'Components', description: 'One page per component: guidelines, props, examples.', paths: ['components/**'] },
-            { label: 'Foundations & patterns', description: 'System-level guidance.', paths: ['foundations/**'] },
+            { label: 'Foundations', description: 'Color, typography, layout, iconography, motion, design tokens and theming.', paths: ['foundations/**'] },
+            { label: 'Patterns and guidelines', description: 'Component combinations, plus the accessibility and content rules.', paths: ['patterns/**', 'guidelines/**'] },
+            { label: 'Releases', description: 'Versioning, deprecation policy and migration guides.', paths: ['releases/**'] },
           ],
-          promote: ['index*', 'getting-started*', 'foundations/**'],
+          promote: ['index*', 'getting-started*', 'foundations/**', 'patterns/**', 'guidelines/**'],
           demote: ['changelog*'],
         }),
       ],

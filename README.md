@@ -50,7 +50,7 @@ Tokens are CSS custom properties scoped to `data-color-mode` (light is the defau
 | Components (ESM + CJS + `.d.ts`) | `dist/index.*` | `src/components/*/` |
 | Icons | `dist/icons.*` (`tenet-ui/icons`) | `icons/manifest.json` → `scripts/build-icons.mjs` |
 | Stylesheet | `dist/styles.css` (`tenet-ui/styles.css`) | tokens + each component's CSS |
-| Tokens | `dist/tokens.json`, `dist/tokens.css` | `tokens/tokens.json` (DTCG; `$extensions.tenet.contrast` holds the AA pairs) |
+| Tokens | `dist/tokens.json`, `dist/tokens.css` | `tokens/tokens.json` (DTCG 2025.10 Format and Color modules; `$extensions.tenet.tier` holds the tier, `$extensions.tenet.contrast` the AA pairs) |
 | Component catalog | `generated/components.json` | derived from `*.types.ts` + `*.meta.json` + `*.stories.tsx` |
 | Deprecation registry | `generated/deprecations.json` | `@deprecated` JSDoc tags |
 | Icon manifest | `generated/icons.json` | `icons/manifest.json` |
@@ -65,7 +65,7 @@ Story baselines (per-story screenshots, light and dark) are attached to each Git
 src/components/<Name>/   Name.tsx · Name.types.ts · Name.css · Name.stories.tsx · Name.guidelines.md · Name.meta.json · index.ts
 src/icons/               generated icon components (+ LICENSE-lucide.txt)
 src/internal/            floating layer + deprecation helpers
-tokens/tokens.json       DTCG tokens, light + dark
+tokens/tokens.json       DTCG 2025.10 tokens, light + dark
 guidelines/system/       foundations & patterns (color, typography, layout, forms, feedback, data display, iconography, accessibility, content)
 icons/manifest.json      the curated icon list
 scripts/                 build-icons · build-tokens · build-catalog · build-styles · build-baselines · check-a11y · check-story-ids · build-site

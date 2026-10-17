@@ -26,10 +26,16 @@ import { componentList, tokens, siteMeta } from '../../lib/data';
     {componentList.length} components, each documented from its TypeScript types, its usage guidelines and its Storybook stories, rendered live. [Browse components](/components/)
   </Card>
   <Card title="Tokens" icon="setting">
-    {tokens.length} design tokens as CSS variables with light and dark values. Components only ever reference the semantic layer. [See the tokens](/tokens/)
+    {tokens.length} design tokens in three tiers (raw values, semantic decisions, component sizes), authored in the DTCG 2025.10 format and shipped as CSS variables with light and dark values. [See the tokens](/tokens/)
   </Card>
   <Card title="Foundations" icon="document">
-    Color, typography, layout, forms, feedback, data display, iconography, accessibility and content guidance. [Read the foundations](/foundations/)
+    Color, typography, layout, iconography, motion, design tokens and theming: the decisions every component inherits. [Read the foundations](/foundations/)
+  </Card>
+  <Card title="Patterns and guidelines" icon="list-format">
+    [Patterns](/patterns/) combine components for forms, feedback and data display. [Guidelines](/guidelines/) cover accessibility (WCAG 2.2 AA target) and content across every layer.
+  </Card>
+  <Card title="Releases" icon="approve-check">
+    Semantic versioning, what each component status promises, a deprecation window of one minor release, and a migration guide for every minor that removes something. [Read the release policy](/releases/)
   </Card>
   <Card title="For agents" icon="rocket">
     This site publishes [`llms.txt`](/llms.txt), [`llms-full.txt`](/llms-full.txt) and [`llms-small.txt`](/llms-small.txt). Every page carries a `Last updated` date and a `content-hash` meta tag.

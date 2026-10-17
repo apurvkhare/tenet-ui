@@ -2,6 +2,7 @@
 title: Forms
 component: system
 page: forms
+layer: pattern
 related: [form-control, text-input, textarea, number-input, select, date-picker, checkbox, radio-group, switch, button, feedback]
 updated: 2026-09-12
 ---

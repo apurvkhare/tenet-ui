@@ -2,13 +2,18 @@
 title: Accessibility
 component: system
 page: accessibility
+layer: guideline
 related: [color, iconography, forms, feedback, dialog, table, toast, icon-button, form-control]
-updated: 2026-09-12
+updated: 2026-10-17
 ---
 
 # Accessibility
 
 The components own roles, keyboard paths, focus rings, and announcements, so a screen built only from tenet-ui components and semantic tokens starts accessible. App code keeps it that way by naming every control, keeping the DOM order equal to the visual order, and not adding motion or colour outside the system. These are the checks an audit applies.
+
+## Conformance target
+
+tenet-ui aims for **WCAG 2.2 level AA**. This is a design target, not a conformance claim: there has been no third-party audit, and conformance belongs to a finished page, which also depends on the app code around the components. What the components guarantee is listed in the rules below; what app code must do is in the same rules and in [Content](/guidelines/content/) and [Color](/foundations/color/).
 
 ## Rules
 
@@ -42,6 +47,25 @@ The components own roles, keyboard paths, focus rings, and announcements, so a s
 | Overlay | `Dialog`, `Popover`, `Tooltip` | Escape closes; `Dialog` traps Tab; `Popover` closes when focus leaves; `Tooltip` shows on focus |
 | Grid | `Calendar` | Arrows move by day, Home/End by week edge, PageUp/PageDown by month, Enter/Space select |
 | Navigation | `Breadcrumbs`, `Pagination`, `Table.Header` (sortable) | Real links and buttons; Tab and Enter |
+
+## How it is tested
+
+| Check | What it covers | Where |
+|---|---|---|
+| axe-core over every Storybook story, in both themes | Names, roles, ARIA, contrast as rendered | `scripts/check-a11y.mjs`, run in CI |
+| Contrast pairs verified at build time | Every documented text and background pair, both themes, 4.5:1 or 3:1 | `scripts/build-tokens.mjs`; the build fails on a regression |
+| Storybook play functions | Clicks and keyboard paths (arrows, Enter, Escape) on 20 interactive components | `*.stories.tsx` |
+| Per-component review flag | A hand-kept `a11yReviewed` flag, shown on every component page; all 41 components are reviewed | `<Name>.meta.json` |
+
+There is no recorded screen-reader test matrix (which screen readers and browsers were tried, and when).
+
+## Known limitations
+
+- **Forced-colors mode** (Windows High Contrast) is not supported or tested. Fields draw focus with `border-color` and `box-shadow: var(--shadow-focus)`, which forced-colors mode overrides, so the field focus indicator is likely to disappear there. Buttons, links, tabs and choice controls use `outline`, which forced-colors mode keeps (in a system colour).
+- **Right-to-left** languages are not supported. Component CSS uses physical `left` and `right`, not logical properties.
+- **Sizes are in px.** Browser zoom scales everything, which meets SC 1.4.4 (Resize text), but text does not follow a change to the browser's default font size.
+- **`Switch`** still slides its thumb under `prefers-reduced-motion: reduce`. See [Motion](/foundations/motion/).
+- **Target size:** the smallest control (`size="small"`, 28px) meets SC 2.5.8 (Target Size, Minimum: 24px). It does not meet the 44px AAA target (SC 2.5.5).
 
 ## Do / Don't
 

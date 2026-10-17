@@ -3,6 +3,7 @@ import catalog from '../generated/components.json';
 import tokensJson from '../generated/tokens.json';
 import deprecationsJson from '../generated/deprecations.json';
 import meta from '../generated/meta.json';
+import systemPagesJson from '../generated/system-pages.json';
 
 export interface PropDoc {
   name: string;
@@ -68,6 +69,7 @@ export interface Token {
   light?: unknown;
   dark?: unknown;
   contrast?: unknown;
+  extensions?: Record<string, unknown>;
 }
 
 const components = (catalog as { components?: Record<string, ComponentDoc> }).components ?? {};
@@ -75,6 +77,8 @@ const components = (catalog as { components?: Record<string, ComponentDoc> }).co
 export const componentList: ComponentDoc[] = Object.values(components).sort((a, b) => a.name.localeCompare(b.name));
 export const getComponent = (id: string): ComponentDoc | undefined => components[id];
 export const tokens = tokensJson as Token[];
+/** guidelines/system pages, each with the URL its layer gives it (/foundations/, /patterns/, /guidelines/, /releases/). */
+export const systemPages = systemPagesJson as { id: string; title: string; layer: string; href: string }[];
 export const deprecations: Deprecation[] = (deprecationsJson as { deprecations?: Deprecation[] }).deprecations ?? [];
 export const siteMeta = meta as {
   package: string;
@@ -97,6 +101,12 @@ export function replacementFromMessage(msg: string | boolean | undefined): strin
 }
 
 export const tokenGroup = (t: Token): string => (Array.isArray(t.path) && t.path[0]) || t.name.split(/[-.]/)[0]!;
+
+/** Tier from `$extensions.tenet.tier` (themed tokens carry extensions per theme): base, semantic or component. */
+export const tokenTier = (t: Token): string | undefined => {
+  const ext = t.extensions as { tenet?: { tier?: string }; light?: { tenet?: { tier?: string } } } | undefined;
+  return ext?.tenet?.tier ?? ext?.light?.tenet?.tier;
+};
 
 export const isColorValue = (v: unknown): v is string =>
   typeof v === 'string' && /^(#|rgb|hsl|oklch|color\()/i.test(v.trim());

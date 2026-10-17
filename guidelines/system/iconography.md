@@ -2,6 +2,7 @@
 title: Iconography
 component: system
 page: iconography
+layer: foundation
 related: [icon, icon-button, button, text-input, empty-state, banner, accessibility]
 updated: 2026-09-12
 ---

@@ -2,6 +2,7 @@
 title: Typography
 component: system
 page: typography
+layer: foundation
 related: [heading, text, content, layout, color]
 updated: 2026-09-12
 ---

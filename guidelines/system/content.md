@@ -2,13 +2,38 @@
 title: Content
 component: system
 page: content
+layer: guideline
 related: [typography, forms, feedback, empty-state, button, tag, heading]
-updated: 2026-09-12
+updated: 2026-10-17
 ---
 
 # Content
 
 Editorial Ink reads like a newsroom, not a dashboard: plain sentences, sentence case, verbs on buttons, and no exclamation marks. These rules are the defaults an agent uses when it writes UI text into a plan, and the checks an audit applies to labels, headings, and messages.
+
+## Voice
+
+The voice is the part that never changes. Editorial Ink sounds like a good copy editor: three attributes, in this order when they conflict.
+
+| Attribute | Means | Not |
+|---|---|---|
+| Plain | Everyday words, short sentences, one idea per sentence | Jargon, codes, marketing adjectives |
+| Calm | States facts without alarm or celebration | Exclamation marks, "Oops", "Awesome", urgency that is not real |
+| Exact | Names the object and the outcome | "Something went wrong", "Submit", "Click here" |
+
+## Tone by situation
+
+Tone is how the voice adjusts to the moment. The voice stays the same; the amount of warmth and detail changes.
+
+| Situation | Tone | Example |
+|---|---|---|
+| Field error | Direct, no blame, says the fix | "Enter a date after today." |
+| System error | Owns the failure, gives the next step | "Could not save the story. Try again in a few minutes." |
+| Warning | Serious, names the consequence before it happens | "Publishing replaces the live version. Readers see the change immediately." |
+| Destructive confirmation | Serious and specific, no softening | "Delete article?" / "Delete article" |
+| Success | Brief and factual, past tense | "Story published" |
+| Empty state | Practical, points to the next action | "No stories yet" / "Stories you draft or import appear here." |
+| Help text | Neutral, adds what the label cannot | "Shown under the headline on the home page." |
 
 ## Rules
 
@@ -27,6 +52,9 @@ Editorial Ink reads like a newsroom, not a dashboard: plain sentences, sentence 
 13. Product and proper nouns keep their own capitalisation ("tenet-ui", "GitHub", "Storybook", "Newsroom" when it is the product name) and are otherwise the only capitals inside a sentence-case string. Generic features are lower case ("the dashboard", "a story", "your drafts").
 14. People are addressed as "you"; the product does not refer to itself as "we" or "I". Copy uses contractions where natural ("can't", "you're") and avoids idioms that do not translate.
 15. Links describe their destination ("View billing settings", "Open the changelog"), never "here" or a bare URL. `Link external` adds the new-tab warning; the text does not need to say "(opens in new tab)".
+16. Unknown people are "they". Copy and examples do not assume a gender ("Ask the author to review their draft", not "his draft"), and groups are "everyone" or "the team", never "guys".
+17. Words name what they mean, not a loaded metaphor: "blocklist" and "allowlist", "main branch", "placeholder value", "quick check", "stop the job". Not "blacklist", "master", "dummy value", "sanity check", "kill".
+18. Example people, names, and places in placeholders, empty states, and docs come from more than one culture, and never stand for a real person.
 
 ## Patterns
 

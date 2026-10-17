@@ -7,6 +7,9 @@ dist/
 # Never edit by hand; never commit.
 src/content/docs/components/
 src/content/docs/foundations/
+src/content/docs/patterns/
+src/content/docs/guidelines/
+src/content/docs/releases/
 src/content/docs/tokens.mdx
 src/content/docs/icons.mdx
 src/content/docs/changelog.mdx
