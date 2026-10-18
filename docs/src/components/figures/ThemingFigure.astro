@@ -1,0 +1,16 @@
+---
+// Theming: the same components under data-color-mode="light" and "dark", with the token values
+// that change between them.
+import { tokens } from '../../lib/data';
+import { ThemePanels } from './ThemePanels';
+
+const pairs = ['bgColor-default', 'fgColor-default', 'fgColor-accent', 'borderColor-default'].map((n) => {
+  const t = tokens.find((x) => x.name === n);
+  return { name: n, light: String(t?.light ?? ''), dark: String(t?.dark ?? '') };
+});
+---
+
+<figure class="tenet-figure not-content">
+  <ThemePanels pairs={pairs} />
+  <figcaption>The same markup twice. Only the attribute differs; the token names stay the same and their values swap.</figcaption>
+</figure>

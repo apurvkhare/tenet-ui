@@ -1,0 +1,51 @@
+---
+// A layer's overview page: one card per page in the layer, each with a small illustration, the
+// page's opening sentence and its size. Reads docs/src/generated/system-pages.json.
+import { systemPages } from '../lib/data';
+import Thumb from './figures/Thumb.astro';
+
+interface Props {
+  layer: string;
+}
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const pages = systemPages.filter((p) => p.layer === Astro.props.layer);
+// starlight-llms-txt renders content for its .txt endpoints without a React renderer: give it a plain list.
+const forLlms = Astro.url.pathname.endsWith('.txt');
+const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
+---
+
+{
+  forLlms && (
+    <ul>
+      {pages.map((p) => (
+        <li>
+          <a href={base + p.href}>{p.title}</a>: {p.summary}
+        </li>
+      ))}
+    </ul>
+  )
+}
+{!forLlms && (
+<ul class="tenet-overview not-content">
+  {
+    pages.map((p) => (
+      <li>
+        <a href={base + p.href}>
+          <span class="tenet-overview__thumb" aria-hidden="true">
+            <Thumb id={p.id} />
+          </span>
+          <span class="tenet-overview__body">
+            <span class="tenet-overview__title">{p.title}</span>
+            <span class="tenet-overview__summary">{p.summary}</span>
+            <span class="tenet-overview__meta">
+              {[p.rules ? plural(p.rules, 'rule', 'rules') : '', p.examples ? plural(p.examples, 'example', 'examples') : '']
+                .filter(Boolean)
+                .join(' · ')}
+            </span>
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+)}

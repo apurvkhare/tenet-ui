@@ -1,0 +1,188 @@
+---
+// Small illustrations for the overview cards, one per system page. Drawn with tenet-ui's semantic
+// tokens (see .th-* in tenet-docs.css), so they follow the theme like everything else.
+import { SearchIcon, BellIcon, TrashIcon, CalendarIcon, PlusIcon, CheckCircleIcon } from 'tenet-ui/icons';
+
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+---
+
+{
+  id === 'color' && (
+    <svg viewBox="0 0 160 100" class="tenet-thumb">
+      <rect class="th-clay" x="22" y="18" width="20" height="64" rx="4" />
+      <rect class="th-olive" x="47" y="18" width="20" height="64" rx="4" />
+      <rect class="th-ochre" x="72" y="18" width="20" height="64" rx="4" />
+      <rect class="th-brick" x="97" y="18" width="20" height="64" rx="4" />
+      <rect class="th-ink" x="122" y="18" width="20" height="64" rx="4" />
+    </svg>
+  )
+}
+{
+  id === 'typography' && (
+    <svg viewBox="0 0 160 100" class="tenet-thumb">
+      <text class="th-ink th-serif" x="20" y="66" font-size="48">Aa</text>
+      <rect class="th-soft" x="92" y="34" width="48" height="5" rx="2.5" />
+      <rect class="th-line" x="92" y="46" width="40" height="4" rx="2" />
+      <rect class="th-line" x="92" y="56" width="44" height="4" rx="2" />
+      <rect class="th-line" x="92" y="66" width="30" height="4" rx="2" />
+    </svg>
+  )
+}
+{
+  id === 'layout' && (
+    <svg viewBox="0 0 160 100" class="tenet-thumb">
+      <rect class="th-paper th-stroke" x="20" y="14" width="120" height="72" rx="5" />
+      <rect class="th-soft" x="30" y="24" width="44" height="6" rx="3" />
+      <rect class="th-muted" x="30" y="38" width="31" height="38" rx="3" />
+      <rect class="th-muted" x="65" y="38" width="31" height="38" rx="3" />
+      <rect class="th-claytint" x="100" y="38" width="30" height="38" rx="3" />
+      <rect class="th-clay" x="61" y="50" width="4" height="14" rx="1" opacity="0.7" />
+    </svg>
+  )
+}
+{
+  id === 'iconography' && (
+    <div class="tenet-thumb tenet-thumb--icons">
+      <SearchIcon size={24} />
+      <BellIcon size={24} />
+      <CalendarIcon size={24} />
+      <TrashIcon size={24} />
+      <PlusIcon size={24} />
+      <CheckCircleIcon size={24} />
+    </div>
+  )
+}
+{
+  id === 'motion' && (
+    <svg viewBox="0 0 160 100" class="tenet-thumb">
+      <line class="th-stroke" x1="24" y1="80" x2="136" y2="80" />
+      <line class="th-stroke" x1="24" y1="20" x2="24" y2="80" />
+      <path class="th-clay-stroke" d="M24 80 C 60 80, 70 22, 136 20" fill="none" stroke-width="3" stroke-linecap="round" />
+      <circle class="th-clay" cx="136" cy="20" r="5" />
+      <circle class="th-paper th-stroke" cx="24" cy="80" r="5" />
+    </svg>
+  )
+}
+{
+  id === 'design-tokens' && (
+    <svg viewBox="0 0 160 100" class="tenet-thumb">
+      <rect class="th-paper th-stroke" x="18" y="14" width="78" height="18" rx="9" />
+      <circle class="th-clay" cx="29" cy="23" r="5" />
+      <rect class="th-line" x="40" y="21" width="44" height="4" rx="2" />
+      <path class="th-soft-stroke" d="M40 32 v10 M40 58 v10" fill="none" />
+      <rect class="th-paper th-stroke" x="30" y="41" width="96" height="18" rx="9" />
+      <circle class="th-clay" cx="41" cy="50" r="5" />
+      <rect class="th-soft" x="52" y="48" width="60" height="4" rx="2" />
+      <rect class="th-clay" x="42" y="68" width="64" height="20" rx="4" />
+      <rect class="th-on" x="56" y="76" width="36" height="4" rx="2" />
+    </svg>
+  )
+}
+{
+  id === 'theming' && (
+    <svg viewBox="0 0 160 100" class="tenet-thumb">
+      <rect class="th-lightpage" x="16" y="14" width="64" height="72" rx="5" />
+      <rect class="th-darkpage" x="80" y="14" width="64" height="72" rx="5" />
+      <rect class="th-lightink" x="26" y="28" width="36" height="5" rx="2.5" />
+      <rect class="th-lightline" x="26" y="40" width="44" height="4" rx="2" />
+      <rect class="th-lightline" x="26" y="49" width="30" height="4" rx="2" />
+      <rect class="th-clay" x="26" y="62" width="28" height="12" rx="3" />
+      <rect class="th-darkink" x="90" y="28" width="36" height="5" rx="2.5" />
+      <rect class="th-darkline" x="90" y="40" width="44" height="4" rx="2" />
+      <rect class="th-darkline" x="90" y="49" width="30" height="4" rx="2" />
+      <rect class="th-clay" x="90" y="62" width="28" height="12" rx="3" />
+    </svg>
+  )
+}
+{
+  id === 'forms' && (
+    <svg viewBox="0 0 160 100" class="tenet-thumb">
+      <rect class="th-soft" x="30" y="14" width="34" height="5" rx="2.5" />
+      <rect class="th-paper th-stroke" x="30" y="23" width="100" height="16" rx="3" />
+      <rect class="th-soft" x="30" y="47" width="26" height="5" rx="2.5" />
+      <rect class="th-paper th-brick-stroke" x="30" y="56" width="100" height="16" rx="3" />
+      <rect class="th-brick" x="30" y="76" width="54" height="3" rx="1.5" opacity="0.8" />
+      <rect class="th-clay" x="96" y="84" width="34" height="10" rx="3" />
+    </svg>
+  )
+}
+{
+  id === 'feedback' && (
+    <svg viewBox="0 0 160 100" class="tenet-thumb">
+      <rect class="th-paper th-stroke" x="16" y="12" width="128" height="76" rx="5" />
+      <rect class="th-claytint" x="26" y="22" width="108" height="16" rx="3" />
+      <rect class="th-clay" x="26" y="22" width="3" height="16" rx="1" />
+      <rect class="th-line" x="26" y="46" width="70" height="4" rx="2" />
+      <rect class="th-line" x="26" y="55" width="54" height="4" rx="2" />
+      <rect class="th-ink" x="88" y="64" width="48" height="16" rx="4" />
+      <rect class="th-inverse" x="95" y="70" width="26" height="4" rx="2" />
+    </svg>
+  )
+}
+{
+  id === 'data-display' && (
+    <svg viewBox="0 0 160 100" class="tenet-thumb">
+      <rect class="th-paper th-stroke" x="16" y="14" width="128" height="72" rx="5" />
+      <rect class="th-soft" x="26" y="23" width="30" height="4" rx="2" />
+      <line class="th-stroke" x1="16" y1="34" x2="144" y2="34" />
+      <rect class="th-line" x="26" y="42" width="48" height="4" rx="2" />
+      <rect class="th-olivetint" x="96" y="39" width="34" height="10" rx="5" />
+      <line class="th-stroke" x1="16" y1="54" x2="144" y2="54" />
+      <rect class="th-line" x="26" y="62" width="40" height="4" rx="2" />
+      <rect class="th-ochretint" x="96" y="59" width="34" height="10" rx="5" />
+      <line class="th-stroke" x1="16" y1="74" x2="144" y2="74" />
+    </svg>
+  )
+}
+{
+  id === 'accessibility' && (
+    <svg viewBox="0 0 160 100" class="tenet-thumb">
+      <rect class="th-claytint" x="36" y="32" width="88" height="36" rx="9" />
+      <rect class="th-clay" x="42" y="38" width="76" height="24" rx="5" />
+      <rect class="th-on" x="60" y="48" width="40" height="4" rx="2" />
+      <text class="th-soft th-mono" x="58" y="86" font-size="9">Tab ↹</text>
+    </svg>
+  )
+}
+{
+  id === 'content' && (
+    <svg viewBox="0 0 160 100" class="tenet-thumb">
+      <text class="th-clay th-serif" x="22" y="62" font-size="60">“</text>
+      <rect class="th-ink" x="58" y="34" width="72" height="5" rx="2.5" />
+      <rect class="th-soft" x="58" y="46" width="60" height="4" rx="2" />
+      <rect class="th-soft" x="58" y="56" width="66" height="4" rx="2" />
+      <rect class="th-claytint" x="58" y="68" width="40" height="12" rx="6" />
+    </svg>
+  )
+}
+{
+  id === 'versioning' && (
+    <svg viewBox="0 0 160 100" class="tenet-thumb">
+      <line class="th-stroke" x1="22" y1="50" x2="138" y2="50" />
+      <circle class="th-olive" cx="34" cy="50" r="6" />
+      <circle class="th-olive" cx="80" cy="50" r="6" />
+      <circle class="th-paper th-clay-stroke" cx="126" cy="50" r="6" stroke-width="2" />
+      <text class="th-soft th-mono" x="24" y="74" font-size="9">0.3</text>
+      <text class="th-soft th-mono" x="70" y="74" font-size="9">0.4</text>
+      <text class="th-clay th-mono" x="116" y="74" font-size="9">0.5</text>
+    </svg>
+  )
+}
+{
+  id === 'migrating-to-0-5' && (
+    <svg viewBox="0 0 160 100" class="tenet-thumb">
+      <rect class="th-paper th-stroke" x="16" y="24" width="56" height="52" rx="4" />
+      <rect class="th-bricktint" x="24" y="34" width="40" height="6" rx="2" />
+      <rect class="th-line" x="24" y="46" width="32" height="4" rx="2" />
+      <rect class="th-line" x="24" y="56" width="36" height="4" rx="2" />
+      <path class="th-soft-stroke" d="M78 50 h10 m-4 -4 l4 4 l-4 4" fill="none" stroke-width="1.5" />
+      <rect class="th-paper th-stroke" x="94" y="24" width="56" height="52" rx="4" />
+      <rect class="th-olivetint" x="102" y="34" width="40" height="6" rx="2" />
+      <rect class="th-line" x="102" y="46" width="32" height="4" rx="2" />
+      <rect class="th-line" x="102" y="56" width="36" height="4" rx="2" />
+    </svg>
+  )
+}

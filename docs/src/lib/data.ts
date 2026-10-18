@@ -78,7 +78,16 @@ export const componentList: ComponentDoc[] = Object.values(components).sort((a, 
 export const getComponent = (id: string): ComponentDoc | undefined => components[id];
 export const tokens = tokensJson as Token[];
 /** guidelines/system pages, each with the URL its layer gives it (/foundations/, /patterns/, /guidelines/, /releases/). */
-export const systemPages = systemPagesJson as { id: string; title: string; layer: string; href: string }[];
+export const systemPages = systemPagesJson as {
+  id: string;
+  title: string;
+  layer: string;
+  href: string;
+  updated: string;
+  summary: string;
+  rules: number;
+  examples: number;
+}[];
 export const deprecations: Deprecation[] = (deprecationsJson as { deprecations?: Deprecation[] }).deprecations ?? [];
 export const siteMeta = meta as {
   package: string;

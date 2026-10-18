@@ -1,0 +1,53 @@
+---
+// Iconography: the three sizes and where each belongs, and colour inherited through currentColor.
+import { SearchIcon, PlusIcon, TrashIcon, BellIcon, CalendarIcon, InboxIcon, CheckCircleIcon, AlertTriangleIcon } from 'tenet-ui/icons';
+
+const glyphs = [SearchIcon, PlusIcon, TrashIcon, BellIcon, CalendarIcon];
+const sizes = [
+  { size: 16 as const, use: 'Inline with text and inside controls' },
+  { size: 20 as const, use: 'Large controls, list rows, toolbar buttons' },
+  { size: 24 as const, use: 'Empty states, banners, page headers' },
+];
+const tones = [
+  { label: 'default', color: 'var(--fgColor-default)', Icon: InboxIcon },
+  { label: 'muted', color: 'var(--fgColor-muted)', Icon: CalendarIcon },
+  { label: 'accent', color: 'var(--fgColor-accent)', Icon: PlusIcon },
+  { label: 'success', color: 'var(--fgColor-success)', Icon: CheckCircleIcon },
+  { label: 'danger', color: 'var(--fgColor-danger)', Icon: AlertTriangleIcon },
+];
+---
+
+<figure class="tenet-figure not-content">
+  <div class="tenet-figure__panel">
+    <p class="tenet-figure__kicker">Three sizes, one grid</p>
+    <div class="tenet-iconsizes">
+      {
+        sizes.map(({ size, use }) => (
+          <div class="tenet-iconsizes__col">
+            <div class="tenet-iconsizes__glyphs">
+              {glyphs.map((G) => (
+                <G size={size} />
+              ))}
+            </div>
+            <span class="tenet-iconsizes__size">size={size}</span>
+            <span class="tenet-iconsizes__use">{use}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+  <div class="tenet-figure__panel">
+    <p class="tenet-figure__kicker">Colour comes from the parent</p>
+    <ul class="tenet-icontones">
+      {
+        tones.map(({ label, color, Icon }) => (
+          <li style={`color:${color}`}>
+            <Icon size={20} />
+            <code>fgColor-{label}</code>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <figcaption>Real icons from <code>tenet-ui/icons</code>, drawn in <code>currentColor</code> on a 24 by 24 grid and scaled.</figcaption>
+</figure>

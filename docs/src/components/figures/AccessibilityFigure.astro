@@ -1,0 +1,33 @@
+---
+// Accessibility: the split of responsibility stated in the page's opening paragraph, and the keys
+// the components handle (from the keyboard contracts table).
+const KEYS = ['Tab', 'Enter', 'Space', 'Esc', '↑', '↓', '←', '→', 'Home', 'End'];
+---
+
+<figure class="tenet-figure not-content">
+  <div class="tenet-figure__grid">
+    <div class="tenet-figure__panel tenet-owns tenet-owns--components">
+      <p class="tenet-figure__kicker">The components own</p>
+      <ul>
+        <li>Roles</li>
+        <li>Keyboard paths</li>
+        <li>Focus rings</li>
+        <li>Announcements</li>
+      </ul>
+    </div>
+    <div class="tenet-figure__panel tenet-owns tenet-owns--app">
+      <p class="tenet-figure__kicker">App code keeps it that way</p>
+      <ul>
+        <li>Name every control</li>
+        <li>DOM order equals visual order</li>
+        <li>No motion outside the system</li>
+        <li>No colour outside the system</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tenet-figure__panel">
+    <p class="tenet-figure__kicker">Keys the components handle</p>
+    <div class="tenet-keys">{KEYS.map((k) => <kbd>{k}</kbd>)}</div>
+  </div>
+  <figcaption>The keyboard contracts table below says which component family handles which keys.</figcaption>
+</figure>

@@ -1,0 +1,50 @@
+---
+// A system page's facts strip, under the lede: which layer it belongs to, how many numbered rules
+// and Do/Don't examples it has, when it changed, and the markdown file it is generated from (the
+// same file the design-system MCP server reads).
+import { systemPages, siteMeta } from '../lib/data';
+
+interface Props {
+  id: string;
+}
+const page = systemPages.find((p) => p.id === Astro.props.id);
+if (!page) return;
+const LAYER: Record<string, string> = {
+  foundation: 'Foundation',
+  pattern: 'Pattern',
+  guideline: 'Guideline',
+  release: 'Release',
+};
+const updated = new Date(page.updated).toLocaleDateString('en', { dateStyle: 'medium', timeZone: 'UTC' });
+---
+
+<dl class="tenet-facts tenet-facts--system not-content">
+  <div>
+    <dt>Layer</dt>
+    <dd>{LAYER[page.layer] ?? page.layer}</dd>
+  </div>
+  {
+    page.rules > 0 && (
+      <div>
+        <dt>Rules</dt>
+        <dd>{page.rules} numbered</dd>
+      </div>
+    )
+  }
+  {
+    page.examples > 0 && (
+      <div>
+        <dt>Examples</dt>
+        <dd>{page.examples} do and don’t</dd>
+      </div>
+    )
+  }
+  <div>
+    <dt>Updated</dt>
+    <dd><time datetime={page.updated}>{updated}</time></dd>
+  </div>
+  <div>
+    <dt>Source</dt>
+    <dd><a href={`${siteMeta.repoUrl}/blob/main/guidelines/system/${page.id}.md`}>{page.id}.md</a></dd>
+  </div>
+</dl>

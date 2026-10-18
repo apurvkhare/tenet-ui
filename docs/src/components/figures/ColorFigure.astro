@@ -1,0 +1,100 @@
+---
+// Color: the base palette ramps, the four status sets (tint and solid) and how surfaces nest.
+import { tokens } from '../../lib/data';
+
+const ramp = (family: string) =>
+  tokens
+    .filter((t) => t.name.startsWith(`base-color-${family}-`))
+    .map((t) => ({ step: t.name.split('-').pop()!, cssVar: t.cssVar, value: String(t.value) }));
+const hues = [
+  { name: 'Clay', role: 'accent', steps: ramp('clay') },
+  { name: 'Olive', role: 'success', steps: ramp('olive') },
+  { name: 'Ochre', role: 'attention', steps: ramp('ochre') },
+  { name: 'Brick', role: 'danger', steps: ramp('brick') },
+];
+const neutral = ramp('neutral');
+const sets = [
+  { role: 'accent', label: 'Accent', on: 'onEmphasis' },
+  { role: 'success', label: 'Success', on: 'onEmphasis' },
+  { role: 'attention', label: 'Attention', on: 'onAttention' },
+  { role: 'danger', label: 'Danger', on: 'onEmphasis' },
+];
+---
+
+<figure class="tenet-figure not-content">
+  <div class="tenet-figure__panel">
+    <p class="tenet-figure__kicker">Base palette</p>
+    <div class="tenet-palette">
+      <div class="tenet-ramp tenet-ramp--neutral">
+        <span class="tenet-ramp__name">Neutral</span>
+        <ol>
+          {
+            neutral.map((s) => (
+              <li title={`${s.cssVar}: ${s.value}`}>
+                <span class="tenet-ramp__chip" style={`background:${s.value}`} />
+                <span class="tenet-ramp__step">{s.step}</span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <div class="tenet-palette__hues">
+        {
+          hues.map((h) => (
+            <div class="tenet-ramp">
+              <span class="tenet-ramp__name">
+                {h.name} <span>{h.role}</span>
+              </span>
+              <ol>
+                {h.steps.map((s) => (
+                  <li title={`${s.cssVar}: ${s.value}`}>
+                    <span class="tenet-ramp__chip" style={`background:${s.value}`} />
+                    <span class="tenet-ramp__step">{s.step}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+  <div class="tenet-figure__grid">
+    <div class="tenet-figure__panel">
+      <p class="tenet-figure__kicker">Status sets: tint and solid</p>
+      <ul class="tenet-sets">
+        {
+          sets.map((s) => (
+            <li>
+              <span
+                class="tenet-sets__tint"
+                style={`background:var(--bgColor-${s.role}-muted);border-color:var(--borderColor-${s.role}-muted);color:var(--fgColor-${s.role})`}
+              >
+                {s.label}
+              </span>
+              <span class="tenet-sets__solid" style={`background:var(--bgColor-${s.role}-emphasis);color:var(--fgColor-${s.on})`}>
+                {s.label}
+              </span>
+              <code>{s.role}</code>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="tenet-figure__note">A tint always takes its hairline and its text token. Ochre's solid takes dark text.</p>
+    </div>
+    <div class="tenet-figure__panel">
+      <p class="tenet-figure__kicker">Surfaces nest inward</p>
+      <div class="tenet-nest tenet-nest--inset">
+        <code>bgColor-inset</code>
+        <div class="tenet-nest tenet-nest--default">
+          <code>bgColor-default</code>
+          <div class="tenet-nest tenet-nest--muted">
+            <code>bgColor-muted</code>
+          </div>
+        </div>
+      </div>
+      <p class="tenet-figure__note">Page, then card, then a recessed strip inside it.</p>
+    </div>
+  </div>
+  <figcaption>Every swatch is a token value. Hover a chip for its CSS variable; the tints and surfaces follow the site theme.</figcaption>
+</figure>

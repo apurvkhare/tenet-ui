@@ -1,0 +1,43 @@
+---
+// The figure that opens a system page, chosen by page id. Every value in a figure is read from the
+// token registry or rendered by real tenet-ui components, so a figure cannot drift from the system.
+// Pages without a figure render nothing.
+import ColorFigure from './ColorFigure.astro';
+import TypeFigure from './TypeFigure.astro';
+import LayoutFigure from './LayoutFigure.astro';
+import IconFigure from './IconFigure.astro';
+import MotionFigure from './MotionFigure.astro';
+import TokensFigure from './TokensFigure.astro';
+import ThemingFigure from './ThemingFigure.astro';
+import FormsFigure from './FormsFigure.astro';
+import FeedbackFigure from './FeedbackFigure.astro';
+import DataFigure from './DataFigure.astro';
+import AccessibilityFigure from './AccessibilityFigure.astro';
+import ContentFigure from './ContentFigure.astro';
+import VersioningFigure from './VersioningFigure.astro';
+
+interface Props {
+  id: string;
+}
+const FIGURES: Record<string, (props: Record<string, never>) => unknown> = {
+  color: ColorFigure,
+  typography: TypeFigure,
+  layout: LayoutFigure,
+  iconography: IconFigure,
+  motion: MotionFigure,
+  'design-tokens': TokensFigure,
+  theming: ThemingFigure,
+  forms: FormsFigure,
+  feedback: FeedbackFigure,
+  'data-display': DataFigure,
+  accessibility: AccessibilityFigure,
+  content: ContentFigure,
+  versioning: VersioningFigure,
+};
+// starlight-llms-txt re-renders page content for its .txt endpoints with no React renderer; figures
+// are visual only, so they are left out of the text output.
+const forLlms = Astro.url.pathname.endsWith('.txt');
+const Figure = forLlms ? undefined : FIGURES[Astro.props.id];
+---
+
+{Figure && <Figure />}

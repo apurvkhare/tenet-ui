@@ -134,6 +134,98 @@ function firstParagraph(md, fallback) {
     .slice(0, 160);
 }
 
+/** First sentence of the first paragraph, plain text, for overview cards. */
+function firstSentence(md) {
+  const para = stripH1(md)
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .find((p) => p && !p.startsWith('#') && !p.startsWith('```') && !p.startsWith('|'));
+  const plain = String(para ?? '')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/[*_>#]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return plain.match(/^(.+?\.)(\s|$)/)?.[1] ?? plain;
+}
+
+/**
+ * Lay out a system page's markdown for the docs without changing a word of it:
+ * - the first paragraph becomes the lede, followed by the page facts and the page's figure;
+ * - the ordered list under "## Rules" is wrapped so it renders as numbered rule rows;
+ * - "## Do / Don't" (`- ✅` / `- ❌` items) becomes two columns of cards, where a leading code span
+ *   (or an indented fenced block) is shown as a highlighted code block and the rest as the caption.
+ * Markdown text still goes through escapeMdx; only the wrappers are JSX.
+ */
+function systemBody(md) {
+  const body = stripH1(md);
+  const blocks = body.split(/\n\s*\n/);
+  let lede = '';
+  if (blocks[0] && !/^(#|```|\||\s*[-*\d])/.test(blocks[0].trim())) lede = blocks.shift();
+  const rest = blocks.join('\n\n');
+  const parts = rest.split(/^(?=## )/m);
+  const out = [];
+  for (const part of parts) {
+    const heading = part.match(/^## (.+)$/m)?.[1]?.trim();
+    const content = heading ? part.replace(/^## .+\n/, '') : part;
+    if (!heading) {
+      if (content.trim()) out.push(escapeMdx(content));
+      continue;
+    }
+    out.push(`## ${escapeMdx(heading)}\n`);
+    if (/^do\s*\/\s*don.t$/i.test(heading)) out.push(doDont(content));
+    else if (/^rules$/i.test(heading)) out.push(`<div class="tenet-rules">\n\n${escapeMdx(content.trim())}\n\n</div>\n`);
+    else out.push(escapeMdx(content));
+  }
+  return { lede: lede ? escapeMdx(lede) : '', rest: out.join('\n') };
+}
+
+function doDont(content) {
+  const items = [];
+  let cur = null;
+  const rest = [];
+  for (const line of content.split('\n')) {
+    const m = line.match(/^- (✅|❌)\s?(.*)$/u);
+    if (m) {
+      cur = { ok: m[1] === '✅', text: m[2], fence: [] };
+      items.push(cur);
+    } else if (cur && /^\s{2,}\S/.test(line)) {
+      cur.fence.push(line.replace(/^ {2}/, ''));
+    } else if (cur && line.trim() === '') {
+      if (cur.fence.length) cur.fence.push('');
+    } else if (line.trim()) {
+      cur = null;
+      rest.push(line);
+    }
+  }
+  if (!items.length) return escapeMdx(content);
+  const card = (it) => {
+    let code = '';
+    let caption = it.text.trim();
+    const lead = caption.match(/^(`+)([^`]+)\1\s*(.*)$/);
+    if (lead) {
+      code = lead[2];
+      caption = lead[3];
+    }
+    const paren = caption.match(/^\((.*)\)$/s);
+    if (paren) caption = paren[1];
+    if (caption) caption = caption.charAt(0).toUpperCase() + caption.slice(1);
+    const fenced = it.fence.join('\n').trim();
+    const codeBlock = fenced
+      ? fenced
+      : code
+        ? '```' + (/^(@media|[.#][\w-]+\s*[{:]|[a-z-]+:\s)/.test(code) ? 'css' : 'tsx') + ' wrap\n' + code + '\n```'
+        : '';
+    return `<div class="tenet-dd__card">\n\n${codeBlock ? codeBlock + '\n\n' : ''}${caption ? `<div class="tenet-dd__caption">\n\n${escapeMdx(caption)}\n\n</div>\n\n` : ''}</div>`;
+  };
+  const col = (ok) => {
+    const list = items.filter((i) => i.ok === ok);
+    if (!list.length) return '';
+    return `<div class="tenet-dd__col tenet-dd__col--${ok ? 'do' : 'dont'}">\n<p class="tenet-dd__label">${ok ? 'Do' : 'Don’t'}</p>\n\n${list.map(card).join('\n\n')}\n\n</div>`;
+  };
+  return `<div class="tenet-dd">\n\n${col(true)}\n\n${col(false)}\n\n</div>\n${rest.length ? '\n' + escapeMdx(rest.join('\n')) + '\n' : ''}`;
+}
+
 // ---------------------------------------------------------------- inputs
 const pkg = readJson(join(ROOT, 'package.json'), { name: 'tenet-ui', version: '0.0.0', exports: {} });
 const catalog = readJson(join(ROOT, 'generated/components.json'), { schemaVersion: 2, components: {} });
@@ -378,7 +470,11 @@ for (const file of systemFiles) {
   const orderIdx = layer.order.indexOf(id);
   const order = orderIdx === -1 ? 100 + systemPages.length : orderIdx + 1;
   const related = Array.isArray(fm.data.related) ? fm.data.related : [];
-  systemPages.push({ id, title, updated, order, layer: layerKey, href: `/${layer.dir}/${id}/` });
+  const rulesSection = fm.content.split(/^## /m).find((sec) => /^Rules\s*\n/.test(sec)) ?? '';
+  const rulesCount = (rulesSection.match(/^\d+\. /gm) ?? []).length;
+  const ddCount = (fm.content.match(/^- (✅|❌)/gmu) ?? []).length;
+  systemPages.push({ id, title, updated, order, layer: layerKey, href: `/${layer.dir}/${id}/`, summary: firstSentence(fm.content), rules: rulesCount, examples: ddCount });
+  const { lede, rest } = systemBody(fm.content);
   write(
     join(CONTENT, layer.dir, `${id}.mdx`),
     `---
@@ -391,8 +487,15 @@ sidebar:
 ---
 {/* GENERATED by docs/scripts/generate-pages.mjs from generated/guidelines/system/${file}. Do not edit. */}
 import RelatedList from '../../../components/RelatedList.astro';
+import SystemFacts from '../../../components/SystemFacts.astro';
+import SystemFigure from '../../../components/figures/SystemFigure.astro';
 
-${escapeMdx(stripH1(fm.content))}
+${lede ? `<div class="tenet-lede">\n\n${lede}\n\n</div>\n` : ''}
+<SystemFacts id=${JSON.stringify(id)} />
+
+<SystemFigure id=${JSON.stringify(id)} />
+
+${rest}
 
 <RelatedList related={${JSON.stringify(related)}} />
 `,
@@ -416,11 +519,17 @@ sidebar:
 ---
 {/* GENERATED by docs/scripts/generate-pages.mjs from generated/guidelines/system/. Do not edit. */}
 
+import LayerOverview from '../../../components/LayerOverview.astro';
+
+<div class="tenet-lede">
+
 ${layer.intro} These pages are the same markdown the design-system MCP server reads.
+
+</div>
 
 ${
   pages.length
-    ? pages.map((p) => `- [${p.title}](${p.href}): updated ${p.updated}`).join('\n')
+    ? `<LayerOverview layer=${JSON.stringify(key)} />`
     : `:::note[Not published yet]\nNo ${layer.title.toLowerCase()} pages have been published yet. They appear here automatically once written.\n:::`
 }
 `,

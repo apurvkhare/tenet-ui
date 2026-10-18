@@ -1,0 +1,42 @@
+---
+// Feedback: where each of the four mechanisms appears, and how long it stays.
+const items = [
+  { key: 'validation', name: 'FormControl.Validation', where: 'Under one field', stays: 'Until the field is fixed' },
+  { key: 'banner', name: 'Banner', where: 'Top of a page, section or form', stays: 'Until the condition clears' },
+  { key: 'toast', name: 'Toast', where: 'Over the app, about an action just done', stays: 'Transient, about 5 seconds' },
+  { key: 'dialog', name: 'Dialog', where: 'Modal, blocks the page', stays: 'Until the user decides' },
+];
+---
+
+<figure class="tenet-figure not-content">
+  <div class="tenet-figure__panel">
+    <p class="tenet-figure__kicker">Four mechanisms, four places</p>
+    <ul class="tenet-fb">
+      {
+        items.map((i) => (
+          <li>
+            <div class:list={['tenet-fb__frame', `tenet-fb__frame--${i.key}`]} aria-hidden="true">
+              <span class="tenet-fb__line tenet-fb__line--title" />
+              {i.key === 'banner' && <span class="tenet-fb__banner" />}
+              <span class="tenet-fb__label" />
+              <span class:list={['tenet-fb__field', { 'tenet-fb__field--invalid': i.key === 'validation' }]} />
+              {i.key === 'validation' && <span class="tenet-fb__error" />}
+              <span class="tenet-fb__line" />
+              <span class="tenet-fb__line tenet-fb__line--short" />
+              {i.key === 'toast' && <span class="tenet-fb__toast" />}
+              {i.key === 'dialog' && (
+                <span class="tenet-fb__backdrop">
+                  <span class="tenet-fb__dialog" />
+                </span>
+              )}
+            </div>
+            <code>{i.name}</code>
+            <span class="tenet-fb__where">{i.where}</span>
+            <span class="tenet-fb__stays">{i.stays}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <figcaption>Schematic. The decision table below has the full rules for persistence, blocking and scope.</figcaption>
+</figure>

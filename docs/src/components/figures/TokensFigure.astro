@@ -1,0 +1,56 @@
+---
+// Design tokens: how many tokens sit in each tier, and one chain from a base value to a component.
+import { Button } from 'tenet-ui';
+import { tokens, tokenTier } from '../../lib/data';
+
+const count = (tier: string) => tokens.filter((t) => tokenTier(t) === tier).length;
+const tiers = [
+  { tier: 'base', n: count('base'), what: 'Raw values with no meaning' },
+  { tier: 'semantic', n: count('semantic'), what: 'Decisions with a meaning' },
+  { tier: 'component', n: count('component'), what: 'Decisions for one family' },
+];
+const total = tiers.reduce((a, t) => a + t.n, 0);
+const clay = String(tokens.find((t) => t.name === 'base-color-clay-500')?.value ?? '');
+const control = String(tokens.find((t) => t.name === 'control-medium-size')?.value ?? '');
+---
+
+<figure class="tenet-figure not-content">
+  <div class="tenet-figure__panel">
+    <p class="tenet-figure__kicker">{total} tokens in three tiers</p>
+    <div class="tenet-tiers">
+      {
+        tiers.map((t) => (
+          <div class:list={['tenet-tiers__seg', `tenet-tiers__seg--${t.tier}`]} style={`flex-grow:${t.n}`}>
+            <span class="tenet-tiers__n">{t.n}</span>
+            <span class="tenet-tiers__name">{t.tier}</span>
+            <span class="tenet-tiers__what">{t.what}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+  <div class="tenet-figure__panel">
+    <p class="tenet-figure__kicker">One chain, base to component</p>
+    <ol class="tenet-chain">
+      <li>
+        <span class="tenet-chain__tier">Base</span>
+        <span class="tenet-chain__swatch" style={`background:${clay}`}></span>
+        <code>--base-color-clay-500</code>
+        <span class="tenet-chain__val">{clay}</span>
+      </li>
+      <li>
+        <span class="tenet-chain__tier">Semantic</span>
+        <span class="tenet-chain__swatch" style="background:var(--bgColor-accent-emphasis)"></span>
+        <code>--bgColor-accent-emphasis</code>
+        <span class="tenet-chain__val">Solid accent background</span>
+      </li>
+      <li>
+        <span class="tenet-chain__tier">Component</span>
+        <span class="tenet-chain__live"><Button variant="primary">Publish</Button></span>
+        <code>--control-medium-size</code>
+        <span class="tenet-chain__val">{control} tall, primary fill</span>
+      </li>
+    </ol>
+  </div>
+  <figcaption>Counts are read from the token registry. The button is a real tenet-ui Button.</figcaption>
+</figure>

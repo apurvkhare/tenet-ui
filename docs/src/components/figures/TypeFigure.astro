@@ -1,0 +1,58 @@
+---
+// Typography: the three families and the six-step size scale with the component that uses each step.
+import { tokens } from '../../lib/data';
+
+const value = (name: string) => String(tokens.find((t) => t.name === name)?.value ?? '');
+const families = [
+  { token: 'fontFamily-display', label: 'Display', use: 'Headings, through Heading', sample: 'Aa', cls: 'display' },
+  { token: 'fontFamily-body', label: 'Body', use: 'Copy, controls, labels', sample: 'Aa', cls: 'body' },
+  { token: 'fontFamily-mono', label: 'Mono', use: 'Counts, identifiers, code', sample: '0x', cls: 'mono' },
+];
+const scale = [
+  { step: 5, role: 'Heading level 1', sample: 'The autumn issue', display: true },
+  { step: 4, role: 'Heading level 2', sample: 'Stories in review', display: true },
+  { step: 3, role: 'Heading level 3', sample: 'Publishing schedule', display: true },
+  { step: 2, role: 'Heading level 4, Text large', sample: 'Lead paragraph and card titles', display: false },
+  { step: 1, role: 'Text medium (default)', sample: 'Body copy, control text and table cells', display: false },
+  { step: 0, role: 'Text small', sample: 'Captions, timestamps and validation messages', display: false },
+];
+---
+
+<figure class="tenet-figure not-content">
+  <div class="tenet-figure__grid tenet-figure__grid--3">
+    {
+      families.map((f) => (
+        <div class="tenet-figure__panel tenet-family">
+          <span class:list={['tenet-family__sample', `tenet-family__sample--${f.cls}`]}>{f.sample}</span>
+          <span class="tenet-family__label">{f.label}</span>
+          <span class="tenet-family__use">{f.use}</span>
+          <code>--{f.token}</code>
+        </div>
+      ))
+    }
+  </div>
+  <div class="tenet-figure__panel">
+    <p class="tenet-figure__kicker">The scale</p>
+    <ol class="tenet-scale">
+      {
+        scale.map((s) => (
+          <li>
+            <span class="tenet-scale__meta">
+              <code>--fontSize-{s.step}</code>
+              <span>
+                {value(`fontSize-${s.step}`)} · {s.role}
+              </span>
+            </span>
+            <span
+              class:list={['tenet-scale__sample', { 'tenet-scale__sample--display': s.display }]}
+              style={`font-size:var(--fontSize-${s.step})`}
+            >
+              {s.sample}
+            </span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+  <figcaption>Samples are set in the size and family each step is for, at its real pixel size.</figcaption>
+</figure>

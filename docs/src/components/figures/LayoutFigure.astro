@@ -1,0 +1,56 @@
+---
+// Layout: the space scale with the gap names that map onto it, and the page skeleton those gaps build.
+import { tokens } from '../../lib/data';
+
+const spaces = tokens.filter((t) => /^space-\d$/.test(t.name)).map((t) => ({ name: t.name, cssVar: t.cssVar, value: String(t.value) }));
+const GAP: Record<string, string> = { 'space-2': 'condensed', 'space-4': 'normal', 'space-5': 'spacious' };
+const bps = tokens.filter((t) => t.name.startsWith('breakpoint-')).map((t) => ({ name: t.name.replace('breakpoint-', ''), value: String(t.value) }));
+---
+
+<figure class="tenet-figure not-content">
+  <div class="tenet-figure__grid">
+    <div class="tenet-figure__panel">
+      <p class="tenet-figure__kicker">Space scale</p>
+      <ol class="tenet-spaces">
+        {
+          spaces.map((s) => (
+            <li>
+              <code>--{s.name}</code>
+              <span class="tenet-spaces__bar" style={`width:var(${s.cssVar})`} />
+              <span class="tenet-spaces__px">{s.value}</span>
+              {GAP[s.name] && <span class="tenet-spaces__gap">gap="{GAP[s.name]}"</span>}
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+    <div class="tenet-figure__panel">
+      <p class="tenet-figure__kicker">Page skeleton</p>
+      <div class="tenet-skel" aria-hidden="true">
+        <div class="tenet-skel__title"></div>
+        <div class="tenet-skel__gap tenet-skel__gap--spacious"><span>spacious</span></div>
+        <div class="tenet-skel__toolbar">
+          <i></i><i></i><b></b>
+        </div>
+        <div class="tenet-skel__gap tenet-skel__gap--normal"><span>normal</span></div>
+        <div class="tenet-skel__tiles">
+          <i></i><i></i><i></i><i></i>
+        </div>
+        <div class="tenet-skel__gap tenet-skel__gap--spacious"><span>spacious</span></div>
+        <div class="tenet-skel__section">
+          <div class="tenet-skel__heading"></div>
+          <i></i><i></i><i></i>
+        </div>
+      </div>
+      <p class="tenet-figure__note">Sections are spacious apart, tiles and fields normal, controls in a toolbar condensed.</p>
+    </div>
+  </div>
+  <div class="tenet-figure__panel">
+    <p class="tenet-figure__kicker">Breakpoints</p>
+    <div class="tenet-bps">
+      <span class="tenet-bps__seg"><b>base</b><span>0</span></span>
+      {bps.map((b) => <span class="tenet-bps__seg"><b>{b.name}</b><span>{b.value}</span></span>)}
+    </div>
+  </div>
+  <figcaption>Bar lengths are the tokens themselves. The skeleton follows the page-skeleton table below.</figcaption>
+</figure>

@@ -1,0 +1,32 @@
+---
+// Versioning: the deprecation window across releases, and the five places a deprecation is announced.
+const CHANNELS = ['Changelog, Deprecated section', '@deprecated JSDoc tag', 'generated/deprecations.json', 'console.warn in development', 'Deprecated badge on the docs page'];
+---
+
+<figure class="tenet-figure not-content">
+  <div class="tenet-figure__panel">
+    <p class="tenet-figure__kicker">The deprecation window</p>
+    <ol class="tenet-window">
+      <li class="tenet-window__step tenet-window__step--dep">
+        <span class="tenet-window__ver">0.4.0</span>
+        <span class="tenet-window__what">Deprecated</span>
+        <span class="tenet-window__note">Old API keeps working, with a warning</span>
+      </li>
+      <li class="tenet-window__step tenet-window__step--dep">
+        <span class="tenet-window__ver">0.4.x</span>
+        <span class="tenet-window__what">Every patch</span>
+        <span class="tenet-window__note">Still works; nothing that worked stops</span>
+      </li>
+      <li class="tenet-window__step tenet-window__step--rm">
+        <span class="tenet-window__ver">0.5.0</span>
+        <span class="tenet-window__what">Earliest removal</span>
+        <span class="tenet-window__note">With a migration guide</span>
+      </li>
+    </ol>
+  </div>
+  <div class="tenet-figure__panel">
+    <p class="tenet-figure__kicker">Announced in five places at once</p>
+    <ul class="tenet-channels">{CHANNELS.map((c) => <li>{c}</li>)}</ul>
+  </div>
+  <figcaption>Before 1.0, as described below. From 1.0, removals move to majors only.</figcaption>
+</figure>
