@@ -13,7 +13,7 @@ const stories = c?.stories ?? [];
   stories.length > 0 && (
     <details class="tenet-story-links">
       <summary>
-        {stories.length} {stories.length === 1 ? 'story' : 'stories'} for {c!.name} — open in Storybook
+        {stories.length} {stories.length === 1 ? 'story' : 'stories'} for {c!.name}, open in Storybook
       </summary>
       <ul>
         {stories.map((s) => (

@@ -25,7 +25,7 @@ const sections: Section[] = [
   })),
 ];
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-const fmtDefault = (v: string | undefined) => (v === undefined || v === '' ? '—' : v);
+const fmtDefault = (v: string | undefined) => (v === undefined || v === '' ? 'None' : v);
 ---
 
 {
@@ -73,7 +73,7 @@ const fmtDefault = (v: string | undefined) => (v === undefined || v === '' ? '�
                         <code class="tenet-type">{p.type}</code>
                         {p.typeRef && <div class="tenet-muted tenet-typeref">{p.typeRef}</div>}
                       </td>
-                      <td>{fmtDefault(p.defaultValue) === '—' ? <span class="tenet-muted">—</span> : <code>{p.defaultValue}</code>}</td>
+                      <td>{fmtDefault(p.defaultValue) === 'None' ? <span class="tenet-muted">None</span> : <code>{p.defaultValue}</code>}</td>
                       <td>
                         {p.description && <span set:html={p.description.replace(/`([^`]+)`/g, '<code>$1</code>')} />}
                         {p.deprecated && (

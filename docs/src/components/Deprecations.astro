@@ -39,9 +39,9 @@ const pageFor = (componentName: string) => {
                 <tr>
                   <td>{d.kind}</td>
                   <td>{href ? <a href={href}>{d.component}</a> : d.component}</td>
-                  <td>{d.prop ? <code>{d.prop}</code> : <span class="tenet-muted">—</span>}</td>
-                  <td>{d.replacement ? <code>{d.replacement}</code> : <span class="tenet-muted">—</span>}</td>
-                  <td>{d.since ?? '—'}</td>
+                  <td>{d.prop ? <code>{d.prop}</code> : <span class="tenet-muted">None</span>}</td>
+                  <td>{d.replacement ? <code>{d.replacement}</code> : <span class="tenet-muted">None</span>}</td>
+                  <td>{d.since ?? 'None'}</td>
                   <td set:html={(d.message ?? '').replace(/`([^`]+)`/g, '<code>$1</code>')} />
                 </tr>
               );

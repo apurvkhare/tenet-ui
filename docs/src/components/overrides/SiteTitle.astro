@@ -1,0 +1,15 @@
+---
+// Starlight <SiteTitle> override: the Tenet mark, the serif wordmark and the package version.
+import { siteMeta } from '../../lib/data';
+
+const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<a href={siteTitleHref} class="site-title sl-flex">
+  <svg class="tenet-mark" viewBox="0 0 22 22" aria-hidden="true">
+    <rect width="22" height="22" rx="5" fill="currentColor"></rect>
+    <path d="M5.5 6h11v2.2h-4.3V16h1.6v1.4H8.2V16h1.6V8.2H5.5Z" fill="var(--fgColor-onEmphasis)"></path>
+  </svg>
+  <span translate="no">{siteTitle}</span>
+  <span class="tenet-site-version" aria-label={`version ${siteMeta.version}`}>v{siteMeta.version}</span>
+</a>

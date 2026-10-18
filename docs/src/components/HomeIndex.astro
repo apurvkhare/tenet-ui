@@ -1,0 +1,112 @@
+---
+// Home page body: the system at a glance (counts), an index of its layers, and how to use it.
+// Every number and list is read from the generated data, so the page never drifts from the repo.
+import { Icon } from '@astrojs/starlight/components';
+import { componentList, tokens, systemPages, siteMeta } from '../lib/data';
+import icons from '../generated/icons.json';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const href = (p: string) => base + p;
+const iconCount = ((icons as { icons?: unknown[] }).icons ?? []).length;
+const titles = (layer: string) => systemPages.filter((p) => p.layer === layer).map((p) => p.title);
+const list = (items: string[], max = 6) =>
+  items.length > max ? `${items.slice(0, max).join(', ')} and ${items.length - max} more` : items.join(', ');
+
+const layers = [
+  {
+    title: 'Foundations',
+    href: '/foundations/',
+    desc: 'The decisions every component inherits, and the tokens that carry them into code.',
+    items: list([...titles('foundation'), 'Token reference', 'Icon gallery'], 9),
+  },
+  {
+    title: 'Components',
+    href: '/components/',
+    desc: 'Each one documented from its TypeScript types, its usage guidelines and its Storybook stories, rendered live.',
+    items: list(componentList.map((c) => c.name)),
+  },
+  {
+    title: 'Patterns',
+    href: '/patterns/',
+    desc: 'Components combined for recurring jobs.',
+    items: list(titles('pattern')),
+  },
+  {
+    title: 'Guidelines',
+    href: '/guidelines/',
+    desc: 'Rules that apply across every layer, with WCAG 2.2 AA as the accessibility target.',
+    items: list(titles('guideline')),
+  },
+  {
+    title: 'Releases',
+    href: '/releases/',
+    desc: 'What each version and component status promises, the deprecation window, and a migration guide for every minor that removes something.',
+    items: list([...titles('release'), 'Changelog']),
+  },
+];
+---
+
+<div class="not-content">
+  <section class="tenet-home-section" aria-labelledby="home-glance">
+    <h2 id="home-glance" class="sr-only">At a glance</h2>
+    <dl class="tenet-stats">
+      <div><dt>components</dt><dd>{componentList.length}</dd></div>
+      <div><dt>design tokens in three tiers</dt><dd>{tokens.length}</dd></div>
+      <div><dt>icons</dt><dd>{iconCount}</dd></div>
+      <div><dt>themes, light and dark</dt><dd>2</dd></div>
+    </dl>
+  </section>
+
+  <section class="tenet-home-section" aria-labelledby="home-layers">
+    <div class="tenet-home-section__head">
+      <h2 id="home-layers">The system, layer by layer</h2>
+      <p>The site is organised the way the system is built: foundations first, then the components made from them, the patterns that combine those, and the rules that hold across all of it.</p>
+    </div>
+    <ol class="tenet-layers">
+      {
+        layers.map((l, i) => (
+          <li>
+            <a href={href(l.href)}>
+              <span class="tenet-layers__num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="tenet-layers__title">{l.title}</span>
+              <span class="tenet-layers__desc">
+                {l.desc}
+                <span class="tenet-layers__items">{l.items}</span>
+              </span>
+              <span class="tenet-layers__arrow" aria-hidden="true">
+                <Icon name="right-arrow" size="1.25rem" />
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="tenet-home-section" aria-labelledby="home-use">
+    <div class="tenet-home-section__head">
+      <h2 id="home-use">Working with it</h2>
+      <p>One package, one stylesheet, one attribute for the theme.</p>
+    </div>
+    <div class="tenet-columns">
+      <div>
+        <h3>Install and import</h3>
+        <p>Components come from <code>tenet-ui</code>, icons from <code>tenet-ui/icons</code>. Import <code>tenet-ui/styles.css</code> once at the app root.</p>
+        <p><a href={href('/getting-started/')}>Getting started</a></p>
+      </div>
+      <div>
+        <h3>Theme with tokens</h3>
+        <p>Set <code>data-color-mode="light"</code> or <code>"dark"</code> on the root element. Semantic tokens swap their values; their names never change.</p>
+        <p><a href={href('/foundations/theming/')}>Theming</a> and the <a href={href('/tokens/')}>token reference</a></p>
+      </div>
+      <div>
+        <h3>Read by agents</h3>
+        <p>This site publishes <a href={href('/llms.txt')}><code>llms.txt</code></a>, <a href={href('/llms-full.txt')}><code>llms-full.txt</code></a> and <a href={href('/llms-small.txt')}><code>llms-small.txt</code></a>. Every page carries a last-updated date and a <code>content-hash</code> meta tag.</p>
+      </div>
+    </div>
+  </section>
+
+  <p class="tenet-colophon">
+    Every page of this site is generated from the tenet-ui repository at build time. <code>{siteMeta.package}@{siteMeta.version}</code>
+  </p>
+</div>

@@ -5,6 +5,7 @@ import react from '@astrojs/react';
 import starlightLlmsTxt from 'starlight-llms-txt';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
+import { editorialInkDark, editorialInkLight } from './src/styles/code-themes.mjs';
 
 const DOCS = fileURLToPath(new URL('.', import.meta.url));
 const ROOT = resolve(DOCS, '..'); // the tenet-ui repo (also what `tenet-ui` resolves to via file:..)
@@ -61,6 +62,21 @@ export default defineConfig({
       components: {
         Head: './src/components/overrides/Head.astro',
         LastUpdated: './src/components/overrides/LastUpdated.astro',
+        SiteTitle: './src/components/overrides/SiteTitle.astro',
+        PageTitle: './src/components/overrides/PageTitle.astro',
+        Hero: './src/components/overrides/Hero.astro',
+      },
+      expressiveCode: {
+        themes: [editorialInkDark, editorialInkLight],
+        styleOverrides: {
+          borderRadius: '9px',
+          borderColor: 'var(--borderColor-default)',
+          codeFontFamily: 'var(--fontFamily-mono)',
+          codeFontSize: '0.8125rem',
+          codeLineHeight: '1.7',
+          uiFontFamily: 'var(--fontFamily-body)',
+          frames: { shadowColor: 'transparent', frameBoxShadowCssValue: 'none' },
+        },
       },
       // The sidebar mirrors the design-system layers. System pages are routed into foundations/,
       // patterns/, guidelines/ and releases/ by the `layer:` frontmatter (docs/scripts/generate-pages.mjs).

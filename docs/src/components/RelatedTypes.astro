@@ -40,7 +40,7 @@ const md = (s: string | undefined) => (s ? s.replace(/`([^`]+)`/g, '<code>$1</co
                       <td>
                         <code class="tenet-type">{m.type}</code>
                       </td>
-                      <td>{m.defaultValue ? <code>{m.defaultValue}</code> : <span class="tenet-muted">—</span>}</td>
+                      <td>{m.defaultValue ? <code>{m.defaultValue}</code> : <span class="tenet-muted">None</span>}</td>
                       <td set:html={md(m.description)} />
                     </tr>
                   ))}
@@ -48,7 +48,7 @@ const md = (s: string | undefined) => (s ? s.replace(/`([^`]+)`/g, '<code>$1</co
               </table>
             </div>
           ) : (
-            <p class="tenet-muted">Opaque type — see the source.</p>
+            <p class="tenet-muted">Opaque type; see the source.</p>
           )}
         </section>
       ))}

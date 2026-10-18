@@ -10,7 +10,7 @@ const isColorGroup = rows.some((t) => t.type === 'color');
 const hasContrast = rows.some((t) => t.contrast);
 
 const fmt = (v: unknown): string => {
-  if (v === undefined || v === null) return '—';
+  if (v === undefined || v === null) return 'None';
   if (typeof v === 'object') return JSON.stringify(v);
   return String(v);
 };
@@ -66,7 +66,7 @@ const previewStyle = (t: Token): string | undefined => {
                 <td>
                   <code>{t.name}</code>
                 </td>
-                <td>{tokenTier(t) ?? <span class="tenet-muted">—</span>}</td>
+                <td>{tokenTier(t) ?? <span class="tenet-muted">None</span>}</td>
                 <td>
                   <code class="tenet-cssvar">var({t.cssVar})</code>
                 </td>
@@ -91,7 +91,7 @@ const previewStyle = (t: Token): string | undefined => {
                       <>
                         <div>
                           <span class="tenet-muted">light:</span>{' '}
-                          {cl?.aa.length ? cl.aa.map((n) => <code>{n}</code>) : <span class="tenet-muted">—</span>}
+                          {cl?.aa.length ? cl.aa.map((n) => <code>{n}</code>) : <span class="tenet-muted">None</span>}
                           {cl?.aaLarge.length ? (
                             <>
                               {' '}
@@ -102,7 +102,7 @@ const previewStyle = (t: Token): string | undefined => {
                         </div>
                         <div>
                           <span class="tenet-muted">dark:</span>{' '}
-                          {cd?.aa.length ? cd.aa.map((n) => <code>{n}</code>) : <span class="tenet-muted">—</span>}
+                          {cd?.aa.length ? cd.aa.map((n) => <code>{n}</code>) : <span class="tenet-muted">None</span>}
                           {cd?.aaLarge.length ? (
                             <>
                               {' '}
@@ -113,11 +113,11 @@ const previewStyle = (t: Token): string | undefined => {
                         </div>
                       </>
                     ) : (
-                      <span class="tenet-muted">—</span>
+                      <span class="tenet-muted">None</span>
                     )}
                   </td>
                 )}
-                <td>{t.description || <span class="tenet-muted">—</span>}</td>
+                <td>{t.description || <span class="tenet-muted">None</span>}</td>
               </tr>
             );
           })}

@@ -3,7 +3,8 @@ title: Tenet UI
 description: "Tenet UI is a React design system: semantic tokens, accessible components and icons, shipped as the tenet-ui package with one stylesheet."
 template: splash
 hero:
-  tagline: Semantic design tokens, accessible React components and an icon set, shipped as one npm package with one stylesheet. Every page of this site is generated from the tenet-ui repository at build time.
+  title: Tenet UI
+  tagline: Semantic design tokens, accessible React components and an icon set, in one npm package with one stylesheet. Warm paper, ink and a single clay accent.
   actions:
     - text: Get started
       link: getting-started/
@@ -11,35 +12,9 @@ hero:
       variant: primary
     - text: Browse components
       link: components/
-      icon: open-book
-    - text: GitHub
-      link: https://github.com/apurvkhare/tenet-ui
-      icon: github
-      variant: minimal
+      variant: secondary
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
-import { componentList, tokens, siteMeta } from '../../lib/data';
+import HomeIndex from '../../components/HomeIndex.astro';
 
-<CardGrid>
-  <Card title="Components" icon="puzzle">
-    {componentList.length} components, each documented from its TypeScript types, its usage guidelines and its Storybook stories, rendered live. [Browse components](/components/)
-  </Card>
-  <Card title="Tokens" icon="setting">
-    {tokens.length} design tokens in three tiers (raw values, semantic decisions, component sizes), authored in the DTCG 2025.10 format and shipped as CSS variables with light and dark values. [See the tokens](/tokens/)
-  </Card>
-  <Card title="Foundations" icon="document">
-    Color, typography, layout, iconography, motion, design tokens and theming: the decisions every component inherits. [Read the foundations](/foundations/)
-  </Card>
-  <Card title="Patterns and guidelines" icon="list-format">
-    [Patterns](/patterns/) combine components for forms, feedback and data display. [Guidelines](/guidelines/) cover accessibility (WCAG 2.2 AA target) and content across every layer.
-  </Card>
-  <Card title="Releases" icon="approve-check">
-    Semantic versioning, what each component status promises, a deprecation window of one minor release, and a migration guide for every minor that removes something. [Read the release policy](/releases/)
-  </Card>
-  <Card title="For agents" icon="rocket">
-    This site publishes [`llms.txt`](/llms.txt), [`llms-full.txt`](/llms-full.txt) and [`llms-small.txt`](/llms-small.txt). Every page carries a `Last updated` date and a `content-hash` meta tag.
-  </Card>
-</CardGrid>
-
-<p class="tenet-muted" style="text-align:center;margin-top:2rem">{siteMeta.package}@{siteMeta.version}</p>
+<HomeIndex />

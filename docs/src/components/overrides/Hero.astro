@@ -1,0 +1,54 @@
+---
+// Starlight <Hero> override for the home page: an editorial masthead (eyebrow, serif headline,
+// lede, actions, install line) beside a specimen sheet of live tenet-ui components. The frontmatter
+// title stays the plain product name because llms.txt uses it; the display headline lives here.
+import { Icon } from '@astrojs/starlight/components';
+import { siteMeta } from '../../lib/data';
+import { Specimen } from '../Specimen';
+
+const { hero } = Astro.locals.starlightRoute.entry.data;
+if (!hero) return;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const href = (link: string) => (/^(https?:)?\/\//.test(link) ? link : `${base}/${link.replace(/^\//, '')}`);
+const install = `npm install ${siteMeta.package}`;
+---
+
+<section class="tenet-home-hero">
+  <div>
+    <p class="tenet-home-hero__eyebrow">{hero.title} · React design system</p>
+    <h1 id="_top">Design decisions, <em>shipped as code.</em></h1>
+    {hero.tagline && <p class="tenet-home-hero__lede" set:html={hero.tagline} />}
+    <div class="tenet-home-hero__actions">
+      {
+        hero.actions.map(({ text, link, variant, icon }) => (
+          <a class:list={['tenet-btn', { 'tenet-btn--primary': variant === 'primary' }]} href={href(link)}>
+            {text}
+            {icon?.type === 'icon' && <Icon name={icon.name} size="1rem" />}
+          </a>
+        ))
+      }
+      <span class="tenet-install">
+        <span class="tenet-install__prompt" aria-hidden="true">$</span>
+        <code>{install}</code>
+        <button type="button" data-copy={install} aria-label="Copy install command">
+          <Icon name="copy" size="0.9rem" />
+        </button>
+      </span>
+    </div>
+  </div>
+  <Specimen version={siteMeta.version} />
+</section>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.tenet-install button[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy ?? '');
+        btn.setAttribute('aria-label', 'Copied');
+        setTimeout(() => btn.setAttribute('aria-label', 'Copy install command'), 1500);
+      } catch {
+        /* clipboard unavailable: the command is visible and selectable */
+      }
+    });
+  });
+</script>

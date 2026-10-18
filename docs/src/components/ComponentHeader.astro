@@ -1,5 +1,5 @@
 ---
-import { Badge, Code } from '@astrojs/starlight/components';
+import { Code } from '@astrojs/starlight/components';
 import { getComponent, siteMeta, findDeprecation, replacementFromMessage } from '../lib/data';
 
 interface Props {
@@ -13,16 +13,39 @@ const importNames = [c.name, ...(c.subcomponents ?? []).filter((s) => s.kind ===
 const importLine = `import { ${importNames.join(', ')} } from '${importPath}';`;
 const deprecation = c.deprecated ? findDeprecation(c.name) : undefined;
 const replacement = deprecation?.replacement ?? replacementFromMessage(c.deprecated);
-const statusVariant = c.status === 'stable' ? 'success' : c.status === 'deprecated' ? 'caution' : 'note';
+const status = c.deprecated ? 'deprecated' : (c.status ?? 'stable');
+const statusTone = status === 'stable' ? 'success' : status === 'deprecated' ? 'danger' : 'attention';
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 ---
 
 <div class="tenet-component-header not-content">
-  <div class="tenet-badges">
-    {c.status && <Badge text={`Status: ${c.status}`} variant={statusVariant} />}
-    <Badge text={c.a11yReviewed ? 'Accessibility reviewed' : 'Accessibility review pending'} variant={c.a11yReviewed ? 'success' : 'caution'} />
-    {c.deprecated && <Badge text="Deprecated" variant="danger" />}
-    <span class="tenet-version">{siteMeta.package}@{siteMeta.version}</span>
-  </div>
+  <dl class="tenet-facts">
+    <div>
+      <dt>Status</dt>
+      <dd><span class:list={['tenet-dot', `tenet-dot--${statusTone}`]} aria-hidden="true"></span>{capitalize(status)}</dd>
+    </div>
+    <div>
+      <dt>Accessibility</dt>
+      <dd>
+        <span class:list={['tenet-dot', c.a11yReviewed ? 'tenet-dot--success' : 'tenet-dot--attention']} aria-hidden="true"></span>
+        {c.a11yReviewed ? 'Reviewed' : 'Review pending'}
+      </dd>
+    </div>
+    <div>
+      <dt>Package</dt>
+      <dd><code>{siteMeta.package}@{siteMeta.version}</code></dd>
+    </div>
+    {
+      c.source && (
+        <div>
+          <dt>Source</dt>
+          <dd>
+            <a href={`${siteMeta.repoUrl}/blob/main/${c.source}`}>{c.source.split('/').pop()}</a>
+          </dd>
+        </div>
+      )
+    }
+  </dl>
   {
     c.deprecated && (
       <p class="tenet-deprecation">
@@ -53,4 +76,3 @@ const statusVariant = c.status === 'stable' ? 'success' : c.status === 'deprecat
     </p>
   )
 }
-{c.source && <p class="tenet-source">Source: <a href={`${siteMeta.repoUrl}/blob/main/${c.source}`}>{c.source}</a></p>}

@@ -1,0 +1,39 @@
+---
+// Starlight <PageTitle> override: a small section label above the serif page title, so every page
+// says which layer of the system it belongs to. The h1 keeps Starlight's id for the "Overview" link.
+// Starlight's PAGE_TITLE_ID; its constants module is not exported.
+const PAGE_TITLE_ID = '_top';
+
+const { entry } = Astro.locals.starlightRoute;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const SECTIONS: Record<string, { label: string; href: string }> = {
+  foundations: { label: 'Foundations', href: '/foundations/' },
+  tokens: { label: 'Foundations', href: '/foundations/' },
+  icons: { label: 'Foundations', href: '/foundations/' },
+  components: { label: 'Components', href: '/components/' },
+  patterns: { label: 'Patterns', href: '/patterns/' },
+  guidelines: { label: 'Guidelines', href: '/guidelines/' },
+  releases: { label: 'Releases', href: '/releases/' },
+  changelog: { label: 'Releases', href: '/releases/' },
+  'getting-started': { label: 'Start here', href: '/getting-started/' },
+};
+const segments = entry.id.replace(/\/index$/, '').split('/');
+const section = SECTIONS[segments[0] ?? ''];
+// A section's own overview page names the design system instead of repeating itself.
+const isSectionIndex = segments.length === 1 && section?.label === entry.data.title;
+const eyebrow = section && !isSectionIndex && segments[0] !== 'getting-started' ? section : undefined;
+---
+
+<div class="tenet-page-title">
+  {
+    eyebrow ? (
+      <p class="tenet-eyebrow">
+        <a href={base + eyebrow.href}>{eyebrow.label}</a>
+      </p>
+    ) : (
+      <p class="tenet-eyebrow">Tenet UI</p>
+    )
+  }
+  <h1 id={PAGE_TITLE_ID}>{entry.data.title}</h1>
+</div>

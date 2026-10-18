@@ -9,7 +9,7 @@ for (const i of data.icons) byCategory.set(i.category, [...(byCategory.get(i.cat
 {
   data.icons.length > 0 && (
     <details class="tenet-story-links">
-      <summary>Full icon index ({data.icons.length}) — name, component export and keywords</summary>
+      <summary>Full icon index ({data.icons.length}): name, component export and keywords</summary>
       {[...byCategory.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([cat, list]) => (
         <>
           <h3>{cat}</h3>
