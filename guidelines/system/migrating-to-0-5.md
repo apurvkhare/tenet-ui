@@ -4,12 +4,12 @@ component: system
 page: migrating-to-0-5
 layer: release
 related: [versioning, tag, button, text-input, design-tokens]
-updated: 2026-10-17
+updated: 2026-10-25
 ---
 
 # Migrating to 0.5
 
-tenet-ui 0.4.0 deprecated eight APIs. Under the [deprecation policy](/releases/versioning/) they keep working through 0.4.x and can be removed in 0.5.0. This guide lists each one with before and after code, plus the token output changes queued for the next minor. Do it on 0.4.x, where the old and new APIs both work, then upgrade.
+tenet-ui 0.4.0 deprecated eight APIs. They still work in 0.5.0, with a dev warning, and are removed in 0.6.0. This guide lists each one with before and after code, plus the token output changes in 0.5.0. Migrate on 0.4.x or 0.5.x, where the old and new APIs both work, before you move to 0.6.
 
 ## Quick path
 
@@ -64,7 +64,7 @@ The token source, `tokens/tokens.json`, now uses the DTCG 2025.10 value formats 
 
 ## Do / Don't
 
-- ✅ Migrate on 0.4.x, where `block` and `fullWidth` both work, then upgrade
+- ✅ Migrate on 0.4.x or 0.5.x, where `block` and `fullWidth` both work, before 0.6.0 removes `block`
 - ✅ `<Tag variant="attention">Needs edit</Tag>` (sentence case, without Label's uppercase styling)
 - ❌ `<Tag variant="attention">NEEDS EDIT</Tag>` (recreating Label's caps by typing them)
 - ❌ Passing both `block` and `fullWidth` "to be safe" (`fullWidth` wins and the warning still fires)

@@ -6,7 +6,7 @@ updated: 2026-09-12
 
 # Label — usage guidelines
 
-> **Deprecated since 0.4.0 — use `Tag`.** `Tag` carries the same status variants (`success`, `danger`, `attention`, `muted`, `accent`, `default`) and is read-only when `onRemove` is absent. Replace `<Label variant="success">Published</Label>` with `<Tag variant="success">Published</Tag>`. `Label` keeps rendering (with a dev warning) until 0.5.0. The rules below describe the legacy behaviour.
+> **Deprecated since 0.4.0 — use `Tag`.** `Tag` carries the same status variants (`success`, `danger`, `attention`, `muted`, `accent`, `default`) and is read-only when `onRemove` is absent. Replace `<Label variant="success">Published</Label>` with `<Tag variant="success">Published</Tag>`. `Label` keeps rendering (with a dev warning) until 0.6.0. The rules below describe the legacy behaviour.
 
 **When to use:** a small status / category pill attached to an item (e.g. `bug`, `triaged`, `ready`). Use `Label` instead of a hand-styled `<span>` so the color schemes stay owned by the design system.
 

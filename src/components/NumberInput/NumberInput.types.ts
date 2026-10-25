@@ -23,7 +23,7 @@ export interface NumberInputProps
   fullWidth?: boolean;
   /**
    * Stretch the field to fill the available width.
-   * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.
+   * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0.
    */
   block?: boolean;
   /** Mark the field as invalid (sets `aria-invalid` and a danger border). */

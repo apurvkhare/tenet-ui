@@ -19,11 +19,11 @@ export function warnDeprecated(key: string, message: string): void {
 
 /**
  * Resolve the 0.4.0 `block` → `fullWidth` rename. `fullWidth` wins when both are passed;
- * `block` keeps working (with a one-time dev warning) until 0.5.0.
+ * `block` keeps working (with a one-time dev warning) until 0.6.0.
  */
 export function resolveFullWidth(component: string, fullWidth: boolean | undefined, block: boolean | undefined): boolean {
   if (block !== undefined) {
-    warnDeprecated(`${component}.block`, `<${component} block> is deprecated since 0.4.0 — use <${component} fullWidth> instead. \`block\` will be removed in 0.5.0.`);
+    warnDeprecated(`${component}.block`, `<${component} block> is deprecated since 0.4.0 — use <${component} fullWidth> instead. \`block\` will be removed in 0.6.0.`);
   }
   return fullWidth ?? block ?? false;
 }

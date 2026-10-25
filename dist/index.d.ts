@@ -18,7 +18,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     fullWidth?: boolean;
     /**
      * Stretch the button to fill the available width.
-     * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.
+     * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0.
      */
     block?: boolean;
     /** Button label. */
@@ -197,7 +197,7 @@ interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'si
     fullWidth?: boolean;
     /**
      * Stretch the field to fill the available width.
-     * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.
+     * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0.
      */
     block?: boolean;
     /** Element rendered before the input (e.g. a search icon). */
@@ -233,7 +233,7 @@ interface LabelProps extends HTMLAttributes<HTMLSpanElement> {
  * @deprecated Use `Tag` instead (since 0.4.0). `Tag` now carries the same status variants
  * (`success` / `danger` / `attention` / `muted` / `accent`) and is read-only when `onRemove` is
  * absent, so one pill component covers both status words and removable chips — and the name no
- * longer collides with `FormControl.Label`. `Label` keeps rendering until 0.5.0.
+ * longer collides with `FormControl.Label`. `Label` keeps rendering until 0.6.0.
  */
 declare const Label$1: react.ForwardRefExoticComponent<LabelProps & react.RefAttributes<HTMLSpanElement>>;
 
@@ -335,7 +335,7 @@ interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>
     fullWidth?: boolean;
     /**
      * Stretch to fill the available width.
-     * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.
+     * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0.
      */
     block?: boolean;
     /** Mark the field invalid (sets aria-invalid and a danger border). */
@@ -378,7 +378,7 @@ interface SelectProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onC
     fullWidth?: boolean;
     /**
      * Stretch to fill the available width.
-     * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.
+     * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0.
      */
     block?: boolean;
     /** Invalid state (danger border + aria-invalid). */
@@ -501,7 +501,7 @@ interface NumberInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, '
     fullWidth?: boolean;
     /**
      * Stretch the field to fill the available width.
-     * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.
+     * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0.
      */
     block?: boolean;
     /** Mark the field as invalid (sets `aria-invalid` and a danger border). */
@@ -633,7 +633,7 @@ interface DatePickerProps {
     fullWidth?: boolean;
     /**
      * Stretch the trigger to fill the available width.
-     * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.
+     * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0.
      */
     block?: boolean;
     /** Invalid state (danger border + aria-invalid). */
@@ -965,7 +965,7 @@ interface SegmentedControlProps extends Omit<HTMLAttributes<HTMLDivElement>, 'on
     fullWidth?: boolean;
     /**
      * Stretch segments to fill the available width.
-     * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.
+     * @deprecated Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0.
      */
     block?: boolean;
     /** Accessible name for the group (required for screen readers). */

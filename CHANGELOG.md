@@ -24,6 +24,12 @@ says what each version and component status promises.
 - **`letterSpacing-tag`** is `0.48px` instead of `0.04em` (DTCG dimensions allow
   only `px` and `rem`). Every use is at 12px, where the two are equal.
 
+### Deprecated
+- The 0.4.0 deprecations (`block`, `Label`) stay in this release and are now
+  removed in **0.6.0**, one minor later than 0.4.0 announced. The JSDoc,
+  dev warnings and `generated/deprecations.json` messages say 0.6.0. Migrate
+  now with [Migrating to 0.5](https://tenet-ui.pages.dev/releases/migrating-to-0-5/).
+
 ### Added
 - **Token tiers:** every token carries `$extensions.tenet.tier` (`base`,
   `semantic` or `component`), copied to `tenet-ui/tokens.json` under

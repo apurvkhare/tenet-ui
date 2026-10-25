@@ -19,7 +19,7 @@ function warnDeprecated(key, message) {
 }
 function resolveFullWidth(component, fullWidth, block) {
   if (block !== void 0) {
-    warnDeprecated(`${component}.block`, `<${component} block> is deprecated since 0.4.0 \u2014 use <${component} fullWidth> instead. \`block\` will be removed in 0.5.0.`);
+    warnDeprecated(`${component}.block`, `<${component} block> is deprecated since 0.4.0 \u2014 use <${component} fullWidth> instead. \`block\` will be removed in 0.6.0.`);
   }
   return fullWidth ?? block ?? false;
 }
@@ -207,7 +207,7 @@ var TextInput = react.forwardRef(function TextInput2({ size = "medium", fullWidt
 });
 var cx8 = (...parts) => parts.filter(Boolean).join(" ");
 var Label = react.forwardRef(function Label2({ variant = "default", size = "medium", className, children, ...rest }, ref) {
-  warnDeprecated("Label", '<Label> is deprecated since 0.4.0 \u2014 use <Tag variant="\u2026"> instead (same variants; read-only without onRemove). Label will be removed in 0.5.0.');
+  warnDeprecated("Label", '<Label> is deprecated since 0.4.0 \u2014 use <Tag variant="\u2026"> instead (same variants; read-only without onRemove). Label will be removed in 0.6.0.');
   return /* @__PURE__ */ jsxRuntime.jsx(
     "span",
     {

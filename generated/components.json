@@ -504,7 +504,7 @@
           "required": false,
           "defaultValue": "",
           "description": "Stretch the button to fill the available width.",
-          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0."
         },
         {
           "name": "children",
@@ -1067,7 +1067,7 @@
           "required": false,
           "defaultValue": "",
           "description": "Stretch the trigger to fill the available width.",
-          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0."
         },
         {
           "name": "invalid",
@@ -2000,7 +2000,7 @@
         "tag",
         "badge"
       ],
-      "deprecated": "Use `Tag` instead (since 0.4.0). `Tag` now carries the same status variants\n(`success` / `danger` / `attention` / `muted` / `accent`) and is read-only when `onRemove` is\nabsent, so one pill component covers both status words and removable chips — and the name no\nlonger collides with `FormControl.Label`. `Label` keeps rendering until 0.5.0."
+      "deprecated": "Use `Tag` instead (since 0.4.0). `Tag` now carries the same status variants\n(`success` / `danger` / `attention` / `muted` / `accent`) and is read-only when `onRemove` is\nabsent, so one pill component covers both status words and removable chips — and the name no\nlonger collides with `FormControl.Label`. `Label` keeps rendering until 0.6.0."
     },
     "link": {
       "id": "link",
@@ -2275,7 +2275,7 @@
           "required": false,
           "defaultValue": "",
           "description": "Stretch the field to fill the available width.",
-          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0."
         },
         {
           "name": "invalid",
@@ -2720,7 +2720,7 @@
           "required": false,
           "defaultValue": "",
           "description": "Stretch segments to fill the available width.",
-          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0."
         },
         {
           "name": "aria-label",
@@ -2860,7 +2860,7 @@
           "required": false,
           "defaultValue": "",
           "description": "Stretch to fill the available width.",
-          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0."
         },
         {
           "name": "invalid",
@@ -3904,7 +3904,7 @@
           "required": false,
           "defaultValue": "",
           "description": "Stretch the field to fill the available width.",
-          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0."
         },
         {
           "name": "leadingVisual",
@@ -3986,7 +3986,7 @@
           "required": false,
           "defaultValue": "",
           "description": "Stretch to fill the available width.",
-          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0."
+          "deprecated": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0."
         },
         {
           "name": "invalid",

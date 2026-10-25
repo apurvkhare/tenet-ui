@@ -13,13 +13,13 @@ const cx = (...parts: Array<string | false | undefined>): string => parts.filter
  * @deprecated Use `Tag` instead (since 0.4.0). `Tag` now carries the same status variants
  * (`success` / `danger` / `attention` / `muted` / `accent`) and is read-only when `onRemove` is
  * absent, so one pill component covers both status words and removable chips — and the name no
- * longer collides with `FormControl.Label`. `Label` keeps rendering until 0.5.0.
+ * longer collides with `FormControl.Label`. `Label` keeps rendering until 0.6.0.
  */
 export const Label = forwardRef<HTMLSpanElement, LabelProps>(function Label(
   { variant = 'default', size = 'medium', className, children, ...rest },
   ref,
 ) {
-  warnDeprecated('Label', '<Label> is deprecated since 0.4.0 — use <Tag variant="…"> instead (same variants; read-only without onRemove). Label will be removed in 0.5.0.');
+  warnDeprecated('Label', '<Label> is deprecated since 0.4.0 — use <Tag variant="…"> instead (same variants; read-only without onRemove). Label will be removed in 0.6.0.');
   return (
     <span
       ref={ref}

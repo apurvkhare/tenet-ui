@@ -4,7 +4,7 @@ component: system
 page: versioning
 layer: release
 related: [migrating-to-0-5, design-tokens]
-updated: 2026-10-17
+updated: 2026-10-25
 ---
 
 # Versioning
@@ -37,7 +37,7 @@ Separately, `a11yReviewed` records whether a component has had a manual accessib
 ## Deprecation policy
 
 1. Nothing `stable` is removed without a deprecation first.
-2. A deprecation lands in a minor release. The old API keeps working, with a warning, through every patch of that minor. The earliest it can be removed is the next minor. For example, the 0.4.0 deprecations keep working through 0.4.x and can be removed in 0.5.0.
+2. A deprecation lands in a minor release. The old API keeps working, with a warning, through every patch of that minor. The earliest it can be removed is the next minor. For example, the 0.4.0 deprecations could be removed in 0.5.0. They are kept in 0.5.0 and are removed in 0.6.0, as the changelog and every warning say.
 3. Every deprecation is announced in five places at once:
    - the Deprecated section of the [Changelog](/changelog/);
    - an `@deprecated` JSDoc tag naming the replacement, so editors strike it through;
@@ -45,7 +45,7 @@ Separately, `a11yReviewed` records whether a component has had a manual accessib
    - a one-time `console.warn` in development builds (silent in production);
    - a Deprecated badge on the component's docs page.
 4. `eslint-plugin-tenet-ui`'s `no-deprecated-api` rule reports every use, and autofixes prop renames.
-5. Every minor that removes something has a migration guide listing each removal with before and after code. The current one is [Migrating to 0.5](/releases/migrating-to-0-5/).
+5. Every minor that removes something has a migration guide listing each removal with before and after code. The current one is [Migrating to 0.5](/releases/migrating-to-0-5/), which covers the 0.4.0 deprecations (removed in 0.6.0) and the 0.5.0 token changes.
 
 ## Tokens
 

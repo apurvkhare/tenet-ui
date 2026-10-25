@@ -8,7 +8,7 @@
       "component": "Button",
       "prop": "block",
       "replacement": "fullWidth",
-      "message": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.",
+      "message": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0.",
       "since": "0.4.0"
     },
     {
@@ -16,14 +16,14 @@
       "component": "DatePicker",
       "prop": "block",
       "replacement": "fullWidth",
-      "message": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.",
+      "message": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0.",
       "since": "0.4.0"
     },
     {
       "kind": "component",
       "component": "Label",
       "replacement": "Tag",
-      "message": "Use `Tag` instead (since 0.4.0). `Tag` now carries the same status variants\n(`success` / `danger` / `attention` / `muted` / `accent`) and is read-only when `onRemove` is\nabsent, so one pill component covers both status words and removable chips — and the name no\nlonger collides with `FormControl.Label`. `Label` keeps rendering until 0.5.0.",
+      "message": "Use `Tag` instead (since 0.4.0). `Tag` now carries the same status variants\n(`success` / `danger` / `attention` / `muted` / `accent`) and is read-only when `onRemove` is\nabsent, so one pill component covers both status words and removable chips — and the name no\nlonger collides with `FormControl.Label`. `Label` keeps rendering until 0.6.0.",
       "since": "0.4.0"
     },
     {
@@ -31,7 +31,7 @@
       "component": "NumberInput",
       "prop": "block",
       "replacement": "fullWidth",
-      "message": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.",
+      "message": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0.",
       "since": "0.4.0"
     },
     {
@@ -39,7 +39,7 @@
       "component": "SegmentedControl",
       "prop": "block",
       "replacement": "fullWidth",
-      "message": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.",
+      "message": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0.",
       "since": "0.4.0"
     },
     {
@@ -47,7 +47,7 @@
       "component": "Select",
       "prop": "block",
       "replacement": "fullWidth",
-      "message": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.",
+      "message": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0.",
       "since": "0.4.0"
     },
     {
@@ -55,7 +55,7 @@
       "component": "TextInput",
       "prop": "block",
       "replacement": "fullWidth",
-      "message": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.",
+      "message": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0.",
       "since": "0.4.0"
     },
     {
@@ -63,7 +63,7 @@
       "component": "Textarea",
       "prop": "block",
       "replacement": "fullWidth",
-      "message": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.5.0.",
+      "message": "Use `fullWidth` instead (renamed in 0.4.0). `block` keeps working until 0.6.0.",
       "since": "0.4.0"
     }
   ]
