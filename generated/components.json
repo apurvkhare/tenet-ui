@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "package": "tenet-ui",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "generatedFrom": "src/components/**/*.types.ts (props) + *.tsx (defaults) + *.stories.tsx (story ids) + *.meta.json",
   "components": {
     "accordion": {

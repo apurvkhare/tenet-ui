@@ -5,7 +5,7 @@ All notable changes to **tenet-ui** are documented here. This project follows
 a **minor** release. The [versioning policy](https://tenet-ui.pages.dev/releases/versioning/)
 says what each version and component status promises.
 
-## Unreleased
+## 0.5.0 — 2026-10-25
 
 ### Changed (potentially breaking)
 - **Tokens:** `tokens/tokens.json` now uses the DTCG 2025.10 value formats:

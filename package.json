@@ -1,6 +1,6 @@
 {
   "name": "tenet-ui",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Tenet Design System — design tokens, React components, and icons for the Editorial Ink identity.",
   "type": "module",
   "license": "MIT",
